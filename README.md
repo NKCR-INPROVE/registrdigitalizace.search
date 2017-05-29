@@ -1,2 +1,2 @@
 # registrdigitalizace.search
-New Solar QUI
+New search client
