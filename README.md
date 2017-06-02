@@ -1,2 +1,2 @@
-# registrdigitalizace.search
+# MASTER BRANCH - RD
 New search client
