@@ -1,1 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
+// --- ROOT STYLE ---
+
+@import "../node_modules/materialize-css/sass/components/color";
+
+@import "sass/app-variables";
+//@import "sass/variables";
+
+@import "../node_modules/materialize-css/sass/materialize.scss";
+@import "../node_modules/mdi/scss/materialdesignicons.scss";
