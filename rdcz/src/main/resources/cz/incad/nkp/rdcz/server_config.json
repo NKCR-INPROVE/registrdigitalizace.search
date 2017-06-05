@@ -1,0 +1,5 @@
+{
+  "solr.host": "http://localhost:8983/solr",
+  "db.fields":" id,nazev,podnazev,autor,rokvyd,seriename as edice,rozsah,cast,vydavatel,mistoVyd,ccnb,issn,isbn,idcislo as cislo, carkod,cislozakazky",
+  "jobs":{}
+}
