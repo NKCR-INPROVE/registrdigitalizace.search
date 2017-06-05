@@ -12,6 +12,7 @@ import { SearchComponent } from './components/search/search.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { InfoComponent } from './components/info/info.component';
+import { NapovedaComponent } from './components/napoveda/napoveda.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { InfoComponent } from './components/info/info.component';
     SearchComponent,
     HeaderComponent,
     FooterComponent,
-    InfoComponent
+    InfoComponent,
+    NapovedaComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +33,8 @@ import { InfoComponent } from './components/info/info.component';
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
       { path: 'search', component: SearchComponent },
-      { path: 'info', component: InfoComponent }
+      { path: 'info', component: InfoComponent },
+      { path: 'napoveda', component: NapovedaComponent }
     ])
   ],
   providers: [],
