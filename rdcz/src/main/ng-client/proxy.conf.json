@@ -1,0 +1,20 @@
+{
+  "/search/**": {
+    "target": "http://localhost:8983/solr/",
+    "ignorePath": false,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/search":""
+    },
+    "changeOrigin": false,
+    "secure": false
+  },
+  "/texts": {
+    "target": "http://localhost:8080/rdcz/texts",
+    "pathRewrite": {
+      "^/texts":""
+    },
+    "changeOrigin": false,
+    "secure": false
+  }
+}
