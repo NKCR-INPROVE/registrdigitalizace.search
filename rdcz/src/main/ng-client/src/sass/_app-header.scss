@@ -1,0 +1,15 @@
+// --- HEADER ---
+
+header {
+  -webkit-box-flex: 0;
+  -webkit-flex: none;
+  flex: none;
+  
+  .app-navbar {
+    nav {
+      @extend .z-depth-0;
+      background-color: transparent;
+      margin: 30px 0;
+    } 
+  }
+}

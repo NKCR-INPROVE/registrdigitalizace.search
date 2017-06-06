@@ -1,0 +1,32 @@
+// --- GLOBAL ---
+
+html {
+  height: 100%;
+}
+
+body, 
+app-root {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  height: 100%;
+}
+
+main {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 0 auto;
+  flex: 1 0 auto;
+  width: 100%;
+  position: relative;
+  min-height: 500px;
+}
+
+.preloader-wrapper {
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 100px;
+}
