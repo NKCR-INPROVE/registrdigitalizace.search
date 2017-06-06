@@ -1,6 +1,5 @@
 package cz.incad.nkp.rdcz;
 
-
 import cz.incad.FormatUtils;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,38 +29,32 @@ import org.json.JSONObject;
  * @author alberto
  */
 public class Indexer {
-  
+
   static final Logger LOGGER = Logger.getLogger(Indexer.class.getName());
   final String sqlFull = "select %s from predloha where predloha.stavRec <> 'smazat' and predloha.stavRec <> 'interni'";
-  
-  
-  final String  delete_query = "select recordid \n" +
-"                        from recordgraveyard \n" +
-"                        where (recordgraveyard.agenda='cz.incad.rd.Predloha')\n" +
-"                        and recordgraveyard.datum>=to_date('#from#', 'yyyy-MM-dd')";
-  
-  final String  delete_query_stav = "select id from predloha where stavRec='smazat'";
-  
-  final String  update_query = "select #fields# from predloha \n" +
-"                        where (predloha.zaldate>=to_date('#from#', 'yyyy-MM-dd') or predloha.edidate>=to_date('#from#', 'yyyy-MM-dd'))\n" +
-"                        and stavRec <> 'smazat' and predloha.stavRec &lt;&gt; 'interni'";
-                        
-  
-  final String  update_query_ukoly = "select #fields# from predloha, record, zakazka, ukol \n" +
-"                        where ukol.rzakazkauk=zakazka.id and predloha.id=record.id\n" +
-"                        and (record.zaldate>=to_date('#from#', 'yyyy-MM-dd') or record.edidate>=to_date('#from#', 'yyyy-MM-dd')) \n" +
-"                        and zakazka.rtitnkpza=predloha.id\n" +
-"                        and predloha.stavRec <> 'smazat' and predloha.stavRec <> 'interni'";
-                        
-                        
+
+  final String delete_query = "select recordid \n"
+          + "                        from recordgraveyard \n"
+          + "                        where (recordgraveyard.agenda='cz.incad.rd.Predloha')\n"
+          + "                        and recordgraveyard.datum>=to_date('#from#', 'yyyy-MM-dd')";
+
+  final String delete_query_stav = "select id from predloha where stavRec='smazat'";
+
+  final String update_query = "select #fields# from predloha \n"
+          + "                        where (predloha.zaldate>=to_date('#from#', 'yyyy-MM-dd') or predloha.edidate>=to_date('#from#', 'yyyy-MM-dd'))\n"
+          + "                        and stavRec <> 'smazat' and predloha.stavRec &lt;&gt; 'interni'";
+
+  final String update_query_ukoly = "select #fields# from predloha, record, zakazka, ukol \n"
+          + "                        where ukol.rzakazkauk=zakazka.id and predloha.id=record.id\n"
+          + "                        and (record.zaldate>=to_date('#from#', 'yyyy-MM-dd') or record.edidate>=to_date('#from#', 'yyyy-MM-dd')) \n"
+          + "                        and zakazka.rtitnkpza=predloha.id\n"
+          + "                        and predloha.stavRec <> 'smazat' and predloha.stavRec <> 'interni'";
 
   private Options opts;
   private JSONObject jobData;
   SolrClient solr;
   int indexed;
   int errors;
-  
-  
 
   public Indexer() {
     try {
@@ -76,7 +69,6 @@ public class Indexer {
       Logger.getLogger(Indexer.class.getName()).log(Level.SEVERE, null, ex);
     }
   }
-  
 
   private SolrClient getClient(String core) throws IOException {
     SolrClient client = new HttpSolrClient.Builder(String.format("%s/%s",
@@ -84,8 +76,6 @@ public class Indexer {
             core)).build();
     return client;
   }
-  
-  
 
   public JSONObject run(JSONObject jobData) throws IOException {
     this.jobData = jobData;
@@ -95,7 +85,7 @@ public class Indexer {
       return update();
     }
   }
-  
+
   public JSONObject update() throws IOException {
     LOGGER.log(Level.INFO, "Update index started ");
     Date start = new Date();
@@ -106,7 +96,7 @@ public class Indexer {
       sql += " and spis.EDI_TIMESTAMP >= to_timestamp('" + lastIndexTime + "', 'YYYY-MM-DD\"T\"HH24:MI:SS.ff\"Z\"')";
     }
     getFromDb(sql);
-    
+
     ret.put("success indexed reliefu", indexed);
     Date end = new Date();
     String ellapsed = FormatUtils.formatInterval(end.getTime() - start.getTime());
@@ -119,11 +109,11 @@ public class Indexer {
     LOGGER.log(Level.INFO, "Full index started ");
     Date start = new Date();
     JSONObject ret = new JSONObject();
-    String sql = String.format(sqlFull, 
-        opts.getString("db.fields"));
+    String fields = opts.getJSONArray("db.fields").join(",").replaceAll("\"", "");
+    String sql = String.format(sqlFull, fields);
     getFromDb(sql);
     LOGGER.log(Level.INFO, "{0} docs processed", indexed);
-    
+
     ret.put("SUCCESS indexed reliefu", indexed);
     Date end = new Date();
     String ellapsed = FormatUtils.formatInterval(end.getTime() - start.getTime());
@@ -165,21 +155,26 @@ public class Indexer {
         PreparedStatement ps = conn.prepareStatement(sql);
         int batchSize = 100;
         ArrayList<SolrInputDocument> idocs = new ArrayList<>();
-        
+
         try (ResultSet rs = ps.executeQuery()) {
           while (rs.next()) {
-            idocs.add(indexRow(rs));
-            
+            SolrInputDocument idoc = indexRow(rs);
+            addNeplatneCnb(idoc, rs.getString("id"), conn);
+            addDigKnihovny(idoc, rs.getString("id"), conn);
+            addVarNazev(idoc, rs.getString("id"), conn);
+            idocs.add(idoc);
+
             if (idocs.size() >= batchSize) {
               solr.add(idocs);
               solr.commit();
+
               
               indexed += idocs.size();
               LOGGER.log(Level.INFO, "{0} docs processed ", indexed);
               idocs.clear();
             }
           }
-          if(!idocs.isEmpty()){
+          if (!idocs.isEmpty()) {
             solr.add(idocs);
             solr.commit();
             indexed += idocs.size();
@@ -215,4 +210,62 @@ public class Indexer {
     return idoc;
   }
   
+  
+
+  private void addNeplatneCnb(SolrInputDocument idoc, String predlohaid, Connection conn) {
+    try {
+      String sql = "select value from digknihovna, predloha, dlists "
+              + "where predloha.digKnihovna=dlists.value "
+              + "and dlists.id=digknihovna.id and predloha.id=" + predlohaid;
+      PreparedStatement ps = conn.prepareStatement(sql);
+
+      try (ResultSet rs = ps.executeQuery()) {
+        while (rs.next()) {
+          idoc.addField("ccnb", rs.getString("value"));
+        }
+        rs.close();
+      }
+      ps.close();
+    } catch (SQLException ex) {
+      LOGGER.log(Level.SEVERE, null, ex);
+    }
+  }
+
+  private void addDigKnihovny(SolrInputDocument idoc, String predlohaid, Connection conn) {
+    try {
+      String sql = "select digknihovna.nazev as digk from digknihovna, predloha, dlists \n" +
+"                            where predloha.digKnihovna=dlists.value \n" +
+"                            and dlists.id=digknihovna.id and predloha.id=" + predlohaid;
+      PreparedStatement ps = conn.prepareStatement(sql);
+
+      try (ResultSet rs = ps.executeQuery()) {
+        while (rs.next()) {
+          idoc.addField("digknihovna", rs.getString("digk"));
+        }
+        rs.close();
+      }
+      ps.close();
+    } catch (SQLException ex) {
+      LOGGER.log(Level.SEVERE, null, ex);
+    }
+  }
+
+  private void addVarNazev(SolrInputDocument idoc, String predlohaid, Connection conn) {
+    try {
+      String sql = "select VARNAZEV from TABVARNAZEV where RPREDLOHA_TVN=" + predlohaid;
+      PreparedStatement ps = conn.prepareStatement(sql);
+
+      try (ResultSet rs = ps.executeQuery()) {
+        while (rs.next()) {
+          idoc.addField("varnazev", rs.getString("VARNAZEV"));
+        }
+        rs.close();
+      }
+      ps.close();
+      
+    } catch (SQLException ex) {
+      LOGGER.log(Level.SEVERE, null, ex);
+    }
+  }
+
 }

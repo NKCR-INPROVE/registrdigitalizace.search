@@ -1,5 +1,29 @@
 {
   "solr.host": "http://localhost:8983/solr",
-  "db.fields":" id,nazev,podnazev,autor,rokvyd,seriename as edice,rozsah,cast,vydavatel,mistoVyd,ccnb,issn,isbn,idcislo as cislo, carkod,cislozakazky",
-  "jobs":{}
+  "db.fields": [
+    "id",
+    "nazev",
+    "podnazev",
+    "autor",
+    "rokvyd",
+    "seriename as edice",
+    "rozsah",
+    "cast",
+    "vydavatel",
+    "mistoVyd",
+    "ccnb",
+    "issn",
+    "isbn",
+    "idcislo as cislo",
+    " carkod",
+    "cislozakazky",
+    "nvl(ccnb, -predloha.id) as cnb_collaps",
+    "nvl(ISSN, nvl(ISBN, -predloha.id)) as isxn_collaps",
+    "nvl(SIGLA1, -predloha.id) || nvl(SYSNO, -predloha.id) as aba_collaps",
+    "nvl(financovano, 'neuvedeno') as financovano",
+    "sigla1 as vlastnik",
+    "decode(predloha.stavRec,'planovane','planovane','progress', 'progress','predanoZpracovateli', 'progress', 'pripravenoProMf', 'progress', 'revize', 'progress', 'active', 'progress', 'finished', 'finished', 'archived', 'finished') as stav" 
+  ],
+  "jobs": {}
 }
+
