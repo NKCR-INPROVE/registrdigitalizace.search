@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context path="/rdcz"/>
+<Context path="/rdcz"> 
+  
+  <Resource name="jdbc/rlf" auth="Container" type="javax.sql.DataSource"
+       maxActive="100" maxIdle="30" maxWait="10000"
+       username="rlf_nkp_digital" password="" driverClassName="oracle.jdbc.OracleDriver"
+       url="jdbc:oracle:thin:@localhost:1521:RELIEF"/>
+</Context>
