@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -31,24 +32,7 @@ import org.json.JSONObject;
 public class Indexer {
 
   static final Logger LOGGER = Logger.getLogger(Indexer.class.getName());
-  final String sqlFull = "select %s from predloha where predloha.stavRec <> 'smazat' and predloha.stavRec <> 'interni'";
 
-  final String delete_query = "select recordid \n"
-          + "                        from recordgraveyard \n"
-          + "                        where (recordgraveyard.agenda='cz.incad.rd.Predloha')\n"
-          + "                        and recordgraveyard.datum>=to_date('#from#', 'yyyy-MM-dd')";
-
-  final String delete_query_stav = "select id from predloha where stavRec='smazat'";
-
-  final String update_query = "select #fields# from predloha \n"
-          + "                        where (predloha.zaldate>=to_date('#from#', 'yyyy-MM-dd') or predloha.edidate>=to_date('#from#', 'yyyy-MM-dd'))\n"
-          + "                        and stavRec <> 'smazat' and predloha.stavRec &lt;&gt; 'interni'";
-
-  final String update_query_ukoly = "select #fields# from predloha, record, zakazka, ukol \n"
-          + "                        where ukol.rzakazkauk=zakazka.id and predloha.id=record.id\n"
-          + "                        and (record.zaldate>=to_date('#from#', 'yyyy-MM-dd') or record.edidate>=to_date('#from#', 'yyyy-MM-dd')) \n"
-          + "                        and zakazka.rtitnkpza=predloha.id\n"
-          + "                        and predloha.stavRec <> 'smazat' and predloha.stavRec <> 'interni'";
 
   private Options opts;
   private JSONObject jobData;
@@ -90,11 +74,14 @@ public class Indexer {
     LOGGER.log(Level.INFO, "Update index started ");
     Date start = new Date();
     JSONObject ret = new JSONObject();
-    String sql = sqlFull;
+    String fields = opts.getJSONArray("db.fields").join(",").replaceAll("\"", "");
+    String sql = opts.getString("update_query").replace("#fields#", fields);
     String lastIndexTime = readIndexTime();
-    if (lastIndexTime != null) {
-      sql += " and spis.EDI_TIMESTAMP >= to_timestamp('" + lastIndexTime + "', 'YYYY-MM-DD\"T\"HH24:MI:SS.ff\"Z\"')";
+    if (lastIndexTime == null) {
+      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+      lastIndexTime = sdf.format(new Date());
     }
+    sql = sql.replaceAll("#from#", lastIndexTime);
     getFromDb(sql);
 
     ret.put("success indexed reliefu", indexed);
@@ -110,7 +97,7 @@ public class Indexer {
     Date start = new Date();
     JSONObject ret = new JSONObject();
     String fields = opts.getJSONArray("db.fields").join(",").replaceAll("\"", "");
-    String sql = String.format(sqlFull, fields);
+    String sql = opts.getString("sqlFull").replace("#fields#", fields);
     getFromDb(sql);
     LOGGER.log(Level.INFO, "{0} docs processed", indexed);
 
@@ -128,10 +115,13 @@ public class Indexer {
     JSONObject jsResp;
     try {
       String url = opts.getString("solrhost", "http://localhost:8983/solr/")
-              + "import/select?wt=json&q=*:*&rows=1&sort=index_time+desc&fl=index_time&fq=system:\"IS+CSMS\"";
+              + "import/select?wt=json&q=*:*&rows=1&sort=index_time+desc&fl=index_time";
       inputStream = RESTHelper.inputStream(url);
       jsResp = new JSONObject(org.apache.commons.io.IOUtils.toString(inputStream, Charset.forName("UTF-8")));
-      last = jsResp.getJSONObject("response").getJSONArray("docs").getJSONObject(0).getString("index_time");
+      
+      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+      String index_time = jsResp.getJSONObject("response").getJSONArray("docs").getJSONObject(0).getString("index_time");
+      last = sdf.format(javax.xml.bind.DatatypeConverter.parseDateTime(index_time));
     } catch (Exception ex) {
       LOGGER.log(Level.SEVERE, null, ex);
     } finally {
@@ -144,6 +134,7 @@ public class Indexer {
     LOGGER.log(Level.INFO, "last indexed doc time is {0}", last);
     return last;
   }
+  
 
   private void getFromDb(String sql) {
     LOGGER.log(Level.INFO, "Processing {0}", sql);
@@ -174,6 +165,8 @@ public class Indexer {
               idocs.clear();
             }
           }
+          rs.close();
+          ps.close();
           if (!idocs.isEmpty()) {
             solr.add(idocs);
             solr.commit();
@@ -186,6 +179,7 @@ public class Indexer {
         } catch (IOException ex) {
           LOGGER.log(Level.SEVERE, null, ex);
         }
+        conn.close();
       }
     } catch (NamingException | SQLException ex) {
       LOGGER.log(Level.SEVERE, null, ex);

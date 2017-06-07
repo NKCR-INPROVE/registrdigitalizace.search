@@ -1,5 +1,16 @@
 {
   "solr.host": "http://localhost:8983/solr",
+  
+  "sqlFull": "select #fields# from predloha where stavRec <> 'smazat' and stavRec <> 'interni'",
+  
+  "delete_query": "select recordid from recordgraveyard rgy where (rgy.agenda='cz.incad.rd.Predloha') and rgy.datum>=to_date('#from#', 'yyyy-MM-dd')",
+
+  "delete_query_stav": "select id from predloha where stavRec='smazat'",
+
+  "update_query": "select #fields# from predloha where (zaldate>=to_date('#from#' 'yyyy-MM-dd') or edidate>=to_date('#from#', 'yyyy-MM-dd')) and stavRec <> 'smazat' and stavRec <> 'interni'",
+
+  "update_query_ukoly": "select #fields# from predloha P, zakazka Z, ukol U where U.rzakazkauk=Z.id and (P.zaldate>=to_date('#from#', 'yyyy-MM-dd') or P.edidate>=to_date('#from#', 'yyyy-MM-dd')) and Z.rtitnkpza=P.id and P.stavRec <> 'smazat' and P.stavRec <> 'interni'",
+  
   "db.fields": [
     "id",
     "nazev",
@@ -15,8 +26,10 @@
     "issn",
     "isbn",
     "idcislo as cislo",
-    " carkod",
+    "carkod",
     "cislozakazky",
+    "druhdokumentu",
+    "rperiodikum",
     "nvl(ccnb, -predloha.id) as cnb_collaps",
     "nvl(ISSN, nvl(ISBN, -predloha.id)) as isxn_collaps",
     "nvl(SIGLA1, -predloha.id) || nvl(SYSNO, -predloha.id) as aba_collaps",
