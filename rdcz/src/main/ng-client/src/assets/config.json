@@ -1,3 +1,11 @@
 {
-  "name": "alberto"
+  "context": "/",
+  "searchParams": {
+    "rows": 20
+  },
+  "sorts" : [
+    { "label": "dle relevance", "field": "score desc" },
+    { "label": "od nejnovějších", "field": "rok asc" },
+    { "label": "od nejstarších", "field": "rok desc" }
+  ]
 }

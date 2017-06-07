@@ -1,10 +1,15 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, Http } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
 import { MaterializeModule } from 'ng2-materialize'; // _app
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+import { AppState } from './app.state';
+import { AppService } from './app.service';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -20,6 +25,16 @@ import { ChartBarComponent } from './components/results/chart-bar/chart-bar.comp
 import { SortBarComponent } from './components/results/sort-bar/sort-bar.component';
 import { ResultItemComponent } from './components/results/result-item/result-item.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
+
+
+export function HttpLoaderFactory(http: Http) {
+    return new TranslateHttpLoader(http);
+}
+
+export function createTranslateLoader(http: Http) {
+    return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
 
 @NgModule({
   declarations: [
@@ -42,6 +57,13 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
     BrowserModule,
     FormsModule,
     HttpModule,
+    TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: createTranslateLoader,
+                deps: [Http]
+            }
+        }),
     MaterializeModule.forRoot(), // _app
     RouterModule.forRoot([
       { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -51,7 +73,7 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
       { path: 'napoveda', component: NapovedaComponent }
     ])
   ],
-  providers: [],
+  providers: [Title, AppState, AppService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
