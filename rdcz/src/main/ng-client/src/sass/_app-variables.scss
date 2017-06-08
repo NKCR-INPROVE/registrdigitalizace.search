@@ -1,12 +1,12 @@
 // --- VARIABLES --
 
 // paths
-$roboto-font-path:        "../node_modules/materialize-css/fonts/roboto/" !default;
-$mdi-font-path:           "../node_modules/mdi/fonts" !default;
+$roboto-font-path: "../node_modules/materialize-css/fonts/roboto/" !default;
+$mdi-font-path: "../node_modules/mdi/fonts" !default;
 
 
 // colors
-$primary-color: color("app-brand", "base") !default;
+$primary-color: color("app-brand", "darken-2") !default;
 $primary-color-light: lighten($primary-color, 15%) !default;
 $primary-color-dark: darken($primary-color, 15%) !default;
 
@@ -18,4 +18,5 @@ $link-color: color("light-blue", "darken-1") !default;
 // navbar
 $navbar-font-color: color("blue-grey", "base") !default;
 
-$app-item:  40px;
+// general
+$app-border-radius: 2px;

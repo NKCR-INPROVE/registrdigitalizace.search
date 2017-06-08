@@ -30,3 +30,12 @@ main {
   margin-left: auto;
   margin-top: 100px;
 }
+
+// cleaners
+.app-clean-mg {
+  margin: 0 !important;
+}
+
+.app-border-radius {
+  border-radius: $app-border-radius;
+}
