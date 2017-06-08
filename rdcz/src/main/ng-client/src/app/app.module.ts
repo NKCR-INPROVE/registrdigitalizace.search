@@ -25,6 +25,8 @@ import { ChartBarComponent } from './components/results/chart-bar/chart-bar.comp
 import { SortBarComponent } from './components/results/sort-bar/sort-bar.component';
 import { ResultItemComponent } from './components/results/result-item/result-item.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
+import { PieChartComponent } from './components/results/pie-chart/pie-chart.component';
+import { JumbotronComponent } from './components/jumbotron/jumbotron.component';
 
 
 export function HttpLoaderFactory(http: Http) {
@@ -51,7 +53,9 @@ export function createTranslateLoader(http: Http) {
     ChartBarComponent,
     SortBarComponent,
     ResultItemComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    PieChartComponent,
+    JumbotronComponent
   ],
   imports: [
     BrowserModule,
