@@ -1,9 +1,10 @@
 {
   "app_title": "Digitalization registry",
   "Home": "Home",
-  "Results": "Results",
-  "Help": "Nápověda",
+  "Results": "Výsledky",
+  "Nápověda": "Nápověda",
   "Info": "Info",
-  "q.placeholder": "Search digital library ...",
+  "q.placeholder": "Search in digital registry ...",
+  "Hledat jiné zdroje": "Hledat jiné zdroje",
   "dummy": ""
 }

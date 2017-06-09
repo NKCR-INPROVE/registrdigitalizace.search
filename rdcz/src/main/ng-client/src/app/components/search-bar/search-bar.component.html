@@ -1,12 +1,19 @@
 <div class="container app-brand lighten-4">
   <div class="row">
-    <div class="col s6">
-      <div class="app-form-group">
+    <div class="col s4">
+      <!--<div class="app-form-group">
         <input type="text" class="shades white app-clean-mg">
-      </div>
+      </div>-->
+      <form class="app-form-group shades white">
+        <div class="input-field app-clean-mg">
+          <input id="search" type="search" class="app-clean-mg" placeholder="{{'q.placeholder' | translate}}">
+          <i mz-icon-mdi [icon]="'magnify'"></i>
+          <i mz-icon-mdi [icon]="'close'" [class]="'mdi-navigation-close'"></i>
+        </div>
+      </form>
     </div><!--/.col -->
-     <div class="col s6 right">
-      <a mz-button id="btn-dropdown-basic" href="javascript:void(0)">Dropdown</a>
+     <div class="col s8 right">
+      <a mz-button id="btn-dropdown-basic" href="javascript:void(0)">{{'Hledat jiné zdroje' | translate}}</a>
        <mz-dropdown [id]="'dropdown-basic'" [dropdownButtonId]="'btn-dropdown-basic'">
         <mz-dropdown-item><a href="javascript:void(0)">One</a></mz-dropdown-item>
         <mz-dropdown-item><a href="javascript:void(0)">Two</a></mz-dropdown-item>
@@ -15,3 +22,7 @@
     </div><!--/.col -->
   </div><!--/.row -->
 </div><!--/.app-searchbar -->
+
+
+
+<i class="mdi-action-search"></i>

@@ -1,9 +1,10 @@
 {
   "app_title": "Registr digitalizace",
   "Home": "Home",
-  "Results": "Výsledky",
-  "Help": "Nápověda",
+  "Results": "Results",
+  "Nápověda": "Help",
   "Info": "Info",
-  "q.placeholder": "Hledej v digitální knihovně ...",
+  "q.placeholder": "Hledej v registru digitalizace ...",
+  "Hledat jiné zdroje": "Search another sources",
   "dummy": ""
 }
