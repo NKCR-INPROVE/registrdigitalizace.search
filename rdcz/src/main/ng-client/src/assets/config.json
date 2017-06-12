@@ -4,8 +4,17 @@
     "rows": 20
   },
   "sorts" : [
-    { "label": "dle relevance", "field": "score desc" },
-    { "label": "od nejnovějších", "field": "rok asc" },
-    { "label": "od nejstarších", "field": "rok desc" }
-  ]
+    { "label": "Dle relevance", "field": "score desc" },
+    { "label": "Dle abecedy", "field": "uniqueid asc" }
+  ],
+  "collapses" : [
+    { "label": "Bez sloučení", "field": "none" },
+    { "label": "ISSN/ISBN", "field": "isxn_collaps" },
+    { "label": "ČNB", "field": "cnb_collaps" },
+    { "label": "SIGLA+ID", "field": "aba_collaps" }
+  ],
+  "boost": {
+    "qf":"_text_nolemmas^25.0 title_nolemmas^15.0 varnazev_nolemmas^5.0 title_prefix^4.0 autor^2.0 title^1.5"
+  }
+            
 }

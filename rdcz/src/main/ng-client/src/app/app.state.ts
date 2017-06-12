@@ -22,12 +22,19 @@ export class AppState {
   rows: number = 10;
 
   sorts = [
-    //{ "label": "Dle relevance", "field": "score desc" },
-    { "label": "Dle idetifikatoru", "field": "uniqueid asc" },
-    { "label": "Dle data", "field": "rok_vzniku desc" },
-    { "label": "Dle autora", "field": "autor_sort asc" }
+    { "label": "Dle relevance", "field": "score desc" },
+    { "label": "Dle abecedy", "field": "uniqueid asc" }
   ];
   currentSort: any = this.sorts[0];
+
+  collapses = [
+    { "label": "Bez sloučení", "field": "none" },
+    { "label": "ISSN/ISBN", "field": "isxn_collaps" },
+    { "label": "ČNB", "field": "cnb_collaps" },
+    { "label": "SIGLA+ID", "field": "aba_collaps" }
+  ];
+  currentCollapse: any = this.sorts[0];
+  
   currentLang : string;
   
   
