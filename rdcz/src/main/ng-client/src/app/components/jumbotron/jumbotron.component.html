@@ -1,3 +1,9 @@
-<p>
-  jumbotron works!
-</p>
+<mz-card [backgroundClass]="'app-brand lighten-6'" [textClass]="'app-brand-text text-darken-1'" [hoverable]="true">
+  <mz-card-title class="app-brand-text text-app-red">
+    <i mz-icon-mdi [icon]="'forum'" [size]="'34px'"></i> Chcete se zapojit?
+  </mz-card-title>
+  <mz-card-content>
+    Máte zájem <a routerLink="/info" title="Přispívat">přispívat</a> do Registru digitalizace? Chcete se dozvědět, jak funguje spolupráce?<br />
+    Na <a routerLink="/info" title="Informačních stránkách">informačních stránkách</a> najdete doporučení, návody i přehled zapojených institucí vč. kontaktů.
+  </mz-card-content>
+</mz-card>

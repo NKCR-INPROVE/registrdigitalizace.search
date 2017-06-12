@@ -27,6 +27,7 @@ import { ResultItemComponent } from './components/results/result-item/result-ite
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { PieChartComponent } from './components/results/pie-chart/pie-chart.component';
 import { JumbotronComponent } from './components/jumbotron/jumbotron.component';
+import { DuplicityComponent } from './components/duplicity/duplicity.component';
 
 
 export function HttpLoaderFactory(http: Http) {
@@ -55,7 +56,8 @@ export function createTranslateLoader(http: Http) {
     ResultItemComponent,
     SearchBarComponent,
     PieChartComponent,
-    JumbotronComponent
+    JumbotronComponent,
+    DuplicityComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +76,8 @@ export function createTranslateLoader(http: Http) {
       { path: 'home', component: HomeComponent },
       { path: 'results', component: ResultsComponent },
       { path: 'info', component: InfoComponent },
-      { path: 'napoveda', component: NapovedaComponent }
+      { path: 'napoveda', component: NapovedaComponent },
+      { path: 'duplicity', component: DuplicityComponent },
     ])
   ],
   providers: [Title, AppState, AppService],

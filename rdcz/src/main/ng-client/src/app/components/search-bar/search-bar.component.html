@@ -1,28 +1,28 @@
 <div class="container app-brand lighten-4">
   <div class="row">
     <div class="col s4">
-      <!--<div class="app-form-group">
-        <input type="text" class="shades white app-clean-mg">
-      </div>-->
       <form class="app-form-group shades white">
         <div class="input-field app-clean-mg">
           <input id="search" type="search" class="app-clean-mg" placeholder="{{'q.placeholder' | translate}}">
           <i mz-icon-mdi [icon]="'magnify'"></i>
+          <i mz-icon-mdi [icon]="'menu'" mz-tooltip [tooltip]="'Rozsirene hledani'" [position]="top"></i>
           <i mz-icon-mdi [icon]="'close'" [class]="'mdi-navigation-close'"></i>
         </div>
-      </form>
+      </form><!--/.form -->
     </div><!--/.col -->
-     <div class="col s8 right">
-      <a mz-button id="btn-dropdown-basic" href="javascript:void(0)">{{'Hledat jiné zdroje' | translate}}</a>
-       <mz-dropdown [id]="'dropdown-basic'" [dropdownButtonId]="'btn-dropdown-basic'">
-        <mz-dropdown-item><a href="javascript:void(0)">One</a></mz-dropdown-item>
-        <mz-dropdown-item><a href="javascript:void(0)">Two</a></mz-dropdown-item>
-        <mz-dropdown-item><a href="javascript:void(0)">Three</a></mz-dropdown-item>
+    <div class="col s4">
+      <strong>
+        <a routerLink="duplicity" class="app-brand-text text-lighten-1" title="{{'Test duplicity' | translate}}">
+          {{'Test duplicity' | translate}}
+        </a>
+      </strong>
+    </div><!--/.col -->
+    <div class="col s4">
+      <a mz-button id="btn-other-sources" href="javascript:void(0)" class="wave">{{'Hledat jiné zdroje' | translate}}</a>
+       <mz-dropdown [id]="'dropdown-basic'" [dropdownButtonId]="'btn-other-sources'">
+        <mz-dropdown-item><a href="http://books.google.com/books?q=test" target="_blank">Google books</a></mz-dropdown-item>
+        <mz-dropdown-item><a href="https://opacplus.bsb-muenchen.de/InfoGuideClient/start.do?Login=opacext&SearchType=1&Query=-1=%22test%22" target="_blank">BSB</a></mz-dropdown-item>
       </mz-dropdown>
     </div><!--/.col -->
   </div><!--/.row -->
 </div><!--/.app-searchbar -->
-
-
-
-<i class="mdi-action-search"></i>
