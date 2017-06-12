@@ -3,6 +3,7 @@
 app-search-bar {
   .container {
     padding: 0.75rem 0;
+    margin-bottom: 20px;
     @extend .app-border-radius;
     
     .row {
@@ -21,18 +22,24 @@ app-search-bar {
             top: 0.1rem;
             left: 0.5rem;
           }
-          .mdi-navigation-close {
+          .mdi-navigation-close,
+          .mdi-menu {
+            position: absolute;
             top: 0.1rem;
             right: 0.5rem;
             font-size: inherit;
           }
-          
           input[type=search] {
             border: 0;
             padding-left: 2.5rem;
             padding-right: 0.5rem;
           }
         }
+      }
+      .col:nth-child(2) {
+        height: $input-height;
+        line-height: $input-height;
+        padding-left: 0;
       }
       .col:last-child {
         text-align: right;

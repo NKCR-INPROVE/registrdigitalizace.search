@@ -13,7 +13,7 @@ $primary-color-dark: darken($primary-color, 15%) !default;
 $secondary-color: color("teal", "lighten-1") !default;
 $success-color: color("green", "base") !default;
 $error-color: color("red", "base") !default;
-$link-color: color("light-blue", "darken-1") !default;
+$link-color: color("app-brand", "app-red") !default;
 
 // navbar
 $navbar-font-color: color("blue-grey", "base") !default;

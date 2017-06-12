@@ -4,10 +4,18 @@
       <div class="col s12">
         <a routerLink="home" class="brand-logo"><img src="../../../assets/img/logo-rd.png" class="responsive-img" alt="Registr digitalizace" /></a>
         <mz-navbar-item-container [align]="'right'">
-          <mz-navbar-item routerLink="home" routerLinkActive="active" #home="routerLinkActive" [active]="home.isActive"><a routerLink="home">{{'Home' | translate}}</a></mz-navbar-item>
-          <mz-navbar-item routerLink="results" routerLinkActive="active" #results="routerLinkActive" [active]="results.isActive"><a routerLink="results">{{'Results' | translate}}</a></mz-navbar-item>
-          <mz-navbar-item routerLink="napoveda" routerLinkActive="active" #napoveda="routerLinkActive" [active]="napoveda.isActive"><a routerLink="napoveda">{{'Nápověda' | translate}}</a></mz-navbar-item>
-          <mz-navbar-item routerLink="info" routerLinkActive="active" #info="routerLinkActive" [active]="info.isActive"><a  routerLink="info">{{'Info' | translate}}</a></mz-navbar-item>
+          <mz-navbar-item routerLink="home" routerLinkActive="active" #home="routerLinkActive" [active]="home.isActive">
+            <a routerLink="home">{{'Home' | translate}}</a>
+          </mz-navbar-item>
+          <mz-navbar-item routerLink="results" routerLinkActive="active" #results="routerLinkActive" [active]="results.isActive">
+            <a routerLink="results">{{'Results' | translate}}</a>
+          </mz-navbar-item>
+          <mz-navbar-item routerLink="napoveda" routerLinkActive="active" #napoveda="routerLinkActive" [active]="napoveda.isActive">
+            <a routerLink="napoveda">{{'Nápověda' | translate}}</a>
+          </mz-navbar-item>
+          <mz-navbar-item routerLink="info" routerLinkActive="active" #info="routerLinkActive" [active]="info.isActive">
+            <a routerLink="info">{{'Info' | translate}}</a>
+          </mz-navbar-item>
           <mz-navbar-item>
             <a *ngIf="currLang !== 'en'" (click)="changeLang('en')">English</a>
             <a *ngIf="currLang !== 'cs'" (click)="changeLang('cs')">Česky</a>
