@@ -1,5 +1,11 @@
 // --- RESULT ITEM ---
 
 app-result-item {
-  
+  .app-item {
+    @extend .app-container;
+    
+    &:not(:last-child) {
+      margin-bottom: 20px; 
+    }
+  }
 }

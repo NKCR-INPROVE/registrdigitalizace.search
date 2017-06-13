@@ -3,9 +3,9 @@
 .app-results {
   @import "app-count-bar";
   @import "app-pagination";
-  @import "app-facets";
   @import "app-sort-bar";
   @import "app-result-item"; 
 }
 
+@import "app-facets";
 @import "app-chart-bar";

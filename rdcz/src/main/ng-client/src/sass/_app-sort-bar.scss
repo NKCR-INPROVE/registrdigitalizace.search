@@ -1,1 +1,21 @@
 // --- SORT BAR ---
+
+app-sort-bar {
+  section {
+    
+    .col {
+      span {
+        display: inline-block;
+        height: 40px;
+        line-height: 40px;
+        
+        .dropdown-content {
+          min-width: 170px;
+        }
+      }
+    }
+    .col:last-child {
+      text-align: right;
+    }
+  }
+}
