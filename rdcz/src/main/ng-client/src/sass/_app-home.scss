@@ -1,1 +1,9 @@
 // --- HOME ---
+
+app-home {
+  & > {
+    .container {
+      margin-top: 20px;
+    }
+  }
+}
