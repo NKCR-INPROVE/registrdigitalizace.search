@@ -1,1 +1,17 @@
 // --- COUNT BAR ---
+
+app-count-bar {
+  section {
+    border-bottom: 3px solid $app-brand-l-6;
+    padding: 10px 0;
+    
+    .col:first-child {
+      span {
+        line-height: 30px;
+      }
+    }
+    .col:last-child {
+      padding-right: 0;
+    }
+  }
+}
