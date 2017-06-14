@@ -27,7 +27,6 @@
     "jquery.flot.tooltip": "^0.9.0",
     "mdi": "^1.9.33",
     "ng2-materialize": "^1.4.1",
-    "ng2modules-flot": "0.0.1",
     "rxjs": "^5.1.0",
     "zone.js": "^0.8.4"
   },

@@ -29,6 +29,10 @@ export class AppService {
     this._langSubject.next(lang);
   }
   
+  translateKey(key){
+    return this.translate.instant(key);
+  }
+  
   search(params : URLSearchParams) {
     var url = this.state.config['context'] + 'search/rdcz/select';
     return this.http.get(url, { search: params }).map(res => {

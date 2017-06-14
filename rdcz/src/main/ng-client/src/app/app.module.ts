@@ -7,7 +7,6 @@ import { RouterModule } from '@angular/router';
 import { MaterializeModule } from 'ng2-materialize'; // _app
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-//import { FlotModule } from 'ng2modules-flot';
 
 import { AppState } from './app.state';
 import { AppService } from './app.service';
@@ -74,7 +73,6 @@ export function createTranslateLoader(http: Http) {
             }
         }),
     MaterializeModule.forRoot(), // _app
-    //FlotModule,
     RouterModule.forRoot([
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },

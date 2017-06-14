@@ -1,6 +1,6 @@
-<section class="app-brand lighten-5">
+<section class="app-brand lighten-5 pie-container">
   
   <app-flot [options]="options" #chart
-    (onSelection)="onSelection($event)"
-    height="200px" width="100%"></app-flot>
+    (onClick)="onClick($event)"
+    height="180px" width="100%"></app-flot>
 </section>

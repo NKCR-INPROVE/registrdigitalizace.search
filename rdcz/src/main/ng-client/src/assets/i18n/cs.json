@@ -8,5 +8,12 @@
   "Hledat jiné zdroje": "Search another sources",
   "Test duplicity": "Duplication test",
   "Rozsirene hledani": "Advanced search",
+  "stav":{
+    "finished": "Dokončeno",
+    "progress": "Ve zpracování",
+    "planovane": "Plánovaná digitalizace"
+  },
   "dummy": ""
 }
+
+ 

@@ -14,13 +14,14 @@ declare var $: any;
 })
 export class FlotComponent implements OnChanges, OnInit {
   //@Input() dataset: any;
-  public data = { data: [] };
+  public data = [];
   @Input() onselection: any;
   @Input() options: any;
   @Input() width: string | number = '100%';
   @Input() height: string | number = 220;
 
   @Output() onSelection: EventEmitter<any> = new EventEmitter();
+  @Output() onClick: EventEmitter<any> = new EventEmitter();
 
   initialized = false;
 
@@ -37,7 +38,7 @@ export class FlotComponent implements OnChanges, OnInit {
 
   draw() {
     if (this.initialized) {
-      this.plot = $.plot(this.plotArea, [this.data], this.options);
+      this.plot = $.plot(this.plotArea, this.data, this.options);
     }
   }
 
@@ -60,7 +61,9 @@ export class FlotComponent implements OnChanges, OnInit {
       });
       
       this.plotArea.bind("plotclick", function (event, pos, item) {
-        console.log(item);
+        if(item){
+          _this.onClick.emit(item);
+        }
       });
       this.initialized = true;
       this.draw();

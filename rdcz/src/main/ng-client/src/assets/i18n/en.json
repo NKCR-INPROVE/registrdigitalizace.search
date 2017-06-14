@@ -8,5 +8,10 @@
   "Hledat jiné zdroje": "Hledat jiné zdroje",
   "Test duplicity": "Test duplicity (pro NK ČR)",
   "Rozsirene hledani": "Rozšířené hledání",
+  "stav":{
+    "finished": "Finished",
+    "progress": "In progress",
+    "planovane": "Planned"
+  },
   "dummy": ""
 }

@@ -43,18 +43,15 @@ export class ChartBarComponent implements OnInit {
       show: true,                 //false
       content: 'Rok %x (%y)'      //"%s | X: %x | Y: %y"
     }
-  };
-  
-  refresh = 0;
-
-  subscriptions: Subscription[] = [];
+  }
+    subscriptions: Subscription[] = [];
 
   constructor(private service: AppService, private state: AppState) {
   }
 
   ngOnInit() {
     this.currentDo = (new Date()).getFullYear();
-    this.data = { data: [] };
+    this.data = [{ data: [] }];
     this.chart.setData(this.data);
     if (this.state.config) {
       this.getData();
@@ -81,22 +78,10 @@ export class ChartBarComponent implements OnInit {
     //console.log(ranges['xaxis']['from'].toFixed(1) + " to " + ranges['xaxis']['to'].toFixed(1));
   }
 
-  onSelection2(event, ranges) {
-    this.currentOd = Math.floor(ranges['xaxis']['from']);
-    this.currentDo = Math.ceil(ranges['xaxis']['to']);
-    this.getData();
+  onClick(item) {
+    console.log('Rok: ' + item['datapoint'][0]);
+    //this.getData();
   }
-  
-  
-
-  cc(ranges) {
-    this.currentOd = 1900;
-    this.currentDo = 1960;
-    this.getData();
-    //console.log(ranges['xaxis']['from'].toFixed(1) + " to " + ranges['xaxis']['to'].toFixed(1));
-  }
-
-
 
   getData() {
 
@@ -111,12 +96,10 @@ export class ChartBarComponent implements OnInit {
     params.set('facet.range.gap', '10');
     params.set('facet.limit', '-1');
     params.set('facet.mincount', '1');
-//    this.dataset = Object.assign([]);
-//    this.refresh = null;
+    
     this.service.search(params).subscribe(res => {
-      this.refresh = res["response"]['numFound'] + 0;
-      //this.dataset = new Array();
-      this.data = { data: res["facet_counts"]["facet_ranges"]['rokvyd']['counts']};
+      
+      this.data = [{ data: res["facet_counts"]["facet_ranges"]['rokvyd']['counts']}];
       this.chart.setData(this.data);
     });
   }
