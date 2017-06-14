@@ -24,6 +24,7 @@
     "@ngx-translate/http-loader": "^0.1.0",
     "core-js": "^2.4.1",
     "flot": "^0.8.0-alpha",
+    "jquery.flot.tooltip": "^0.9.0",
     "mdi": "^1.9.33",
     "ng2-materialize": "^1.4.1",
     "ng2modules-flot": "0.0.1",
