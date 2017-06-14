@@ -23,7 +23,7 @@ export class AppService {
   
   
   changeLang(lang: string) {
-    console.log('lang changed to ' + lang);
+    //console.log('lang changed to ' + lang);
     this.state.currentLang = lang;
     this.translate.use(lang);
     this._langSubject.next(lang);

@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild, SimpleChanges } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { URLSearchParams } from '@angular/http';
 
-import { FlotComponent } from 'ng2modules-flot/flot.component';
+import { FlotComponent } from '../../flot/flot.component';
 
 import { AppService } from '../../../app.service';
 import { AppState } from '../../../app.state';
@@ -15,11 +15,14 @@ import { AppState } from '../../../app.state';
 export class ChartBarComponent implements OnInit {
 
   @ViewChild('chart') chart: FlotComponent;
-  public dataset: any = [];
+  
+  currentOd: number = 0;
+  currentDo: number = 3000;
+  public data: any = {};
   public options = {
     series: {
-      bars: { 
-      show: true,
+      bars: {
+        show: true,
         lineWidth: 1,
         barWidth: 10,
         order: 2
@@ -27,14 +30,22 @@ export class ChartBarComponent implements OnInit {
       hoverable: true
     },
     grid: {
-      hoverable: true, 
+      hoverable: true,
       borderWidth: 0,
       color: '#838383',
       clickable: true
 
     },
-    tooltip: true
+    selection: {
+      mode: 'x'
+    },
+    tooltip: {
+      show: true,                 //false
+      content: 'Rok %x (%y)'      //"%s | X: %x | Y: %y"
+    }
   };
+  
+  refresh = 0;
 
   subscriptions: Subscription[] = [];
 
@@ -42,8 +53,9 @@ export class ChartBarComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    this.dataset = [{ data: [[1, 130], [2, 40], [3, 80], [4, 160], [5, 159], [6, 370], [7, 330], [8, 350], [9, 370]] }];
+    this.currentDo = (new Date()).getFullYear();
+    this.data = { data: [] };
+    this.chart.setData(this.data);
     if (this.state.config) {
       this.getData();
     } else {
@@ -62,65 +74,55 @@ export class ChartBarComponent implements OnInit {
     this.subscriptions = [];
   }
 
+  onSelection(ranges) {
+    this.currentOd = Math.floor(ranges['xaxis']['from']);
+    this.currentDo = Math.ceil(ranges['xaxis']['to']);
+    this.getData();
+    //console.log(ranges['xaxis']['from'].toFixed(1) + " to " + ranges['xaxis']['to'].toFixed(1));
+  }
+
+  onSelection2(event, ranges) {
+    this.currentOd = Math.floor(ranges['xaxis']['from']);
+    this.currentDo = Math.ceil(ranges['xaxis']['to']);
+    this.getData();
+  }
+  
+  
+
+  cc(ranges) {
+    this.currentOd = 1900;
+    this.currentDo = 1960;
+    this.getData();
+    //console.log(ranges['xaxis']['from'].toFixed(1) + " to " + ranges['xaxis']['to'].toFixed(1));
+  }
+
+
 
   getData() {
 
     let params: URLSearchParams = new URLSearchParams();
-    params.set('q', 'rokvyd:[1 TO *]');
+    params.set('q', 'rokvyd:['+this.currentOd+' TO '+this.currentDo+']');
+    params.set('fq', '-rokvyd:0');
     params.set('facet', 'true');
     //params.set('facet.field', 'rokvyd');
     params.set('facet.range', 'rokvyd');
-    params.set('facet.range.start', '0');
-    params.set('facet.range.end', '2020');
+    params.set('facet.range.start', this.currentOd + '');
+    params.set('facet.range.end', this.currentDo + '');
     params.set('facet.range.gap', '10');
     params.set('facet.limit', '-1');
     params.set('facet.mincount', '1');
+//    this.dataset = Object.assign([]);
+//    this.refresh = null;
     this.service.search(params).subscribe(res => {
-      //this.dataset = [{ data: res["facet_counts"]["facet_fields"]['rokvyd']}];
-      this.dataset = [{ data: res["facet_counts"]["facet_ranges"]['rokvyd']['counts'] }];
+      this.refresh = res["response"]['numFound'] + 0;
+      //this.dataset = new Array();
+      this.data = { data: res["facet_counts"]["facet_ranges"]['rokvyd']['counts']};
+      this.chart.setData(this.data);
     });
   }
+  
 
 }
 /*
- * import { Component, ElementRef, Input, OnInit, OnChanges, SimpleChanges, ChangeDetectionStrategy } from '@angular/core';
-
-declare var $: any;
-
-@Component({
-    selector: 'flot',
-    template: `<div>Loading...</div>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
-})
-export class FlotComponent implements OnChanges, OnInit {
-    @Input() refresh: any;
-    @Input() dataset: any;
-    @Input() options: any;
-    @Input() width: string | number = '100%';
-    @Input() height: string | number = 220;
-
-    static initialized = false;
-
-    private plotArea: any;
-
-    constructor(private el: ElementRef) { }
-
-    public ngOnChanges(changes: SimpleChanges): void {
-        if (changes['refresh'] && !changes['refresh'].isFirstChange() && FlotComponent.initialized) {
-            $.plot(this.plotArea, this.dataset, this.options);
-        }
-    }
-
-    public ngOnInit(): void {
-        if (!FlotComponent.initialized) {
-            this.plotArea = $(this.el.nativeElement).find('div').empty();
-            this.plotArea.css({
-                width: this.width,
-                height: this.height
-            });
-            $.plot(this.plotArea, this.dataset, this.options);
-            FlotComponent.initialized = true;
-        }
-    }
-}
+ * 
  */

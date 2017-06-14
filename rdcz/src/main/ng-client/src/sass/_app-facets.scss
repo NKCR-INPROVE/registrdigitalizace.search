@@ -2,11 +2,47 @@
 
 app-facets {
   .collapsible {
+    margin: 0;
+    
     .collapsible-header {
       background-color: $app-brand-l-6;
+      position: relative;
+      
+      .mdi-chevron-down, .mdi-chevron-left {
+        position: absolute;
+        top: 0;
+        right: 15px;
+      }
+      .mdi-chevron-down {
+        display: none;
+      }
+      .mdi-chevron-left {
+        display: block;
+      }
+      &.active {
+        .mdi-chevron-down {
+          display: block;
+        }
+        .mdi-chevron-left {
+          display: none;
+        }
+      }
     }
     .collapsible-body {
       padding: 0;
+      
+      .collection {
+        .collection-item {
+          &:hover {
+            background-color: color("grey", "lighten-5");
+          }
+          span {
+            &:first-child {
+              @extend .app-cursor-pointer;
+            }
+          }
+        }
+      }
     }
   }
 }

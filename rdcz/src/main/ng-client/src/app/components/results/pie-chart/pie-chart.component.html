@@ -1,3 +1,6 @@
 <section class="app-brand lighten-5">
-  Pie-chart works!
+  
+  <app-flot [options]="options" #chart
+    (onSelection)="onSelection($event)"
+    height="200px" width="100%"></app-flot>
 </section>

@@ -1,3 +1,24 @@
-<p class="app-brand lighten-3">
-  Sort bar works!
-</p>
+<section class="app-brand lighten-6 app-border-radius app-container">
+  <div class="row">
+    <div class="col s6">
+      <span>
+        Sloučeno podle:
+        <a id="btn-collapsed" href="#" class="app-dropdown-caret">ISNN/ISNB</a>
+        <mz-dropdown [id]="'dropdown-btn-collapsed'" [dropdownButtonId]="'btn-collapsed'">
+          <mz-dropdown-item><a href="!#">Bez sloučení</a></mz-dropdown-item>
+          <mz-dropdown-item><a href="!#">ČNB</a></mz-dropdown-item>
+          <mz-dropdown-item><a href="!#">SIGLA+ID</a></mz-dropdown-item>
+        </mz-dropdown>
+      </span>
+    </div><!--/.col -->
+    <div class="col s6 align-right">
+      <span>
+        Seřazeno podle:
+        <a id="btn-sorted-by" href="#" class="app-dropdown-caret">relevance</a>
+        <mz-dropdown [id]="'dropdown-btn-sorted-by'" [dropdownButtonId]="'btn-sorted-by'">
+          <mz-dropdown-item><a href="!#">abecedy</a></mz-dropdown-item>
+        </mz-dropdown>
+      </span>
+    </div><!--/.col -->
+  </div><!--/.row -->
+</section>

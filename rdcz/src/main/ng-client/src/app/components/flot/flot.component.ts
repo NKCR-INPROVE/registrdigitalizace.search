@@ -1,0 +1,79 @@
+
+import {
+  Component, ElementRef, Input, Output, OnInit, EventEmitter,
+  HostListener, OnChanges, SimpleChanges, ChangeDetectionStrategy
+} from '@angular/core';
+
+declare var $: any;
+
+@Component({
+  selector: 'app-flot',
+  templateUrl: './flot.component.html',
+  styleUrls: ['./flot.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class FlotComponent implements OnChanges, OnInit {
+  //@Input() dataset: any;
+  public data = { data: [] };
+  @Input() onselection: any;
+  @Input() options: any;
+  @Input() width: string | number = '100%';
+  @Input() height: string | number = 220;
+
+  @Output() onSelection: EventEmitter<any> = new EventEmitter();
+
+  initialized = false;
+
+  plotArea: any;
+  plot: any;
+
+  constructor(private el: ElementRef) { }
+
+  public ngOnChanges(changes: SimpleChanges): void {
+    if (changes['option'] && this.initialized) {
+      this.draw();
+    }
+  }
+
+  draw() {
+    if (this.initialized) {
+      this.plot = $.plot(this.plotArea, [this.data], this.options);
+    }
+  }
+
+  public setData(data) {
+    this.data = data;
+    this.draw();
+  }
+
+  public ngOnInit(): void {
+    if (!this.initialized) {
+      this.plotArea = $(this.el.nativeElement).find('div').empty();
+      this.plotArea.css({
+        width: this.width,
+        height: this.height
+      });
+
+      var _this = this;
+      this.plotArea.bind("plotselected", function(event, ranges) {
+        _this.onSelection.emit(ranges);
+      });
+      
+      this.plotArea.bind("plotclick", function (event, pos, item) {
+        console.log(item);
+      });
+      this.initialized = true;
+      this.draw();
+    }
+  }
+
+//  @HostListener('click') click(event) {
+//    console.log('clicke');
+//  }
+
+ @HostListener('contextmenu') contextmenu(e) {
+    console.log(e);
+  }
+
+
+}

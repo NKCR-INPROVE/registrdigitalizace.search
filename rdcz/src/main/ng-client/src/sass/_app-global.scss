@@ -32,6 +32,22 @@ main {
   margin-top: 100px;
 }
 
+// row
+.row {
+  margin-bottom: 0;
+}
+
+// section
+section {
+  margin-bottom: 20px;
+}
+
+// app container
+.app-container {
+  padding-left: 0.75rem !important;
+  padding-right: 0.75rem !important;
+}
+
 // cleaners
 .app-clean-mg {
   margin: 0 !important;
@@ -39,4 +55,29 @@ main {
 
 .app-border-radius {
   border-radius: $app-border-radius;
+}
+
+.app-cursor-pointer {
+  cursor: pointer;
+}
+
+// dropdown caret
+.app-dropdown-caret {
+  &:after {
+    content: "\F35D";
+    font: normal normal normal 24px/1 "Material Design Icons";
+    vertical-align: middle;
+  }
+}
+
+// clearfix
+.clearfix {
+  &:before,
+  &:after {
+    content: " "; // 1
+    display: table; // 2
+  }
+  &:after {
+    clear: both;
+  }
 }
