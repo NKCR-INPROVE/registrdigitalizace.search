@@ -22,5 +22,13 @@
       </div><!--/.spinner-layer -->
     </div><!--/.preloader-wrapper -->
   </app-root><!--/.app-root -->
+  
+  <script>
+    // toggle content function
+    function toggleContent(id){
+      $('#'+id+'-btn').toggleClass('active');
+      $('#'+id).slideToggle( "fast" );
+    }
+  </script>
 </body>
 </html>

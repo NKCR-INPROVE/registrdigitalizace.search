@@ -153,6 +153,13 @@ public class Indexer {
             addNeplatneCnb(idoc, rs.getString("id"), conn);
             addDigKnihovny(idoc, rs.getString("id"), conn);
             addVarNazev(idoc, rs.getString("id"), conn);
+            int rokvyd = 0;
+            try{
+              rokvyd = rs.getInt("rokvydstr");
+              idoc.addField("rokvyd", rokvyd);
+            } catch(SQLException e){
+              LOGGER.log(Level.FINE, "rokvyd not number");
+            }
             idocs.add(idoc);
 
             if (idocs.size() >= batchSize) {

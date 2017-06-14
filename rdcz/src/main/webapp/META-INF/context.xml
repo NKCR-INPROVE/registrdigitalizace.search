@@ -3,6 +3,6 @@
   
   <Resource name="jdbc/rlf" auth="Container" type="javax.sql.DataSource"
        maxActive="100" maxIdle="30" maxWait="10000"
-       username="rlf_nkp_digital" password="" driverClassName="oracle.jdbc.OracleDriver"
+       username="rlf_nkp_digital" password="vanilkovazmrzlina" driverClassName="oracle.jdbc.OracleDriver"
        url="jdbc:oracle:thin:@localhost:1521:RELIEF"/>
 </Context>

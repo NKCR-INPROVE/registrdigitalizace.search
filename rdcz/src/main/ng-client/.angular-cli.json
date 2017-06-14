@@ -24,6 +24,8 @@
       "scripts": [
         "../node_modules/jquery/dist/jquery.js",
         "../node_modules/flot/jquery.flot.js",
+        "../node_modules/flot/jquery.flot.selection.js",
+        "../node_modules/flot/jquery.flot.navigate.js",
         "../node_modules/jquery.flot.tooltip/js/jquery.flot.tooltip.js",
         "../node_modules/materialize-css/dist/js/materialize.js"
       ],

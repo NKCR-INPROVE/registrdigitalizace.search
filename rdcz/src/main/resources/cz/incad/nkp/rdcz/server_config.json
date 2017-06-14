@@ -11,12 +11,13 @@
 
   "update_query_ukoly": "select #fields# from predloha P, zakazka Z, ukol U where U.rzakazkauk=Z.id and (P.zaldate>=to_date('#from#', 'yyyy-MM-dd') or P.edidate>=to_date('#from#', 'yyyy-MM-dd')) and Z.rtitnkpza=P.id and P.stavRec <> 'smazat' and P.stavRec <> 'interni'",
   
+  
   "db.fields": [
     "id",
-    "nazev",
+    "nazev as title",
     "podnazev",
     "autor",
-    "rokvyd",
+    "rokvyd as rokvydstr",
     "seriename as edice",
     "rozsah",
     "cast",

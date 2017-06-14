@@ -1,8 +1,24 @@
 // --- RESULT ITEM ---
 
 app-result-item {
-  .app-item {
-    @extend .app-container;
+  .card {
+    margin-bottom: 20px;
+    
+    .card-content {
+      padding: 20px;
+      
+      .card-title {
+        font-size: 20px;
+        margin: 0;
+      }
+    }
+    
+    .card-action {
+      span {
+        font-size: 0.8rem;
+        text-transform: none;
+      }
+    }
     
     &:not(:last-child) {
       margin-bottom: 20px; 

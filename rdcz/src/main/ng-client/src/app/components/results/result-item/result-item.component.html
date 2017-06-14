@@ -1,15 +1,53 @@
 <section>
-  <div class="row">
-    <div class="col s12">
-      <div class="app-item app-brand lighten-5">
-        Result item works!
-      </div><!--/.app-item -->
-      <div class="app-item app-brand lighten-5">
-        Result item works!
-      </div><!--/.app-item -->
-      <div class="app-item app-brand lighten-5">
-        Result item works!
-      </div><!--/.app-item -->
-    </div><!--/.col -->
-  </div><!--/.row -->
+  <mz-card [hoverable]="true" [class]="'app-item'">
+    <!--
+    <mz-card-title class="app-brand-text text-app-red">
+      <i mz-icon-mdi [icon]="'book-open-page-variant'"></i>
+      Česká kuchařka, aneb, Knjžka wssem i zběhlegssjm kuchařkám prospěssná
+    </mz-card-title>
+    -->
+    <mz-card-content>
+      <div class="row">
+        <div class="col s2">
+          <img src="../../../../assets/img/thumb-img.jpg" alt="" class="responsive-img" />
+        </div><!--/.col -->
+        <div class="col s10">
+          <span class="card-title app-brand-text text-app-red">
+            <i mz-icon-mdi [icon]="'book-open-page-variant'"></i>
+            Česká kuchařka, aneb, Knjžka wssem i zběhlegssjm kuchařkám prospěssná
+          </span>
+          I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.
+        </div><!--/.col -->
+      </div><!--/.row -->
+      <div class="app-card-detail app-brand lighten-6" id="app-card-detail-1" style="display:none; padding:10px;margin-top: 10px;">
+        Zde bude detail!
+      </div>
+    </mz-card-content>
+    <mz-card-action>
+      <span>Předlohy: 1</span>
+      <span class="app-brand-text text-lighten-3">|</span>
+      <span>ČNB: cnb001829422</span>
+      <a class="right app-clean-mg" onclick="toggleContent('app-card-detail-1')">Zobrazit detail</a>
+    </mz-card-action>
+  </mz-card>
+
+  <mz-card [hoverable]="true">
+    <mz-card-title class="app-brand-text text-app-red">
+      <i mz-icon-mdi [icon]="'audiobook'"></i>
+      2 Fantaisies pour la Harpe sur des motifs originaux
+    </mz-card-title>
+    <mz-card-content>
+      I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.
+    </mz-card-content>
+  </mz-card>
+
+  <mz-card [hoverable]="true">
+    <mz-card-title class="app-brand-text text-app-red">
+      <i mz-icon-mdi [icon]="'book-open-page-variant'"></i>
+      Draci letního žáru
+    </mz-card-title>
+    <mz-card-content>
+      I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.
+    </mz-card-content>
+  </mz-card>
 </section>
