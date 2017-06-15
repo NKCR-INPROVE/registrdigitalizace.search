@@ -49,6 +49,153 @@
 
     <build>
         <plugins>
+          
+          
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.6.0</version>
+        <executions>
+          <execution>
+            <id>exec-npm-install</id>
+            <phase>generate-sources</phase>
+            <configuration>
+              <executable>npm</executable>
+              <workingDirectory>${project.basedir}/src/main/ng-client/dist</workingDirectory>  
+              <arguments>
+                <argument>run</argument>
+                <argument>build.prod</argument>
+              </arguments>
+            </configuration>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      
+      <plugin>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>3.0.0</version>
+        <configuration>
+          <filesets>
+            <fileset>
+              <directory>${project.basedir}/src/main/webapp</directory>
+              <includes>
+                <include>*.bundle.css</include>
+                <include>*.bundle.js</include>
+                <include>*.bundle.js.gz</include>
+                <include>*.bundle.map</include>
+                <include>index.html</include>
+              </includes>
+              <excludes>
+                <exclude>index.jsp</exclude>
+              </excludes>
+              <followSymlinks>false</followSymlinks>
+            </fileset>
+          </filesets>
+        </configuration>
+      </plugin>
+      
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>2.7</version>
+        <executions>
+          
+          <execution>
+            <id>copy-frontend-resources</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.basedir}/src/main/webapp</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>src/main/ng-client/dist</directory>
+                  <includes>
+                    <include>*/**</include>
+                  </includes>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+          <execution>
+            <id>copy-app.js</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.basedir}/src/main/webapp/app/assets/js/</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>src/main/ng-client/src/app/assets/js</directory>
+                  <includes>
+                    <include>*/**</include>
+                  </includes>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+    
+        </executions>
+        <configuration>
+          <encoding>UTF-8</encoding>
+        </configuration>
+      </plugin>
+    
+      <!-- Insert jsp pageEncoding tag to index.html -->
+      <plugin> 
+        <groupId>com.google.code.maven-replacer-plugin</groupId> 
+        <artifactId>replacer</artifactId> 
+        <version>1.5.3</version> 
+        <executions> 
+          <execution> 
+            <id>replace-for-index</id>
+            <phase>prepare-package</phase> 
+            <goals> 
+              <goal>replace</goal> 
+            </goals>  
+            <configuration> 
+              <file>${project.basedir}/src/main/webapp/index.html</file> 
+              <replacements> 
+                <replacement> 
+                  <token>&lt;!doctype html&gt;</token> 
+                  <value>&lt;%@page contentType="text/html" pageEncoding="UTF-8"%&gt;&lt;!doctype html&gt;</value> 
+                </replacement> 
+                <replacement> 
+                  <token>base href="/"</token> 
+                  <value>base href="/rdcz/"</value> 
+                </replacement> 
+              </replacements> 
+            </configuration> 
+          </execution> 
+          
+          <execution> 
+            <id>replace-for-styles</id>
+            <phase>prepare-package</phase> 
+            <goals> 
+              <goal>replace</goal> 
+            </goals> 
+            
+            <configuration> 
+              <includes>
+                <include>${project.basedir}/src/main/webapp/styles.*.css</include>
+              </includes> 
+              <replacements> 
+                <replacement> 
+                  <token>/assets/fonts/</token> 
+                  <value>assets/fonts/</value> 
+                </replacement> 
+              </replacements> 
+            </configuration>  
+          </execution> 
+        </executions>
+      </plugin>
+      
+      
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
