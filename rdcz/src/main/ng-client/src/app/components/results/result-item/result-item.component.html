@@ -1,4 +1,4 @@
-<section>
+
   <mz-card [hoverable]="true" [class]="'app-item'">
     <!--
     <mz-card-title class="app-brand-text text-app-red">
@@ -14,7 +14,7 @@
         <div class="col s10">
           <span class="card-title app-brand-text text-app-red">
             <i mz-icon-mdi [icon]="'book-open-page-variant'"></i>
-            Česká kuchařka, aneb, Knjžka wssem i zběhlegssjm kuchařkám prospěssná
+            {{result.title}}
           </span>
           <div>
             <label>
@@ -42,27 +42,6 @@
       <a class="right app-clean-mg" onclick="toggleContent('app-card-detail-1')">{{'btn-zobrazit-detail' | translate}}</a>
     </mz-card-action>
   </mz-card>
-
-  <mz-card [hoverable]="true">
-    <mz-card-title class="app-brand-text text-app-red">
-      <i mz-icon-mdi [icon]="'audiobook'"></i>
-      2 Fantaisies pour la Harpe sur des motifs originaux
-    </mz-card-title>
-    <mz-card-content>
-      I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.
-    </mz-card-content>
-  </mz-card>
-
-  <mz-card [hoverable]="true">
-    <mz-card-title class="app-brand-text text-app-red">
-      <i mz-icon-mdi [icon]="'book-open-page-variant'"></i>
-      Draci letního žáru
-    </mz-card-title>
-    <mz-card-content>
-      I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.
-    </mz-card-content>
-  </mz-card>
-</section>
 
 <!--
 Variantní název: Česká kuchařka, aneb, Knížka všem i zběhlejším kuchařkám prospěšná     Knjžka wssem 

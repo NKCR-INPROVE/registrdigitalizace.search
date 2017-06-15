@@ -1,11 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-
 import { Subscription } from 'rxjs/Subscription';
 import { URLSearchParams } from '@angular/http';
 
-
+import { Result } from '../../models/result';
 import { AppService } from '../../app.service';
-
 import { AppState } from '../../app.state';
 
 @Component({
@@ -17,6 +15,7 @@ export class ResultsComponent implements OnInit {
 
   subscriptions: Subscription[] = [];
   facets: any;
+  results: Result[] = [];
   
   constructor(private service: AppService, public state: AppState) {
   }
@@ -51,10 +50,11 @@ export class ResultsComponent implements OnInit {
     }
     
     params.set('facet.mincount', '1');
-    params.set('rows', '0');
+    params.set('rows', '10');
     this.facets = null;
     this.service.search(params).subscribe(res => {
       this.facets = res["facet_counts"]["facet_fields"];
+      this.results = res["response"]["docs"];
     });
   }
 
