@@ -15,7 +15,7 @@ import { AppState } from '../../../app.state';
 export class ChartBarComponent implements OnInit {
 
   @ViewChild('chart') chart: FlotComponent;
-  
+
   currentOd: number = 0;
   currentDo: number = 3000;
   public data: any = {};
@@ -44,7 +44,7 @@ export class ChartBarComponent implements OnInit {
       content: 'Rok %x (%y)'      //"%s | X: %x | Y: %y"
     }
   }
-    subscriptions: Subscription[] = [];
+  subscriptions: Subscription[] = [];
 
   constructor(private service: AppService, private state: AppState) {
   }
@@ -53,15 +53,29 @@ export class ChartBarComponent implements OnInit {
     this.currentDo = (new Date()).getFullYear();
     this.data = [{ data: [] }];
     this.chart.setData(this.data);
-    if (this.state.config) {
-      this.getData();
-    } else {
-      this.subscriptions.push(this.state.stateChangedSubject.subscribe(
-        () => {
-          this.getData();
+    this.subscriptions.push(this.state.searchSubject.subscribe(
+      (resp) => {
+        if (resp['type'] === 'home' || resp['type'] === 'results') {
+          if (resp['state'] === 'start') {
+            this.data = [{ data: [] }];
+            this.chart.setData(this.data);
+          } else {
+            this.data = [{ data: resp['res']["facet_counts"]["facet_ranges"]['rokvyd']['counts'] }];
+            this.chart.setData(this.data);
+          }
         }
-      ));
-    }
+      }
+    ));
+
+    //    if (this.state.config) {
+    //      this.getData();
+    //    } else {
+    //      this.subscriptions.push(this.state.stateChangedSubject.subscribe(
+    //        () => {
+    //          this.getData();
+    //        }
+    //      ));
+    //    }
   }
 
   ngOnDestroy() {
@@ -86,7 +100,7 @@ export class ChartBarComponent implements OnInit {
   getData() {
 
     let params: URLSearchParams = new URLSearchParams();
-    params.set('q', 'rokvyd:['+this.currentOd+' TO '+this.currentDo+']');
+    params.set('q', 'rokvyd:[' + this.currentOd + ' TO ' + this.currentDo + ']');
     params.set('fq', '-rokvyd:0');
     params.set('facet', 'true');
     //params.set('facet.field', 'rokvyd');
@@ -96,14 +110,15 @@ export class ChartBarComponent implements OnInit {
     params.set('facet.range.gap', '10');
     params.set('facet.limit', '-1');
     params.set('facet.mincount', '1');
-    
-    this.service.search(params).subscribe(res => {
-      
-      this.data = [{ data: res["facet_counts"]["facet_ranges"]['rokvyd']['counts']}];
-      this.chart.setData(this.data);
-    });
+
+    //    this.service.search(params).subscribe(res => {
+    //      
+    //      this.data = [{ data: res["facet_counts"]["facet_ranges"]['rokvyd']['counts']}];
+    //      this.chart.setData(this.data);
+    //    });
+    this.service.search(params);
   }
-  
+
 
 }
 /*

@@ -22,18 +22,20 @@ export class SearchBarComponent implements OnInit {
 
     let params: URLSearchParams = new URLSearchParams();
     params.set('q', this.q);
+    params.set('rows', '10');
     params.set('facet', 'true');
+    params.set('facet.mincount', '1');
     for (let i in this.state.config['facets']){
       params.append('facet.field', this.state.config['facets'][i]['field']);
     }
     
-    params.set('facet.mincount', '1');
-    params.set('rows', '10');
+    params.set('facet.range', 'rokvyd');
+    params.set('facet.range.start',  '1');
+    params.set('facet.range.end', (new Date()).getFullYear() + '');
+    params.set('facet.range.gap', '10');
+    
 //    this.facets = null;
-    this.service.search(params, true).subscribe(res => {
-//      this.facets = res["facet_counts"]["facet_fields"];
-//      this.results = res["response"]["docs"];
-    });
+    this.service.search(params);
     
   }
 

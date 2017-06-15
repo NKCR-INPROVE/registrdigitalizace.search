@@ -16,10 +16,6 @@ export class AppService {
   public _langSubject = new Subject();
   public langSubject: Observable<any> = this._langSubject.asObservable();
 
-  //Observe search ocurred
-  public _searchSubject = new Subject();
-  public searchSubject: Observable<any> = this._searchSubject.asObservable();
-
   constructor(
     private state: AppState,
     private translate: TranslateService,
@@ -37,16 +33,12 @@ export class AppService {
     return this.translate.instant(key);
   }
   
-  search(params : URLSearchParams, emit: boolean = false) {
-    
-    this._searchSubject.next({state: 'start'});
+  search(params : URLSearchParams, type: string = 'results'): void {
+    this.state.startSearch(type);
     var url = this.state.config['context'] + 'search/rdcz/select';
-    return this.http.get(url, { search: params }).map(res => {
-      if(emit){
-        this._searchSubject.next({state: 'finished', res: res.json()});
-      }
-      return res.json();
-    });
+    this.http.get(url, { search: params }).map(res => {
+      this.state.processSearch(res.json(), type);
+    }).subscribe();
   }
 
 }
