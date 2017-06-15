@@ -2,23 +2,23 @@
   <div class="container">
     <div class="row">
       <div class="col s12">
-        <a routerLink="home" class="brand-logo"><img src="../../../assets/img/logo-rd.png" class="responsive-img" alt="Registr digitalizace" /></a>
+        <a routerLink="home" class="brand-logo" title="Home - {{'title-app' | translate}}"><img src="assets/img/logo-rd.png" class="responsive-img" alt="{{'app-title' | translate}}" /></a>
         <mz-navbar-item-container [align]="'right'">
           <mz-navbar-item routerLink="home" routerLinkActive="active" #home="routerLinkActive" [active]="home.isActive">
-            <a routerLink="home">{{'Home' | translate}}</a>
+            <a routerLink="home" title="{{'nav-home' | translate}}">{{'nav-home' | translate}}</a>
           </mz-navbar-item>
           <mz-navbar-item routerLink="results" routerLinkActive="active" #results="routerLinkActive" [active]="results.isActive">
-            <a routerLink="results">{{'Results' | translate}}</a>
+            <a routerLink="results" title="{{'nav-vysledky' | translate}}">{{'nav-vysledky' | translate}}</a>
           </mz-navbar-item>
           <mz-navbar-item routerLink="napoveda" routerLinkActive="active" #napoveda="routerLinkActive" [active]="napoveda.isActive">
-            <a routerLink="napoveda">{{'Nápověda' | translate}}</a>
+            <a routerLink="napoveda" title="{{'nav-napoveda' | translate}}">{{'nav-napoveda' | translate}}</a>
           </mz-navbar-item>
           <mz-navbar-item routerLink="info" routerLinkActive="active" #info="routerLinkActive" [active]="info.isActive">
-            <a routerLink="info">{{'Info' | translate}}</a>
+            <a routerLink="info" title="{{'nav-info' | translate}}">{{'nav-info' | translate}}</a>
           </mz-navbar-item>
           <mz-navbar-item>
-            <a *ngIf="currLang !== 'en'" (click)="changeLang('en')">English</a>
-            <a *ngIf="currLang !== 'cs'" (click)="changeLang('cs')">Česky</a>
+            <a *ngIf="currLang !== 'en'" (click)="changeLang('en')" title="Switch to english">English</a>
+            <a *ngIf="currLang !== 'cs'" (click)="changeLang('cs')" title="Přepni na češtinu">Česky</a>
           </mz-navbar-item>
         </mz-navbar-item-container>
       </div><!--/.col -->
