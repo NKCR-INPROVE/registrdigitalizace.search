@@ -1,6 +1,9 @@
 // --- RESULTS ---
 
-.app-results {
+app-results {
+  & > .container {
+    padding-bottom: 20px;
+  }
   @import "app-count-bar";
   @import "app-pagination";
   @import "app-sort-bar";

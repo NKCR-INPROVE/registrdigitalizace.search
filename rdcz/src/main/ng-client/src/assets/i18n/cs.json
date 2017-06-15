@@ -1,19 +1,30 @@
 {
-  "app_title": "Registr digitalizace",
-  "Home": "Home",
-  "Results": "Results",
-  "Nápověda": "Help",
-  "Info": "Info",
+  "title-app": "Registr digitalizace",
+  "title-jumbotron": "Chcete se zapojit",
+  "title-partneri": "Naši partneři",
+  "nav-home": "Home",
+  "nav-vysledky": "Výsledky",
+  "nav-napoveda": "Nápověda",
+  "nav-info": "Info",
+  "btn-jine-zdroje": "Hledat jiné zdroje",
+  "btn-rozsirene-hledani": "Rozšířené hledání",
+  "btn-zobrazit-detail": "Zobrazit detail",
+  "btn-skryt-detail": "Skrýt detail",
+  "btn-test-duplicity": "Test duplicity (pro NK ČR)",
+  "label-pocet-nalezenych": "Počet nalezených položek",
+  "label-slouceno-podle": "Sloučeno podle",
+  "label-serazeno-podle": "Seřazeno podle",
+  "text-pocet-nalezenych": "titulů",
+  "text-zobrazit-casovou-osu": "Zobrazit časovou osu",
+  "text-skryt-casovou-osu": "Skrýt časovou osu",
   "q.placeholder": "Hledej v registru digitalizace ...",
-  "Hledat jiné zdroje": "Search another sources",
-  "Test duplicity": "Duplication test",
-  "Rozsirene hledani": "Advanced search",
   "stav":{
-    "finished": "Dokončeno",
-    "progress": "Ve zpracování",
-    "planovane": "Plánovaná digitalizace"
+    "finished": "Finished",
+    "progress": "In progress",
+    "planovane": "Planned"
   },
   "dummy": ""
 }
+
 
  
