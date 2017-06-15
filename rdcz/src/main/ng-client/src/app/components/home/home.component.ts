@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
+    console.log('kk')
     if (this.state.config) {
       this.getData();
     } else {

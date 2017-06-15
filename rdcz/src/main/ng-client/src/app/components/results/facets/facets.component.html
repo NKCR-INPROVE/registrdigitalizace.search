@@ -1,7 +1,7 @@
 <section>
 
   <mz-collapsible [mode]="'expandable'">
-    <mz-collapsible-item [active]="true" *ngFor="let facet of facetFields; let idx=index;">
+    <mz-collapsible-item *ngFor="let facet of facetFields; let idx=index;" [active]="facet.active" >
       <mz-collapsible-item-header>
         <i mz-icon-mdi [icon]="facet.icon"></i>{{'field.' + facet.field | translate}} <span class="app-brand-text text-lighten-2">(10)</span>
         <i mz-icon-mdi [icon]="'chevron-down'" [class]="'app-clean-mg'"></i>

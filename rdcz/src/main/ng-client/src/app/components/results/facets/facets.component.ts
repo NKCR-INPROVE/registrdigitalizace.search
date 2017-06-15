@@ -12,6 +12,7 @@ import { AppState } from '../../../app.state';
 export class FacetsComponent implements OnInit, OnChanges {
   
   @Input() facets;
+  @Input() allClosed = true;
   
   facetFields: FacetField[] = [];
   
@@ -35,6 +36,7 @@ export class FacetsComponent implements OnInit, OnChanges {
         var facetField = new FacetField();
         facetField.field = field + '';
         facetField.icon = configFacets[i]['icon'];
+        facetField.active = !this.allClosed && configFacets[i]['active'];
         facetField.isMultiple = this.state.config['searchParams']['multipleFacets'] && this.state.config['searchParams']['multipleFacets'].indexOf(field) > -1;
         if (this.state.config['searchParams']['json.nl'] === 'map') {
           for (let f in facet_fields[field]) {
@@ -55,7 +57,6 @@ export class FacetsComponent implements OnInit, OnChanges {
         } 
       }
     }
-      console.log(this.facetFields);
   }
 
   pushFacetValue(facetField: FacetField, field: string, value: string, count: number) {

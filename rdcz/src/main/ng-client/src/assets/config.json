@@ -17,11 +17,11 @@
     "qf":"_text_nolemmas^2.0 title_nolemmas^2.0 varnazev_nolemmas^1.5 title_prefix^2.0 title^1.5 autor^1.2"
   },
   "facets":[
-    {"field": "financovano", "icon": "diamond", "translate": true},
-    {"field": "vlastnik", "icon": "account", "translate": true},
-    {"field": "digknihovna", "icon": "domain", "translate": true},
-    {"field": "druhdokumentu", "icon": "file-document", "translate": true},
-    {"field": "stav", "icon": "traffic-light", "translate": true}
+    {"field": "financovano", "icon": "diamond", "translate": true, "active": false},
+    {"field": "vlastnik", "icon": "account", "translate": true, "active": false},
+    {"field": "digknihovna", "icon": "domain", "translate": true, "active": false},
+    {"field": "druhdokumentu", "icon": "file-document", "translate": true, "active": false},
+    {"field": "stav", "icon": "traffic-light", "translate": true, "active": false}
   ]
             
 }

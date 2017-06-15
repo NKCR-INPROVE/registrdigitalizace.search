@@ -4,4 +4,5 @@ export class FacetField {
   isMultiple: boolean;
   values: Facet[] = [];
   icon: string;
+  active:boolean;
 }
