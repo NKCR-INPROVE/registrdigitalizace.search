@@ -18,7 +18,9 @@
         <mz-dropdown [id]="'dropdown-btn-sorted-by'" [dropdownButtonId]="'btn-sorted-by'">
           <mz-dropdown-item><a href="!#">abecedy</a></mz-dropdown-item>
         </mz-dropdown>
-      </span> <span class="app-brand-text text-lighten-3">|</span>&#160;&#160;&#160;<span class="app-mdi-chart-bar"></span>
+      </span>
+      <span class="app-brand-text text-lighten-3">|</span>&#160;&#160;
+      <span mz-tooltip class="app-mdi-chart-bar app-cursor-pointer" onclick="toggleElement('app-chart-bar')" [tooltip]="'Skrýt časovou osu'"></span>
     </div><!--/.col -->
   </div><!--/.row -->
 </section>
