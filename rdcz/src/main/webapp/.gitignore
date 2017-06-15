@@ -4,4 +4,5 @@
 *.*
 
 !.gitignore
-!index.html
+!index.jsp
+!favicon.ico
