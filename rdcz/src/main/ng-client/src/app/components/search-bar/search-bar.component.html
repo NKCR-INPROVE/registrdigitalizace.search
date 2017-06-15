@@ -3,8 +3,11 @@
     <div class="col s4">
       <form class="app-form-group shades white">
         <div class="input-field app-clean-mg">
-          <input id="search" type="search" class="app-clean-mg" placeholder="{{'q.placeholder' | translate}}">
-          <i mz-icon-mdi [icon]="'magnify'"></i>
+          <input id="q" type="search" class="app-clean-mg" placeholder="{{'q.placeholder' | translate}}"
+            name="q"
+            (keyup.enter)="search()"
+            [(ngModel)]="q">
+          <i mz-icon-mdi [icon]="'magnify'" (click)="search()"></i>
           <i mz-icon-mdi [icon]="'menu'" mz-tooltip [tooltip]="'Rozsirene hledani'" [position]="'top'"></i>
           <i mz-icon-mdi [icon]="'close'" [class]="'mdi-navigation-close'"></i>
         </div>

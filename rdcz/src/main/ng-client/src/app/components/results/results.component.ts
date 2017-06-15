@@ -16,6 +16,7 @@ export class ResultsComponent implements OnInit {
   subscriptions: Subscription[] = [];
   facets: any;
   results: Result[] = [];
+  numFound: number;
   
   constructor(private service: AppService, public state: AppState) {
   }
@@ -31,6 +32,19 @@ export class ResultsComponent implements OnInit {
         }
       ));
     }
+    
+    this.subscriptions.push(this.service.searchSubject.subscribe(
+      (resp) => {
+        if(resp['state'] === 'start'){
+          this.facets = null  ;
+          this.results = [];
+        } else {
+          this.facets = resp['res']["facet_counts"]["facet_fields"];
+          this.results = resp['res']["response"]["docs"];
+        }
+        
+      }
+    ));
   }
 
   ngOnDestroy() {
