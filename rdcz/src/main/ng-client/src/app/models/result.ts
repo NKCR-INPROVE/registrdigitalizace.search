@@ -5,6 +5,7 @@ export class Result {
   title_nolemmas: string;
   title_prefix: string;
   titlesort: string;
+  varnazev: string[];
   rokvydstr: string;
   rozsah: string;
   cast: string;
