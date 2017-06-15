@@ -35,7 +35,7 @@ export class AppComponent {
     );
 
     this.service.langSubject.subscribe(() => {
-      this.translate.get('app_title').subscribe((newTitle: string) => {
+      this.translate.get('title-app').subscribe((newTitle: string) => {
         this.titleService.setTitle(newTitle);
       });
     });

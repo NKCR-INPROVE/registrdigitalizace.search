@@ -1,4 +1,4 @@
-import { Component, OnInit ,Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, SimpleChanges } from '@angular/core';
 
 import { FacetField } from '../../../models/facet-field';
 import { Facet } from '../../../models/facet';
@@ -9,7 +9,7 @@ import { AppState } from '../../../app.state';
   templateUrl: './facets.component.html',
   styleUrls: ['./facets.component.scss']
 })
-export class FacetsComponent implements OnInit {
+export class FacetsComponent implements OnInit, OnChanges {
   
   @Input() facets;
   
@@ -24,10 +24,6 @@ export class FacetsComponent implements OnInit {
   public ngOnChanges(changes: SimpleChanges): void {
     this.fillFacets(this.facets);
   }
-  
-//  getIcon(f: FacetField){
-//    return this.state.config['facets_icons'][f.field];
-//  }
 
   fillFacets(facet_fields: any) {
     if(!facet_fields){return;}
