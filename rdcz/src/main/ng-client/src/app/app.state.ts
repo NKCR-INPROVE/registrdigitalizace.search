@@ -14,6 +14,7 @@ export class AppState {
   
   //Holds client configuration
   config: any;
+  configured: boolean= false;
   
   //Holds start query parameter
   start: number = 0;
@@ -47,6 +48,7 @@ export class AppState {
   
   setConfig(cfg){
     this.config = cfg;
+    this.configured = true;
     this._configSubject.next(cfg);
   }
   

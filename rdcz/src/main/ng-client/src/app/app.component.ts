@@ -13,6 +13,8 @@ import { AppState } from './app.state';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  
+  init: boolean = false;
 
   constructor(
     public state: AppState,
@@ -54,7 +56,7 @@ export class AppComponent {
       }
       this.service.changeLang(userLang);
       this.state.stateChanged();
-
+      this.init = true;
       return this.state.config;
     });
   }

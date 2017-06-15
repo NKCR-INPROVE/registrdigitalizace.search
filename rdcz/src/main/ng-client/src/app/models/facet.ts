@@ -1,4 +1,6 @@
 export class Facet {
-  public field: string;
-  public values: {value: string, count: number}[];
+  field: string;
+  value: string;
+  count: number;
+  isUsed: boolean;
 }
