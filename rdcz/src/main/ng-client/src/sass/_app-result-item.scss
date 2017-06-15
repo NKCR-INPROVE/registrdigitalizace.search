@@ -11,6 +11,12 @@ app-result-item {
         font-size: 20px;
         margin: 0;
       }
+      label {
+        display: block;
+        strong {
+          color: color("grey", "darken-1");
+        }
+      }
     }
     
     .card-action {

@@ -12,23 +12,37 @@
           <img src="assets/img/thumb-img.jpg" alt="" class="responsive-img" />
         </div><!--/.col -->
         <div class="col s10">
-          <span class="card-title app-brand-text text-app-red">
+          <span *ngIf="result.title" class="card-title app-brand-text text-app-red">
             <i mz-icon-mdi [icon]="'book-open-page-variant'"></i>
             {{result.title}}
           </span>
-          <div>
-            <label>
-              <strong>Variantní název:</strong>
-              Česká kuchařka, aneb, Knížka všem i zběhlejším kuchařkám prospěšná / Knjžka wssem 
-              i zběhlegssjm kuchařkám prospěssná / Knížka všem i zběhlejším kuchařkám prospěšná
-            </label><!--/label -->
-          </div>
-          <div>
-            <label>
-              <strong>Hlavní autor:</strong>
-              Špendlíkářová, Anežka
-            </label><!--/label -->
-          </div>
+          <label *ngIf="result.varnazev">
+            <strong>Variantní název:</strong>
+            <span *ngFor="let v of result.varnazev">
+             {{v}}&#160;&#160;/&#160;&#160;
+            </span>
+          </label><!--/label -->
+          <label *ngIf="result.autor">
+            <strong>Hlavní autor:</strong>
+            {{result.autor}}
+          </label><!--/label -->
+          <label *ngIf="result.mistovyd">
+            <strong>Místo vydání:</strong>
+            {{result.mistovyd}}
+          </label><!--/label -->
+          <label *ngIf="result.vydavatel">
+            <strong>Nakladatel/vydavatel:</strong>
+            {{result.vydavatel}}
+          </label><!--/label -->
+          <label *ngIf="result.rokvydstr">
+            <strong>Rok(y) vydání:</strong>
+            {{result.rokvydstr}}
+          </label><!--/label -->
+          <label *ngIf="result.financovano">
+            <strong>Financovano:</strong>
+            {{result.financovano}}
+          </label><!--/label -->
+          
         </div><!--/.col -->
       </div><!--/.row -->
       <div class="app-card-detail app-brand lighten-6" id="app-card-detail-1" style="display:none; padding:10px;margin-top: 10px;">
@@ -44,6 +58,10 @@
   </mz-card>
 
 <!--
+
+help
+let - let znamena jako v js var, cili "let v of result.varnazev" -> uloz hodnoty z result.varnazev do promenne "v"
+
 Variantní název: Česká kuchařka, aneb, Knížka všem i zběhlejším kuchařkám prospěšná     Knjžka wssem 
 i zběhlegssjm kuchařkám prospěssná     Knížka všem i zběhlejším kuchařkám prospěšná 
 Hlavní autor: Špendlíkářová, Anežka

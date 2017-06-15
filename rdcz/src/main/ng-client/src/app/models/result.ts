@@ -26,4 +26,5 @@ export class Result {
   stav: string;
   digknihovna: string[];
   index_time: string;
+  autor: string[];
 }
