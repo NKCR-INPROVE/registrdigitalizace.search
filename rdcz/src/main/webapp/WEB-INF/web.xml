@@ -9,9 +9,6 @@
         <url-pattern>/index</url-pattern>
     </servlet-mapping>
     
-    
-    
-    
     <servlet>
         <servlet-name>InitServlet</servlet-name>
         <servlet-class>cz.incad.nkp.rdcz.InitServlet</servlet-class>
@@ -26,13 +23,10 @@
     <servlet-mapping>
         <servlet-name>StaticServlet</servlet-name>
         <url-pattern>/home</url-pattern>
-        <url-pattern>/archiv/*</url-pattern>
-        <url-pattern>/pro-autory/*</url-pattern>
-        <url-pattern>/o-casopisu/*</url-pattern>
-        <url-pattern>/kontakt/*</url-pattern>
-        <url-pattern>/e-shop/*</url-pattern>
-        <url-pattern>/hledat/*</url-pattern>
-        <url-pattern>/article/*</url-pattern>
+        <url-pattern>/results/*</url-pattern>
+        <url-pattern>/info/*</url-pattern>
+        <url-pattern>/napoveda/*</url-pattern>
+        <url-pattern>/duplicity/*</url-pattern>
     </servlet-mapping>
     
     <servlet>
@@ -61,14 +55,24 @@
     <servlet-mapping>
         <servlet-name>I18nServlet</servlet-name>
         <url-pattern>/assets/i18n/*</url-pattern>
-        <url-pattern>/app/assets/i18n/*</url-pattern>
         <url-pattern>/i18n/*</url-pattern>
     </servlet-mapping>
     
+    <servlet>
+        <servlet-name>SearchServlet</servlet-name>
+        <servlet-class>cz.incad.nkp.rdcz.SearchServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SearchServlet</servlet-name>
+        <url-pattern>/search/*</url-pattern>
+    </servlet-mapping>
     
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
 </web-app>
