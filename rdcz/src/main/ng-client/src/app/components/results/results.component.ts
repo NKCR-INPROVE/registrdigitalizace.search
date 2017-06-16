@@ -11,7 +11,7 @@ import { AppState } from '../../app.state';
   templateUrl: './results.component.html',
   styleUrls: ['./results.component.scss']
 })
-export class ResultsComponent implements OnInit {
+export class ResultsComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
   facets: any;
@@ -45,6 +45,17 @@ export class ResultsComponent implements OnInit {
         
       }
     ));
+    
+    
+    this.subscriptions.push(this.state.searchParamsChanged.subscribe(
+      (resp) => {
+        if(resp['state'] === 'start'){
+          
+        } else {
+          this.getData()
+        }
+      }
+    ));
   }
 
   ngOnDestroy() {
@@ -69,6 +80,11 @@ export class ResultsComponent implements OnInit {
     params.set('facet.range.start',  '1');
     params.set('facet.range.end', (new Date()).getFullYear() + '');
     params.set('facet.range.gap', '10');
+    
+    for(let i in this.state.usedFilters){
+      let fq = this.state.usedFilters[i].field + ':"' + this.state.usedFilters[i].value + '"';
+      params.append('fq', fq);
+    }
     
     this.facets = null;
     this.service.search(params);

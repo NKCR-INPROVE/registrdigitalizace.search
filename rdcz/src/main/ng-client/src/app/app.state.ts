@@ -72,18 +72,38 @@ export class AppState {
   setFilters() {
 
   }
-  
-  removeFilter(f: Filter){
-    let idx = this.usedFilters.indexOf(f);
-    if(idx > -1){
-      this.usedFilters.splice(idx);
-      this._searchParamsChanged.next();
-    }
+
+  removeFilter(f: Filter) {
+    //this._searchParamsChanged.next({ state: 'start' });
+    //setTimeout(() => {
+//      let idx = -1;
+//      for (let i = 0; i < this.usedFilters.length; i++) {
+//        if (f.field === this.usedFilters[i].field &&
+//          f.value === this.usedFilters[i].value) {
+//          idx = i;
+//          break;
+//        }
+//      }
+//      console.log(f, idx);
+      let idx = this.usedFilters.indexOf(f);
+      if (idx > -1) {
+        this.usedFilters.splice(idx, 1);
+        this._searchParamsChanged.next(this);
+      }
+
+      //        this.usedFilters = [];
+      //        this._searchParamsChanged.next(this);
+    //}, 2);
+
   }
-  
-  addFilter(f: Filter){
+
+  addFilter(f: Filter) {
+    this._searchParamsChanged.next({ state: 'start' });
+    setTimeout(() => {
+
       this.usedFilters.push(f);
-      this._searchParamsChanged.next();
+      this._searchParamsChanged.next(this);
+    }, 2);
   }
 
   startSearch(type: string) {
@@ -93,20 +113,20 @@ export class AppState {
   }
 
   processSearch(res, type: string) {
-    switch(type){
-      case 'results':{
+    switch (type) {
+      case 'results': {
         this.facets = res["facet_counts"]["facet_fields"];
         this.results = res["response"]["docs"];
         this.numFound = res['response']['numFound'];
         break;
       }
-      case 'home':{
+      case 'home': {
         break;
       }
-      case 'pie':{
+      case 'pie': {
         break;
       }
-      default:{
+      default: {
         this.facets = res["facet_counts"]["facet_fields"];
         this.results = res["response"]["docs"];
         this.numFound = res['response']['numFound'];
