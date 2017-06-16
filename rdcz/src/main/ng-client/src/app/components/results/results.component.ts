@@ -69,7 +69,8 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
     let params: URLSearchParams = new URLSearchParams();
     params.set('q', '*');
-    params.set('rows', '10');
+    params.set('start', this.state.start + '');
+    params.set('rows', this.state.rows + '');
     params.set('facet', 'true');
     params.set('facet.mincount', '1');
     for (let i in this.state.config['facets']){
@@ -84,6 +85,10 @@ export class ResultsComponent implements OnInit, OnDestroy {
     for(let i in this.state.usedFilters){
       let fq = this.state.usedFilters[i].field + ':"' + this.state.usedFilters[i].value + '"';
       params.append('fq', fq);
+    }
+    
+    if (this.state.currentCollapse['field'] !== 'none'){
+      params.append('fq', '{!collapse field='+this.state.currentCollapse['field']+'}');
     }
     
     this.facets = null;

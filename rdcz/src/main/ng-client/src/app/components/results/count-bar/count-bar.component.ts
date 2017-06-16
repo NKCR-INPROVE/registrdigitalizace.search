@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { AppState } from '../../../app.state';
+
 @Component({
   selector: 'app-count-bar',
   templateUrl: './count-bar.component.html',
@@ -7,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CountBarComponent implements OnInit {
 
-  constructor() { }
+  constructor(public state: AppState) { }
 
   ngOnInit() {
   }
