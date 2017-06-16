@@ -145,7 +145,7 @@ export class AppState {
         this.facets = res["facet_counts"]["facet_fields"];
         this.results = res["response"]["docs"];
         this.numFound = res['response']['numFound'];
-        this.totalPages = Math.floor(this.numFound / this.rows);
+        this.totalPages = Math.ceil(this.numFound / this.rows);
         break;
       }
       case 'home': {

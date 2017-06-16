@@ -11,7 +11,7 @@
     </div>
     <div class="col s8">
       <app-sort-bar></app-sort-bar>
-      <app-chart-bar></app-chart-bar>
+      <app-chart-bar [height]="'120px'" [width]="'100%'"></app-chart-bar>
       <section>
       <app-result-item *ngFor="let res of results" [result]="res"></app-result-item>
       </section>

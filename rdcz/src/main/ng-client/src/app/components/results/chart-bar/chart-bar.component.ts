@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { URLSearchParams } from '@angular/http';
 
@@ -15,6 +15,8 @@ import { AppState } from '../../../app.state';
 export class ChartBarComponent implements OnInit {
 
   @ViewChild('chart') chart: FlotComponent;
+  @Input() height: string;
+  @Input() width: string;
 
   currentOd: number = 0;
   currentDo: number = 3000;

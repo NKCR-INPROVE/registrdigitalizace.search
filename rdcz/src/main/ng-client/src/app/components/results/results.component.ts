@@ -78,7 +78,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
     }
     
     params.set('facet.range', 'rokvyd');
-    params.set('facet.range.start',  '1');
+    params.set('facet.range.start',  '0');
     params.set('facet.range.end', (new Date()).getFullYear() + '');
     params.set('facet.range.gap', '10');
     

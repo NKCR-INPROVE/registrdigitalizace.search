@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { URLSearchParams } from '@angular/http';
 
@@ -13,6 +13,8 @@ import { AppState } from '../../../app.state';
   styleUrls: ['./pie-chart.component.scss']
 })
 export class PieChartComponent implements OnInit {
+  @Input() height: string;
+  @Input() width: string;
   @ViewChild('chart') chart: FlotComponent;
   public data: any[] = [];
   public options = {

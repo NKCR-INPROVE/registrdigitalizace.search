@@ -25,7 +25,7 @@ export class PaginationComponent implements OnInit {
     this.subscriptions.push(this.state.searchSubject.subscribe(
       (resp) => {
         if(resp['state'] === 'start'){
-          this.pages = [];
+//          this.pages = [];
         } else {
           this.setPages();
         }
@@ -49,21 +49,22 @@ export class PaginationComponent implements OnInit {
     for(let i = min; i< max; i++){
       this.pages.push(i);
     }
+    this.current = Math.ceil(this.state.start / this.state.rows);
   }
   
   prev(){
     this.current = Math.max(0, this.current - 1);
-    this.setPages();
+//    this.setPages();
     this.state.setPage(this.current);
   }
   next(){
     this.current = Math.min(this.current + 1, this.state.totalPages);
-    this.setPages();
+//    this.setPages();
     this.state.setPage(this.current);
   }
   gotoPage(p: number){
     this.current = p;
-    this.setPages();
+//    this.setPages();
     this.state.setPage(this.current);
   }
   

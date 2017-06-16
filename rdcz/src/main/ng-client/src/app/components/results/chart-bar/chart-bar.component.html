@@ -2,5 +2,5 @@
   <app-flot [options]="options" #chart
     (onClick)="onClick($event)"
     (onSelection)="onSelection($event)"
-    height="200px" width="100%"></app-flot>
+    [height]="height" [width]="width"></app-flot>
 </section>
