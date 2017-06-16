@@ -10,10 +10,26 @@ import { Result } from '../../../models/result';
 export class ResultItemComponent implements OnInit {
   
   @Input() result: Result;
+  
+  showingDetail: boolean = false;
 
   constructor() { }
 
   ngOnInit() {
   }
+  
+  
+    // toggle content function by id
+  toggleDetail(id){
+    this.showingDetail = !this.showingDetail;
+      $('#'+id+'-btn').toggleClass('active');
+      $('#'+id).slideToggle( "fast" );
+    }
+    // toggle element
+  toggleElement(id){
+      $('#'+id).toggleClass('active');
+      $('#'+id).slideToggle( "fast" );
+    }
+  
 
 }

@@ -54,7 +54,9 @@
       <span class="app-brand-text text-lighten-3">|</span>
       <span>ČNB: cnb001829422</span>
      <!-- <a class="right app-clean-mg" onclick="toggleContent('app-card-detail-1')">{{'btn-zobrazit-detail' | translate}}</a>-->
-      <a class="right app-clean-mg" [attr.onclick]="toggleContent('app-card-detail-' + result.id)">{{'btn-zobrazit-detail' | translate}}</a>
+      <a class="right app-clean-mg" (click)="toggleDetail('app-card-detail-' + result.id)">
+         {{showingDetail ? 'btn-skryt-detail' : 'btn-zobrazit-detail' | translate}}
+      </a>
     </mz-card-action>
   </mz-card>
 
