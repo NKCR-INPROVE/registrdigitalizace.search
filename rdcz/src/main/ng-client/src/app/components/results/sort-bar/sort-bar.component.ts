@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { AppState } from '../../../app.state';
+
 @Component({
   selector: 'app-sort-bar',
   templateUrl: './sort-bar.component.html',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SortBarComponent implements OnInit {
 
-  constructor() { }
+  constructor(public state: AppState) { }
 
   ngOnInit() {
+  }
+  
+  setCollapse(col){
+    this.state.setCollapse(col);
   }
 
 }

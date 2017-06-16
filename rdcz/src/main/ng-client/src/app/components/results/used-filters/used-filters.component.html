@@ -1,20 +1,39 @@
-<section *ngIf="state.usedFilters.length > 0">
-  <mz-collapsible [mode]="'expandable'">
-    <mz-collapsible-item [active]="true" >
+<section *ngIf="filters.length > 0">
+  <!--
+  <mz-collapsible [mode]="'expandable'" *ngIf="filtersGroup.length > 0">
+    <mz-collapsible-item [active]="true" *ngFor="let filters of filtersGroup">
       <mz-collapsible-item-header>
-        <i mz-icon-mdi [icon]="'filter-variant'"></i>{{'Nastavení filtru' | translate}} <span class="app-brand-text text-lighten-2">x</span>
+        <i mz-icon-mdi [icon]="'filter-variant'"></i>{{'Nastavení filtru' | translate}} <span  class="app-brand-text text-lighten-2">x</span>
         <i mz-icon-mdi [icon]="'chevron-down'" [class]="'app-clean-mg'"></i>
         <i mz-icon-mdi [icon]="'chevron-left'" [class]="'app-clean-mg'"></i>
       </mz-collapsible-item-header>
       <mz-collapsible-item-body>
         <mz-collection>
-          <mz-collection-item *ngFor="let f of state.usedFilters">
+          <ng-container>
+          <mz-collection-item  *ngFor="let f of filters">
             <span>{{'field.' + f.field | translate}}: {{f.value}}</span>
             <a (click)="remove(f)" mz-secondary-content>x</a>
           </mz-collection-item>
+            </ng-container>
         </mz-collection>
       </mz-collapsible-item-body>
     </mz-collapsible-item>
-
   </mz-collapsible>
+  -->
+
+  <ul class="collapsible" data-collapsible="expandable">
+    <li class="active"><div class="collapsible-header active">
+        <i mz-icon-mdi="" ng-reflect-icon="filter-variant" class="mdi mdi-filter-variant mdi-24px"></i>{{'Nastavení filtru' | translate}} <span class="app-brand-text text-lighten-2">x</span>
+        <i mz-icon-mdi="" ng-reflect-icon="chevron-down" class="app-clean-mg mdi mdi-chevron-down mdi-24px"></i>
+        <i mz-icon-mdi="" ng-reflect-icon="chevron-left" class="app-clean-mg mdi mdi-chevron-left mdi-24px"></i>
+      </div><div class="collapsible-body" style="display: block;"><div class="collection">
+          <div class="collection-item" *ngFor="let f of filters">
+               <span>{{'field.' + f.field| translate}}: {{f.value}}</span>
+            <a (click)="remove(f)" class="secondary-content">x</a>
+          </div>
+
+        </div>
+      </div>
+    </li>
+  </ul>
 </section>

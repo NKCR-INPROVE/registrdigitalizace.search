@@ -41,6 +41,8 @@ export class AppState {
   facets: any;
   results: Result[] = [];
   numFound: number;
+  totalPages: number = 0;
+  numPages: number = 5;
 
   //Search parameters state variables
   //Observe search parameters ocurred
@@ -53,7 +55,7 @@ export class AppState {
   //Holds number of rows per page. Default value from configuration
   rows: number = 10;
   currentSort: any = this.sorts[0];
-  currentCollapse: any = this.sorts[0];
+  currentCollapse: any = this.collapses[2];
   public usedFilters: Filter[] = [];
 
   public route: string;
@@ -72,18 +74,63 @@ export class AppState {
   setFilters() {
 
   }
-  
-  removeFilter(f: Filter){
-    let idx = this.usedFilters.indexOf(f);
-    if(idx > -1){
-      this.usedFilters.splice(idx);
-      this._searchParamsChanged.next();
-    }
+
+  removeFilter(f: Filter) {
+    //this._searchParamsChanged.next({ state: 'start' });
+    //setTimeout(() => {
+//      let idx = -1;
+//      for (let i = 0; i < this.usedFilters.length; i++) {
+//        if (f.field === this.usedFilters[i].field &&
+//          f.value === this.usedFilters[i].value) {
+//          idx = i;
+//          break;
+//        }
+//      }
+//      console.log(f, idx);
+      let idx = this.usedFilters.indexOf(f);
+      if (idx > -1) {
+        this.usedFilters.splice(idx, 1);
+        this._searchParamsChanged.next(this);
+      }
+
+      //        this.usedFilters = [];
+      //        this._searchParamsChanged.next(this);
+    //}, 2);
+
+  }
+
+  addFilter(f: Filter) {
+//    this._searchParamsChanged.next({ state: 'start' });
+//    setTimeout(() => {
+
+      this.usedFilters.push(f);
+      this._searchParamsChanged.next(this);
+//    }, 2);
   }
   
-  addFilter(f: Filter){
-      this.usedFilters.push(f);
-      this._searchParamsChanged.next();
+  setCollapse(col){
+    this.currentCollapse = col;
+    this._searchParamsChanged.next(this);
+  }
+  
+  
+  setPage(page: number) {
+    this.start = page * this.rows;
+    this._searchParamsChanged.next(this);
+//    let p = {};
+//    Object.assign(p, this.route.snapshot.firstChild.params);
+//    console.log(p)
+//    p['start'] = this.start;
+//    this.router.navigate(['/hledat/cokoliv', p]);
+  }
+
+  setRows(r: number) {
+    this.rows = r;
+    this._searchParamsChanged.next(this);
+//    let p = {};
+//    Object.assign(p, this.route.snapshot.firstChild.params);
+//    p['rows'] = this.rows;
+//    this.router.navigate(['/hledat/cokoliv', p]);
   }
 
   startSearch(type: string) {
@@ -93,20 +140,21 @@ export class AppState {
   }
 
   processSearch(res, type: string) {
-    switch(type){
-      case 'results':{
+    switch (type) {
+      case 'results': {
         this.facets = res["facet_counts"]["facet_fields"];
         this.results = res["response"]["docs"];
         this.numFound = res['response']['numFound'];
+        this.totalPages = Math.floor(this.numFound / this.rows);
         break;
       }
-      case 'home':{
+      case 'home': {
         break;
       }
-      case 'pie':{
+      case 'pie': {
         break;
       }
-      default:{
+      default: {
         this.facets = res["facet_counts"]["facet_fields"];
         this.results = res["response"]["docs"];
         this.numFound = res['response']['numFound'];
