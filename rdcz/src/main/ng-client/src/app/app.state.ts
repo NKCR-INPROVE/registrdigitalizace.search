@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
 import { Result } from './models/result';
+import { Filter } from './models/filter';
 
 @Injectable()
 export class AppState {
@@ -17,17 +18,10 @@ export class AppState {
   config: any;
   configured: boolean = false;
 
-  //Holds start query parameter
-  start: number = 0;
-
-  //Holds number of rows per page. Default value from configuration
-  rows: number = 10;
-
   sorts = [
     { "label": "Dle relevance", "field": "score desc" },
     { "label": "Dle abecedy", "field": "uniqueid asc" }
   ];
-  currentSort: any = this.sorts[0];
 
   collapses = [
     { "label": "Bez sloučení", "field": "none" },
@@ -35,12 +29,11 @@ export class AppState {
     { "label": "ČNB", "field": "cnb_collaps" },
     { "label": "SIGLA+ID", "field": "aba_collaps" }
   ];
-  currentCollapse: any = this.sorts[0];
 
   currentLang: string;
 
 
-
+  //Searchresults variables
   //Observe search ocurred
   public _searchSubject = new Subject();
   public searchSubject: Observable<any> = this._searchSubject.asObservable();
@@ -49,7 +42,19 @@ export class AppState {
   results: Result[] = [];
   numFound: number;
 
-  public breadcrumbs = [];
+  //Search parameters state variables
+  //Observe search parameters ocurred
+  public _searchParamsChanged = new Subject();
+  public searchParamsChanged: Observable<any> = this._searchParamsChanged.asObservable();
+
+  //Holds start query parameter
+  start: number = 0;
+
+  //Holds number of rows per page. Default value from configuration
+  rows: number = 10;
+  currentSort: any = this.sorts[0];
+  currentCollapse: any = this.sorts[0];
+  public usedFilters: Filter[] = [];
 
   public route: string;
 
@@ -64,8 +69,21 @@ export class AppState {
     this._stateSubject.next(this);
   }
 
-  setBreadcrumbs() {
+  setFilters() {
 
+  }
+  
+  removeFilter(f: Filter){
+    let idx = this.usedFilters.indexOf(f);
+    if(idx > -1){
+      this.usedFilters.splice(idx);
+      this._searchParamsChanged.next();
+    }
+  }
+  
+  addFilter(f: Filter){
+      this.usedFilters.push(f);
+      this._searchParamsChanged.next();
   }
 
   startSearch(type: string) {

@@ -2,6 +2,7 @@ import { Component, OnInit, OnChanges, Input, SimpleChanges } from '@angular/cor
 
 import { FacetField } from '../../../models/facet-field';
 import { Facet } from '../../../models/facet';
+import { Filter } from '../../../models/filter';
 import { AppState } from '../../../app.state';
 
 @Component({
@@ -24,6 +25,13 @@ export class FacetsComponent implements OnInit, OnChanges {
   
   public ngOnChanges(changes: SimpleChanges): void {
     this.fillFacets(this.facets);
+  }
+  
+  add(f: Facet){
+    let filter: Filter = new Filter();
+    filter.field = f.field;
+    filter.value = f.value;
+    this.state.addFilter(filter);
   }
 
   fillFacets(facet_fields: any) {

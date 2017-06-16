@@ -29,6 +29,7 @@ import { PieChartComponent } from './components/results/pie-chart/pie-chart.comp
 import { JumbotronComponent } from './components/jumbotron/jumbotron.component';
 import { DuplicityComponent } from './components/duplicity/duplicity.component';
 import { FlotComponent } from './components/flot/flot.component';
+import { UsedFiltersComponent } from './components/results/used-filters/used-filters.component';
 
 
 export function HttpLoaderFactory(http: Http) {
@@ -59,7 +60,8 @@ export function createTranslateLoader(http: Http) {
     PieChartComponent,
     JumbotronComponent,
     DuplicityComponent,
-    FlotComponent
+    FlotComponent,
+    UsedFiltersComponent
   ],
   imports: [
     BrowserModule,
