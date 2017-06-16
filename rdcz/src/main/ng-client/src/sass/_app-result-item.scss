@@ -13,8 +13,14 @@ app-result-item {
       }
       label {
         display: block;
+        
         strong {
           color: color("grey", "darken-1");
+        }
+        span:last-child {
+          .app-separator {
+            display: none;
+          } 
         }
       }
     }

@@ -14,12 +14,12 @@
         <div class="col s10">
           <span *ngIf="result.title" class="card-title app-brand-text text-app-red">
             <i mz-icon-mdi [icon]="'book-open-page-variant'"></i>
-            {{result.title}}
+            {{result.title}} - {{result.id}}
           </span>
           <label *ngIf="result.varnazev">
             <strong>Variantní název:</strong>
             <span *ngFor="let v of result.varnazev">
-             {{v}}&#160;&#160;/&#160;&#160;
+              {{v}}<span class="app-separator">&#160;&#160;/&#160;&#160;</span>
             </span>
           </label><!--/label -->
           <label *ngIf="result.autor">
@@ -45,7 +45,7 @@
           
         </div><!--/.col -->
       </div><!--/.row -->
-      <div class="app-card-detail app-brand lighten-6" id="app-card-detail-1" style="display:none; padding:10px;margin-top: 10px;">
+      <div class="app-card-detail app-brand lighten-6" [attr.id]="'app-card-detail-' + result.id" style="display:none; padding:10px;margin-top: 10px;">
         Zde bude detail!
       </div>
     </mz-card-content>
@@ -53,7 +53,8 @@
       <span>Předlohy: 1</span>
       <span class="app-brand-text text-lighten-3">|</span>
       <span>ČNB: cnb001829422</span>
-      <a class="right app-clean-mg" onclick="toggleContent('app-card-detail-1')">{{'btn-zobrazit-detail' | translate}}</a>
+     <!-- <a class="right app-clean-mg" onclick="toggleContent('app-card-detail-1')">{{'btn-zobrazit-detail' | translate}}</a>-->
+      <a class="right app-clean-mg" [attr.onclick]="toggleContent('app-card-detail-' + result.id)">{{'btn-zobrazit-detail' | translate}}</a>
     </mz-card-action>
   </mz-card>
 
