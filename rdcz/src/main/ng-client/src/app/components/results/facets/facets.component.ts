@@ -27,6 +27,7 @@ export class FacetsComponent implements OnInit, OnChanges {
   }
 
   fillFacets(facet_fields: any) {
+    this.facetFields = [];
     if(!facet_fields){return;}
     let configFacets = this.state.config['facets'];
     for (let i in configFacets) {

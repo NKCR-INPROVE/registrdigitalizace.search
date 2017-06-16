@@ -16,6 +16,7 @@ export class ResultsComponent implements OnInit {
   subscriptions: Subscription[] = [];
   facets: any;
   results: Result[] = [];
+  numFound: number;
   
   constructor(private service: AppService, public state: AppState) {
   }
@@ -31,6 +32,19 @@ export class ResultsComponent implements OnInit {
         }
       ));
     }
+    
+    this.subscriptions.push(this.state.searchSubject.subscribe(
+      (resp) => {
+        if(resp['state'] === 'start'){
+          this.facets = null  ;
+          this.results = [];
+        } else {
+          this.facets = resp['res']["facet_counts"]["facet_fields"];
+          this.results = resp['res']["response"]["docs"];
+        }
+        
+      }
+    ));
   }
 
   ngOnDestroy() {
@@ -44,18 +58,20 @@ export class ResultsComponent implements OnInit {
 
     let params: URLSearchParams = new URLSearchParams();
     params.set('q', '*');
+    params.set('rows', '10');
     params.set('facet', 'true');
+    params.set('facet.mincount', '1');
     for (let i in this.state.config['facets']){
       params.append('facet.field', this.state.config['facets'][i]['field']);
     }
     
-    params.set('facet.mincount', '1');
-    params.set('rows', '10');
+    params.set('facet.range', 'rokvyd');
+    params.set('facet.range.start',  '1');
+    params.set('facet.range.end', (new Date()).getFullYear() + '');
+    params.set('facet.range.gap', '10');
+    
     this.facets = null;
-    this.service.search(params).subscribe(res => {
-      this.facets = res["facet_counts"]["facet_fields"];
-      this.results = res["response"]["docs"];
-    });
+    this.service.search(params);
   }
 
 }

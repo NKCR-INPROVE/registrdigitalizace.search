@@ -33,11 +33,12 @@ export class AppService {
     return this.translate.instant(key);
   }
   
-  search(params : URLSearchParams) {
+  search(params : URLSearchParams, type: string = 'results'): void {
+    this.state.startSearch(type);
     var url = this.state.config['context'] + 'search/rdcz/select';
-    return this.http.get(url, { search: params }).map(res => {
-      return res.json();
-    });
+    this.http.get(url, { search: params }).map(res => {
+      this.state.processSearch(res.json(), type);
+    }).subscribe();
   }
 
 }

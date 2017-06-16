@@ -23,7 +23,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    console.log('kk')
     if (this.state.config) {
       this.getData();
     } else {
@@ -47,16 +46,21 @@ export class HomeComponent implements OnInit, OnDestroy {
     let params: URLSearchParams = new URLSearchParams();
     params.set('q', '*');
     params.set('facet', 'true');
+    params.set('facet.mincount', '1');
     for (let i in this.state.config['facets']){
       params.append('facet.field', this.state.config['facets'][i]['field']);
     }
+    params.set('facet.range', 'rokvyd');
+    params.set('facet.range.start',  '1');
+    params.set('facet.range.end', (new Date()).getFullYear() + '');
+    params.set('facet.range.gap', '10');
     
-    params.set('facet.mincount', '1');
     params.set('rows', '0');
     this.facets = null;
-    this.service.search(params).subscribe(res => {
-      this.facets = res["facet_counts"]["facet_fields"];
-    });
+//    this.service.search(params).subscribe(res => {
+//      this.facets = res["facet_counts"]["facet_fields"];
+//    });
+    this.service.search(params, 'home');
   }
 
 }
