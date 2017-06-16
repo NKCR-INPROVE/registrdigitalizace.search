@@ -1,75 +1,71 @@
-
-  <mz-card [hoverable]="true" [class]="'app-item'">
-    <!--
-    <mz-card-title class="app-brand-text text-app-red">
-      <i mz-icon-mdi [icon]="'book-open-page-variant'"></i>
-      Česká kuchařka, aneb, Knjžka wssem i zběhlegssjm kuchařkám prospěssná
-    </mz-card-title>
-    -->
-    <mz-card-content>
-      <div class="row">
-        <div class="col s2">
-          <img src="assets/img/thumb-img.jpg" alt="" class="responsive-img" />
-        </div><!--/.col -->
-        <div class="col s10">
-          <span *ngIf="result.title" class="card-title app-brand-text text-app-red">
-            <i mz-icon-mdi [icon]="'book-open-page-variant'"></i>
-            {{result.title}} - {{result.id}}
+<mz-card [hoverable]="true" [class]="'app-item'">
+  <!--
+  <mz-card-title class="app-brand-text text-app-red">
+    <i mz-icon-mdi [icon]="'book-open-page-variant'"></i>
+    Česká kuchařka, aneb, Knjžka wssem i zběhlegssjm kuchařkám prospěssná
+  </mz-card-title>
+  {{'label-' | translate}}
+  -->
+  <mz-card-content>
+    <div class="row">
+      <div class="col s2">
+        <img src="assets/img/thumb-img.jpg" alt="" class="responsive-img" />
+      </div><!--/.col -->
+      <div class="col s10">
+        <span *ngIf="result.title" class="card-title app-brand-text text-app-red">
+          <i mz-icon-mdi [icon]="'book-open-page-variant'"></i>
+          {{result.title}}
+        </span>
+        <label *ngIf="result.varnazev">
+          <strong>{{'label-variantni-nazev' | translate}}:</strong>
+          <span *ngFor="let v of result.varnazev">
+            {{v}}<span class="app-separator">&#160;&#160;/&#160;&#160;</span>
           </span>
-          <label *ngIf="result.varnazev">
-            <strong>Variantní název:</strong>
-            <span *ngFor="let v of result.varnazev">
-              {{v}}<span class="app-separator">&#160;&#160;/&#160;&#160;</span>
-            </span>
-          </label><!--/label -->
-          <label *ngIf="result.autor">
-            <strong>Hlavní autor:</strong>
-            {{result.autor}}
-          </label><!--/label -->
-          <label *ngIf="result.mistovyd">
-            <strong>Místo vydání:</strong>
-            {{result.mistovyd}}
-          </label><!--/label -->
-          <label *ngIf="result.vydavatel">
-            <strong>Nakladatel/vydavatel:</strong>
-            {{result.vydavatel}}
-          </label><!--/label -->
-          <label *ngIf="result.rokvydstr">
-            <strong>Rok(y) vydání:</strong>
-            {{result.rokvydstr}}
-          </label><!--/label -->
-          <label *ngIf="result.financovano">
-            <strong>Financovano:</strong>
-            {{result.financovano}}
-          </label><!--/label -->
-          
-        </div><!--/.col -->
-      </div><!--/.row -->
-      <div class="app-card-detail app-brand lighten-6" [attr.id]="'app-card-detail-' + result.id" style="display:none; padding:10px;margin-top: 10px;">
-        Zde bude detail!
-      </div>
-    </mz-card-content>
-    <mz-card-action>
-      <span>Předlohy: 1</span>
-      <span class="app-brand-text text-lighten-3">|</span>
-      <span>ČNB: cnb001829422</span>
-     <!-- <a class="right app-clean-mg" onclick="toggleContent('app-card-detail-1')">{{'btn-zobrazit-detail' | translate}}</a>-->
-      <a class="right app-clean-mg" (click)="toggleDetail('app-card-detail-' + result.id)">
-         {{showingDetail ? 'btn-skryt-detail' : 'btn-zobrazit-detail' | translate}}
-      </a>
-    </mz-card-action>
-  </mz-card>
-
-<!--
-
-help
-let - let znamena jako v js var, cili "let v of result.varnazev" -> uloz hodnoty z result.varnazev do promenne "v"
-
-Variantní název: Česká kuchařka, aneb, Knížka všem i zběhlejším kuchařkám prospěšná     Knjžka wssem 
-i zběhlegssjm kuchařkám prospěssná     Knížka všem i zběhlejším kuchařkám prospěšná 
-Hlavní autor: Špendlíkářová, Anežka
-Místo vydání: W Praze 
-Nakladatel/vydavatel: U Karla Wiljma Medaua
-Rok(y) vydání: 1848
-Podrobné bib. údaje: nkc20081829422
--->
+        </label><!--/label -->
+        <label *ngIf="result.autor">
+          <strong>{{'label-hlavni-autor' | translate}}:</strong>
+          <span *ngFor="let autor of result.autor">
+            {{autor}}<span class="app-separator">&#160;&#160;/&#160;&#160;</span>
+          </span>
+        </label><!--/label -->
+        <label *ngIf="result.mistovyd">
+          <strong>{{'label-misto-vydani' | translate}}:</strong>
+          {{result.mistovyd}}
+        </label><!--/label -->
+        <label *ngIf="result.vydavatel">
+          <strong>{{'label-nakladatel' | translate}}:</strong>
+          {{result.vydavatel}}
+        </label><!--/label -->
+        <label *ngIf="result.rokvydstr">
+          <strong>{{'label-rok-vydani' | translate}}:</strong>
+          {{result.rokvydstr}}
+        </label><!--/label -->
+        <label *ngIf="result.bib_udaje">
+          <strong>{{'label-bib-udaje' | translate}}:</strong>
+          {{result.bib_udaje}}
+        </label><!--/label -->
+      </div><!--/.col -->
+    </div><!--/.row -->
+    <div class="app-card-detail app-brand lighten-6" [attr.id]="'app-card-detail-' + result.id" style="display:none; padding:10px;margin-top: 10px;">
+      Zde bude detail!
+    </div>
+  </mz-card-content>
+  <mz-card-action>
+    <span>
+      {{'label-predlohy' | translate}}: 1
+    </span>
+    <span class="app-brand-text text-lighten-3">|</span>
+    <span *ngIf="result.cnb_collaps">
+      <strong>ČNB:</strong>
+      {{result.cnb_collaps}}
+    </span>
+    <span class="app-brand-text text-lighten-3">|</span>
+    <span *ngIf="result.isxn_collaps">
+      <strong>ISBN:</strong>
+      {{result.isxn_collaps}}
+    </span>
+    <a class="right app-clean-mg" (click)="toggleDetail('app-card-detail-' + result.id)">
+       {{showingDetail ? 'btn-skryt-detail' : 'btn-zobrazit-detail' | translate}}
+    </a>
+  </mz-card-action>
+</mz-card>

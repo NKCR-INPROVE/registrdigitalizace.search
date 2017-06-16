@@ -19,17 +19,15 @@ export class ResultItemComponent implements OnInit {
   }
   
   
-    // toggle content function by id
+  // toggle content function by id
   toggleDetail(id){
     this.showingDetail = !this.showingDetail;
-      $('#'+id+'-btn').toggleClass('active');
-      $('#'+id).slideToggle( "fast" );
-    }
-    // toggle element
+    $('#'+id+'-btn').toggleClass('active');
+    $('#'+id).slideToggle( "fast" );
+  }
+  // toggle element
   toggleElement(id){
-      $('#'+id).toggleClass('active');
-      $('#'+id).slideToggle( "fast" );
-    }
-  
-
+    $('#'+id).toggleClass('active');
+    $('#'+id).slideToggle( "fast" );
+  }
 }
