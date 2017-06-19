@@ -5,4 +5,5 @@ export class FacetField {
   values: Facet[] = [];
   icon: string;
   active:boolean;
+  classname:string;
 }

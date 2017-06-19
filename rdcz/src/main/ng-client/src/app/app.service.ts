@@ -40,5 +40,26 @@ export class AppService {
       this.state.processSearch(res.json(), type);
     }).subscribe();
   }
+  
+  getFromLists(classname: string, value: string): string {
+    let output = 'qq';
+    this.doGetFromLists(classname, value).subscribe(res => {
+      //let r = res.json();
+      output = res;
+    }).unsubscribe();
+    return output
+  }
+
+  
+  doGetFromLists(classname: string, value: string): Observable<string> {
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('q', 'value:"'+value+'"');
+    params.set('fq', 'classname:"'+classname+'"');
+    var url = this.state.config['context'] + 'search/lists/select';
+    return this.http.get(url, { search: params }).map(res => {
+      //let r = res.json();
+      return res.json()['response']['docs'][0]['cz'];
+    });
+  }
 
 }

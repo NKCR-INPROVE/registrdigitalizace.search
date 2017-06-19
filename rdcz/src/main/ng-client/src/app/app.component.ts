@@ -54,6 +54,12 @@ export class AppComponent {
       if (cfg.hasOwnProperty('defaultLang')) {
         userLang = cfg['defaultLang'];
       }
+      
+      ////TODO
+      this.translate.setTranslation('en', {
+          HELLO: 'hello {{value}}'
+      });
+      
       this.service.changeLang(userLang);
       this.state.stateChanged();
       this.init = true;

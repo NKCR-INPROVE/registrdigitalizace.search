@@ -1,9 +1,11 @@
 import { Component, OnInit, OnChanges, Input, SimpleChanges } from '@angular/core';
+import { Observable } from 'rxjs/Rx';
 
 import { FacetField } from '../../../models/facet-field';
 import { Facet } from '../../../models/facet';
 import { Filter } from '../../../models/filter';
 import { AppState } from '../../../app.state';
+import { AppService } from '../../../app.service';
 
 @Component({
   selector: 'app-facets',
@@ -17,14 +19,17 @@ export class FacetsComponent implements OnInit, OnChanges {
   
   facetFields: FacetField[] = [];
   
-  constructor(public state: AppState) { }
+  constructor(public service: AppService, public state: AppState) { }
 
   ngOnInit() {
     //this.fillFacets(this.facets);
   }
   
   public ngOnChanges(changes: SimpleChanges): void {
-    this.fillFacets(this.facets);
+    console.log(changes);
+    if(changes['facets']){
+      this.fillFacets(this.facets);
+    }
   }
   
   add(f: Facet){
@@ -32,6 +37,17 @@ export class FacetsComponent implements OnInit, OnChanges {
     filter.field = f.field;
     filter.value = f.value;
     this.state.addFilter(filter);
+  }
+  
+  translate(ff: FacetField, f: Facet){
+//    return this.service.translateKey(f.value);
+    
+    if (ff.classname){
+      return this.service.doGetFromLists(ff.classname, f.value).subscribe(res => {return res;});
+    } else {
+      return Observable.of(f.value);
+      //return this.service.translateKey(f.value);
+    }
   }
 
   fillFacets(facet_fields: any) {
@@ -46,6 +62,7 @@ export class FacetsComponent implements OnInit, OnChanges {
         facetField.field = field + '';
         facetField.icon = configFacets[i]['icon'];
         facetField.active = !this.allClosed && configFacets[i]['active'];
+        facetField.classname = configFacets[i]['classname'];
         facetField.isMultiple = this.state.config['searchParams']['multipleFacets'] && this.state.config['searchParams']['multipleFacets'].indexOf(field) > -1;
         if (this.state.config['searchParams']['json.nl'] === 'map') {
           for (let f in facet_fields[field]) {
