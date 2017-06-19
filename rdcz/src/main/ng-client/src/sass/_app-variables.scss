@@ -25,6 +25,10 @@ $app-brand-d-1: color("app-brand", "darken-1");
 $app-brand-d-2: color("app-brand", "darken-2");
 $app-brand-d-3: color("app-brand", "darken-3");
 $app-brand-d-4: color("app-brand", "darken-4");
+
+$app-state-finished: color("app-brand", "app-green");
+$app-state-progress: color("app-brand", "app-orange");
+$app-state-planovane: color("app-brand", "app-purple");
   
 // navbar
 $navbar-font-color: color("blue-grey", "base") !default;

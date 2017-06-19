@@ -90,6 +90,10 @@ section {
   @include set-mdi-icon(before, F128, 24, middle);
 }
 
+.app-mdi-close {
+  @include set-mdi-icon(before, F156, 24, middle);
+}
+
 // clearfix
 .clearfix {
   @include clearfix();

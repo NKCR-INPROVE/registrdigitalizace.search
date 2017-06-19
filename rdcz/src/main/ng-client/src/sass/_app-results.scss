@@ -7,8 +7,9 @@ app-results {
   @import "app-count-bar";
   @import "app-pagination";
   @import "app-sort-bar";
-  @import "app-result-item"; 
+  @import "app-result-item";
 }
 
 @import "app-facets";
+//@import "app-used-filters";
 @import "app-chart-bar";

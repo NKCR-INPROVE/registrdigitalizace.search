@@ -3,7 +3,24 @@
 app-result-item {
   .card {
     margin-bottom: 20px;
+    overflow: hidden; // because triangl border radius
     
+    .app-card-triangle {
+      border-color: $app-brand-l-2 transparent transparent;
+      border-style: solid;
+      border-width: 22px 22px 0 0;
+      height: 0;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 0;
+      
+      // state
+      &.app-state-finished {border-color: $app-state-finished transparent transparent;}
+      &.app-state-progress {border-color: $app-state-progress transparent transparent;}
+      &.app-state-planovane {border-color: $app-state-planovane transparent transparent;}
+    }
+
     .card-content {
       padding: 20px;
       
@@ -117,3 +134,19 @@ app-result-item {
     }
   } //--/.card
 } //--/.app-result-item
+
+
+
+.app-cat-texty-border {
+    border-color: #823fa6 transparent transparent;
+}
+.app-result-item-triangle {
+    border-color: #8a8a8a transparent transparent;
+    border-style: solid;
+    border-width: 22px 22px 0 0;
+    height: 0;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 0;
+}

@@ -42,6 +42,15 @@
   "text-pocet-nalezenych": "titulů",
   "text-zobrazit-casovou-osu": "Zobrazit časovou osu",
   "text-skryt-casovou-osu": "Skrýt časovou osu",
+  "text-finished": "Dokončeno",
+  "text-progress": "Ve zpracování",
+  "text-planovane": "Plánovaná digitalizace",
+  "text-nastaveni-filtru": "Nastavení filtru",
+  "field.stav": "Stav",
+  "field.financovano": "Finanční program",
+  "field.vlastnik": "Vlastník",
+  "field.digknihovna": "Digitální knihovna",
+  "field.druhdokumentu": "Typ dokumentu",
   "q.placeholder": "Hledej v registru digitalizace ...",
   "stav":{
     "finished": "Finished",
@@ -50,6 +59,4 @@
   },
   "dummy": ""
 }
-
-
  

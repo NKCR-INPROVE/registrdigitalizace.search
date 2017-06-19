@@ -1,6 +1,7 @@
 // --- FACETS ---
 
-app-facets {
+app-facets,
+app-used-filters {
   .collapsible {
     margin: 0;
     
@@ -8,7 +9,7 @@ app-facets {
       background-color: $app-brand-l-6;
       position: relative;
       
-      .mdi-chevron-down, .mdi-chevron-left {
+      .mdi-chevron-down, .mdi-chevron-left, .mdi-close-circle {
         position: absolute;
         top: 0;
         right: 15px;
@@ -33,13 +34,34 @@ app-facets {
       
       .collection {
         .collection-item {
+          display: table;
+          width: 100%;
+          
           &:hover {
             background-color: color("grey", "lighten-5");
           }
-          span {
-            &:first-child {
-              @extend .app-cursor-pointer;
-            }
+          
+          .app-state:first-child {
+            display: inline-block;
+            width: 13px;
+            height: 13px;
+            margin-right: 0.5rem;
+            background-color: $app-brand-l-2;
+
+            &.app-state-finished {background-color: $app-state-finished;}
+            &.app-state-progress {background-color: $app-state-progress;}
+            &.app-state-planovane {background-color: $app-state-planovane;}
+          }
+          .first-content {
+            display: table-cell;
+            width: 80%;
+            @extend .app-cursor-pointer;
+          }
+          .secondary-content {
+            display: table-cell;
+            float: none;
+            text-align: right;
+            width: 20%;
           }
         }
       }
