@@ -8,8 +8,16 @@ app-result-item {
       padding: 20px;
       
       .card-title {
-        font-size: 20px;
         margin: 0;
+      }
+      .row {
+        .col {
+          .card-title {
+            font-size: 20px;
+            line-height: 20px;
+            margin-bottom: 5px;
+          }   
+        }
       }
       label {
         display: block;
@@ -23,17 +31,89 @@ app-result-item {
           } 
         }
       }
-    }
+      
+      .app-card-detail {
+        .collapsible {
+          @extend .z-depth-0;
+          margin-bottom: 0;
+          
+          .collapsible-header {
+            .mdi {
+              width: auto;
+              margin-right: .5rem;
+            }
+            .mdi-minus {
+              display: none;
+            }
+            &.active {
+              .mdi-plus {
+                display: none;
+              }
+              .mdi-minus {
+                display: block;
+              }
+            }
+          }
+          
+          .collapsible-body {
+            padding: 0;
+
+            table {
+              font-size: 13px;
+
+              thead {
+                @include set-border(bottom, 1, solid, $app-brand-l-6);
+              }
+              th, td {
+                vertical-align: top;
+                padding: 5px;
+                &:first-child {
+                  padding-left: 1rem;
+                }
+              }
+              th {
+                color: $app-brand-d-1;
+              }
+              td {
+                color: $app-brand-l-1;
+
+                span {
+                  display: inline-block;
+                  width: 13px;
+                  height: 13px;
+                }
+              }
+              &.striped > tbody > tr:nth-child(odd) {
+                background-color: color("grey", "lighten-5");;
+              }
+            }
+            
+            .collection {
+              padding: 10px 0;
+              .collection-item {
+                padding: 0 20px;
+                border: none;
+                color: $link-color;
+                
+                &:hover {
+                  background-color: $app-brand-l-6;
+                }
+              }
+            }
+          } //--/.collapsible-body
+        } //--/.collapsible
+      } //--/.card-detail
+    } //--/.card-content
     
     .card-action {
       span {
         font-size: 0.8rem;
         text-transform: none;
       }
-    }
+    } //--/.card-action
     
     &:not(:last-child) {
       margin-bottom: 20px; 
     }
-  }
-}
+  } //--/.card
+} //--/.app-result-item

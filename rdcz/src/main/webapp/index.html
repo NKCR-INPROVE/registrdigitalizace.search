@@ -1,10 +1,34 @@
-<!DOCTYPE html>
+<%@page contentType="text/html" pageEncoding="UTF-8"%><!doctype html>
 <html>
-    <head>
-        <title>Start Page</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
+<head>
+  <meta charset="utf-8">
+  <title>NgClient</title>
+  <base href="/rdcz/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+<link href="styles.d41675a439be723867a4.bundle.css" rel="stylesheet"/></head>
+<body>
+  <app-root>
+    <div class="preloader-wrapper small active">
+      <div class="spinner-layer spinner-blue-only">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div><!--/.spinner-layer -->
+    </div><!--/.preloader-wrapper -->
+  </app-root><!--/.app-root -->
+  
+  <script>
+    // toggle content function
+    function toggleContent(id){
+      $('#'+id+'-btn').toggleClass('active');
+      $('#'+id).slideToggle( "fast" );
+    }
+  </script>
+<script type="text/javascript" src="inline.b497d6fede9e2cefe53c.bundle.js"></script><script type="text/javascript" src="polyfills.28e79641a6e11e9076cb.bundle.js"></script><script type="text/javascript" src="scripts.c48d74c5be6d39fc2f52.bundle.js"></script><script type="text/javascript" src="vendor.d8eda33767bc91d705cd.bundle.js"></script><script type="text/javascript" src="main.6d5e39116b66dd4bd864.bundle.js"></script></body>
 </html>

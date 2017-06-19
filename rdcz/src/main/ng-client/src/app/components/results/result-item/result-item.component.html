@@ -1,11 +1,4 @@
 <mz-card [hoverable]="true" [class]="'app-item'">
-  <!--
-  <mz-card-title class="app-brand-text text-app-red">
-    <i mz-icon-mdi [icon]="'book-open-page-variant'"></i>
-    Česká kuchařka, aneb, Knjžka wssem i zběhlegssjm kuchařkám prospěssná
-  </mz-card-title>
-  {{'label-' | translate}}
-  -->
   <mz-card-content>
     <div class="row">
       <div class="col s2">
@@ -46,10 +39,122 @@
         </label><!--/label -->
       </div><!--/.col -->
     </div><!--/.row -->
-    <div class="app-card-detail app-brand lighten-6" [attr.id]="'app-card-detail-' + result.id" style="display:none; padding:10px;margin-top: 10px;">
-      Zde bude detail!
-    </div>
+    
+    <div class="app-card-detail" [attr.id]="'app-card-detail-' + result.id" style="display:none;">
+      <mz-collapsible [mode]="'expandable'">
+
+        <mz-collapsible-item>
+          <mz-collapsible-item-header>
+            <i mz-icon-mdi [icon]="'plus'"></i>
+            <i mz-icon-mdi [icon]="'minus'"></i>
+            Seznam předloh <span class="app-brand-text text-lighten-3">(1)</span>
+          </mz-collapsible-item-header>
+          <mz-collapsible-item-body>
+            <table class="striped">
+              <thead>
+                <tr>
+                  <th>{{'label-stav' | translate}}</th>
+                  <th></th>
+                  <th>{{'label-cislo-rdcz' | translate}}</th>
+                  <th>{{'label-vlastnik' | translate}}</th>
+                  <th>{{'label-rok-per' | translate}}</th>
+                  <th>{{'label-cast-roc' | translate}}</th>
+                  <th>{{'label-cislo' | translate}}</th>
+                  <th>{{'label-financovano' | translate}}</th>
+                  <th>{{'label-signatura' | translate}}</th>
+                  <th>{{'label-car-kod' | translate}}</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+                  <td><span class="app-brand app-green"></span></td>
+                  <td>
+                    <a mz-tooltip [tooltip]="'http://kramerius.nkp.cz/kramerius/handle/ABA001/1452804'" [position]="'top'" href="http://kramerius.nkp.cz/kramerius/handle/ABA001/1452804" title="">
+                      <i mz-icon-mdi [icon]="'open-in-new'" [size]="'16px'"></i>
+                    </a>
+                  </td>
+                  <td>Pr000041659</td>
+                  <td>ABA001</td>
+                  <td>1873</td>
+                  <td>1</td>
+                  <td>1-52</td>
+                  <td>IOP-NDK</td>
+                  <td>54 D 007890/R.1873 Roč.01</td>
+                  <td>1001195079</td>
+                </tr>
+                <tr>
+                  <td><span class="app-brand app-green"></span></td>
+                  <td>
+                    <a mz-tooltip [tooltip]="'http://kramerius.nkp.cz/kramerius/handle/ABA001/1452804'" [position]="'top'" href="http://kramerius.nkp.cz/kramerius/handle/ABA001/1452804" title="">
+                      <i mz-icon-mdi [icon]="'open-in-new'" [size]="'16px'"></i>
+                    </a>
+                  </td>
+                  <td>Pr000043414</td>
+                  <td>ABB060</td>
+                  <td>1873</td>
+                  <td>1</td>
+                  <td></td>
+                  <td>Vlastní</td>
+                  <td>1 ST 105</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td><span class="app-brand app-green"></span></td>
+                  <td>
+                    <a mz-tooltip [tooltip]="'http://kramerius.nkp.cz/kramerius/handle/ABA001/1452804'" [position]="'top'" href="http://kramerius.nkp.cz/kramerius/handle/ABA001/1452804" title="">
+                      <i mz-icon-mdi [icon]="'open-in-new'" [size]="'16px'"></i>
+                    </a>
+                  </td>
+                  <td>Pr000025486</td>
+                  <td>ABA001</td>
+                  <td>1874</td>
+                  <td>2</td>
+                  <td>[1 - 53]</td>
+                  <td>IOP-NDK</td>
+                  <td>54 B 000351/R.1874 Roč.02, 2.ex.</td>
+                  <td>1001232493</td>
+                </tr>
+                <tr>
+                  <td><span class="app-brand app-green"></span></td>
+                  <td>
+                    <a mz-tooltip [tooltip]="'http://kramerius.nkp.cz/kramerius/handle/ABA001/1452804'" [position]="'top'" href="http://kramerius.nkp.cz/kramerius/handle/ABA001/1452804" title="">
+                      <i mz-icon-mdi [icon]="'open-in-new'" [size]="'16px'"></i>
+                    </a>
+                  </td>
+                  <td>Pr000043415</td>
+                  <td>ABB060</td>
+                  <td>1874</td>
+                  <td>2</td>
+                  <td></td>
+                  <td>Vlastní</td>
+                  <td>1 ST 105</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </mz-collapsible-item-body>
+        </mz-collapsible-item>
+
+        <mz-collapsible-item>
+          <mz-collapsible-item-header>
+            <i mz-icon-mdi [icon]="'plus'"></i>
+            <i mz-icon-mdi [icon]="'minus'"></i>
+            Digitální dokument <span class="app-brand-text text-lighten-3">(2)</span>
+          </mz-collapsible-item-header>
+          <mz-collapsible-item-body>
+            <mz-collection>
+              <a mz-collection-link href="#!">Kramerius NKP (externi link)</a>
+              <a mz-collection-link href="#!">Kramerius NKP (externi link)</a>
+            </mz-collection>
+          </mz-collapsible-item-body>
+        </mz-collapsible-item>
+
+      </mz-collapsible>
+    </div><!--/.app-card-detail -->
+    
   </mz-card-content>
+  
   <mz-card-action>
     <span>
       {{'label-predlohy' | translate}}: 1

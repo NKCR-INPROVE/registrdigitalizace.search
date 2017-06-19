@@ -44,7 +44,7 @@ public class Indexer {
     try {
       opts = Options.getInstance();
       jobData = new JSONObject();
-      solr = getClient("rdcz/");
+      solr = getClient();
       indexed = 0;
       errors = 0;
     } catch (IOException ex) {
@@ -54,10 +54,9 @@ public class Indexer {
     }
   }
 
-  private SolrClient getClient(String core) throws IOException {
-    SolrClient client = new HttpSolrClient.Builder(String.format("%s/%s",
-            opts.getString("solr.host", "http://localhost:8983"),
-            core)).build();
+  private SolrClient getClient() throws IOException {
+    SolrClient client = new HttpSolrClient.Builder(
+            opts.getString("solr.host", "http://localhost:8983/solr")).build();
     return client;
   }
 
@@ -96,6 +95,7 @@ public class Indexer {
     LOGGER.log(Level.INFO, "Full index started ");
     Date start = new Date();
     JSONObject ret = new JSONObject();
+    indexLists();
     String fields = opts.getJSONArray("db.fields").join(",").replaceAll("\"", "");
     String sql = opts.getString("sqlFull").replace("#fields#", fields);
     getFromDb(sql);
@@ -135,6 +135,55 @@ public class Indexer {
     return last;
   }
   
+  public void indexLists(){
+    String sql = "select * from dlists";
+    LOGGER.log(Level.INFO, "Processing {0}", sql);
+    try {
+      Context initContext = new InitialContext();
+      Context envContext = (Context) initContext.lookup("java:/comp/env");
+      DataSource ds = (DataSource) envContext.lookup("jdbc/rlf");
+      try (Connection conn = ds.getConnection()) {
+        PreparedStatement ps = conn.prepareStatement(sql);
+        int batchSize = 100;
+        ArrayList<SolrInputDocument> idocs = new ArrayList<>();
+
+        try (ResultSet rs = ps.executeQuery()) {
+          while (rs.next()) {
+            SolrInputDocument idoc = indexRow(rs);
+            
+            idocs.add(idoc);
+
+            if (idocs.size() >= batchSize) {
+              solr.add("lists", idocs);
+              solr.commit("lists");
+
+              
+              indexed += idocs.size();
+              LOGGER.log(Level.INFO, "{0} docs processed ", indexed);
+              idocs.clear();
+            }
+          }
+          rs.close();
+          ps.close();
+          if (!idocs.isEmpty()) {
+            solr.add("lists", idocs);
+            solr.commit("lists");
+            indexed += idocs.size();
+            idocs.clear();
+          }
+        } catch (SolrServerException ex) {
+          LOGGER.log(Level.SEVERE, sql);
+          LOGGER.log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+          LOGGER.log(Level.SEVERE, null, ex);
+        }
+        conn.close();
+      }
+    } catch (NamingException | SQLException ex) {
+      LOGGER.log(Level.SEVERE, null, ex);
+    }
+  }
+  
 
   private void getFromDb(String sql) {
     LOGGER.log(Level.INFO, "Processing {0}", sql);
@@ -153,7 +202,7 @@ public class Indexer {
             addNeplatneCnb(idoc, rs.getString("id"), conn);
             addDigKnihovny(idoc, rs.getString("id"), conn);
             addVarNazev(idoc, rs.getString("id"), conn);
-            int rokvyd = 0;
+            int rokvyd = -1;
             try{
               rokvyd = rs.getInt("rokvydstr");
               idoc.addField("rokvyd", rokvyd);
@@ -163,8 +212,8 @@ public class Indexer {
             idocs.add(idoc);
 
             if (idocs.size() >= batchSize) {
-              solr.add(idocs);
-              solr.commit();
+              solr.add("rdcz", idocs);
+              solr.commit("rdcz");
 
               
               indexed += idocs.size();
@@ -175,8 +224,8 @@ public class Indexer {
           rs.close();
           ps.close();
           if (!idocs.isEmpty()) {
-            solr.add(idocs);
-            solr.commit();
+            solr.add("rdcz", idocs);
+            solr.commit("rdcz");
             indexed += idocs.size();
             idocs.clear();
           }
