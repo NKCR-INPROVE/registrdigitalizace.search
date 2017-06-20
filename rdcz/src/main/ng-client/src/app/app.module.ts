@@ -31,6 +31,7 @@ import { DuplicityComponent } from './components/duplicity/duplicity.component';
 import { FlotComponent } from './components/flot/flot.component';
 import { UsedFiltersComponent } from './components/results/used-filters/used-filters.component';
 import { QueryAsFilterComponent } from './components/results/query-as-filter/query-as-filter.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 
 export function HttpLoaderFactory(http: Http) {
@@ -63,7 +64,8 @@ export function createTranslateLoader(http: Http) {
     DuplicityComponent,
     FlotComponent,
     UsedFiltersComponent,
-    QueryAsFilterComponent
+    QueryAsFilterComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,

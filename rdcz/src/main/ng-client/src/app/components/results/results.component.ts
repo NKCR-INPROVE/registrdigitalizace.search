@@ -43,6 +43,8 @@ export class ResultsComponent implements OnInit, OnDestroy {
           this.facets = resp['res']["facet_counts"]["facet_fields"];
           this.results = resp['res']["response"]["docs"];
         }
+        
+        //PEDRITO, dej pryc timeout
         setTimeout(()=>{
           this.loading = false;
         }, 1000);
