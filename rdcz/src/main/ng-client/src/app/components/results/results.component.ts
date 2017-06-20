@@ -17,6 +17,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
   facets: any;
   results: Result[] = [];
   numFound: number;
+  loading: boolean = true;
   
   constructor(private service: AppService, public state: AppState) {
   }
@@ -42,6 +43,10 @@ export class ResultsComponent implements OnInit, OnDestroy {
           this.facets = resp['res']["facet_counts"]["facet_fields"];
           this.results = resp['res']["response"]["docs"];
         }
+        setTimeout(()=>{
+          this.loading = false;
+        }, 1000);
+        
         
       }
     ));
@@ -52,7 +57,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
         if(resp['state'] === 'start'){
           
         } else {
-          this.getData()
+          this.getData();
         }
       }
     ));
@@ -66,6 +71,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
   }
 
   getData() {
+    this.loading = true;
 
     let params: URLSearchParams = new URLSearchParams();
     params.set('q', '*');

@@ -170,8 +170,11 @@
       <strong>ISBN:</strong>
       {{result.isxn_collaps}}
     </span>
-    <a class="right app-clean-mg" (click)="toggleDetail('app-card-detail-' + result.id)">
-       {{showingDetail ? 'btn.skryt-detail' : 'btn.zobrazit-detail' | translate}}
+    <a *ngIf="showingDetail" class="right app-clean-mg" (click)="toggleDetail('app-card-detail-' + result.id)">
+       {{'btn.skryt-detail' | translate}}
+    </a>
+    <a *ngIf="!showingDetail" class="right app-clean-mg" (click)="toggleDetail('app-card-detail-' + result.id)">
+       {{'btn.zobrazit-detail' | translate}}
     </a>
   </mz-card-action>
 </mz-card>

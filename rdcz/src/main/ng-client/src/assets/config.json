@@ -21,7 +21,7 @@
     {"field": "vlastnik", "icon": "account", "translate": true, "active": false, "classname2":"cz.incad.nkp.digital.InsVlastnik"},
     {"field": "digknihovna", "icon": "domain", "translate": true, "active": false},
     {"field": "druhdokumentu", "icon": "file-document", "translate": true, "active": false},
-    {"field": "stav", "icon": "traffic-light", "translate": true, "active": false, "classname":"cz.incad.core.basic.DstavRec"}
+    {"field": "stav", "icon": "traffic-light", "translate": true, "active": true, "classname":"cz.incad.core.basic.DstavRec"}
   ]
             
 }
