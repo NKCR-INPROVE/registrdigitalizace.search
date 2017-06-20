@@ -1,8 +1,10 @@
 // --- VARIABLES --
 
 // paths
-$roboto-font-path: "../node_modules/materialize-css/fonts/roboto/" !default;
-$mdi-font-path: "../node_modules/mdi/fonts" !default;
+//$roboto-font-path: "../node_modules/materialize-css/fonts/roboto/" !default;
+//$mdi-font-path: "../node_modules/mdi/fonts" !default;
+$roboto-font-path: "assets/fonts/roboto/" !default;
+$mdi-font-path: "assets/fonts" !default;
 
 // colors
 $primary-color: color("app-brand", "darken-1") !default;
@@ -15,16 +17,16 @@ $error-color: color("red", "base") !default;
 $link-color: color("app-brand", "app-red") !default;
 
 // brand pallete colors
-$app-brand-l-1: color("app-brand", "lighten-1");
-$app-brand-l-2: color("app-brand", "lighten-2");
-$app-brand-l-3: color("app-brand", "lighten-3");
-$app-brand-l-4: color("app-brand", "lighten-4");
-$app-brand-l-5: color("app-brand", "lighten-5");
-$app-brand-l-6: color("app-brand", "lighten-6");
-$app-brand-d-1: color("app-brand", "darken-1");
-$app-brand-d-2: color("app-brand", "darken-2");
-$app-brand-d-3: color("app-brand", "darken-3");
-$app-brand-d-4: color("app-brand", "darken-4");
+$app-brand-l-1: color("app-brand", "lighten-1"); // #78909c
+$app-brand-l-2: color("app-brand", "lighten-2"); // #90a4ae
+$app-brand-l-3: color("app-brand", "lighten-3"); // #b0bec5
+$app-brand-l-4: color("app-brand", "lighten-4"); // #cfd8dc
+$app-brand-l-5: color("app-brand", "lighten-5"); // #d5dfe3
+$app-brand-l-6: color("app-brand", "lighten-6"); // #eceff1
+$app-brand-d-1: color("app-brand", "darken-1");  // #546e7a
+$app-brand-d-2: color("app-brand", "darken-2");  // #455a64
+$app-brand-d-3: color("app-brand", "darken-3");  // #37474f
+$app-brand-d-4: color("app-brand", "darken-4");  // #263238
 
 $app-state-finished: color("app-brand", "app-green");
 $app-state-progress: color("app-brand", "app-orange");
@@ -44,3 +46,20 @@ $app-border-radius: 2px;
 
 // inputs
 $input-height: 2.6rem !default;
+
+// checkbox
+$radio-empty-color: $primary-color !default;
+//$radio-fill-color: $link-color !default;
+
+// dropdown
+$dropdown-hover-bg-color: $app-brand-l-6 !default;
+$dropdown-color: $primary-color !default;
+
+// collection
+$collection-border-color: $app-brand-l-5!default;
+$collection-bg-color: #fff !default;
+$collection-active-bg-color: $secondary-color !default;
+$collection-active-color: lighten($secondary-color, 55%) !default;
+$collection-hover-bg-color: #ddd !default;
+$collection-link-color: $secondary-color !default;
+$collection-line-height: 1.5rem !default;

@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col s6">
       <span>
-        {{'label-slouceno-podle' | translate}}:
+        {{'label.slouceno-podle' | translate}}:
         <a id="btn-collapsed" href="#" class="app-mdi-menu-down">{{state.currentCollapse.label}}</a>
         <mz-dropdown [id]="'dropdown-btn-collapsed'" [dropdownButtonId]="'btn-collapsed'">
           <mz-dropdown-item *ngFor="let col of state.collapses"><a (click)="setCollapse(col)">{{col.label}}</a></mz-dropdown-item>
@@ -11,14 +11,14 @@
     </div><!--/.col -->
     <div class="col s6 align-right">
       <span>
-        {{'label-serazeno-podle' | translate}}:
+        {{'label.serazeno-podle' | translate}}:
         <a id="btn-sorted-by" href="#" class="app-mdi-menu-down">relevance</a>
         <mz-dropdown [id]="'dropdown-btn-sorted-by'" [dropdownButtonId]="'btn-sorted-by'">
           <mz-dropdown-item><a>abecedy</a></mz-dropdown-item>
         </mz-dropdown>
       </span>
       <span class="app-brand-text text-lighten-3">|</span>&#160;&#160;
-      <span mz-tooltip class="app-mdi-chart-bar app-cursor-pointer" (click)="toggleElement('app-chart-bar')" [tooltip]="'Skrýt časovou osu'"></span>
+      <span mz-tooltip class="app-mdi-chart-bar app-cursor-pointer" (click)="toggleElement('app-chart-bar')" [tooltip]="'text.skryt-casovou-osu' | translate"></span>
     </div><!--/.col -->
   </div><!--/.row -->
 </section>

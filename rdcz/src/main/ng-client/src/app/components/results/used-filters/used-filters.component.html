@@ -24,13 +24,13 @@
   <ul class="collapsible" data-collapsible="expandable">
     <li class="active">
       <div class="collapsible-header active">
-        <i mz-icon-mdi [icon]="'filter-variant'"></i>{{'Nastavení filtru' | translate}}
+        <i mz-icon-mdi [icon]="'filter-variant'"></i>{{'text.nastaveni-filtru' | translate}}
         <i mz-icon-mdi [icon]="'close-circle'" [class]="'app-clean-mg'"></i>
       </div><!--/.collapsible-header -->
       <div class="collapsible-body" style="display:block">
         <div class="collection">
           <div class="collection-item" *ngFor="let f of filters">
-            <span class="first-content" (click)="remove(f)">{{'field.' + f.field| translate}}: {{f.value}}</span>
+            <span class="first-content" (click)="remove(f)">{{'field.' + f.field | translate}}: {{f.value}}</span>
             <a (click)="remove(f)" class="secondary-content">
               <span class="app-mdi-close app-brand-text text-app-red"></span>
             </a>
@@ -39,4 +39,4 @@
       </div><!--/.collapsible-body -->
     </li><!--/.active -->
   </ul><!--/.collapsible -->
-</section>
+</section><!--/section -->

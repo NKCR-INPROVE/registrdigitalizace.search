@@ -30,37 +30,31 @@ a {
   cursor: pointer;
 }
 
+
+// loading ico
 .preloader-wrapper {
   margin-right: auto;
   margin-left: auto;
   margin-top: 100px;
 }
 
-// row
-.row {
-  margin-bottom: 0;
+// buttons
+.btn, .btn-large, .btn-flat {
+  text-transform: inherit;
 }
 
-// section
-section {
-  margin-bottom: 20px;
-}
-
-// app container
-.app-container {
-  padding-left: 0.75rem !important;
-  padding-right: 0.75rem !important;
-}
 
 // row
 .row {
   margin-bottom: 0;
 }
 
+
 // section
 section {
   margin-bottom: 20px;
 }
+
 
 // app container
 .app-container {
@@ -69,7 +63,8 @@ section {
 }
 
 // cleaners
-.app-clean-mg {
+.app-clean-mg,
+.checkbox-field {
   margin: 0 !important;
 }
 
@@ -80,6 +75,7 @@ section {
 .app-cursor-pointer {
   cursor: pointer;
 }
+
 
 // mdi icons global
 .app-mdi-menu-down {
@@ -93,6 +89,7 @@ section {
 .app-mdi-close {
   @include set-mdi-icon(before, F156, 24, middle);
 }
+
 
 // clearfix
 .clearfix {

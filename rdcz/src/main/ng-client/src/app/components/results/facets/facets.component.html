@@ -10,7 +10,7 @@
         <mz-collection>
           <mz-collection-item *ngFor="let f of ff.values">
             <i *ngIf="ff.field=='stav'" [class]="'app-state app-state-' + f.value"></i>
-            <span (click)="add(f)" class="first-content">{{'text-' + f.value | translate}}</span>
+            <span (click)="add(f)" class="first-content">{{'text.' + f.value | translate}}</span>
             <a  mz-secondary-content>({{f.count}})</a>
           </mz-collection-item>
         </mz-collection>

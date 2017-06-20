@@ -30,6 +30,7 @@ import { JumbotronComponent } from './components/jumbotron/jumbotron.component';
 import { DuplicityComponent } from './components/duplicity/duplicity.component';
 import { FlotComponent } from './components/flot/flot.component';
 import { UsedFiltersComponent } from './components/results/used-filters/used-filters.component';
+import { QueryAsFilterComponent } from './components/results/query-as-filter/query-as-filter.component';
 
 
 export function HttpLoaderFactory(http: Http) {
@@ -61,7 +62,8 @@ export function createTranslateLoader(http: Http) {
     JumbotronComponent,
     DuplicityComponent,
     FlotComponent,
-    UsedFiltersComponent
+    UsedFiltersComponent,
+    QueryAsFilterComponent
   ],
   imports: [
     BrowserModule,

@@ -25,10 +25,4 @@ export class ResultItemComponent implements OnInit {
     $('#'+id+'-btn').toggleClass('active');
     $('#'+id).slideToggle( "fast" );
   }
-  
-  // toggle element
-  toggleElement(id){
-    $('#'+id).toggleClass('active');
-    $('#'+id).slideToggle( "fast" );
-  }
 }

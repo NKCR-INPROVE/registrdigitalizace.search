@@ -11,31 +11,31 @@
           {{result.title}}
         </span>
         <label *ngIf="result.varnazev">
-          <strong>{{'label-variantni-nazev' | translate}}:</strong>
+          <strong>{{'label.variantni-nazev' | translate}}:</strong>
           <span *ngFor="let v of result.varnazev">
             {{v}}<span class="app-separator">&#160;&#160;/&#160;&#160;</span>
           </span>
         </label><!--/label -->
         <label *ngIf="result.autor">
-          <strong>{{'label-hlavni-autor' | translate}}:</strong>
+          <strong>{{'label.hlavni-autor' | translate}}:</strong>
           <span *ngFor="let autor of result.autor">
             {{autor}}<span class="app-separator">&#160;&#160;/&#160;&#160;</span>
           </span>
         </label><!--/label -->
         <label *ngIf="result.mistovyd">
-          <strong>{{'label-misto-vydani' | translate}}:</strong>
+          <strong>{{'label.misto-vydani' | translate}}:</strong>
           {{result.mistovyd}}
         </label><!--/label -->
         <label *ngIf="result.vydavatel">
-          <strong>{{'label-nakladatel' | translate}}:</strong>
+          <strong>{{'label.nakladatel' | translate}}:</strong>
           {{result.vydavatel}}
         </label><!--/label -->
         <label *ngIf="result.rokvydstr">
-          <strong>{{'label-rok-vydani' | translate}}:</strong>
+          <strong>{{'label.rok-vydani' | translate}}:</strong>
           {{result.rokvydstr}}
         </label><!--/label -->
         <label *ngIf="result.bib_udaje">
-          <strong>{{'label-bib-udaje' | translate}}:</strong>
+          <strong>{{'label.bib-udaje' | translate}}:</strong>
           {{result.bib_udaje}}
         </label><!--/label -->
       </div><!--/.col -->
@@ -48,22 +48,22 @@
           <mz-collapsible-item-header>
             <i mz-icon-mdi [icon]="'plus'"></i>
             <i mz-icon-mdi [icon]="'minus'"></i>
-            Seznam předloh <span class="app-brand-text text-lighten-3">(1)</span>
+            {{'label.seznam-predloh' | translate}} <span class="app-brand-text text-lighten-3">(1)</span>
           </mz-collapsible-item-header>
           <mz-collapsible-item-body>
             <table class="striped">
               <thead>
                 <tr>
-                  <th>{{'label-stav' | translate}}</th>
+                  <th>{{'label.stav' | translate}}</th>
                   <th></th>
-                  <th>{{'label-cislo-rdcz' | translate}}</th>
-                  <th>{{'label-vlastnik' | translate}}</th>
-                  <th>{{'label-rok-per' | translate}}</th>
-                  <th>{{'label-cast-roc' | translate}}</th>
-                  <th>{{'label-cislo' | translate}}</th>
-                  <th>{{'label-financovano' | translate}}</th>
-                  <th>{{'label-signatura' | translate}}</th>
-                  <th>{{'label-car-kod' | translate}}</th>
+                  <th>{{'label.cislo-rdcz' | translate}}</th>
+                  <th>{{'label.vlastnik' | translate}}</th>
+                  <th>{{'label.rok-per' | translate}}</th>
+                  <th>{{'label.cast-roc' | translate}}</th>
+                  <th>{{'label.cislo' | translate}}</th>
+                  <th>{{'label.financovano' | translate}}</th>
+                  <th>{{'label.signatura' | translate}}</th>
+                  <th>{{'label.car-kod' | translate}}</th>
                 </tr>
               </thead>
 
@@ -141,7 +141,7 @@
           <mz-collapsible-item-header>
             <i mz-icon-mdi [icon]="'plus'"></i>
             <i mz-icon-mdi [icon]="'minus'"></i>
-            Digitální dokument <span class="app-brand-text text-lighten-3">(2)</span>
+            {{'label.digitalni-dokument' | translate}} <span class="app-brand-text text-lighten-3">(2)</span>
           </mz-collapsible-item-header>
           <mz-collapsible-item-body>
             <mz-collection>
@@ -158,7 +158,7 @@
   
   <mz-card-action>
     <span>
-      {{'label-predlohy' | translate}}: 1
+      {{'label.predlohy' | translate}}: 1
     </span>
     <span class="app-brand-text text-lighten-3">|</span>
     <span *ngIf="result.cnb_collaps">
@@ -171,7 +171,7 @@
       {{result.isxn_collaps}}
     </span>
     <a class="right app-clean-mg" (click)="toggleDetail('app-card-detail-' + result.id)">
-       {{showingDetail ? 'btn-skryt-detail' : 'btn-zobrazit-detail' | translate}}
+       {{showingDetail ? 'btn.skryt-detail' : 'btn.zobrazit-detail' | translate}}
     </a>
   </mz-card-action>
 </mz-card>

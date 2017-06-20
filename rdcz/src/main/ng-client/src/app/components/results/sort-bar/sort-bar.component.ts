@@ -17,5 +17,11 @@ export class SortBarComponent implements OnInit {
   setCollapse(col){
     this.state.setCollapse(col);
   }
+  
+  // toggle element
+  toggleElement(id){
+    $('#'+id).toggleClass('active');
+    $('#'+id).slideToggle( "fast" );
+  }
 
 }
