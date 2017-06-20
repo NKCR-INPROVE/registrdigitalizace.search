@@ -10,7 +10,7 @@ import { AppState } from '../../app.state';
   styleUrls: ['./search-bar.component.scss']
 })
 export class SearchBarComponent implements OnInit {
-  public q: string;
+  //public q: string;
   
   constructor(private service: AppService, public state: AppState) {
   }
@@ -21,7 +21,11 @@ export class SearchBarComponent implements OnInit {
   search() {
 
     let params: URLSearchParams = new URLSearchParams();
-    params.set('q', this.q);
+    if(this.state.q && this.state.q !== ''){
+      params.set('q', this.state.q);
+    } else {
+      params.set('q', '*');
+    }
     params.set('rows', '10');
     params.set('facet', 'true');
     params.set('facet.mincount', '1');

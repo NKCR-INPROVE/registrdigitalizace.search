@@ -57,6 +57,7 @@ export class AppState {
   currentSort: any = this.sorts[0];
   currentCollapse: any = this.collapses[2];
   public usedFilters: Filter[] = [];
+  public q: string;
 
   public route: string;
 

@@ -6,7 +6,7 @@
           <input id="q" type="search" class="app-clean-mg" placeholder="{{'q.placeholder' | translate}}"
             name="q"
             (keyup.enter)="search()"
-            [(ngModel)]="q">
+            [(ngModel)]="state.q">
           <i mz-icon-mdi [icon]="'magnify'" (click)="search()"></i>
           <i mz-icon-mdi [icon]="'menu'" mz-tooltip [tooltip]="'Rozsirene hledani'" [position]="'top'"></i>
           <i mz-icon-mdi [icon]="'close'" [class]="'mdi-navigation-close'"></i>
