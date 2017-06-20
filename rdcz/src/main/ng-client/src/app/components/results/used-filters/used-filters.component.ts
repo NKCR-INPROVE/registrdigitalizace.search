@@ -50,5 +50,9 @@ export class UsedFiltersComponent implements OnInit, OnDestroy {
   remove(f: Filter){
     this.state.removeFilter(f);
   }
+  
+  removeAll(){
+    this.state.removeAllFilters();
+  }
 
 }

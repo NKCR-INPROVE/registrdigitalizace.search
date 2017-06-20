@@ -16,8 +16,8 @@ import { AppState } from '../../app.state';
 export class HomeComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
-  facets: any;
-  
+  facets: any = [];
+
   constructor(private service: AppService, public state: AppState) {
   }
 
@@ -32,6 +32,28 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
       ));
     }
+
+
+
+    this.subscriptions.push(this.state.searchSubject.subscribe(
+      (resp) => {
+        if (resp['state'] === 'start') {
+          this.facets = null;
+        } else if (resp['type'] === 'home') {
+          this.facets = [];
+          for (let i in resp['res']["facet_counts"]["facet_fields"]) {
+            //console.log(i, this.state.config['home_facets'].indexOf(i));
+            if (this.state.config['home_facets'].indexOf(i) > -1) {
+              this.facets[i] = resp['res']["facet_counts"]["facet_fields"][i];
+            }
+          }
+          //this.facets = resp['res']["facet_counts"]["facet_fields"];
+        }
+
+
+      }
+    ));
+
   }
 
   ngOnDestroy() {
@@ -47,19 +69,19 @@ export class HomeComponent implements OnInit, OnDestroy {
     params.set('q', '*');
     params.set('facet', 'true');
     params.set('facet.mincount', '1');
-    for (let i in this.state.config['facets']){
-      params.append('facet.field', this.state.config['facets'][i]['field']);
+    for (let i in this.state.config['facets']) {
+        params.append('facet.field', this.state.config['facets'][i]['field']);
     }
     params.set('facet.range', 'rokvyd');
-    params.set('facet.range.start',  '1');
+    params.set('facet.range.start', '1');
     params.set('facet.range.end', (new Date()).getFullYear() + '');
     params.set('facet.range.gap', '10');
-    
+
     params.set('rows', '0');
-    this.facets = null;
-//    this.service.search(params).subscribe(res => {
-//      this.facets = res["facet_counts"]["facet_fields"];
-//    });
+    //    this.facets = null;
+    //    this.service.search(params).subscribe(res => {
+    //      this.facets = res["facet_counts"]["facet_fields"];
+    //    });
     this.service.search(params, 'home');
   }
 

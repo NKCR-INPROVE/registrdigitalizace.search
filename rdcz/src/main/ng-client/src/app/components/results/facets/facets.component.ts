@@ -26,9 +26,11 @@ export class FacetsComponent implements OnInit, OnChanges {
   }
   
   public ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
+    //console.log(changes);
     if(changes['facets']){
-      this.fillFacets(this.facets);
+      if (this.state.config){
+        this.fillFacets(this.facets);
+      }
     }
   }
   
@@ -52,12 +54,13 @@ export class FacetsComponent implements OnInit, OnChanges {
 
   fillFacets(facet_fields: any) {
     this.facetFields = [];
+    console.log(facet_fields);
     if(!facet_fields){return;}
     let configFacets = this.state.config['facets'];
     for (let i in configFacets) {
       let field = configFacets[i]['field'];
     //for (let field in facet_fields) {
-      if (Object.keys(facet_fields[field]).length > 1) {
+      if (facet_fields.hasOwnProperty(field) && Object.keys(facet_fields[field]).length > 1) {
         var facetField = new FacetField();
         facetField.field = field + '';
         facetField.icon = configFacets[i]['icon'];

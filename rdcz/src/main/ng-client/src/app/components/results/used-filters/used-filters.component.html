@@ -25,7 +25,7 @@
     <li class="active">
       <div class="collapsible-header active">
         <i mz-icon-mdi [icon]="'filter-variant'"></i>{{'text.nastaveni-filtru' | translate}}
-        <i mz-icon-mdi [icon]="'close-circle'" [class]="'app-clean-mg'"></i>
+        <i mz-icon-mdi [icon]="'close-circle'" [class]="'app-clean-mg'" (click)="removeAll()"></i>
       </div><!--/.collapsible-header -->
       <div class="collapsible-body" style="display:block">
         <div class="collection">

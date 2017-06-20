@@ -62,8 +62,10 @@ export class ChartBarComponent implements OnInit {
             this.data = [{ data: [] }];
             this.chart.setData(this.data);
           } else {
+          if(resp['res']["facet_counts"]["facet_ranges"]['rokvyd']){
             this.data = [{ data: resp['res']["facet_counts"]["facet_ranges"]['rokvyd']['counts'] }];
             this.chart.setData(this.data);
+          }
           }
         }
       }

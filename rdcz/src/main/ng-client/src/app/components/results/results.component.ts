@@ -14,7 +14,7 @@ import { AppState } from '../../app.state';
 export class ResultsComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
-  facets: any;
+  facets: any = [];
   results: Result[] = [];
   numFound: number;
   loading: boolean = true;

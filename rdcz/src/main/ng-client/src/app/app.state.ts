@@ -75,27 +75,17 @@ export class AppState {
 
   }
 
+  removeAllFilters() {
+    this.usedFilters = [];
+    this._searchParamsChanged.next(this);
+  }
+
   removeFilter(f: Filter) {
-    //this._searchParamsChanged.next({ state: 'start' });
-    //setTimeout(() => {
-//      let idx = -1;
-//      for (let i = 0; i < this.usedFilters.length; i++) {
-//        if (f.field === this.usedFilters[i].field &&
-//          f.value === this.usedFilters[i].value) {
-//          idx = i;
-//          break;
-//        }
-//      }
-//      console.log(f, idx);
       let idx = this.usedFilters.indexOf(f);
       if (idx > -1) {
         this.usedFilters.splice(idx, 1);
         this._searchParamsChanged.next(this);
       }
-
-      //        this.usedFilters = [];
-      //        this._searchParamsChanged.next(this);
-    //}, 2);
 
   }
 

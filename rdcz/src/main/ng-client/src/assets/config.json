@@ -22,6 +22,7 @@
     {"field": "digknihovna", "icon": "domain", "translate": true, "active": false},
     {"field": "druhdokumentu", "icon": "file-document", "translate": true, "active": false},
     {"field": "stav", "icon": "traffic-light", "translate": true, "active": true, "classname":"cz.incad.core.basic.DstavRec"}
-  ]
+  ],
+  "home_facets": ["financovano", "vlastnik", "digknihovna"]
             
 }
