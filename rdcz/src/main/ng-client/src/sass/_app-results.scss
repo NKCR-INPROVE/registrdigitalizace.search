@@ -3,8 +3,24 @@
 app-results {
   & > .container {
     padding-bottom: 20px;
+    
+    & > .row {
+      & > .col:first-child {
+        position: relative;
+        app-loading {
+          .preloader-wrapper {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 10px;
+          }
+        }
+      }
+    }
   }
+  
   @import "app-count-bar";
+  @import "app-query-as-filter";
   @import "app-pagination";
   @import "app-sort-bar";
   @import "app-result-item";

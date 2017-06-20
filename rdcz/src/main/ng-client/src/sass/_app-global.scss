@@ -15,6 +15,10 @@ app-root {
   flex-direction: column;
   height: 100%;
   color: $primary-color !important;
+  
+  > .preloader-wrapper {
+    margin-top: 100px;
+  }
 }
 
 main {
@@ -35,7 +39,6 @@ a {
 .preloader-wrapper {
   margin-right: auto;
   margin-left: auto;
-  margin-top: 100px;
 }
 
 // buttons

@@ -56,10 +56,7 @@ $dropdown-hover-bg-color: $app-brand-l-6 !default;
 $dropdown-color: $primary-color !default;
 
 // collection
-$collection-border-color: $app-brand-l-5!default;
-$collection-bg-color: #fff !default;
-$collection-active-bg-color: $secondary-color !default;
-$collection-active-color: lighten($secondary-color, 55%) !default;
-$collection-hover-bg-color: #ddd !default;
-$collection-link-color: $secondary-color !default;
-$collection-line-height: 1.5rem !default;
+$collection-border-color: $app-brand-l-5 !default; //
+
+// collapsible
+$collapsible-border-color: $app-brand-l-5 !default;
