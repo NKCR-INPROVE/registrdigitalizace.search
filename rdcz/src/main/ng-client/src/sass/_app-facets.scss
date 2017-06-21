@@ -41,16 +41,11 @@ app-used-filters {
             background-color: color("grey", "lighten-5");
           }
           
-          .app-state:first-child {
+          .app-state-item:first-child {
             display: inline-block;
             width: 13px;
             height: 13px;
             margin-right: 0.5rem;
-            background-color: $app-brand-l-2;
-
-            &.app-state-finished {background-color: $app-state-finished;}
-            &.app-state-progress {background-color: $app-state-progress;}
-            &.app-state-planovane {background-color: $app-state-planovane;}
           }
           .first-content {
             display: table-cell;
