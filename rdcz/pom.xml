@@ -87,6 +87,7 @@
                 <include>*.bundle.js.gz</include>
                 <include>*.bundle.map</include>
                 <include>index.html</include>
+                <include>assets/**/*</include>
               </includes>
               <excludes>
                 <exclude>index.jsp</exclude>
@@ -152,6 +153,27 @@
         <artifactId>replacer</artifactId> 
         <version>1.5.3</version> 
         <executions> 
+          <execution> 
+            <id>replace-for-config</id>
+            <phase>prepare-package</phase> 
+            <goals> 
+              <goal>replace</goal> 
+            </goals>  
+            <configuration> 
+              <file>${project.basedir}/src/main/webapp/assets/config.json</file> 
+              <replacements> 
+                <replacement> 
+                  <token>&lt;!doctype html&gt;</token> 
+                  <value>&lt;%@page contentType="text/html" pageEncoding="UTF-8"%&gt;&lt;!doctype html&gt;</value> 
+                </replacement> 
+                <replacement> 
+                  <token>"context": "/",</token> 
+                  <value>"context": "/rdcz/",</value> 
+                </replacement> 
+              </replacements> 
+            </configuration> 
+          </execution> 
+          
           <execution> 
             <id>replace-for-index</id>
             <phase>prepare-package</phase> 
