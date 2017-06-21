@@ -1,0 +1,13 @@
+// --- QUERY AS FILTER ---
+
+app-query-as-filter {
+  .collection {
+    margin: 0;
+    
+    .checkbox-field {
+      label {
+        color: $primary-color;
+      }
+    }
+  }
+}
