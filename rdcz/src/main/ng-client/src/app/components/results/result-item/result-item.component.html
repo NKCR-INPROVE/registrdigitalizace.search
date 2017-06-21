@@ -8,7 +8,7 @@
     </span>
     <div class="row">
       <div class="col s2" *ngIf="result.id != '1388'"><!-- Zde bude podminka jestli item obsahuje obrazek, doda Alberto -->
-        <img src="assets/img/thumb-img.jpg" alt="" class="responsive-img" />{{result.stav}}
+        <img src="assets/img/thumb-img.jpg" alt="" class="responsive-img" />
       </div><!--/.col -->
       <div [class]="result.id != '1388' ? 'col s10' : 'col s12'"><!-- Zde bude podminka jestli item obsahuje obrazek, doda Alberto -->
         <span *ngIf="result.title" class="card-title app-brand-text text-app-red">
