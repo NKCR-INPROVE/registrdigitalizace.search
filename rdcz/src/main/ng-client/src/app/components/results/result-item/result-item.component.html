@@ -1,11 +1,16 @@
 <mz-card [hoverable]="true" [class]="'app-item'">
   <mz-card-content>
-    <span [class]="'app-card-triangle app-state-' + result.stav"></span>
+    <!--<span [class]="'app-card-triangle app-state-' + result.stav"></span>-->
+    <span *ngIf="result.stav == 'finished' || 'progress' || 'planovane'" class="app-state">
+      <span *ngIf="result.stav == 'finished'" [class]="'app-state-item app-state-item-' + result.stav"></span>
+      <span *ngIf="result.stav == 'progress'" [class]="'app-state-item app-state-item-' + result.stav"></span>
+      <span *ngIf="result.stav == 'planovane'" [class]="'app-state-item app-state-item-' + result.stav"></span>
+    </span>
     <div class="row">
-      <div class="col s2">
-        <img src="assets/img/thumb-img.jpg" alt="" class="responsive-img" />
+      <div class="col s2" *ngIf="result.id != '1388'"><!-- Zde bude podminka jestli item obsahuje obrazek, doda Alberto -->
+        <img src="assets/img/thumb-img.jpg" alt="" class="responsive-img" />{{result.stav}}
       </div><!--/.col -->
-      <div class="col s10">
+      <div [class]="result.id != '1388' ? 'col s10' : 'col s12'"><!-- Zde bude podminka jestli item obsahuje obrazek, doda Alberto -->
         <span *ngIf="result.title" class="card-title app-brand-text text-app-red">
           <i mz-icon-mdi [icon]="'book-open-page-variant'"></i>
           {{result.title}}

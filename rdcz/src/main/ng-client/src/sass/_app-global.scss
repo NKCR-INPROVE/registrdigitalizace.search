@@ -98,3 +98,10 @@ section {
 .clearfix {
   @include clearfix();
 }
+
+
+// states
+.app-state-item {background-color: $app-brand-l-2;}
+.app-state-item-finished {background-color: $app-state-finished;}
+.app-state-item-progress {background-color: $app-state-progress;}
+.app-state-item-planovane {background-color: $app-state-planovane;}
