@@ -51,7 +51,7 @@
           <mz-collapsible-item-header>
             <i mz-icon-mdi [icon]="'plus'"></i>
             <i mz-icon-mdi [icon]="'minus'"></i>
-            {{'label.seznam-predloh' | translate}} <span class="app-brand-text text-lighten-3">(1)</span>
+            {{'label.seznam-predloh' | translate}} <span class="app-brand-text text-lighten-3">({{predlohy.length}})</span>
           </mz-collapsible-item-header>
           <mz-collapsible-item-body>
             <table class="striped">
@@ -71,69 +71,21 @@
               </thead>
 
               <tbody>
-                <tr>
-                  <td><span class="app-brand app-green"></span></td>
+                <tr  *ngFor="let p of predlohy">
+                  <td><span [class]="'app-state-item app-state-item-' + p.stav"></span></td>
                   <td>
                     <a mz-tooltip [tooltip]="'http://kramerius.nkp.cz/kramerius/handle/ABA001/1452804'" [position]="'top'" href="http://kramerius.nkp.cz/kramerius/handle/ABA001/1452804" title="">
                       <i mz-icon-mdi [icon]="'open-in-new'" [size]="'16px'"></i>
                     </a>
                   </td>
-                  <td>Pr000041659</td>
-                  <td>ABA001</td>
-                  <td>1873</td>
-                  <td>1</td>
-                  <td>1-52</td>
-                  <td>IOP-NDK</td>
-                  <td>54 D 007890/R.1873 Roč.01</td>
-                  <td>1001195079</td>
-                </tr>
-                <tr>
-                  <td><span class="app-brand app-green"></span></td>
-                  <td>
-                    <a mz-tooltip [tooltip]="'http://kramerius.nkp.cz/kramerius/handle/ABA001/1452804'" [position]="'top'" href="http://kramerius.nkp.cz/kramerius/handle/ABA001/1452804" title="">
-                      <i mz-icon-mdi [icon]="'open-in-new'" [size]="'16px'"></i>
-                    </a>
-                  </td>
-                  <td>Pr000043414</td>
-                  <td>ABB060</td>
-                  <td>1873</td>
-                  <td>1</td>
-                  <td></td>
-                  <td>Vlastní</td>
-                  <td>1 ST 105</td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td><span class="app-brand app-green"></span></td>
-                  <td>
-                    <a mz-tooltip [tooltip]="'http://kramerius.nkp.cz/kramerius/handle/ABA001/1452804'" [position]="'top'" href="http://kramerius.nkp.cz/kramerius/handle/ABA001/1452804" title="">
-                      <i mz-icon-mdi [icon]="'open-in-new'" [size]="'16px'"></i>
-                    </a>
-                  </td>
-                  <td>Pr000025486</td>
-                  <td>ABA001</td>
-                  <td>1874</td>
-                  <td>2</td>
-                  <td>[1 - 53]</td>
-                  <td>IOP-NDK</td>
-                  <td>54 B 000351/R.1874 Roč.02, 2.ex.</td>
-                  <td>1001232493</td>
-                </tr>
-                <tr>
-                  <td><span class="app-brand app-green"></span></td>
-                  <td>
-                    <a mz-tooltip [tooltip]="'http://kramerius.nkp.cz/kramerius/handle/ABA001/1452804'" [position]="'top'" href="http://kramerius.nkp.cz/kramerius/handle/ABA001/1452804" title="">
-                      <i mz-icon-mdi [icon]="'open-in-new'" [size]="'16px'"></i>
-                    </a>
-                  </td>
-                  <td>Pr000043415</td>
-                  <td>ABB060</td>
-                  <td>1874</td>
-                  <td>2</td>
-                  <td></td>
-                  <td>Vlastní</td>
-                  <td>1 ST 105</td>
-                  <td></td>
+                  <td>{{p.cislordcz}}</td>
+                  <td mz-tooltip [position]="'top'" [tooltip]="translate('cz.incad.nkp.digital.InsVlastnik', p.vlastnik)">{{p.vlastnik}}</td>
+                  <td>{{p.rokvydstr}}</td>
+                  <td>{{p.cast}}</td>
+                  <td>{{p.rozsah}}</td>
+                  <td>{{translate('cz.incad.nkp.digital.Dfinancovano', p.financovano)}}</td>
+                  <td>{{p.signatura}}</td>
+                  <td>{{p.carkod}}</td>
                 </tr>
               </tbody>
             </table>
@@ -161,7 +113,7 @@
   
   <mz-card-action>
     <span>
-      {{'label.predlohy' | translate}}: {{expanded ? expanded.numFound: 1}}
+      {{'label.predlohy' | translate}}: {{predlohy.length}} 
     </span>
     <span class="app-brand-text text-lighten-3">|</span>
     <span *ngIf="result.cnb_collaps">

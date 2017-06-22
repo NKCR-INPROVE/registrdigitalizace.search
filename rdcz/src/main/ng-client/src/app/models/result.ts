@@ -23,6 +23,12 @@ export class Result {
   financovano: string;
   vlastnik: string;
   stav: string;
+  
+  signatura: string;
+  cisloper: string;
+  cislordcz: string;
+  comment: string;
+    
   digknihovna: string[];
   index_time: string;
   autor: string[];

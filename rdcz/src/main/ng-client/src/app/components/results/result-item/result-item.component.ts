@@ -56,6 +56,10 @@ export class ResultItemComponent implements OnInit, OnDestroy {
     });
     this.subscriptions = [];
   }
+  
+  translate(classname, value){
+    return this.service.translateFromLists(classname, value);
+  }
 
   getPredlohy() {
     if (this.result) {
