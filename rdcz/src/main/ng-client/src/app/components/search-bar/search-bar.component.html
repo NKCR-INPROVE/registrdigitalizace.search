@@ -7,7 +7,7 @@
             name="q"
             (keyup.enter)="search()"
             [(ngModel)]="state.q">
-          <i mz-icon-mdi [icon]="'magnify'" (click)="search()"></i>
+          <i mz-icon-mdi [icon]="'magnify'" (click)="search()" class="app-cursor-pointer"></i>
           <i mz-button id="btn-advanced-search" class="app-mdi-menu app-cursor-pointer" mz-tooltip [tooltip]="'btn.rozsirene-hledani' | translate" [position]="'top'"  [class.collapsed]="isAdvancedCollapsed" (click)="openAdvanced()"></i>
           <i mz-icon-mdi [icon]="'close'" [class]="'mdi-navigation-close'"></i>
           <!-- Advanced search -->

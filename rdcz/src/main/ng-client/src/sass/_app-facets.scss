@@ -33,6 +33,16 @@ app-used-filters {
       padding: 0;
       
       .collection {
+        & > span {
+          &:last-child {
+            > .collection-item  {
+              border-bottom: none !important;
+            }
+          }
+          .collection-item {
+            @include set-border(bottom, 1, solid, $app-brand-l-5);
+          }
+        } 
         .collection-item {
           display: table;
           width: 100%;

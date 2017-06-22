@@ -23,7 +23,7 @@
     {"field": "druhdokumentu", "icon": "file-document", "translate": true, "active": false, "classname": "cz.incad.rd.list.DdruhDokumentu"},
     {"field": "stav", "icon": "traffic-light", "translate": true, "active": true, "classname":"cz.incad.core.basic.DstavRec"}
   ],
-  "home_facets": ["financovano", "vlastnik", "digknihovna"],
+  "home_facets": ["financovano", "vlastnik", "druhdokumentu"],
   "langMaps": {"cs": "cz"}
             
 }
