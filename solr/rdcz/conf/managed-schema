@@ -130,7 +130,6 @@
     
     <field name="autor" type="string" indexed="true" stored="true" multiValued="true" />
     
-    
     <field name="rokvyd" type="tint" indexed="true" stored="true" />
     <field name="rokvydstr" type="string" indexed="true" stored="true" />
     <field name="edice" type="string" indexed="true" stored="true" />
@@ -145,6 +144,12 @@
     <field name="cislo" type="string" indexed="true" stored="true" />
     <field name="carkod" type="string" indexed="true" stored="true" />
     <field name="cislozakazky" type="string" indexed="true" stored="true" />
+    
+    <field name="signatura" type="string" indexed="true" stored="true" />
+    <field name="cisloper" type="string" indexed="true" stored="true" />
+    <field name="cislordcz" type="string" indexed="true" stored="true" />
+    <field name="comment" type="string" indexed="true" stored="true" />
+    
     
     <field name="druhdokumentu" type="string" indexed="true" stored="true" docValues="true" />  
     <field name="rperiodikum" type="string" indexed="true" stored="true" />                    
