@@ -78,10 +78,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     params.set('facet.range.gap', '10');
 
     params.set('rows', '0');
-    //    this.facets = null;
-    //    this.service.search(params).subscribe(res => {
-    //      this.facets = res["facet_counts"]["facet_fields"];
-    //    });
     this.service.search(params, 'home');
   }
 

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router, ActivatedRoute, Params, NavigationStart, NavigationEnd, NavigationExtras } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -20,6 +21,8 @@ export class AppService {
   constructor(
     private state: AppState,
     private translate: TranslateService,
+    private router: Router,
+    private route: ActivatedRoute,
     private http: Http) { }
 
 
@@ -90,6 +93,24 @@ export class AppService {
     return params;
   }
 
+  doUrlParams():  NavigationExtras {
+    let params = {};
+    if (this.state.q && this.state.q !== '') {
+      params['q'] = this.state.q;
+    } else {
+      params['q'] =  '*';
+    }
+
+    params['start'] =  this.state.start;
+    params['rows'] =  this.state.rows;
+    
+    //params['filters'] = [];
+    params['filters'] = JSON.stringify(this.state.usedFilters);
+    
+    params['collapse'] =  this.state.currentCollapse['field'];
+    return params;
+  }
+
   search(params: URLSearchParams, type: string = 'results'): void {
     this.state.startSearch(type);
     var url = this.state.config['context'] + 'search/rdcz/select';
@@ -97,8 +118,11 @@ export class AppService {
       this.state.processSearch(res.json(), type);
     }).subscribe();
   }
-
-
+  
+  goToResults(): void {
+    let params = this.doUrlParams();
+    this.router.navigate(['/results', params]);
+  }
 
   getLists(): Observable<any> {
     let params: URLSearchParams = new URLSearchParams();

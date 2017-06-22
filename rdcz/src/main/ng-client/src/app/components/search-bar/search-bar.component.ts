@@ -22,10 +22,11 @@ export class SearchBarComponent implements OnInit {
   
   search() {
 
-    let params: URLSearchParams = this.service.doSearchParams();
+    //let params: URLSearchParams = this.service.doSearchParams();
     
-//    this.facets = null;
-    this.service.search(params);
+    
+    //this.service.search(params);
+    this.service.goToResults();
     
   }
   
