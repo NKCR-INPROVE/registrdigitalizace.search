@@ -31,6 +31,8 @@ export class AppState {
   ];
 
   currentLang: string;
+  
+  lists: any = {};
 
 
   //Searchresults variables
@@ -146,9 +148,9 @@ export class AppState {
         break;
       }
       default: {
-        this.facets = res["facet_counts"]["facet_fields"];
-        this.results = res["response"]["docs"];
-        this.numFound = res['response']['numFound'];
+//        this.facets = res["facet_counts"]["facet_fields"];
+//        this.results = res["response"]["docs"];
+//        this.numFound = res['response']['numFound'];
       }
     }
     this._searchSubject.next({ state: 'finished', type: type, res: res });

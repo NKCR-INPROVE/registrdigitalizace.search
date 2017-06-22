@@ -27,12 +27,7 @@ export class AppComponent {
 
   ngOnInit() {
 
-    this.getConfig().subscribe(
-      cfg => {
-
-
-      }
-    );
+    this.getConfig().subscribe();
 
     this.service.langSubject.subscribe(() => {
       this.translate.get('title.app').subscribe((newTitle: string) => {
@@ -45,7 +40,6 @@ export class AppComponent {
     return this.http.get("assets/config.json").map(res => {
       let cfg = res.json();
 
-      this.state.setConfig(cfg);
       this.state.rows = cfg['searchParams']['rows'];
       this.state.sorts = cfg['sorts'];
       this.state.currentSort = cfg[0];
@@ -60,9 +54,15 @@ export class AppComponent {
 //          HELLO: 'hello {{value}}'
 //      });
       
-      this.service.changeLang(userLang);
-      this.state.stateChanged();
-      this.init = true;
+        this.state.setConfig(cfg);
+      this.service.getLists().subscribe(res => {
+        for(let i in res){
+          this.state.lists[res[i]['classname'] + '_' + res[i]['value']] = res[i];
+        }
+        this.service.changeLang(userLang);
+        this.state.stateChanged();
+        this.init = true;
+      });
       return this.state.config;
     });
   }

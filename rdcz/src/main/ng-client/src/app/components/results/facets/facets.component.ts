@@ -42,19 +42,22 @@ export class FacetsComponent implements OnInit, OnChanges {
   }
   
   translate(ff: FacetField, f: Facet){
-//    return this.service.translateKey(f.value);
-    
     if (ff.classname){
-      return this.service.doGetFromLists(ff.classname, f.value).subscribe(res => {return res;});
+      return this.service.translateFromLists(ff.classname, f.value);
     } else {
-      return Observable.of(f.value);
-      //return this.service.translateKey(f.value);
+      return f.value
     }
+//    if (ff.classname){
+//      return this.service.doGetFromLists(ff.classname, f.value).subscribe(res => {return res;});
+//    } else {
+//      return Observable.of(f.value);
+//      //return this.service.translateKey(f.value);
+//    }
   }
 
   fillFacets(facet_fields: any) {
     this.facetFields = [];
-    console.log(facet_fields);
+//    console.log(facet_fields);
     if(!facet_fields){return;}
     let configFacets = this.state.config['facets'];
     for (let i in configFacets) {
