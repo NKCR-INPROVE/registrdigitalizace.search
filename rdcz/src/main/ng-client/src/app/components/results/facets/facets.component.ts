@@ -40,6 +40,7 @@ export class FacetsComponent implements OnInit, OnChanges {
     filter.field = f.field;
     filter.value = f.value;
     this.state.addFilter(filter);
+    this.service.goToResults();
   }
   
   translate(ff: FacetField, f: Facet){

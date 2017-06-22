@@ -31,7 +31,7 @@ export class AppState {
   ];
 
   currentLang: string;
-  
+
   lists: any = {};
 
 
@@ -60,6 +60,8 @@ export class AppState {
   currentCollapse: any = this.collapses[2];
   public usedFilters: Filter[] = [];
   public q: string;
+  currentOd: number = 0;
+  currentDo: number = 3000;
 
   public route: string;
 
@@ -79,52 +81,96 @@ export class AppState {
 
   }
 
+  setSearchParamsFromUrl(params) {
+
+    if (params.hasOwnProperty('q')) {
+      this.start = params['q'];
+    }
+    if (params.hasOwnProperty('od')) {
+      this.currentOd = params['od'];
+    }
+    if (params.hasOwnProperty('do')) {
+      this.currentDo = params['do'];
+    }
+    if (params.hasOwnProperty('start')) {
+      this.start = +params['start'];
+    }
+    if (params.hasOwnProperty('rows')) {
+      this.rows = +params['rows'];
+    }
+    if (params.hasOwnProperty('filters')) {
+      this.usedFilters = [];
+      let f = params['filters'];
+      if (f) {
+        let j = JSON.parse(params['filters']);
+        for (let i in j) {
+          let c: Filter = new Filter();
+          Object.assign(c, j[i]);
+          this.usedFilters.push(c);
+        }
+      }
+    }
+    if (params.hasOwnProperty('collapse')) {
+      //console.log(params['collapse']);
+      for (let i in this.collapses) {
+        if (this.collapses[i].field === params['collapse']) {
+          this.currentCollapse = this.collapses[i];
+          break;
+        }
+      }
+    }
+    if (this.configured){
+      this._searchParamsChanged.next(this);
+    }
+  }
+
   removeAllFilters() {
     this.usedFilters = [];
     this._searchParamsChanged.next(this);
   }
 
   removeFilter(f: Filter) {
-      let idx = this.usedFilters.indexOf(f);
-      if (idx > -1) {
-        this.usedFilters.splice(idx, 1);
-        this._searchParamsChanged.next(this);
-      }
+    let idx = this.usedFilters.indexOf(f);
+    if (idx > -1) {
+      this.usedFilters.splice(idx, 1);
+      this._searchParamsChanged.next(this);
+    }
 
   }
 
   addFilter(f: Filter) {
-//    this._searchParamsChanged.next({ state: 'start' });
-//    setTimeout(() => {
-
-      this.usedFilters.push(f);
-      this._searchParamsChanged.next(this);
-//    }, 2);
+    this.usedFilters.push(f);
+    //this._searchParamsChanged.next(this);
   }
   
-  setCollapse(col){
+  addRokFilter(){
+    
+    //this.usedFilters.push(f);
+  }
+
+  setCollapse(col) {
     this.currentCollapse = col;
     this._searchParamsChanged.next(this);
   }
-  
-  
+
+
   setPage(page: number) {
     this.start = page * this.rows;
     this._searchParamsChanged.next(this);
-//    let p = {};
-//    Object.assign(p, this.route.snapshot.firstChild.params);
-//    console.log(p)
-//    p['start'] = this.start;
-//    this.router.navigate(['/hledat/cokoliv', p]);
+    //    let p = {};
+    //    Object.assign(p, this.route.snapshot.firstChild.params);
+    //    console.log(p)
+    //    p['start'] = this.start;
+    //    this.router.navigate(['/hledat/cokoliv', p]);
   }
 
   setRows(r: number) {
     this.rows = r;
     this._searchParamsChanged.next(this);
-//    let p = {};
-//    Object.assign(p, this.route.snapshot.firstChild.params);
-//    p['rows'] = this.rows;
-//    this.router.navigate(['/hledat/cokoliv', p]);
+    //    let p = {};
+    //    Object.assign(p, this.route.snapshot.firstChild.params);
+    //    p['rows'] = this.rows;
+    //    this.router.navigate(['/hledat/cokoliv', p]);
   }
 
   startSearch(type: string) {
@@ -149,9 +195,9 @@ export class AppState {
         break;
       }
       default: {
-//        this.facets = res["facet_counts"]["facet_fields"];
-//        this.results = res["response"]["docs"];
-//        this.numFound = res['response']['numFound'];
+        //        this.facets = res["facet_counts"]["facet_fields"];
+        //        this.results = res["response"]["docs"];
+        //        this.numFound = res['response']['numFound'];
       }
     }
     this._searchSubject.next({ state: 'finished', type: type, res: res });

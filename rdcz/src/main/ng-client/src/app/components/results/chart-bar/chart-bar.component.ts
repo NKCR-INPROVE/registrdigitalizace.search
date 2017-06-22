@@ -18,8 +18,7 @@ export class ChartBarComponent implements OnInit {
   @Input() height: string;
   @Input() width: string;
 
-  currentOd: number = 0;
-  currentDo: number = 3000;
+
   public data: any = {};
   public options = {
     series: {
@@ -52,7 +51,7 @@ export class ChartBarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.currentDo = (new Date()).getFullYear();
+    this.state.currentDo = (new Date()).getFullYear();
     this.data = [{ data: [] }];
     this.chart.setData(this.data);
     this.subscriptions.push(this.state.searchSubject.subscribe(
@@ -90,9 +89,10 @@ export class ChartBarComponent implements OnInit {
   }
 
   onSelection(ranges) {
-    this.currentOd = Math.floor(ranges['xaxis']['from']);
-    this.currentDo = Math.ceil(ranges['xaxis']['to']);
-    this.getData();
+    this.state.currentOd = Math.floor(ranges['xaxis']['from']);
+    this.state.currentDo = Math.ceil(ranges['xaxis']['to']);
+    this.state.addRokFilter();
+    this.service.goToResults();
     //console.log(ranges['xaxis']['from'].toFixed(1) + " to " + ranges['xaxis']['to'].toFixed(1));
   }
 
@@ -104,13 +104,13 @@ export class ChartBarComponent implements OnInit {
   getData() {
 
     let params: URLSearchParams = new URLSearchParams();
-    params.set('q', 'rokvyd:[' + this.currentOd + ' TO ' + this.currentDo + ']');
+    params.set('q', 'rokvyd:[' + this.state.currentOd + ' TO ' + this.state.currentDo + ']');
     params.set('fq', '-rokvyd:0');
     params.set('facet', 'true');
     //params.set('facet.field', 'rokvyd');
     params.set('facet.range', 'rokvyd');
-    params.set('facet.range.start', this.currentOd + '');
-    params.set('facet.range.end', this.currentDo + '');
+    params.set('facet.range.start', this.state.currentOd + '');
+    params.set('facet.range.end', this.state.currentDo + '');
     params.set('facet.range.gap', '10');
     params.set('facet.limit', '-1');
     params.set('facet.mincount', '1');

@@ -65,6 +65,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
         } else {
           this.getData();
+          //this.service.goToResults();
         }
       }
     ));

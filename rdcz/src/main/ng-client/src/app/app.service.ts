@@ -76,8 +76,14 @@ export class AppService {
     }
 
     params.set('facet.range', 'rokvyd');
-    params.set('facet.range.start', '0');
-    params.set('facet.range.end', (new Date()).getFullYear() + '');
+    
+    
+    params.set('facet.range.start', this.state.currentOd + '');
+    params.set('facet.range.end', this.state.currentDo + '');
+    
+    
+//    params.set('facet.range.start', '0');
+//    params.set('facet.range.end', (new Date()).getFullYear() + '');
     params.set('facet.range.gap', '10');
 
     for (let i in this.state.usedFilters) {
@@ -106,6 +112,9 @@ export class AppService {
     
     //params['filters'] = [];
     params['filters'] = JSON.stringify(this.state.usedFilters);
+    
+    params['od'] = this.state.currentOd;
+    params['do'] = this.state.currentDo;
     
     params['collapse'] =  this.state.currentCollapse['field'];
     return params;
