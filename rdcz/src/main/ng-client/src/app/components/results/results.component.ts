@@ -45,7 +45,9 @@ export class ResultsComponent implements OnInit, OnDestroy {
           } else {
             this.facets = resp['res']["facet_counts"]["facet_fields"];
             this.results = resp['res']["response"]["docs"];
-            this.expanded = resp['res']["expanded"];
+            if(resp['res'].hasOwnProperty("expanded")){
+              this.expanded = resp['res']["expanded"];
+            }
           }
 
           //PEDRITO, dej pryc timeout

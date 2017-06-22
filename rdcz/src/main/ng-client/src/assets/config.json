@@ -8,7 +8,7 @@
     { "label": "abecedy", "field": "titlesort asc" }
   ],
   "collapses" : [
-    { "label": "Bez sloučení", "field": "none" },
+    { "label": "Bez sloučení", "field": "id" },
     { "label": "ISSN/ISBN", "field": "isxn_collaps" },
     { "label": "ČNB", "field": "cnb_collaps" },
     { "label": "SIGLA+ID", "field": "aba_collaps" }

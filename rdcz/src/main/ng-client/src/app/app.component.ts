@@ -54,7 +54,7 @@ export class AppComponent {
 //          HELLO: 'hello {{value}}'
 //      });
       
-        this.state.setConfig(cfg);
+      this.state.setConfig(cfg);
       this.service.getLists().subscribe(res => {
         for(let i in res){
           this.state.lists[res[i]['classname'] + '_' + res[i]['value']] = res[i];

@@ -82,7 +82,7 @@ export class AppService {
       params.append('fq', fq);
     }
 
-    if (this.state.currentCollapse['field'] !== 'none') {
+    if (this.state.currentCollapse['field'] !== 'id') {
       params.append('fq', '{!collapse field=' + this.state.currentCollapse['field'] + '}');
       params.append('expand', 'true');
       params.append('expand.rows', '1');
@@ -103,6 +103,13 @@ export class AppService {
   getLists(): Observable<any> {
     let params: URLSearchParams = new URLSearchParams();
     params.set('q', '*');
+    let classes = 'dummyvalue'
+    for (let i in this.state.config['facets']) {
+      if(this.state.config['facets'][i]['classname']){
+        classes += ' OR classname:"' + this.state.config['facets'][i]['classname'] + '"'
+      }
+    }
+    params.append('fq', classes);
     params.set('rows', '1000');
     var url = this.state.config['context'] + 'search/lists/select';
     return this.http.get(url, { search: params }).map(res => {
