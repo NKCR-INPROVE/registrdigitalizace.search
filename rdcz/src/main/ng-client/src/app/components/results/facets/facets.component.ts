@@ -15,6 +15,7 @@ import { AppService } from '../../../app.service';
 export class FacetsComponent implements OnInit, OnChanges {
   
   @Input() facets;
+  @Input() page = "results";
   @Input() allClosed = true;
   
   facetFields: FacetField[] = [];
