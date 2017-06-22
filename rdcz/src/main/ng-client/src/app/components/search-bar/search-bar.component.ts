@@ -12,6 +12,8 @@ import { AppState } from '../../app.state';
 export class SearchBarComponent implements OnInit {
   //public q: string;
   
+  isAdvancedCollapsed: boolean = true; // pedro
+  
   constructor(private service: AppService, public state: AppState) {
   }
 
@@ -41,6 +43,13 @@ export class SearchBarComponent implements OnInit {
 //    this.facets = null;
     this.service.search(params);
     
+  }
+  
+  // pedro
+  openAdvanced() {
+    setTimeout(() => {
+      this.isAdvancedCollapsed = !this.isAdvancedCollapsed;
+    }, 100);
   }
 
 }

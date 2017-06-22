@@ -8,8 +8,46 @@
             (keyup.enter)="search()"
             [(ngModel)]="state.q">
           <i mz-icon-mdi [icon]="'magnify'" (click)="search()"></i>
-          <i mz-icon-mdi [icon]="'menu'" mz-tooltip [tooltip]="'Rozsirene hledani'" [position]="'top'"></i>
+          <i mz-button id="btn-advanced-search" class="app-mdi-menu app-cursor-pointer" mz-tooltip [tooltip]="'btn.rozsirene-hledani' | translate" [position]="'top'"  [class.collapsed]="isAdvancedCollapsed" (click)="openAdvanced()"></i>
           <i mz-icon-mdi [icon]="'close'" [class]="'mdi-navigation-close'"></i>
+          <!-- Advanced search -->
+          <mz-card #filter [backgroundClass]="'white'" [hoverable]="true" [class.collapse]="isAdvancedCollapsed" [attr.aria-expanded]="isAdvancedCollapsed ? 'false' : 'true'">
+            <mz-card-content>
+              <mz-input-container>
+                <input mz-input [label]="'Název'" id="input-1" type="text">
+              </mz-input-container>
+              <mz-input-container>
+                <input mz-input [label]="'Hlavní autor'" id="input-2" type="text">
+              </mz-input-container>
+              <mz-input-container>
+                <input mz-input [label]="'Rok(y) vydání'" id="input-3" type="text">
+              </mz-input-container>
+              <mz-input-container>
+                <input mz-input [label]="'ISSN/ISBN'" id="input-4" type="text">
+              </mz-input-container>
+              <mz-input-container>
+                <input mz-input [label]="'Číslo ČNB'" id="input-5" type="text">
+              </mz-input-container>
+              <mz-input-container>
+                <input mz-input [label]="'Signatura'" id="input-6" type="text">
+              </mz-input-container>
+              <mz-input-container>
+                <input mz-input [label]="'Čár. kód'" id="input-7" type="text">
+              </mz-input-container>
+              <mz-input-container>
+                <input mz-input [label]="'Číslo RDCZ'" id="input-8" type="text">
+              </mz-input-container>
+              <mz-input-container>
+                <input mz-input [label]="'Lokální ident.(001)'" id="input-9" type="text">
+              </mz-input-container>
+              <mz-input-container>
+                <input mz-input [label]="'Číslo zakázky'" id="input-10" type="text">
+              </mz-input-container>
+              <mz-input-container>
+                <input mz-input [label]="'ČAN'" id="input-11" type="text">
+              </mz-input-container>
+            </mz-card-content>
+          </mz-card><!--/advanced search -->
         </div>
       </form><!--/.form -->
     </div><!--/.col -->

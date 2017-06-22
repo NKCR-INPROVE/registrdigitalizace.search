@@ -93,6 +93,9 @@ section {
   @include set-mdi-icon(before, F156, 24, middle);
 }
 
+.app-mdi-menu {
+  @include set-mdi-icon(after, F35C, 24, middle);
+}
 
 // clearfix
 .clearfix {
