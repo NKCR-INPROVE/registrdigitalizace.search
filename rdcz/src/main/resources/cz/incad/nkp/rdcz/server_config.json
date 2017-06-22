@@ -31,6 +31,7 @@
     "cislozakazky",
     "druhdokumentu",
     "rperiodikum",
+    "signatura", "cisloper", "cislordcz", "comment",
     "nvl(ccnb, -predloha.id) as cnb_collaps",
     "nvl(ISSN, nvl(ISBN, -predloha.id)) as isxn_collaps",
     "nvl(SIGLA1, -predloha.id) || nvl(SYSNO, -predloha.id) as aba_collaps",
