@@ -85,6 +85,10 @@ section {
   @include set-mdi-icon(after, F35D, 24, middle);
 }
 
+.app-mdi-menu-up {
+  @include set-mdi-icon(after, F360, 24, middle);
+}
+
 .app-mdi-chart-bar {
   @include set-mdi-icon(before, F128, 24, middle);
 }

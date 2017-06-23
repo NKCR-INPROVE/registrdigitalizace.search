@@ -46,6 +46,8 @@
   "text.progress": "In process",
   "text.planovane": "Planned",
   "text.nastaveni-filtru": "Used filters",
+  "text.zobrazit-vice": "Show more",
+  "text.zobrazit-mene": "Show less",
   "field.stav": "State",
   "field.financovano": "Financial program",
   "field.vlastnik": "Owner",
