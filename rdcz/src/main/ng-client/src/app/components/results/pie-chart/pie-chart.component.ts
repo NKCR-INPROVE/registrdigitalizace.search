@@ -9,8 +9,8 @@ import { AppState } from '../../../app.state';
 
 @Component({
   selector: 'app-pie-chart',
-  templateUrl: './pie-chart.component.html',
-  styleUrls: ['./pie-chart.component.scss']
+  templateUrl: './pie-chart.component.html'
+  //styleUrls: ['./pie-chart.component.scss']
 })
 export class PieChartComponent implements OnInit {
   @Input() height: string;
@@ -24,6 +24,7 @@ export class PieChartComponent implements OnInit {
       },
       hoverable: true
     },
+    colors: ["#66bb6a", "#ffab40", "#880e4f"],
     legend: {
       show: true,
       position: "se",
@@ -31,7 +32,9 @@ export class PieChartComponent implements OnInit {
 
       }
     },
-
+    background: {
+      color: "#000"
+    },
     grid: {
       hoverable: true,
       clickable: true

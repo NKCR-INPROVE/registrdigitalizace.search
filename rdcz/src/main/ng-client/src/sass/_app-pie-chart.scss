@@ -1,0 +1,47 @@
+// --- PIE CHART ---
+
+app-pie-chart {
+  .legend {
+    table {
+      width:150px !important;
+      right: 0 !important;
+      bottom: 35px !important;
+      border-collapse:separate;
+      border-spacing:0 5px;
+      
+      tr {
+        color: color("shades", "white");
+        
+        .legendColorBox {
+          display: none;
+        }
+        
+        .legendLabel {
+          padding: 5px 5px 5px 10px;
+          font-weight: bold;
+          cursor: pointer;
+          
+          &:hover {
+            opacity: 0.8;
+          }
+        }
+        &:first-child {
+          .legendLabel {
+            background-color: $app-state-finished; 
+          }
+        }
+        &:nth-child(2) {
+          .legendLabel {
+            background-color: $app-state-planovane; 
+          }
+        }
+        &:last-child {
+          .legendLabel {
+            background-color: $app-state-progress; 
+          }
+        }
+        
+      }
+    }
+  }
+}
