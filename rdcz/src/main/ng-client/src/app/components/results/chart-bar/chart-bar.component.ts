@@ -33,7 +33,7 @@ export class ChartBarComponent implements OnInit {
     grid: {
       hoverable: true,
       borderWidth: 0,
-      color: '#838383',
+      color: '#546e7a',
       clickable: true
 
     },
@@ -43,7 +43,8 @@ export class ChartBarComponent implements OnInit {
     tooltip: {
       show: true,                 //false
       content: 'Rok %x (%y)'      //"%s | X: %x | Y: %y"
-    }
+    },
+    colors: ["#ffab40","#ffab40","#ffab40"]
   }
   subscriptions: Subscription[] = [];
 
