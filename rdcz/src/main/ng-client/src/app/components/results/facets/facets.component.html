@@ -41,7 +41,7 @@
                   <span (click)="add(f)" class="first-content">{{translate(ff, f)}}</span>
                   <a  mz-secondary-content>({{f.count}})</a>
                 </mz-collection-item>
-                <span [class.collapse]="isMoreFacetsCollapsed" [attr.aria-expanded]="isMoreFacetsCollapsed ? 'false' : 'true'">
+                <span [class.collapse]="isMoreFacetsCollapsed" [attr.aria-expanded]="isMoreFacetsCollapsed ? 'false' : 'true'" [id]="'app-more-facets-' + ff.field">
                   <mz-collection-item *ngIf="i > 4">
                     <span (click)="add(f)" class="first-content">{{translate(ff, f)}}</span>
                     <a  mz-secondary-content>({{f.count}})</a>
