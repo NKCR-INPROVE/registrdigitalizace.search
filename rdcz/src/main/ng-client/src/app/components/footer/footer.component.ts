@@ -6,10 +6,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent implements OnInit {
+  
+  isFooterTextCollapsed: boolean = true; // pedro
 
   constructor() { }
 
   ngOnInit() {
   }
 
+  // pedro
+  openFooterText() {
+    setTimeout(() => {
+      this.isFooterTextCollapsed = !this.isFooterTextCollapsed;
+    }, 100);
+  }
 }

@@ -6,16 +6,39 @@
         RD je společným projektem Národní knihovny České republiky, Knihovny Akademie věd a společnosti INCAD. 
       </p>
       <p class="grey-text text-lighten-4">
-        Záměrem výchozího projektu bylo vytvořit národní registr digitalizovaných dokumentů, který by sloužil k řízení digitalizačního workflow jednotlivých institucí, zamezil duplicitě zpracování a umožnil sdílení výsledků digitalizace. 
+        Záměrem výchozího projektu bylo vytvořit národní registr digitalizovaných dokumentů, který by sloužil k řízení digitalizačního workflow jednotlivých institucí, zamezil duplicitě zpracování a umožnil sdílení výsledků digitalizace.
+      </p>
+      <div class="grey-text text-lighten-4" [class.collapse]="isFooterTextCollapsed" [attr.aria-expanded]="isFooterTextCollapsed ? 'false' : 'true'">
+        <p>
+          S plánovaným přechodem na hromadnou digitalizaci s využitím robotických skenerů bude systém rozšířen o automatické sklízení dat a jejich následné zpracování a evidenci. 
+        </p>
+        <p>
+          Systém je postaven na aplikačním frameworku RIII (J2EE) a data jsou ukládána do relační databáze Oracle. 
+        </p>
+        <p>
+          Pro zpřístupnění aktuální informace o stavu digitalizace koncovým uživatelům je použit vyhledávací nástroj Fast. Všechny uživatelské přístupy jsou realizovány prostřednictvím webové aplikace. Při tvorbě systému byl kladen důraz na robustnost a snadnou rozšiřitelnost systému. 
+        </p>
+        <p>
+          Řešení navazuje na další systémy využívané v knihovnách – Aleph, Kramerius, Sirius. 
+        </p>
+        <p>
+          V současnosti pracuje realizační tým na verzi R4, která bude dostupná jako OpenSource, a která využívá projektů Fedora commons, Grails a Jasper. Předpokládá se její využití pro společný registr v rámci středoevropské spolupráce na digitalizaci dokumentů
+        </p>
+      </div>
+      <p>
+        <button mz-button class="app-btn-show-more" [class.collapsed]="isFooterTextCollapsed" (click)="openFooterText()">
+          <span *ngIf="isFooterTextCollapsed">{{'text.zobrazit-vice' | translate}} <i class="app-mdi-menu-down"></i></span>
+          <span *ngIf="!isFooterTextCollapsed">{{'text.zobrazit-mene' | translate}} <i class="app-mdi-menu-up"></i></span>
+        </button>
       </p>
     </div><!--/.col -->
     <div class="col l4 offset-l2 s12">
       <h5 class="white-text">{{'title.partneri' | translate}}</h5>
       <ul>
-        <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
-        <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
-        <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
-        <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+        <li><a class="grey-text text-lighten-3" href="#!">Logo 1</a></li>
+        <li><a class="grey-text text-lighten-3" href="#!">Logo 2</a></li>
+        <li><a class="grey-text text-lighten-3" href="#!">Logo 3</a></li>
+        <li><a class="grey-text text-lighten-3" href="#!">Logo 4</a></li>
       </ul>
     </div><!--/.col -->
   </div><!--/.row -->

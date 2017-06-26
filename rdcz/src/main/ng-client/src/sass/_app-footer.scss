@@ -4,4 +4,8 @@ footer {
   -webkit-box-flex: 0;
   -webkit-flex: none;
   flex: none;
+  
+  .collapse {
+    display: none;
+  }
 }

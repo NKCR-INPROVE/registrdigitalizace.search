@@ -33,6 +33,11 @@ app-used-filters {
       padding: 0;
       
       .collection {
+        & > .app-wrapper {
+          & > .collapse {
+            display: none;
+          }
+        }
         & > span {
           &:last-child {
             > .collection-item  {

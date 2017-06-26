@@ -17,6 +17,7 @@ export class FacetsComponent implements OnInit, OnChanges {
   @Input() facets;
   @Input() page = "results";
   @Input() allClosed = true;
+  isMoreFacetsCollapsed: boolean = true; // pedro
   
   facetFields: FacetField[] = [];
   
@@ -125,4 +126,10 @@ export class FacetsComponent implements OnInit, OnChanges {
 //    return false;
 //  }
   
+  // pedro
+  openMoreFacets() {
+    setTimeout(() => {
+      this.isMoreFacetsCollapsed = !this.isMoreFacetsCollapsed;
+    }, 100);
+  }
 }
