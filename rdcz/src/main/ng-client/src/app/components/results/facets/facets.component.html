@@ -49,10 +49,10 @@
                 </span>
               </span>
               <mz-collection-item>
-                <strong *ngIf="isMoreFacetsCollapsed" class="app-cursor-pointer app-brand-text text-lighten-2" [class.collapsed]="isMoreFacetsCollapsed" (click)="openMoreFacets()">
+                <strong *ngIf="isMoreFacetsCollapsed" class="app-cursor-pointer app-brand-text text-lighten-2" [class.collapsed]="isMoreFacetsCollapsed" (click)="openMoreFacets('app-more-facets-' + ff.field)">
                   {{'text.zobrazit-vice' | translate}} <i class="app-mdi-menu-down"></i>
                 </strong>
-                <strong *ngIf="!isMoreFacetsCollapsed" class="app-cursor-pointer app-brand-text text-lighten-2" [class.collapsed]="isMoreFacetsCollapsed" (click)="openMoreFacets()">
+                <strong *ngIf="!isMoreFacetsCollapsed" class="app-cursor-pointer app-brand-text text-lighten-2" [class.collapsed]="isMoreFacetsCollapsed" (click)="openMoreFacets('app-more-facets-' + ff.field)">
                   {{'text.zobrazit-mene' | translate}} <i class="app-mdi-menu-up"></i>
                 </strong>
               </mz-collection-item>
