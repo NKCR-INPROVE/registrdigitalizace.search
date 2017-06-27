@@ -84,7 +84,10 @@ export class AppState {
   setSearchParamsFromUrl(params) {
 
     if (params.hasOwnProperty('q')) {
-      this.start = params['q'];
+      if(params['q'] !== '*'){
+        this.q = params['q'];
+      }
+      
     }
     if (params.hasOwnProperty('od')) {
       this.currentOd = params['od'];

@@ -19,7 +19,7 @@ footer {
       filter: brightness(0.1);
       opacity: 0.5;
       
-      & + img {
+      &+img {
         width: 100px !important;
       }
     }

@@ -36,5 +36,10 @@ export class SearchBarComponent implements OnInit {
       this.isAdvancedCollapsed = !this.isAdvancedCollapsed;
     }, 100);
   }
+  
+  cleanQ() {
+    this.state.q = '';
+    this.service.goToResults();
+  }
 
 }

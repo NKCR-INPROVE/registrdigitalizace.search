@@ -8,15 +8,24 @@
       </mz-collapsible-item-header>
       <mz-collapsible-item-body>
         <mz-collection>
-          <mz-collection-item *ngFor="let f of ff.values">
-            <i *ngIf="ff.field=='stav'" [class]="'app-state-item app-state-item-' + f.value"></i>
-            <span (click)="add(f)" class="first-content">{{translate(ff, f)}}</span>
-            <a  mz-secondary-content>({{f.count}})</a>
-          </mz-collection-item>
-          <mz-collection-item>
-            <strong class="app-cursor-pointer app-brand-text text-lighten-2">{{'text.zobrazit-vice' | translate}} <i class="app-mdi-menu-down"></i></strong>
-            <!--<strong class="app-cursor-pointer app-brand-text text-lighten-2">{{'text.zobrazit-mene' | translate}} <i class="app-mdi-menu-up"></i></strong>-->
-          </mz-collection-item>
+          <ng-container *ngFor="let f of ff.values; let i = index; let last = last">
+            <!-- az bude jejich bug opraven, tuto podminku dat v ramci elementu mz-collection-item -> https://github.com/sherweb/ng2-materialize/issues/144 --> 
+            <span *ngIf="isVisible(i, ff)">
+              <mz-collection-item>
+                <i *ngIf="ff.field=='stav'" [class]="'app-state-item app-state-item-' + f.value"></i>
+                <span (click)="add(f)" class="first-content">{{translate(ff, f)}}</span>
+                <a  mz-secondary-content>({{f.count}})</a>
+              </mz-collection-item>
+            </span>
+            <mz-collection-item *ngIf="last && i > 5">
+              <strong  *ngIf="!ff.expanded" (click)="toggleMoreFacets(ff)" class="app-cursor-pointer app-brand-text text-lighten-2">
+                {{'text.zobrazit-vice' | translate}} <i class="app-mdi-menu-down"></i>
+              </strong>
+              <strong *ngIf="ff.expanded" (click)="toggleMoreFacets(ff)" class="app-cursor-pointer app-brand-text text-lighten-2">
+                {{'text.zobrazit-mene' | translate}} <i class="app-mdi-menu-up"></i>
+              </strong>
+            </mz-collection-item>
+          </ng-container>
         </mz-collection>
       </mz-collapsible-item-body>
     </mz-collapsible-item>
@@ -28,7 +37,7 @@
   <div class="row">
     <div *ngFor="let ff of facetFields" class="col s4">
       <mz-collapsible [mode]="'expandable'">
-        <mz-collapsible-item [active]="ff.active">
+        <mz-collapsible-item [active]="ff.active || allOpen">
           <mz-collapsible-item-header>
             <i mz-icon-mdi [icon]="ff.icon"></i>{{'field.' + ff.field | translate}} <span class="app-brand-text text-lighten-2">({{ff.values.length}})</span>
             <i mz-icon-mdi [icon]="'chevron-down'" [class]="'app-clean-mg'"></i>
@@ -36,26 +45,23 @@
           </mz-collapsible-item-header>
           <mz-collapsible-item-body>
             <mz-collection>
-              <span *ngFor="let f of ff.values; let i = index;" class="app-wrapper">
-                <mz-collection-item *ngIf="i <= 4">
-                  <span (click)="add(f)" class="first-content">{{translate(ff, f)}}</span>
-                  <a  mz-secondary-content>({{f.count}})</a>
-                </mz-collection-item>
-                <span [class.collapse]="isMoreFacetsCollapsed" [attr.aria-expanded]="isMoreFacetsCollapsed ? 'false' : 'true'" [id]="'app-more-facets-' + ff.field">
-                  <mz-collection-item *ngIf="i > 4">
+              <ng-container *ngFor="let f of ff.values; let i = index; let last = last">
+                <!-- az bude jejich bug opraven, tuto podminku dat v ramci elementu mz-collection-item -> https://github.com/sherweb/ng2-materialize/issues/144 --> 
+                <span *ngIf="isVisible(i, ff)">
+                  <mz-collection-item>
                     <span (click)="add(f)" class="first-content">{{translate(ff, f)}}</span>
                     <a  mz-secondary-content>({{f.count}})</a>
                   </mz-collection-item>
                 </span>
-              </span>
-              <mz-collection-item>
-                <strong *ngIf="isMoreFacetsCollapsed" class="app-cursor-pointer app-brand-text text-lighten-2" [class.collapsed]="isMoreFacetsCollapsed" (click)="openMoreFacets('app-more-facets-' + ff.field)">
-                  {{'text.zobrazit-vice' | translate}} <i class="app-mdi-menu-down"></i>
-                </strong>
-                <strong *ngIf="!isMoreFacetsCollapsed" class="app-cursor-pointer app-brand-text text-lighten-2" [class.collapsed]="isMoreFacetsCollapsed" (click)="openMoreFacets('app-more-facets-' + ff.field)">
-                  {{'text.zobrazit-mene' | translate}} <i class="app-mdi-menu-up"></i>
-                </strong>
-              </mz-collection-item>
+                <mz-collection-item *ngIf="last && i > 5">
+                  <strong  *ngIf="!ff.expanded" (click)="toggleMoreFacets(ff)" class="app-cursor-pointer app-brand-text text-lighten-2">
+                    {{'text.zobrazit-vice' | translate}} <i class="app-mdi-menu-down"></i>
+                  </strong>
+                  <strong *ngIf="ff.expanded" (click)="toggleMoreFacets(ff)" class="app-cursor-pointer app-brand-text text-lighten-2">
+                    {{'text.zobrazit-mene' | translate}} <i class="app-mdi-menu-up"></i>
+                  </strong>
+                </mz-collection-item>
+              </ng-container>
             </mz-collection>
           </mz-collapsible-item-body>
         </mz-collapsible-item>

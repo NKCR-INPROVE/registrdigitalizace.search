@@ -17,8 +17,7 @@ export class FacetsComponent implements OnInit, OnChanges {
   @Input() facets;
   @Input() page = "results";
   @Input() allClosed = true;
-  isMoreFacetsCollapsed: boolean = true; // pedro
-  //facetId: string; // pedro
+  @Input() allOpen = true;
   
   facetFields: FacetField[] = [];
   
@@ -126,11 +125,27 @@ export class FacetsComponent implements OnInit, OnChanges {
 //    }
 //    return false;
 //  }
+   
+  // state facets are visible
+  isVisible(i: number, ff: FacetField) {
+    if(i < 5) {
+      return true;
+    }
+    if(ff.hasOwnProperty('expanded')) {
+      return ff['expanded'];
+    } 
+    else { 
+      return false;
+    }
+  }
   
-  // pedro
-  openMoreFacets(facetId: string) {
-    setTimeout(() => {
-      this.isMoreFacetsCollapsed = !this.isMoreFacetsCollapsed;
-    }, 100);
+  // click and show more facets
+  toggleMoreFacets(ff: FacetField) {
+    if(ff.hasOwnProperty('expanded')) {
+      ff['expanded'] = !ff['expanded'];
+    } 
+    else {
+      ff['expanded'] = true;
+    }
   }
 }
