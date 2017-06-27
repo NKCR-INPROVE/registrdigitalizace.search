@@ -8,4 +8,20 @@ footer {
   .collapse {
     display: none;
   }
+  
+  .col:last-child {
+    img {
+      display: inline-block;
+      margin-right: 20px;
+      vertical-align: top;
+      width: 50px;
+      -webkit-filter: brightness(0.1);
+      filter: brightness(0.1);
+      opacity: 0.5;
+      
+      & + img {
+        width: 100px !important;
+      }
+    }
+  }
 }
