@@ -61,7 +61,7 @@ export class AppState {
   public usedFilters: Filter[] = [];
   public q: string;
   currentOd: number = 0;
-  currentDo: number = 3000;
+  currentDo: number = (new Date()).getFullYear();;
 
   public route: string;
 
@@ -80,6 +80,14 @@ export class AppState {
   setFilters() {
 
   }
+  
+  clearParams(){
+    this.q = '';
+    this.currentOd = 0;
+    this.currentDo = (new Date()).getFullYear();;
+    this.start = 0;
+    this.usedFilters = [];
+  }
 
   setSearchParamsFromUrl(params) {
 
@@ -87,7 +95,6 @@ export class AppState {
       if(params['q'] !== '*'){
         this.q = params['q'];
       }
-      
     }
     if (params.hasOwnProperty('od')) {
       this.currentOd = params['od'];

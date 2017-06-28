@@ -77,7 +77,6 @@ export class AppService {
 
     params.set('facet.range', 'rokvyd');
     
-    
     params.set('facet.range.start', this.state.currentOd + '');
     params.set('facet.range.end', this.state.currentDo + '');
     

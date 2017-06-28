@@ -19,21 +19,25 @@ export class FacetsComponent implements OnInit, OnChanges {
   @Input() allClosed = true;
   @Input() allOpen = true;
   
+  filling: boolean = false;
+  
   facetFields: FacetField[] = [];
   
   constructor(public service: AppService, public state: AppState) { }
 
   ngOnInit() {
-    //this.fillFacets(this.facets);
+    this.fillFacets(this.facets);
   }
   
   public ngOnChanges(changes: SimpleChanges): void {
-    //console.log(changes);
-    if(changes['facets']){
-      if (this.state.config){
-        this.fillFacets(this.facets);
-      }
-    }
+//    console.log(changes);
+//    if (changes['facets']){
+//      if (changes['facets'].currentValue){
+//        this.fillFacets(this.facets);
+//      } else {
+//        this.facetFields = null;
+//      }
+//    }
   }
   
   add(f: Facet){
@@ -50,15 +54,16 @@ export class FacetsComponent implements OnInit, OnChanges {
     } else {
       return f.value
     }
-//    if (ff.classname){
-//      return this.service.doGetFromLists(ff.classname, f.value).subscribe(res => {return res;});
-//    } else {
-//      return Observable.of(f.value);
-//      //return this.service.translateKey(f.value);
-//    }
   }
 
   fillFacets(facet_fields: any) {
+    
+    if (!this.state.config){ 
+      return;
+    }
+      
+    console.log('tady', this.page, this.filling);
+    this.filling = true;
     this.facetFields = [];
 //    console.log(facet_fields);
     if(!facet_fields){return;}
@@ -92,6 +97,7 @@ export class FacetsComponent implements OnInit, OnChanges {
         } 
       }
     }
+    this.filling = false;
   }
 
   pushFacetValue(facetField: FacetField, field: string, value: string, count: number) {
