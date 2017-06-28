@@ -70,16 +70,6 @@ export class ChartBarComponent implements OnInit {
         }
       }
     ));
-
-    //    if (this.state.config) {
-    //      this.getData();
-    //    } else {
-    //      this.subscriptions.push(this.state.stateChangedSubject.subscribe(
-    //        () => {
-    //          this.getData();
-    //        }
-    //      ));
-    //    }
   }
 
   ngOnDestroy() {

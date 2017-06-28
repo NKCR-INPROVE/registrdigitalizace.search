@@ -35,5 +35,10 @@ export class UsedFiltersComponent implements OnInit, OnDestroy {
   removeAll(){
     this.state.removeAllFilters();
   }
+  
+  cleanQ() {
+    this.state.q = '';
+    this.service.goToResults();
+  }
 
 }

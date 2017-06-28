@@ -86,8 +86,11 @@ export class AppService {
     params.set('facet.range.gap', '10');
 
     for (let i in this.state.usedFilters) {
-      let fq = this.state.usedFilters[i].field + ':"' + this.state.usedFilters[i].value + '"';
-      params.append('fq', fq);
+      if(this.state.usedFilters[i].field === 'rokvyd'){
+      params.append('fq', 'rokvyd:' + this.state.usedFilters[i].value);
+      } else {
+      params.append('fq', this.state.usedFilters[i].field + ':"' + this.state.usedFilters[i].value + '"');
+      }
     }
 
     if (this.state.currentCollapse['field'] !== 'id') {
@@ -112,8 +115,8 @@ export class AppService {
     //params['filters'] = [];
     params['filters'] = JSON.stringify(this.state.usedFilters);
     
-    params['od'] = this.state.currentOd;
-    params['do'] = this.state.currentDo;
+//    params['od'] = this.state.currentOd;
+//    params['do'] = this.state.currentDo;
     
     params['collapse'] =  this.state.currentCollapse['field'];
     return params;

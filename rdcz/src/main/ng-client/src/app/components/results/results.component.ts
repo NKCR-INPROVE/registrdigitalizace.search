@@ -37,6 +37,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
     this.subscriptions.push(this.state.searchSubject.subscribe(
       (resp) => {
+        //console.log(resp);
         if (resp['type'].indexOf('results') > -1) {
           if (resp['state'] === 'start') {
             this.facets = null;
@@ -84,16 +85,9 @@ export class ResultsComponent implements OnInit, OnDestroy {
     let params: URLSearchParams = this.service.doSearchParams();
 
     this.facets = null;
+    
+    //this.service.goToResults();
     this.service.search(params);
   }
-
-//  getExpanded(res: Result) {
-//    console.log(res);
-//    if (res) {
-//      return this.expanded[res[this.state.currentCollapse.field]];
-//    } else {
-//      return null;
-//    }
-//  }
 
 }

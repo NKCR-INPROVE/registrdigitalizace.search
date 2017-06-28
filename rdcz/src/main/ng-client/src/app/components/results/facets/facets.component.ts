@@ -1,5 +1,6 @@
 import { Component, OnInit, OnChanges, Input, SimpleChanges } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
+import { Subscription } from 'rxjs/Subscription';
 
 import { FacetField } from '../../../models/facet-field';
 import { Facet } from '../../../models/facet';
@@ -18,6 +19,7 @@ export class FacetsComponent implements OnInit, OnChanges {
   @Input() page = "results";
   @Input() allClosed = true;
   @Input() allOpen = true;
+  subscriptions: Subscription[] = [];
   
   filling: boolean = false;
   
@@ -26,7 +28,26 @@ export class FacetsComponent implements OnInit, OnChanges {
   constructor(public service: AppService, public state: AppState) { }
 
   ngOnInit() {
-    this.fillFacets(this.facets);
+    
+    this.subscriptions.push(this.state.searchSubject.subscribe(
+      (resp) => {
+        //console.log(resp);
+        if (resp['type'].indexOf('results') > -1) {
+          if (resp['state'] === 'start') {
+            this.facetFields = [];
+          } else {
+            this.fillFacets(this.state.facets);
+          }
+        }
+      }
+    ));
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach((s: Subscription) => {
+      s.unsubscribe();
+    });
+    this.subscriptions = [];
   }
   
   public ngOnChanges(changes: SimpleChanges): void {
@@ -61,8 +82,6 @@ export class FacetsComponent implements OnInit, OnChanges {
     if (!this.state.config){ 
       return;
     }
-      
-    console.log('tady', this.page, this.filling);
     this.filling = true;
     this.facetFields = [];
 //    console.log(facet_fields);

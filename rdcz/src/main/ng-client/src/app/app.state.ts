@@ -63,6 +63,9 @@ export class AppState {
   currentOd: number = 0;
   currentDo: number = (new Date()).getFullYear();;
 
+  qcheck: boolean;
+
+
   public route: string;
 
   setConfig(cfg) {
@@ -80,27 +83,21 @@ export class AppState {
   setFilters() {
 
   }
-  
-  clearParams(){
+
+  clearParams() {
     this.q = '';
     this.currentOd = 0;
-    this.currentDo = (new Date()).getFullYear();;
+    this.currentDo = (new Date()).getFullYear();
     this.start = 0;
     this.usedFilters = [];
   }
 
   setSearchParamsFromUrl(params) {
-
+    this.usedFilters = [];
     if (params.hasOwnProperty('q')) {
-      if(params['q'] !== '*'){
+      if (params['q'] !== '*') {
         this.q = params['q'];
       }
-    }
-    if (params.hasOwnProperty('od')) {
-      this.currentOd = params['od'];
-    }
-    if (params.hasOwnProperty('do')) {
-      this.currentDo = params['do'];
     }
     if (params.hasOwnProperty('start')) {
       this.start = +params['start'];
@@ -109,7 +106,6 @@ export class AppState {
       this.rows = +params['rows'];
     }
     if (params.hasOwnProperty('filters')) {
-      this.usedFilters = [];
       let f = params['filters'];
       if (f) {
         let j = JSON.parse(params['filters']);
@@ -120,6 +116,22 @@ export class AppState {
         }
       }
     }
+    //    if (params.hasOwnProperty('od') || params.hasOwnProperty('do')) {
+    //      if (params.hasOwnProperty('od')) {
+    //        this.currentOd = params['od'];
+    //      } else {
+    //        this.currentOd = 0;
+    //      }
+    //      if (params.hasOwnProperty('do')) {
+    //        this.currentDo = params['do'];
+    //      } else {
+    //        this.currentDo = (new Date()).getFullYear();
+    //      }
+    //      let c: Filter = new Filter();
+    //      c.field = 'rokvyd';
+    //      c.value = '[' + this.currentOd + ' TO ' + this.currentDo + ']';
+    //      this.usedFilters.push(c);
+    //    }
     if (params.hasOwnProperty('collapse')) {
       //console.log(params['collapse']);
       for (let i in this.collapses) {
@@ -129,7 +141,7 @@ export class AppState {
         }
       }
     }
-    if (this.configured){
+    if (this.configured) {
       this._searchParamsChanged.next(this);
     }
   }
@@ -141,8 +153,10 @@ export class AppState {
 
   removeFilter(f: Filter) {
     let idx = this.usedFilters.indexOf(f);
+    console.log(f, idx);
     if (idx > -1) {
       this.usedFilters.splice(idx, 1);
+
       this._searchParamsChanged.next(this);
     }
 
@@ -152,10 +166,30 @@ export class AppState {
     this.usedFilters.push(f);
     //this._searchParamsChanged.next(this);
   }
-  
-  addRokFilter(){
-    
-    //this.usedFilters.push(f);
+
+  getFilterByField(field: string): Filter {
+
+    for (let i in this.usedFilters) {
+      if (this.usedFilters[i].field === field) {
+        return this.usedFilters[i];
+      }
+    }
+    return null;
+  }
+
+  addRokFilter() {
+
+    let c: Filter = this.getFilterByField('rokvyd');
+    if (c == null) {
+      c = new Filter();
+      c.field = 'rokvyd';
+      this.usedFilters.push(c);
+    }
+    c.value = '[' + this.currentOd + ' TO ' + this.currentDo + ']';
+  }
+
+  setQueryAsFilter() {
+    //this.qcheck = checked;
   }
 
   setCollapse(col) {
@@ -167,20 +201,11 @@ export class AppState {
   setPage(page: number) {
     this.start = page * this.rows;
     this._searchParamsChanged.next(this);
-    //    let p = {};
-    //    Object.assign(p, this.route.snapshot.firstChild.params);
-    //    console.log(p)
-    //    p['start'] = this.start;
-    //    this.router.navigate(['/hledat/cokoliv', p]);
   }
 
   setRows(r: number) {
     this.rows = r;
     this._searchParamsChanged.next(this);
-    //    let p = {};
-    //    Object.assign(p, this.route.snapshot.firstChild.params);
-    //    p['rows'] = this.rows;
-    //    this.router.navigate(['/hledat/cokoliv', p]);
   }
 
   startSearch(type: string) {

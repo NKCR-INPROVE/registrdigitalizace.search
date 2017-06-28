@@ -1,4 +1,4 @@
-<section *ngIf="state.usedFilters.length > 0">
+<section *ngIf="state.usedFilters.length > 0 || (state.qcheck && state.q !== '')">
   <!--
   <mz-collapsible [mode]="'expandable'" *ngIf="filtersGroup.length > 0">
     <mz-collapsible-item [active]="true" *ngFor="let filters of filtersGroup">
@@ -29,6 +29,12 @@
       </div><!--/.collapsible-header -->
       <div class="collapsible-body" style="display:block">
         <div class="collection">
+          <div class="collection-item" *ngIf="state.qcheck && state.q !== ''">
+            <span class="first-content" (click)="cleanQ()">{{'field.q' | translate}}: {{state.q}}</span>
+            <a (click)="cleanQ()" class="secondary-content">
+              <span class="app-mdi-close app-brand-text text-app-red"></span>
+            </a>
+          </div>
           <div class="collection-item" *ngFor="let f of state.usedFilters">
             <span class="first-content" (click)="remove(f)">{{'field.' + f.field | translate}}: {{f.value}}</span>
             <a (click)="remove(f)" class="secondary-content">
