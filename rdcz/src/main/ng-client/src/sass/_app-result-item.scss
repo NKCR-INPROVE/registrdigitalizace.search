@@ -3,22 +3,9 @@
 app-result-item {
   .card {
     margin-bottom: 20px;
-    //overflow: hidden; // because triangl border radius
-    
-    /*.app-card-triangle {
-      border-color: $app-brand-l-2 transparent transparent;
-      border-style: solid;
-      border-width: 22px 22px 0 0;
-      height: 0;
-      left: 0;
-      position: absolute;
-      top: 0;
-      width: 0;
-      
-      &.app-state-finished {border-color: $app-state-finished transparent transparent;}
-      &.app-state-progress {border-color: $app-state-progress transparent transparent;}
-      &.app-state-planovane {border-color: $app-state-planovane transparent transparent;}
-    }*/
+    @extend .app-card-shadow;
+    @extend .app-card-hoverable;
+    @include set-border(all, 1, solid, $app-brand-l-5);
     
     // state
     .app-state {
@@ -32,14 +19,6 @@ app-result-item {
         width: 5px;
         height: 30px;
         margin-bottom: 1px;
-        
-        // test state color
-        /*&+span {
-          background-color: $app-state-progress !important;
-        }
-        &:last-child {
-          background-color: $app-state-planovane !important;
-        }*/
       }
     }
 
@@ -74,6 +53,7 @@ app-result-item {
       .app-card-detail {
         .collapsible {
           @extend .z-depth-0;
+          @extend .app-border-radius;
           margin-bottom: 0;
           
           .collapsible-header {
@@ -145,6 +125,8 @@ app-result-item {
     } //--/.card-content
     
     .card-action {
+      border-color: $app-brand-l-5;
+      
       span {
         font-size: 0.8rem;
         text-transform: none;

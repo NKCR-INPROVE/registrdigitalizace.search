@@ -41,6 +41,7 @@ a {
   margin-left: auto;
 }
 
+
 // buttons
 .btn, .btn-large, .btn-flat {
   //text-transform: inherit;
@@ -64,6 +65,7 @@ section {
   padding-left: 0.75rem !important;
   padding-right: 0.75rem !important;
 }
+
 
 // cleaners
 .app-clean-mg,
@@ -101,6 +103,7 @@ section {
   @include set-mdi-icon(after, F35C, 24, middle);
 }
 
+
 // clearfix
 .clearfix {
   @include clearfix();
@@ -112,3 +115,17 @@ section {
 .app-state-item-finished {background-color: $app-state-finished;}
 .app-state-item-progress {background-color: $app-state-progress;}
 .app-state-item-planovane {background-color: $app-state-planovane;}
+
+
+// box shadow
+.app-card-shadow {
+  box-shadow: 0 2px 2px 0 rgba(38, 50, 56, 0), 0 1px 5px 0 rgba(38, 50, 56, 0.1), 0 3px 1px -20px rgba(38, 50, 56, 0.1);
+}
+
+.app-card-hoverable {
+  &.hoverable {
+    &:hover {
+      box-shadow: 0 8px 17px 0 rgba(38, 50, 56, 0.1), 0 6px 20px 0 rgba(38, 50, 56, 0.19);
+    }
+  }
+}

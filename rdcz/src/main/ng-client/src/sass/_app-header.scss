@@ -10,6 +10,32 @@ header {
       @extend .z-depth-0;
       background-color: transparent;
       margin: 40px 0 20px 0;
+      
+      ul {
+        li {
+          &.active {
+            background-color: $app-brand-l-6;
+          }
+          a {
+            position: relative;
+            
+            &:hover {
+              background-color: transparent;
+              
+              &:after {
+                content: '';
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                height: 3px;
+                padding: 0 15px;
+                background-color: $app-brand-l-1;
+              } 
+            }
+          }
+        }
+      }
     } 
   }
 }

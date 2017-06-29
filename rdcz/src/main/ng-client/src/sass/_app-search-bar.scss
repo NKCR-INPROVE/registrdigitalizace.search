@@ -41,6 +41,10 @@ app-search-bar {
             padding-left: 2.5rem;
             padding-right: 0.5rem;
             width: calc(100% - 7rem);
+            
+            &::-ms-clear {
+              display: none; // for IE - not display his display button
+            }
           }
           .input-field {
             mz-card {
