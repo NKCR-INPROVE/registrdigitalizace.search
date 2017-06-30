@@ -4,6 +4,8 @@ app-facets,
 app-used-filters {
   .collapsible {
     margin: 0;
+    @extend .app-card-shadow;
+    @extend .app-border-radius;
     
     .collapsible-header {
       background-color: $app-brand-l-6;

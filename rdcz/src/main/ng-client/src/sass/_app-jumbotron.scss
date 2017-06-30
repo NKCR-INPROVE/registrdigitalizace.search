@@ -1,13 +1,22 @@
 // --- JUMBOTRON ---
 
 app-jumbotron {
-  .card {
-    text-align: center;
-    @extend .app-clean-mg;
-    //@extend .z-depth-0;
-    .card-title {
-      font-size: 2rem;
-      font-weight: 200;
-    }
+  section {
+    margin-bottom: 30px;
+    
+    .card {
+      text-align: center;
+      @extend .app-clean-mg;
+      @extend .app-card-hoverable;
+      &:hover {
+        @include set-border(all, 1, solid, $app-brand-l-5);
+      }
+      box-shadow: none;
+
+      .card-title {
+        font-size: 2rem;
+        font-weight: 200;
+      }
+    } 
   }
 }
