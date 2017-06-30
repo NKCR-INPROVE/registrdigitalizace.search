@@ -1,0 +1,13 @@
+// --- LOGIN ---
+
+app-login {
+  section {
+    margin-top: 40px;
+    
+    .card {
+      @extend .app-card-shadow;
+      @extend .app-card-hoverable;
+      @include set-border(all, 1, solid, $app-brand-l-5);
+    }
+  }
+}
