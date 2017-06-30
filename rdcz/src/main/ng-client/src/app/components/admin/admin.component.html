@@ -1,0 +1,33 @@
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col s12">
+        <h5>Admin page</h5>
+        <div class="row">
+          <div class="col s3">
+            <mz-collection>
+              <mz-collection-item>
+                <mz-checkbox-container>
+                  <input mz-checkbox [label]="'Napoveda'" id="checbox-1" type="checkbox">
+                </mz-checkbox-container>
+              </mz-collection-item>
+              <mz-collection-item>
+                <mz-checkbox-container>
+                  <input mz-checkbox [label]="'Info'" id="checbox-2" type="checkbox">
+                </mz-checkbox-container>
+              </mz-collection-item>
+            </mz-collection>
+          </div><!--/.col -->
+          <div class="col s9">
+            <mz-textarea-container>
+              <textarea mz-textarea
+                [label]="'Editace obsahu'"
+                id="basic-textarea"
+                placeholder="Zde editujte obsah"></textarea>
+            </mz-textarea-container>
+          </div><!--/.col -->
+        </div><!--/.row -->
+      </div><!--/.col -->
+    </div><!--/.row -->
+  </div><!--/.container -->
+</section>

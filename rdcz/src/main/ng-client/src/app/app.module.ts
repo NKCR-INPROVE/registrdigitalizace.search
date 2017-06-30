@@ -32,6 +32,8 @@ import { FlotComponent } from './components/flot/flot.component';
 import { UsedFiltersComponent } from './components/results/used-filters/used-filters.component';
 import { QueryAsFilterComponent } from './components/results/query-as-filter/query-as-filter.component';
 import { LoadingComponent } from './components/loading/loading.component';
+import { LoginComponent } from './components/login/login.component';
+import { AdminComponent } from './components/admin/admin.component';
 
 
 export function HttpLoaderFactory(http: Http) {
@@ -65,7 +67,9 @@ export function createTranslateLoader(http: Http) {
     FlotComponent,
     UsedFiltersComponent,
     QueryAsFilterComponent,
-    LoadingComponent
+    LoadingComponent,
+    LoginComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
@@ -85,6 +89,8 @@ export function createTranslateLoader(http: Http) {
       { path: 'results', component: ResultsComponent },
       { path: 'info', component: InfoComponent },
       { path: 'napoveda', component: NapovedaComponent },
+      { path: 'login', component: LoginComponent },
+      { path: 'admin', component: AdminComponent },
       { path: 'duplicity', component: DuplicityComponent },
     ])
   ],

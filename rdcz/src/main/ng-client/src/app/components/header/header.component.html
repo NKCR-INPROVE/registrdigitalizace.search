@@ -16,6 +16,9 @@
           <mz-navbar-item routerLink="info" routerLinkActive="active" #info="routerLinkActive" [active]="info.isActive">
             <a routerLink="info" title="{{'nav.info' | translate}}">{{'nav.info' | translate}}</a>
           </mz-navbar-item>
+          <mz-navbar-item routerLink="login" routerLinkActive="active" #login="routerLinkActive" [active]="login.isActive">
+            <a routerLink="login" title="{{'nav.login' | translate}}">{{'nav.login' | translate}}</a>
+          </mz-navbar-item>
           <mz-navbar-item>
             <a *ngIf="currLang !== 'en'" (click)="changeLang('en')" title="Switch to english">English</a>
             <a *ngIf="currLang !== 'cs'" (click)="changeLang('cs')" title="Přepni na češtinu">Česky</a>

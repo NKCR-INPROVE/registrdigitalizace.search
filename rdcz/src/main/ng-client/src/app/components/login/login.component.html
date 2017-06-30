@@ -1,0 +1,44 @@
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col offset-s2 s8 offset-s2 offset-m4 m4 offset-m4">
+        <mz-card [hoverable]="true">
+          <mz-card-title>
+            <div class="center-align">
+              {{'title.login' | translate}}
+            </div>
+          </mz-card-title>
+          <mz-card-content>
+            <form>
+              <div class="row">
+                <mz-input-container class="col s12">
+                  <i mz-icon-mdi mz-input-prefix [icon]="'account'"></i>
+                  <input mz-input
+                    [label]="'label.user' | translate"
+                    id="user-input"
+                    type="text">
+                </mz-input-container>
+              </div>
+              <div class="row">
+                <mz-input-container class="col s12">
+                  <i mz-icon-mdi mz-input-prefix [icon]="'lock-outline'"></i>
+                  <input mz-input
+                    [label]="'label.password' | translate"
+                    id="password-input"
+                    type="password">
+                </mz-input-container>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <button mz-button [large]="'true'" class="col s12">
+                    {{'btn.login' | translate}}
+                  </button>
+                </div>
+              </div>
+            </form>
+          </mz-card-content>
+        </mz-card>
+      </div><!--/.col -->
+    </div><!--/.row -->
+  </div><!--/.container -->
+</section>
