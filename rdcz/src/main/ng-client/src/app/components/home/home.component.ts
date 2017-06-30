@@ -1,12 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-
 import { Subscription } from 'rxjs/Subscription';
 import { URLSearchParams } from '@angular/http';
 
-
 import { AppService } from '../../app.service';
-
 import { AppState } from '../../app.state';
+import { FacetField } from '../../models/facet-field';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +14,8 @@ import { AppState } from '../../app.state';
 export class HomeComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
-  facets: any = [];
+  //facets: any = [];
+  facetFields: FacetField[] = [];
 
   constructor(private service: AppService, public state: AppState) {
   }
@@ -38,15 +37,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.state.searchSubject.subscribe(
       (resp) => {
         if (resp['state'] === 'start') {
-          this.facets = null;
+          this.facetFields = [];
         } else if (resp['type'] === 'home') {
-          this.facets = [];
-          for (let i in resp['res']["facet_counts"]["facet_fields"]) {
-            //console.log(i, this.state.config['home_facets'].indexOf(i));
-            if (this.state.config['home_facets'].indexOf(i) > -1) {
-              this.facets[i] = resp['res']["facet_counts"]["facet_fields"][i];
-            }
-          }
+          this.facetFields = this.state.fillFacets(this.state.config['home_facets'], false);
+          
           //this.facets = resp['res']["facet_counts"]["facet_fields"];
         }
 

@@ -2,9 +2,10 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { URLSearchParams } from '@angular/http';
 
-import { Result } from '../../models/result';
 import { AppService } from '../../app.service';
 import { AppState } from '../../app.state';
+import { FacetField } from '../../models/facet-field';
+import { Result } from '../../models/result';
 
 @Component({
   selector: 'app-results',
@@ -14,7 +15,9 @@ import { AppState } from '../../app.state';
 export class ResultsComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
-  facets: any = [];
+  //facets: any = [];
+  facetFields: FacetField[] = [];
+
   results: Result[] = [];
   expanded: any = {};
   numFound: number;
@@ -40,11 +43,14 @@ export class ResultsComponent implements OnInit, OnDestroy {
         //console.log(resp);
         if (resp['type'].indexOf('results') > -1) {
           if (resp['state'] === 'start') {
-            this.facets = null;
+            //this.facets = null;
+            //this.facetFields = [];
             this.results = [];
             this.expanded = {};
+            this.loading = true;
           } else {
-            this.facets = resp['res']["facet_counts"]["facet_fields"];
+            //this.facets = resp['res']["facet_counts"]["facet_fields"];
+            this.facetFields = this.state.fillFacets(this.state.config['results_facets'], false);
             this.results = resp['res']["response"]["docs"];
             if(resp['res'].hasOwnProperty("expanded")){
               this.expanded = resp['res']["expanded"];
@@ -54,7 +60,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
           //PEDRITO, dej pryc timeout
           setTimeout(() => {
             this.loading = false;
-          }, 1000);
+          }, 100);
         }
       }
     ));
@@ -84,7 +90,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
     let params: URLSearchParams = this.service.doSearchParams();
 
-    this.facets = null;
+    //this.facets = null;
     
     //this.service.goToResults();
     this.service.search(params);

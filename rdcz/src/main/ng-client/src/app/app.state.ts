@@ -4,6 +4,8 @@ import { Subject } from 'rxjs/Subject';
 
 import { Result } from './models/result';
 import { Filter } from './models/filter';
+import { FacetField } from './models/facet-field';
+import { Facet } from './models/facet';
 
 @Injectable()
 export class AppState {
@@ -116,22 +118,6 @@ export class AppState {
         }
       }
     }
-    //    if (params.hasOwnProperty('od') || params.hasOwnProperty('do')) {
-    //      if (params.hasOwnProperty('od')) {
-    //        this.currentOd = params['od'];
-    //      } else {
-    //        this.currentOd = 0;
-    //      }
-    //      if (params.hasOwnProperty('do')) {
-    //        this.currentDo = params['do'];
-    //      } else {
-    //        this.currentDo = (new Date()).getFullYear();
-    //      }
-    //      let c: Filter = new Filter();
-    //      c.field = 'rokvyd';
-    //      c.value = '[' + this.currentOd + ' TO ' + this.currentDo + ']';
-    //      this.usedFilters.push(c);
-    //    }
     if (params.hasOwnProperty('collapse')) {
       //console.log(params['collapse']);
       for (let i in this.collapses) {
@@ -224,6 +210,8 @@ export class AppState {
         break;
       }
       case 'home': {
+        this.facets = res["facet_counts"]["facet_fields"];
+        this.numFound = res['response']['numFound'];
         break;
       }
       case 'pie': {
@@ -237,4 +225,59 @@ export class AppState {
     }
     this._searchSubject.next({ state: 'finished', type: type, res: res });
   }
+
+
+  fillFacets(fields: string[], allClosed: boolean): FacetField[] {
+    
+
+if(!this.facets){
+  return [];
+}
+    let facetFields: FacetField[] = [];
+
+    let configFacets = this.config['facets'];
+    for (let i in configFacets) {
+      let field = configFacets[i]['field'];
+      if (fields.indexOf(field) > -1) {
+        if (this.facets.hasOwnProperty(field) && Object.keys(this.facets[field]).length > 1) {
+          var facetField = new FacetField();
+          facetField.field = field + '';
+          facetField.icon = configFacets[i]['icon'];
+          facetField.active = !allClosed && configFacets[i]['active'];
+          facetField.classname = configFacets[i]['classname'];
+          facetField.isMultiple = this.config['searchParams']['multipleFacets'] && this.config['searchParams']['multipleFacets'].indexOf(field) > -1;
+          if (this.config['searchParams']['json.nl'] === 'map') {
+            for (let f in this.facets[field]) {
+              this.pushFacetValue(facetField, field, f, this.facets[field][f]);
+            }
+            facetFields.push(facetField);
+          } else if (this.config['searchParams']['json.nl'] === 'arrmap') {
+            for (let f in this.facets[field]) {
+              let value = Object.keys(this.facets[field][f])[0];
+              this.pushFacetValue(facetField, field, value, this.facets[field][f][value]);
+            }
+            facetFields.push(facetField);
+          } else { //if (this.state.config['searchParams']['json.nl'] === 'arrarr') {
+            for (let f in this.facets[field]) {
+              this.pushFacetValue(facetField, field, this.facets[field][f][0], this.facets[field][f][1]);
+            }
+            facetFields.push(facetField);
+          }
+        }
+      }
+    }
+    return facetFields;
+  }
+
+  pushFacetValue(facetField: FacetField, field: string, value: string, count: number) {
+    if (value.trim() !== '') {
+      let facet = new Facet();
+      facet.field = field;
+      facet.value = value;
+      facet.count = count;
+      //      facet.isUsed = this.facetUsed(field, value);
+      facetField.values.push(facet);
+    }
+  }
+
 }

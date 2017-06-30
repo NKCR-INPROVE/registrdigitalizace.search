@@ -77,11 +77,11 @@ export class PieChartComponent implements OnInit {
     this.data = [];
     this.chart.setData(this.data);
     if (this.state.config) {
-      this.getData();
+      //this.getData();
     } else {
       this.subscriptions.push(this.service.langSubject.subscribe(
         () => {
-          this.getData();
+          //this.getData();
         }
       ));
     }

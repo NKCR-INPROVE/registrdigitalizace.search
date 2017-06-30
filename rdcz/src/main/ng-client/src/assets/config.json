@@ -24,6 +24,7 @@
     {"field": "stav", "icon": "traffic-light", "translate": true, "active": true, "classname":"cz.incad.core.basic.DstavRec"}
   ],
   "home_facets": ["financovano", "vlastnik", "druhdokumentu"],
+  "results_facets": ["financovano", "vlastnik", "druhdokumentu", "druhdokumentu", "stav"],
   "langMaps": {"cs": "cz"}
             
 }

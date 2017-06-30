@@ -1,5 +1,5 @@
 <section *ngIf="facetFields && facetFields.length > 0 && page === 'results'">
-  <mz-collapsible [mode]="'expandable'" >
+  <mz-collapsible [mode]="'expandable'">
     <mz-collapsible-item *ngFor="let ff of facetFields" [active]="ff.active">
       <mz-collapsible-item-header>
         <i mz-icon-mdi [icon]="ff.icon"></i>{{'field.' + ff.field | translate}} <span class="app-brand-text text-lighten-2">({{ff.values.length}})</span>
