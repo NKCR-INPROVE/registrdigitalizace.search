@@ -13,7 +13,7 @@
     </div><!--/.col -->
     <div class="col s8">
       <app-sort-bar></app-sort-bar>
-      <app-chart-bar [height]="'120px'" [width]="'100%'"></app-chart-bar>
+      <app-chart-bar [height]="'120px'" [width]="'100%'" ></app-chart-bar>
       <section>
         <app-result-item *ngFor="let res of results" [result]="res" [expanded]="expanded[res[state.currentCollapse.field]]"></app-result-item>
       </section>

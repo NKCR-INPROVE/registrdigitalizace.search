@@ -21,8 +21,6 @@ export class FacetsComponent implements OnInit, OnChanges {
   @Input() allOpen = true;
   subscriptions: Subscription[] = [];
   
-  
-  
   constructor(public service: AppService, public state: AppState) { }
 
   ngOnInit() {

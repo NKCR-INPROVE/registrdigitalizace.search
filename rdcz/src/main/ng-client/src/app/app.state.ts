@@ -94,6 +94,14 @@ export class AppState {
     this.usedFilters = [];
   }
 
+  clearResults() {
+    this.numFound = 0;
+    this.facets = null;
+    this.results = null;
+    this.totalPages = 0;
+      this._searchParamsChanged.next(this);
+  }
+
   setSearchParamsFromUrl(params) {
     this.usedFilters = [];
     if (params.hasOwnProperty('q')) {
@@ -139,10 +147,12 @@ export class AppState {
 
   removeFilter(f: Filter) {
     let idx = this.usedFilters.indexOf(f);
-    console.log(f, idx);
+    if (f.field === 'rokvyd'){
+      this.currentOd = 0;
+      this.currentDo = (new Date()).getFullYear();
+    }
     if (idx > -1) {
       this.usedFilters.splice(idx, 1);
-
       this._searchParamsChanged.next(this);
     }
 
@@ -163,15 +173,27 @@ export class AppState {
     return null;
   }
 
-  addRokFilter() {
+  getFilterIdxByField(field: string): number {
 
-    let c: Filter = this.getFilterByField('rokvyd');
-    if (c == null) {
-      c = new Filter();
-      c.field = 'rokvyd';
-      this.usedFilters.push(c);
+    for (let i=0; i<this.usedFilters.length; i++) {
+      if (this.usedFilters[i].field === field) {
+        return i;
+      }
     }
+    return -1;
+  }
+
+  addRokFilter(od, to) {
+    this.currentOd = od;
+    this.currentDo = to;
+    let i: number = this.getFilterIdxByField('rokvyd');
+    if (i > -1) {
+      this.usedFilters.splice(i, 1);
+    } 
+    let c: Filter = new Filter();
+    c.field = 'rokvyd';
     c.value = '[' + this.currentOd + ' TO ' + this.currentDo + ']';
+    this.usedFilters.push(c);
   }
 
   setQueryAsFilter() {

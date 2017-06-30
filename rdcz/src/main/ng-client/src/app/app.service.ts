@@ -85,11 +85,12 @@ export class AppService {
 //    params.set('facet.range.end', (new Date()).getFullYear() + '');
     params.set('facet.range.gap', '10');
 
+      
     for (let i in this.state.usedFilters) {
       if(this.state.usedFilters[i].field === 'rokvyd'){
-      params.append('fq', 'rokvyd:' + this.state.usedFilters[i].value);
+        params.append('fq', 'rokvyd:' + this.state.usedFilters[i].value);
       } else {
-      params.append('fq', this.state.usedFilters[i].field + ':"' + this.state.usedFilters[i].value + '"');
+        params.append('fq', this.state.usedFilters[i].field + ':"' + this.state.usedFilters[i].value + '"');
       }
     }
 
@@ -98,6 +99,7 @@ export class AppService {
       params.append('expand', 'true');
       params.append('expand.rows', '1');
     }
+    
     return params;
   }
 
@@ -123,6 +125,7 @@ export class AppService {
   }
 
   search(params: URLSearchParams, type: string = 'results'): void {
+    console.log(params);
     this.state.startSearch(type);
     var url = this.state.config['context'] + 'search/rdcz/select';
     this.http.get(url, { search: params }).map(res => {
@@ -132,6 +135,7 @@ export class AppService {
   
   goToResults(): void {
     let params = this.doUrlParams();
+    this.state.clearResults();
     this.router.navigate(['/results', params]);
   }
 

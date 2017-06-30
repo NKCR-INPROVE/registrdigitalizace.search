@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { URLSearchParams } from '@angular/http';
 
@@ -23,7 +23,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
   numFound: number;
   loading: boolean = true;
 
-  constructor(private service: AppService, public state: AppState) {
+  constructor(private service: AppService, public state: AppState, private ref: ChangeDetectorRef) {
   }
 
 
@@ -44,23 +44,29 @@ export class ResultsComponent implements OnInit, OnDestroy {
         if (resp['type'].indexOf('results') > -1) {
           if (resp['state'] === 'start') {
             //this.facets = null;
-            //this.facetFields = [];
+            this.facetFields = null;
             this.results = [];
             this.expanded = {};
             this.loading = true;
           } else {
             //this.facets = resp['res']["facet_counts"]["facet_fields"];
-            this.facetFields = this.state.fillFacets(this.state.config['results_facets'], false);
+            this.facetFields = new Array();
+            let ff = this.state.fillFacets(this.state.config['results_facets'], false);
+            for(let i in ff){
+              this.facetFields.push(ff[i]);
+            }
+//            this.facetFields = this.state.fillFacets(this.state.config['results_facets'], false);
             this.results = resp['res']["response"]["docs"];
             if(resp['res'].hasOwnProperty("expanded")){
               this.expanded = resp['res']["expanded"];
             }
+//            this.ref.detectChanges();
           }
 
           //PEDRITO, dej pryc timeout
           setTimeout(() => {
             this.loading = false;
-          }, 100);
+          }, 1000);
         }
       }
     ));
@@ -94,6 +100,11 @@ export class ResultsComponent implements OnInit, OnDestroy {
     
     //this.service.goToResults();
     this.service.search(params);
+  }
+  
+  rokChanged(e){
+    this.state.addRokFilter(e['from'], e['to']);
+    this.service.goToResults();
   }
 
 }

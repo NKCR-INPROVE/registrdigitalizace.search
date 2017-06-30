@@ -30,10 +30,14 @@ export class UsedFiltersComponent implements OnInit, OnDestroy {
   
   remove(f: Filter){
     this.state.removeFilter(f);
+    
+    this.service.goToResults();
   }
   
   removeAll(){
     this.state.removeAllFilters();
+    
+    this.service.goToResults();
   }
   
   cleanQ() {
