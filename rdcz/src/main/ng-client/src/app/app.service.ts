@@ -88,7 +88,9 @@ export class AppService {
       
     for (let i in this.state.usedFilters) {
       if(this.state.usedFilters[i].field === 'rokvyd'){
-        params.append('fq', 'rokvyd:' + this.state.usedFilters[i].value);
+        //let vals = this.state.usedFilters[i].value
+        let fq = '[' + this.state.currentOd + ' TO ' + this.state.currentDo + ']';
+        params.append('fq', 'rokvyd:' + fq);
       } else {
         params.append('fq', this.state.usedFilters[i].field + ':"' + this.state.usedFilters[i].value + '"');
       }
@@ -125,7 +127,6 @@ export class AppService {
   }
 
   search(params: URLSearchParams, type: string = 'results'): void {
-    console.log(params);
     this.state.startSearch(type);
     var url = this.state.config['context'] + 'search/rdcz/select';
     this.http.get(url, { search: params }).map(res => {
