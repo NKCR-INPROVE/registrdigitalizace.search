@@ -46,6 +46,11 @@ export class FlotComponent implements OnChanges, OnInit {
     this.data = data;
     this.draw();
   }
+  
+  public setSelection(sel){
+    //{xaxis:{from: this.ranges[0], to:this.ranges[1]}
+    this.plot.setSelection(sel);
+  }
 
   public ngOnInit(): void {
     if (!this.initialized) {

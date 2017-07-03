@@ -75,22 +75,22 @@ export class AppService {
       params.append('facet.field', this.state.config['facets'][i]['field']);
     }
 
-    params.set('facet.range', 'rokvyd');
+    params.set('facet.range', '{!ex=rk}rokvyd');
     
-    params.set('facet.range.start', this.state.currentOd + '');
-    params.set('facet.range.end', this.state.currentDo + '');
+//    params.set('facet.range.start', this.state.currentOd + '');
+//    params.set('facet.range.end', this.state.currentDo + '');
     
     
-//    params.set('facet.range.start', '0');
-//    params.set('facet.range.end', (new Date()).getFullYear() + '');
+    params.set('facet.range.start', '0');
+    params.set('facet.range.end', (new Date()).getFullYear() + '');
     params.set('facet.range.gap', '10');
 
       
     for (let i in this.state.usedFilters) {
       if(this.state.usedFilters[i].field === 'rokvyd'){
         //let vals = this.state.usedFilters[i].value
-        let fq = '[' + this.state.currentOd + ' TO ' + this.state.currentDo + ']';
-        params.append('fq', 'rokvyd:' + fq);
+        let fq = '[' + this.state.currentOd + ' TO ' + this.state.currentDo + '}';
+        params.append('fq', '{!tag=rk}rokvyd:' + fq);
       } else {
         params.append('fq', this.state.usedFilters[i].field + ':"' + this.state.usedFilters[i].value + '"');
       }

@@ -56,8 +56,6 @@ export class ChartBarComponent implements OnInit {
   }
 
   ngOnInit() {
-    //this.state.currentDo = (new Date()).getFullYear();
-    //this.ranges = [this.state.currentOd, this.state.currentDo];
     this.data = [{ data: [] }];
     this.chart.setData(this.data);
     this.subscriptions.push(this.state.searchSubject.subscribe(
@@ -70,11 +68,8 @@ export class ChartBarComponent implements OnInit {
             if (resp['res']["facet_counts"]["facet_ranges"]['rokvyd']) {
               this.data = [{ data: resp['res']["facet_counts"]["facet_ranges"]['rokvyd']['counts'] }];
               this.ranges = [this.state.currentOd, this.state.currentDo];
-//              this.ranges = [resp['res']["facet_counts"]["facet_ranges"]['rokvyd']['counts'][0][0],
-//              resp['res']["facet_counts"]["facet_ranges"]['rokvyd']['counts'][0][0]
-//              ];
-//              console.log(resp['res']["facet_counts"]["facet_ranges"]['rokvyd']);
               this.chart.setData(this.data);
+              this.chart.setSelection({xaxis:{from: this.ranges[0], to:this.ranges[1]}});
             }
           }
         }
@@ -101,8 +96,9 @@ export class ChartBarComponent implements OnInit {
   }
 
   onClick(item) {
-    console.log('Rok: ' + item['datapoint'][0]);
-    //this.getData();
+    //console.log('Rok: ' + item['datapoint'][0]);
+    this.state.addRokFilter(item['datapoint'][0], item['datapoint'][0]+10);
+    this.service.goToResults();
   }
 
 
