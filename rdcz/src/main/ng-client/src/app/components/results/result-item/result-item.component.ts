@@ -38,6 +38,7 @@ export class ResultItemComponent implements OnInit, OnDestroy {
 //            this.results = [];
 //            this.expanded = {};
           } else {
+            this.stavy = [];
             resp['res']["facet_counts"]["facet_fields"]['stav'].forEach((a)=>{
               this.stavy.push(a[0]);
             });

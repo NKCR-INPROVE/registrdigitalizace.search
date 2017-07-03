@@ -58,12 +58,27 @@
   "text.nastaveni-filtru": "Nastavení filtru",
   "text.zobrazit-vice": "Zobrazit více",
   "text.zobrazit-mene": "Zobrazit méně",
-  "field.stav": "Stav",
-  "field.financovano": "Finanční program",
-  "field.vlastnik": "Vlastník",
-  "field.digknihovna": "Digitální knihovna",
-  "field.druhdokumentu": "Typ dokumentu",
-  "field.rokvyd":"Rok vydání",
+  
+  "field":{
+    "stav": "Stav",
+    "financovano": "Finanční program",
+    "vlastnik": "Vlastník",
+    "digknihovna": "Digitální knihovna",
+    "druhdokumentu": "Typ dokumentu",
+    
+    "title": "Název",
+    "autor": "Hlavní autor",
+    "rokvyd": "Rok(y) vydání",
+    "isxn": "ISBN/ISSN",
+    "ccnb": "čČNB",
+    "signatura": "Signatura",
+    "carkod": "Čár. kód",
+    "cislordcz": "Číslo RDCZ",
+    "pole001": "Lokální ident.(001)",
+    "cislozakazky": "Číslo zakázky",
+    "can": "ČAN"
+  },
+    
   "q.placeholder": "Hledej v registru digitalizace ...",
   "stav":{
     "finished": "Finished",

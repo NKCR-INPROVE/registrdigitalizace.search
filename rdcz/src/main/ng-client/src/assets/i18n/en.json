@@ -58,12 +58,26 @@
   "text.nastaveni-filtru": "Used filters",
   "text.zobrazit-vice": "Show more",
   "text.zobrazit-mene": "Show less",
-  "field.stav": "State",
-  "field.financovano": "Financial program",
-  "field.vlastnik": "Owner",
-  "field.digknihovna": "Digital library",
-  "field.druhdokumentu": "Document type",
-  "field.rokvyd":"Year",
+  
+  "field":{ 
+    "stav": "State",
+    "financovano": "Financial program",
+    "vlastnik": "Owner",
+    "digknihovna": "Digital library",
+    "druhdokumentu": "Document type",
+    
+    "title": "Název",
+    "autor": "Main author",
+    "rokvyd": "Year",
+    "isxn": "ISBN/ISSN",
+    "ccnb": "čČNB",
+    "signatura": "Signature",
+    "carkod": "Bar code",
+    "cislordcz": "RDCZ Number",
+    "pole001": "Local id.(001)",
+    "cislozakazky": "Issue number",
+    "can": "ČAN"
+  },
   "q.placeholder": "Search in digital registry ...",
   "stav":{
     "finished": "Finished",

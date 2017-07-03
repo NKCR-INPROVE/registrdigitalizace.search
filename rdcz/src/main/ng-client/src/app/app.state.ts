@@ -67,17 +67,17 @@ export class AppState {
   
   //Advanced parameters
   advParams= {
-    title: null,
-    autor: null,
-    rokvyd: null,
-    isxn: null,
-    ccnb: null,
-    signatura: null,
-    carkod: null,
-    cislordcz: null,
-    pole001: null,
-    cislozakazky: null,
-    can: null
+    title: '',
+    autor: '',
+    rokvyd: '',
+    isxn: '',
+    ccnb: '',
+    signatura: '',
+    carkod: '',
+    cislordcz: '',
+    pole001: '',
+    cislozakazky: '',
+    can: ''
   };
   
   usedAdv = [];
@@ -189,6 +189,10 @@ export class AppState {
 
   removeAllFilters() {
     this.usedFilters = [];
+    for(let i in this.advParams){
+      this.advParams[i] = '';
+    }
+    this.usedAdv = [];
     this.start = 0;
     this._searchParamsChanged.next(this);
   }
