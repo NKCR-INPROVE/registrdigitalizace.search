@@ -27,6 +27,8 @@ export class FlotComponent implements OnChanges, OnInit {
 
   plotArea: any;
   plot: any;
+  
+  selecting: boolean = false;
 
   constructor(private el: ElementRef) { }
 
@@ -50,6 +52,7 @@ export class FlotComponent implements OnChanges, OnInit {
   public setSelection(sel){
     //{xaxis:{from: this.ranges[0], to:this.ranges[1]}
     this.plot.setSelection(sel);
+    window.event.preventDefault();
   }
 
   public ngOnInit(): void {
@@ -62,13 +65,16 @@ export class FlotComponent implements OnChanges, OnInit {
 
       var _this = this;
       this.plotArea.bind("plotselected", function(event, ranges) {
+        _this.selecting = true;
         _this.onSelection.emit(ranges);
       });
       
       this.plotArea.bind("plotclick", function (event, pos, item) {
-        if(item){
+        if(item && !_this.selecting){
           _this.onClick.emit(item);
         }
+        _this.selecting = false;
+        
       });
       this.initialized = true;
       this.draw();

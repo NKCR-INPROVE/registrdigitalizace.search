@@ -30,6 +30,11 @@ export class UsedFiltersComponent implements OnInit, OnDestroy {
   
   remove(f: Filter){
     this.state.removeFilter(f);
+    this.service.goToResults();
+  }
+  
+  removeAdv(a: string){
+    this.state.advParams[a] = '';
     
     this.service.goToResults();
   }

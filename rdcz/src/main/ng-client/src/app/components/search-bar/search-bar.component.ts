@@ -21,11 +21,7 @@ export class SearchBarComponent implements OnInit {
   }
   
   search() {
-
-    //let params: URLSearchParams = this.service.doSearchParams();
-    
-    
-    //this.service.search(params);
+    this.isAdvancedCollapsed = true;
     this.service.goToResults();
     
   }

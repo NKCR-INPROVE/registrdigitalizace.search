@@ -79,6 +79,8 @@ export class AppState {
     cislozakazky: null,
     can: null
   };
+  
+  usedAdv = [];
 
 
   qcheck: boolean;
@@ -148,6 +150,13 @@ export class AppState {
       if (f) {
         this.advParams = JSON.parse(params['adv']);
       }
+      this.usedAdv = [];
+      for(let i in this.advParams){
+        if(this.advParams[i] !== null && this.advParams[i] !== ''){
+          this.usedAdv.push(i);
+        }
+      }
+      
     }
     
     if (params.hasOwnProperty('collapse')) {

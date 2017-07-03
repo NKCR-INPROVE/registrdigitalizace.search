@@ -11,37 +11,39 @@
           <i mz-button id="btn-advanced-search" class="app-mdi-menu app-cursor-pointer" mz-tooltip [tooltip]="'btn.rozsirene-hledani' | translate" [position]="'top'"  [class.collapsed]="isAdvancedCollapsed" (click)="openAdvanced()"></i>
           <i mz-icon-mdi [icon]="'close'" (click)="cleanQ()"  [class]="'mdi-navigation-close'"></i>
           <!-- Advanced search -->
-          <mz-card #filter [backgroundClass]="'white'" [hoverable]="true" [class.collapse]="isAdvancedCollapsed" [attr.aria-expanded]="isAdvancedCollapsed ? 'false' : 'true'">
+          <mz-card #filter [backgroundClass]="'white'" [hoverable]="true" 
+            [class.collapse]="isAdvancedCollapsed" [attr.aria-expanded]="isAdvancedCollapsed ? 'false' : 'true'"
+             (keyup.enter)="search()">
             <mz-card-content>
               <mz-input-container>
-                <input mz-input [label]="'label.nazev' | translate" name="advNazev" [(ngModel)]="state.advParams.title" type="text" (keyup.enter)="search()" />
+                <input mz-input [label]="'label.nazev' | translate" name="advNazev" [(ngModel)]="state.advParams.title" type="text" />
               </mz-input-container>
               <mz-input-container>
-                <input mz-input [label]="'Hlavní autor'" name="advAutor" [(ngModel)]="state.advParams.autor" type="text">
+                <input mz-input [label]="'label.hlavni-autor' | translate" name="advAutor" [(ngModel)]="state.advParams.autor" type="text">
               </mz-input-container>
               <mz-input-container>
-                <input mz-input [label]="'Rok(y) vydání'" name="advRokVyd" [(ngModel)]="state.advParams.rokvyd" type="text">
+                <input mz-input [label]="'label.rok-vydani' | translate" name="advRokVyd" [(ngModel)]="state.advParams.rokvyd" type="text">
               </mz-input-container>
               <mz-input-container>
                 <input mz-input [label]="'ISSN/ISBN'" name="advISXN" [(ngModel)]="state.advParams.isxn" type="text">
               </mz-input-container>
               <mz-input-container>
-                <input mz-input [label]="'Číslo ČNB'" name="advCnb" [(ngModel)]="state.advParams.ccnb" type="text">
+                <input mz-input [label]="'čČNB'" name="advCnb" [(ngModel)]="state.advParams.ccnb" type="text">
               </mz-input-container>
               <mz-input-container>
-                <input mz-input [label]="'Signatura'" name="advSignatura" [(ngModel)]="state.advParams.signatura" type="text">
+                <input mz-input [label]="'label.signatura' | translate" name="advSignatura" [(ngModel)]="state.advParams.signatura" type="text">
               </mz-input-container>
               <mz-input-container>
-                <input mz-input [label]="'Čár. kód'" name="advCarKod" [(ngModel)]="state.advParams.carkod" type="text">
+                <input mz-input [label]="'label.car-kod' | translate" name="advCarKod" [(ngModel)]="state.advParams.carkod" type="text">
               </mz-input-container>
               <mz-input-container>
-                <input mz-input [label]="'Číslo RDCZ'" name="advCisloRDCZ" [(ngModel)]="state.advParams.cislordcz" type="text">
+                <input mz-input [label]="'label.cislo-rdcz' | translate" name="advCisloRDCZ" [(ngModel)]="state.advParams.cislordcz" type="text">
               </mz-input-container>
               <mz-input-container>
-                <input mz-input [label]="'Lokální ident.(001)'" name="advPole001" [(ngModel)]="state.advParams.pole001" type="text">
+                <input mz-input [label]="'label.pole001' | translate" name="advPole001" [(ngModel)]="state.advParams.pole001" type="text">
               </mz-input-container>
               <mz-input-container>
-                <input mz-input [label]="'Číslo zakázky'" name="advCisloZak" [(ngModel)]="state.advParams.cislozakazky" type="text">
+                <input mz-input [label]="'label.cislo-zakazky' | translate" name="advCisloZak" [(ngModel)]="state.advParams.cislozakazky" type="text">
               </mz-input-container>
               <mz-input-container>
                 <input mz-input [label]="'ČAN'" name="advCan" [(ngModel)]="state.advParams.can" type="text">
