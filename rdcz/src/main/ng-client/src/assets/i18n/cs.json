@@ -62,6 +62,7 @@
   "field.vlastnik": "Vlastník",
   "field.digknihovna": "Digitální knihovna",
   "field.druhdokumentu": "Typ dokumentu",
+  "field.rokvyd":"Rok vydání",
   "q.placeholder": "Hledej v registru digitalizace ...",
   "stav":{
     "finished": "Finished",

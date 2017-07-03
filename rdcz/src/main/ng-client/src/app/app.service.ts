@@ -95,6 +95,14 @@ export class AppService {
         params.append('fq', this.state.usedFilters[i].field + ':"' + this.state.usedFilters[i].value + '"');
       }
     }
+    
+    
+    for(let i in this.state.advParams){
+      if(this.state.advParams[i] !== null && this.state.advParams[i] !== ''){
+        params.append('fq', i + ':"' + this.state.advParams[i] + '"');
+      }
+    }
+    
 
     if (this.state.currentCollapse['field'] !== 'id') {
       params.append('fq', '{!collapse field=' + this.state.currentCollapse['field'] + '}');
@@ -121,6 +129,14 @@ export class AppService {
     
 //    params['od'] = this.state.currentOd;
 //    params['do'] = this.state.currentDo;
+    
+//    for(let adv in this.state.advParams){
+//      if(this.state.advParams[adv] !== null && this.state.advParams[adv] !== ''){
+//        
+//      }
+//    }
+    
+    params['adv'] = JSON.stringify(this.state.advParams);
     
     params['collapse'] =  this.state.currentCollapse['field'];
     return params;

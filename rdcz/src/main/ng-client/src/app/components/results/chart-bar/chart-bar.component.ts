@@ -66,8 +66,10 @@ export class ChartBarComponent implements OnInit {
             this.chart.setData(this.data);
           } else {
             if (resp['res']["facet_counts"]["facet_ranges"]['rokvyd']) {
-              this.data = [{ data: resp['res']["facet_counts"]["facet_ranges"]['rokvyd']['counts'] }];
-              this.ranges = [this.state.currentOd, this.state.currentDo];
+              let c = resp['res']["facet_counts"]["facet_ranges"]['rokvyd']['counts'];
+              this.data = [{ data: c }];
+              //this.ranges = [this.state.currentOd, this.state.currentDo];
+              this.ranges = [c[0][0], +c[c.length-1][0]+10];
               this.chart.setData(this.data);
               this.chart.setSelection({xaxis:{from: this.ranges[0], to:this.ranges[1]}});
             }

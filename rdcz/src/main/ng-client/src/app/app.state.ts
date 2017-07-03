@@ -63,10 +63,25 @@ export class AppState {
   public usedFilters: Filter[] = [];
   public q: string;
   currentOd: number = 0;
-  currentDo: number = (new Date()).getFullYear();;
+  currentDo: number = (new Date()).getFullYear();
+  
+  //Advanced parameters
+  advParams= {
+    title: null,
+    autor: null,
+    rokvyd: null,
+    isxn: null,
+    ccnb: null,
+    signatura: null,
+    carkod: null,
+    cislordcz: null,
+    pole001: null,
+    cislozakazky: null,
+    can: null
+  };
+
 
   qcheck: boolean;
-
 
   public route: string;
 
@@ -126,6 +141,15 @@ export class AppState {
         }
       }
     }
+    
+    
+    if (params.hasOwnProperty('adv')) {
+      let f = params['adv'];
+      if (f) {
+        this.advParams = JSON.parse(params['adv']);
+      }
+    }
+    
     if (params.hasOwnProperty('collapse')) {
       //console.log(params['collapse']);
       for (let i in this.collapses) {

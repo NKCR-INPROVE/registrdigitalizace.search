@@ -21,8 +21,8 @@
         </label><!--/label -->
         <label *ngIf="result.autor">
           <strong>{{'label.hlavni-autor' | translate}}:</strong>
-          <span *ngFor="let autor of result.autor">
-            {{autor}}<span class="app-separator">&#160;&#160;/&#160;&#160;</span>
+          <span>
+            {{result.autor}}<span class="app-separator">&#160;&#160;/&#160;&#160;</span>
           </span>
         </label><!--/label -->
         <label *ngIf="result.mistovyd">

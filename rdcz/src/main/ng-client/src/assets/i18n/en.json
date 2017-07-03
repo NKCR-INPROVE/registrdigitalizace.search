@@ -62,6 +62,7 @@
   "field.vlastnik": "Owner",
   "field.digknihovna": "Digital library",
   "field.druhdokumentu": "Document type",
+  "field.rokvyd":"Year",
   "q.placeholder": "Search in digital registry ...",
   "stav":{
     "finished": "Finished",
