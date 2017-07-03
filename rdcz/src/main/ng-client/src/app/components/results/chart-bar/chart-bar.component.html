@@ -3,5 +3,7 @@
     (onClick)="onClick($event)"
     (onSelection)="onSelection($event)"
     [height]="height" [width]="width"></app-flot>
-  <span>{{ranges[0]}} - {{ranges[1]}}</span><button (click)="use()">use</button>
+  <span>{{ranges[0]}} - {{ranges[1]}}</span> 
+  <button (click)="use()" mz-button [flat]="true">use</button>
+  <button (click)="clear()" mz-button [flat]="true">x</button>
 </section>

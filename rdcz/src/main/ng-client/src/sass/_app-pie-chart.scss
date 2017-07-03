@@ -32,12 +32,12 @@ app-pie-chart {
         }
         &:nth-child(2) {
           .legendLabel {
-            background-color: $app-state-planovane; 
+            background-color: $app-state-progress; 
           }
         }
         &:last-child {
           .legendLabel {
-            background-color: $app-state-progress; 
+            background-color: $app-state-planovane; 
           }
         }
         

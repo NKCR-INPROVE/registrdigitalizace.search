@@ -135,9 +135,23 @@ export class AppState {
         }
       }
     }
+    this.setRokVyd();
     if (this.configured) {
       this._searchParamsChanged.next(this);
     }
+  }
+  
+  setRokVyd(){
+    let f: Filter = this.getFilterByField('rokvyd');
+    if (f === null) {
+      this.currentOd = 0;
+      this.currentDo = (new Date()).getFullYear();
+    } else {
+      let vals = JSON.parse(f.value);
+      this.currentOd = vals[0];
+      this.currentDo = vals[1];
+    }
+    
   }
 
   removeAllFilters() {
@@ -192,8 +206,18 @@ export class AppState {
     } 
     let c: Filter = new Filter();
     c.field = 'rokvyd';
-    c.value = '[' + this.currentOd + ' TO ' + this.currentDo + ']';
+    c.value = '[' + this.currentOd + ',' + this.currentDo + ']';
     this.usedFilters.push(c);
+  }
+  
+  removeRokFilter(){
+    this.currentOd = 0;
+    this.currentDo = (new Date()).getFullYear();
+      
+    let i: number = this.getFilterIdxByField('rokvyd');
+    if (i > -1) {
+      this.usedFilters.splice(i, 1);
+    } 
   }
 
   setQueryAsFilter() {

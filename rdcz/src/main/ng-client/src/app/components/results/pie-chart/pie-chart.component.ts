@@ -2,10 +2,10 @@ import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { URLSearchParams } from '@angular/http';
 
-import { FlotComponent } from '../../flot/flot.component';
-
 import { AppService } from '../../../app.service';
 import { AppState } from '../../../app.state';
+import { FlotComponent } from '../../flot/flot.component';
+import { Filter } from '../../../models/filter';
 
 @Component({
   selector: 'app-pie-chart',
@@ -29,7 +29,7 @@ export class PieChartComponent implements OnInit {
       show: true,
       position: "se",
       labelFormatter: function(label, series) {
-
+        //console.log(label, series);
       }
     },
     background: {
@@ -41,17 +41,12 @@ export class PieChartComponent implements OnInit {
     }
   };
 
-
-
   subscriptions: Subscription[] = [];
 
   constructor(private service: AppService, private state: AppState) {
   }
 
   ngOnInit() {
-
-
-
     this.subscriptions.push(this.state.searchSubject.subscribe(
       (resp) => {
         if (resp['type'] === 'home') {
@@ -63,28 +58,22 @@ export class PieChartComponent implements OnInit {
           }
         }
       }
-        ));
-
-//    this.subscriptions.push(this.state.stateChangedSubject.subsc    ribe(
-//      ()     => {
-//        if(this.data.length     > 0){
-//          this.setDa    ta();
-//            }
-//          }
-//    ));
+    ));
 
     this.options.legend.labelFormatter = this.formatLabel.bind(this);
+
     this.data = [];
     this.chart.setData(this.data);
-    if (this.state.config) {
-      //this.getData();
-    } else {
-      this.subscriptions.push(this.service.langSubject.subscribe(
-        () => {
-          //this.getData();
-        }
-      ));
-    }
+
+    let this_ = this;
+    setTimeout(() => {
+      jQuery(".legend .legendLabel").each(function(i, row) {
+        let stav = jQuery(this).children('span').data('stav');
+        jQuery(this).click(() => {
+          this_.addFilter(stav);
+        });
+      });
+    }, 1000);
   }
 
   ngOnDestroy() {
@@ -95,12 +84,22 @@ export class PieChartComponent implements OnInit {
   }
 
   formatLabel(label, series) {
-    return this.service.translateKey('stav.' + label);
+    return '<span data-stav="'+label+'">'+ this.service.translateKey('stav.' + label) +
+      ' (' + series['data'][0][1] + ')</span>';
+  }
+
+  addFilter(val: string) {
+    let filter: Filter = new Filter();
+    filter.field = 'stav';
+    filter.value = val;
+    this.state.addFilter(filter);
+    this.service.goToResults();
   }
 
   onClick(item) {
     //console.log(item);
     console.log('Stav: ' + item['series']['label']);
+    this.addFilter(item['series']['label']);
   }
 
   setData(res) {
@@ -114,25 +113,5 @@ export class PieChartComponent implements OnInit {
   }
 
 
-  getData() {
-
-    let params: URLSearchParams = new URLSearchParams();
-    params.set('q', '*');
-    params.set('facet', 'true');
-    params.set('facet.field', 'stav');
-    params.set('facet.limit', '-1');
-    params.set('facet.mincount', '1');
-    params.set('rows', '0');
-    this.data = [];
-    //    this.service.search(params).subscribe(res => {
-    //      let stavy = res["facet_counts"]["facet_fields"]['stav'];
-    //      for (let i in stavy) {
-    //        let stav = stavy[i];
-    //        this.data.push({ label: stav[0], data: stav[1]})
-    //      }
-    //      this.chart.setData(this.data);
-    //    });
-    this.service.search(params);
-  }
 
 }
