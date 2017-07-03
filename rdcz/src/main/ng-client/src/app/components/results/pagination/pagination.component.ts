@@ -54,18 +54,18 @@ export class PaginationComponent implements OnInit {
   
   prev(){
     this.current = Math.max(0, this.current - 1);
-//    this.setPages();
     this.state.setPage(this.current);
+    this.service.goToResults();
   }
   next(){
     this.current = Math.min(this.current + 1, this.state.totalPages);
-//    this.setPages();
     this.state.setPage(this.current);
+    this.service.goToResults();
   }
   gotoPage(p: number){
     this.current = p;
-//    this.setPages();
     this.state.setPage(this.current);
+    this.service.goToResults();
   }
   
   

@@ -189,6 +189,7 @@ export class AppState {
 
   removeAllFilters() {
     this.usedFilters = [];
+    this.start = 0;
     this._searchParamsChanged.next(this);
   }
 
@@ -198,6 +199,7 @@ export class AppState {
       this.currentOd = 0;
       this.currentDo = (new Date()).getFullYear();
     }
+    this.start = 0;
     if (idx > -1) {
       this.usedFilters.splice(idx, 1);
       this._searchParamsChanged.next(this);
@@ -207,6 +209,7 @@ export class AppState {
 
   addFilter(f: Filter) {
     this.usedFilters.push(f);
+    this.start = 0;
     //this._searchParamsChanged.next(this);
   }
 
@@ -241,6 +244,7 @@ export class AppState {
     c.field = 'rokvyd';
     c.value = '[' + this.currentOd + ',' + this.currentDo + ']';
     this.usedFilters.push(c);
+    this.start = 0;
   }
   
   removeRokFilter(){
@@ -265,12 +269,12 @@ export class AppState {
 
   setPage(page: number) {
     this.start = page * this.rows;
-    this._searchParamsChanged.next(this);
+    //this._searchParamsChanged.next(this);
   }
 
   setRows(r: number) {
     this.rows = r;
-    this._searchParamsChanged.next(this);
+    //this._searchParamsChanged.next(this);
   }
 
   startSearch(type: string) {
