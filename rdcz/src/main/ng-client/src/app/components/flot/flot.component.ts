@@ -27,7 +27,7 @@ export class FlotComponent implements OnChanges, OnInit {
 
   plotArea: any;
   plot: any;
-  
+
   selecting: boolean = false;
 
   constructor(private el: ElementRef) { }
@@ -47,12 +47,71 @@ export class FlotComponent implements OnChanges, OnInit {
   public setData(data) {
     this.data = data;
     this.draw();
+
+    if (this.initialized) {
+      console.log(this.plot);
+    }
   }
-  
-  public setSelection(sel){
+
+  public setSelection(sel) {
     //{xaxis:{from: this.ranges[0], to:this.ranges[1]}
     this.plot.setSelection(sel);
     window.event.preventDefault();
+  }
+
+  private dataAtPos(pos) {
+    let item = null;
+
+    let series = this.plot.getData();
+    //for (let i = series.length - 1; i >= 0; --i) {
+    var s = series[0],
+      points = s.datapoints.points,
+      
+    mx = pos.x;
+    var ps = s.datapoints.pointsize;
+    var barLeft, barRight;
+
+    switch (s.bars.align) {
+      case "left":
+        barLeft = 0;
+        break;
+      case "right":
+        barLeft = -s.bars.barWidth;
+        break;
+      default:
+        barLeft = -s.bars.barWidth / 2;
+    }
+
+    barRight = barLeft + s.bars.barWidth;
+
+    for (let j = 0; j < points.length; j += ps) {
+      var x = points[j], y = points[j + 1], b = points[j + 2];
+      //console.log(mx, x,y,b);
+      if (x == null)
+        continue;
+
+      // for a bar graph, the cursor must be inside the bar
+      if (series[0].bars.horizontal ?
+        (mx <= Math.max(b, x) && mx >= Math.min(b, x)) :
+        (mx >= x + barLeft && mx <= x + barRight))
+        item = [0, j / ps];
+    }
+    //}
+
+    let ret = null;
+    if (item) {
+      let i = item[0];
+      let j = item[1];
+      ps = series[0].datapoints.pointsize;
+
+      ret = {
+        datapoint: series[0].datapoints.points.slice(j * ps, (j + 1) * ps),
+        dataIndex: j,
+        series: series[0],
+        seriesIndex: i
+      };
+    }
+    return ret;
   }
 
   public ngOnInit(): void {
@@ -68,24 +127,44 @@ export class FlotComponent implements OnChanges, OnInit {
         _this.selecting = true;
         _this.onSelection.emit(ranges);
       });
-      
-      this.plotArea.bind("plotclick", function (event, pos, item) {
-        if(item && !_this.selecting){
+
+      this.plotArea.bind("plotclick", function(event, pos, item) {
+        if (item && !_this.selecting) {
           _this.onClick.emit(item);
         }
+        if (!item) {
+          let titem = _this.dataAtPos(pos);
+          if(titem){
+            _this.onClick.emit(titem);
+          }
+        }
         _this.selecting = false;
-        
       });
+
+//      this.plotArea.bind("plothover", function (event, pos, item) {
+//        if(!item){
+//          let titem = _this.dataAtPos(pos);
+//          if(titem){
+//            _this.plot.showTooltip(titem, {
+//                                pageX: 0,
+//                                pageY: 0
+//                            });
+//            
+//          }
+//        }
+//      });
+
+
       this.initialized = true;
       this.draw();
     }
   }
 
-//  @HostListener('click') click(event) {
-//    console.log('clicke');
-//  }
+  //  @HostListener('click') click(event) {
+  //    console.log('clicke');
+  //  }
 
- @HostListener('contextmenu') contextmenu(e) {
+  @HostListener('contextmenu') contextmenu(e) {
     console.log(e);
   }
 

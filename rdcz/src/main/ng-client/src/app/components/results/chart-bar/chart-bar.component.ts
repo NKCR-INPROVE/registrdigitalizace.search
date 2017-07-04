@@ -36,7 +36,8 @@ export class ChartBarComponent implements OnInit {
       hoverable: true,
       borderWidth: 0,
       color: '#546e7a',
-      clickable: true
+      clickable: true,
+      mouseActiveRadius: 1000
 
     },
     selection: {
@@ -44,7 +45,7 @@ export class ChartBarComponent implements OnInit {
     },
     tooltip: {
       show: true,                 //false
-      content: 'Rok %x (%y)'      //"%s | X: %x | Y: %y"
+      content: function(label, xval, yval, flotItem){ return xval + ' - ' + (+xval + 9) + ' (' + yval + ')';}      //"%s | X: %x | Y: %y"
     },
     colors: ["#ffab40", "#ffab40", "#ffab40"]
   }
@@ -66,7 +67,10 @@ export class ChartBarComponent implements OnInit {
             this.chart.setData(this.data);
           } else {
             if (resp['res']["facet_counts"]["facet_ranges"]['rokvyd']) {
-              let c = resp['res']["facet_counts"]["facet_ranges"]['rokvyd']['counts'];
+              let c: any[] = resp['res']["facet_counts"]["facet_ranges"]['rokvyd']['counts'];
+              c = c.filter(val => {
+                return val[0] !== '0';
+              });
               if(c.length > 0){
                 this.data = [{ data: c }];
                 this.ranges = [
