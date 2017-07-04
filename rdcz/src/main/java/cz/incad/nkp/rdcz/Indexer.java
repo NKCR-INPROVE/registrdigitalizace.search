@@ -91,6 +91,23 @@ public class Indexer {
     return ret;
   }
 
+  public JSONObject predlohy() throws IOException {
+    LOGGER.log(Level.INFO, "Full index started ");
+    Date start = new Date();
+    JSONObject ret = new JSONObject();
+    String fields = opts.getJSONArray("db.fields").join(",").replaceAll("\"", "");
+    String sql = opts.getString("sqlFull").replace("#fields#", fields);
+    getFromDb(sql);
+    LOGGER.log(Level.INFO, "{0} docs processed", indexed);
+
+    ret.put("SUCCESS indexed reliefu", indexed);
+    Date end = new Date();
+    String ellapsed = FormatUtils.formatInterval(end.getTime() - start.getTime());
+    ret.put("ellapsed time", ellapsed);
+    LOGGER.log(Level.INFO, "Index finished. {0} docs processed in {1} ", new Object[]{indexed, ellapsed});
+    return ret;
+  }
+
   public JSONObject full() throws IOException {
     LOGGER.log(Level.INFO, "Full index started ");
     Date start = new Date();

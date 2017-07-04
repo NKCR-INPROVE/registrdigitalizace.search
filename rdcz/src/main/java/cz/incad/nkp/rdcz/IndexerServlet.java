@@ -86,6 +86,24 @@ public class IndexerServlet extends HttpServlet {
         out.println(json.toString(2));
       }
     },
+    PREDLOHY {
+      @Override
+      void doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+
+        resp.setContentType("application/json;charset=UTF-8");
+
+        PrintWriter out = resp.getWriter();
+        JSONObject json = new JSONObject();
+        try {
+          Indexer indexer = new Indexer();
+          json.put("indexer", indexer.predlohy());
+
+        } catch (Exception ex) {
+          json.put("error", ex.toString());
+        }
+        out.println(json.toString(2));
+      }
+    },
     FULL {
       @Override
       void doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {
