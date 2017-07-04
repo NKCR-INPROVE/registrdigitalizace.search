@@ -69,6 +69,7 @@ export class AppService {
 
     params.set('start', this.state.start + '');
     params.set('rows', this.state.rows + '');
+    params.set('sort', this.state.currentSort.field);
     params.set('facet', 'true');
     params.set('facet.mincount', '1');
     for (let i in this.state.config['facets']) {

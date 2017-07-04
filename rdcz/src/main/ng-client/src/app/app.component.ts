@@ -87,10 +87,6 @@ export class AppComponent {
   getConfig() {
     return this.http.get("assets/config.json").map(res => {
       let cfg = res.json();
-
-      this.state.rows = cfg['searchParams']['rows'];
-      this.state.sorts = cfg['sorts'];
-      this.state.currentSort = cfg[0];
       var userLang = navigator.language.split('-')[0]; // use navigator lang if available
       userLang = /(cs|en)/gi.test(userLang) ? userLang : 'cs';
       if (cfg.hasOwnProperty('defaultLang')) {

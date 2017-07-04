@@ -21,8 +21,8 @@ export class AppState {
   configured: boolean = false;
 
   sorts = [
-    { "label": "Dle relevance", "field": "score desc" },
-    { "label": "Dle abecedy", "field": "uniqueid asc" }
+    { "label": "relevance", "field": "score desc" },
+    { "label": "abecedy", "field": "uniqueid asc" }
   ];
 
   collapses = [
@@ -89,6 +89,10 @@ export class AppState {
 
   setConfig(cfg) {
     this.config = cfg;
+
+    this.rows = cfg['searchParams']['rows'];
+    this.sorts = cfg['sorts'];
+    this.currentSort = this.sorts[0];
     this.collapses = cfg['collapses'];
     this.configured = true;
     this._configSubject.next(cfg);
@@ -132,6 +136,9 @@ export class AppState {
     if (params.hasOwnProperty('rows')) {
       this.rows = +params['rows'];
     }
+//    if (params.hasOwnProperty('sort')) {
+//      this.currentSort = params['sort'];
+//    }
     if (params.hasOwnProperty('filters')) {
       let f = params['filters'];
       if (f) {
@@ -279,6 +286,11 @@ export class AppState {
   setRows(r: number) {
     this.rows = r;
     //this._searchParamsChanged.next(this);
+  }
+  
+  setSort(sort){
+    this.currentSort = sort;
+    this._searchParamsChanged.next(this);
   }
 
   startSearch(type: string) {

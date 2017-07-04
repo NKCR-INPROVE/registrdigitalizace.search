@@ -12,9 +12,9 @@
     <div class="col s6 align-right">
       <span>
         {{'label.serazeno-podle' | translate}}:
-        <a id="btn-sorted-by" href="#" class="app-mdi-menu-down">relevance</a>
+        <a id="btn-sorted-by" href="#" class="app-mdi-menu-down">{{state.currentSort.label}}</a>
         <mz-dropdown [id]="'dropdown-btn-sorted-by'" [dropdownButtonId]="'btn-sorted-by'">
-          <mz-dropdown-item><a>abecedy</a></mz-dropdown-item>
+          <mz-dropdown-item *ngFor="let sort of state.sorts"><a (click)="state.setSort(sort)">{{sort.label}}</a></mz-dropdown-item>
         </mz-dropdown>
       </span>
       <span class="app-brand-text text-lighten-3">|</span>&#160;&#160;

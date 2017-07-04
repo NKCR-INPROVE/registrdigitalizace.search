@@ -48,9 +48,6 @@ export class FlotComponent implements OnChanges, OnInit {
     this.data = data;
     this.draw();
 
-    if (this.initialized) {
-      console.log(this.plot);
-    }
   }
 
   public setSelection(sel) {
