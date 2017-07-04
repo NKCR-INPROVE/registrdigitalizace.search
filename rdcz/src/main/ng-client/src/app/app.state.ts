@@ -378,5 +378,15 @@ if(!this.facets){
       facetField.values.push(facet);
     }
   }
+  
+  getFacetByField(field: string){
+    
+    for (let i in this.config['facets']) {
+      if(this.config['facets'][i].field === field){
+        return this.config['facets'][i];
+      }
+    }
+    return null;
+  }
 
 }

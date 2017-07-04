@@ -49,5 +49,14 @@ export class UsedFiltersComponent implements OnInit, OnDestroy {
     this.state.q = '';
     this.service.goToResults();
   }
+  
+  translate(field: string, value: string){
+    let facet = this.state.getFacetByField(field);
+    if (facet && facet.hasOwnProperty('classname')){
+      return this.service.translateFromLists(facet['classname'], value);
+    } else {
+      return value
+    }
+  }
 
 }
