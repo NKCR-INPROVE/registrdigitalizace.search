@@ -6,14 +6,10 @@
         <div class="row">
           <div class="col s3">
             <mz-collection>
-              <mz-collection-item>
+              <mz-collection-item *ngFor="let m of state.config['editable_pages']">
                 <mz-checkbox-container>
-                  <input mz-checkbox [label]="'Napoveda'" id="checbox-1" type="checkbox">
-                </mz-checkbox-container>
-              </mz-collection-item>
-              <mz-collection-item>
-                <mz-checkbox-container>
-                  <input mz-checkbox [label]="'Info'" id="checbox-2" type="checkbox">
+                  <input mz-checkbox type="checkbox" [attr.id]="'ch_'+m" [id]="'ch_'+m" />
+                  <a (click)="select(m)">{{m | translate}}</a>
                 </mz-checkbox-container>
               </mz-collection-item>
             </mz-collection>
@@ -22,7 +18,7 @@
             <mz-textarea-container>
               <textarea mz-textarea
                 [label]="'Editace obsahu'"
-                [id]="elementId"
+                id="editEl"
                 placeholder="Zde editujte obsah"></textarea>
             </mz-textarea-container>
           </div><!--/.col -->

@@ -17,7 +17,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
 
   menu: any[] = [];
-  selected: string = 'home';
+  selected: string = 'help';
   visibleChanged: boolean = false;
   saved: boolean = false;
 
@@ -28,7 +28,7 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
   }
-  
+
 
 
   constructor(
@@ -41,18 +41,20 @@ export class AdminComponent implements OnInit, OnDestroy {
       menubar: false,
       plugins: ['link', 'paste', 'table', 'save', 'code'],
       toolbar: 'save | undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | code',
-      skin_url: 'assets/skins/lightgray',
+
+      theme: "modern",
+      skin_url: 'assets/skins/light',
       setup: editor => {
         this.editor = editor;
         this.initData();
       },
-      save_oncancelcallback: function () { console.log('Save canceled'); },
+      save_oncancelcallback: function() { console.log('Save canceled'); },
       save_onsavecallback: () => this.save()
     });
   }
-  
-  initData(){
-    
+
+  initData() {
+
     if (this.state.config) {
       this.fillMenu();
     } else {
@@ -71,19 +73,19 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach((s: Subscription) => {
       s.unsubscribe();
     });
-    this.subscriptions = [];              
+    this.subscriptions = [];
     tinymce.remove(this.editor);
   }
 
   fillMenu() {
-    for (let m in this.state.config['menu']) {
-      this.menu.push({ label: m, menu: this.state.config['menu'][m] })
+    for (let m in this.state.config['editable_pages']) {
+      this.menu.push(m);
     }
 
     this.getText();
   }
-  
-  getText(){
+
+  getText() {
     this.service.getText(this.selected).subscribe(t => {
       this.text = t;
       this.editor.setContent(this.text);
@@ -101,12 +103,12 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   save() {
-    
-          const content = this.editor.getContent();
-//          console.log(content);
-//          if(1<2){
-//            return;
-//          }
+
+    const content = this.editor.getContent();
+    //          console.log(content);
+    //          if(1<2){
+    //            return;
+    //          }
     let m = null;
     if (this.visibleChanged) {
       let menuToSave = {};

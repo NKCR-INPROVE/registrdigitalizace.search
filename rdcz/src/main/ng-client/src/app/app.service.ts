@@ -196,9 +196,7 @@ export class AppService {
 
   login() {
     this.state.loginError = false;
-    if(true){
-      
-      
+    if(1<2){
         this.state.loginError = false;
         this.state.loginuser = '';
         this.state.loginpwd = '';
@@ -206,6 +204,7 @@ export class AppService {
         if (this.state.redirectUrl) {
           this.router.navigate([this.state.redirectUrl]);
         }
+        return;
     }
     return this.doLogin().subscribe(res => {
       if (res.hasOwnProperty('error')) {

@@ -90,7 +90,7 @@ export function createTranslateLoader(http: Http) {
       { path: 'results', component: ResultsComponent },
       { path: 'info', component: InfoComponent },
       { path: 'napoveda', component: NapovedaComponent },
-      { path: 'login', component: LoginComponent },
+      { path: 'prihlaseni', component: LoginComponent },
       { path: 'admin', 
         canActivate: [AuthGuard],component: AdminComponent },
       { path: 'duplicity', component: DuplicityComponent },
