@@ -28,7 +28,15 @@
         "../node_modules/flot/jquery.flot.pie.js",
         "../node_modules/flot/jquery.flot.selection.js",
         "../node_modules/flot/jquery.flot.navigate.js",
-        "../node_modules/jquery.flot.tooltip/js/jquery.flot.tooltip.js"
+        "../node_modules/jquery.flot.tooltip/js/jquery.flot.tooltip.js",
+        
+        "../node_modules/tinymce/tinymce.js",
+        "../node_modules/tinymce/themes/modern/theme.js",
+        "../node_modules/tinymce/plugins/link/plugin.js",
+        "../node_modules/tinymce/plugins/save/plugin.js",
+        "../node_modules/tinymce/plugins/code/plugin.js",
+        "../node_modules/tinymce/plugins/paste/plugin.js",
+        "../node_modules/tinymce/plugins/table/plugin.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

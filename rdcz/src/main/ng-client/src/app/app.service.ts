@@ -6,7 +6,7 @@ import 'rxjs/add/operator/catch';
 import { Observable } from 'rxjs/Rx';
 import { Subject } from 'rxjs/Subject';
 
-import { Http, Response, URLSearchParams } from '@angular/http';
+import { Http, Response, URLSearchParams, Headers, RequestOptions } from '@angular/http';
 
 import { AppState } from './app.state';
 import { ListValue } from './models/list-value';
@@ -131,12 +131,6 @@ export class AppService {
 //    params['od'] = this.state.currentOd;
 //    params['do'] = this.state.currentDo;
     
-//    for(let adv in this.state.advParams){
-//      if(this.state.advParams[adv] !== null && this.state.advParams[adv] !== ''){
-//        
-//      }
-//    }
-    
     params['adv'] = JSON.stringify(this.state.advParams);
     
     params['collapse'] =  this.state.currentCollapse['field'];
@@ -172,6 +166,98 @@ export class AppService {
     return this.http.get(url, { search: params }).map(res => {
       return res.json()['response']['docs'];
     });
+  }
+  
+  
+  getText(id: string): Observable<string> {
+    var url = 'texts?action=LOAD&id=' + id + '&lang=' + this.state.currentLang;
+
+    return this.http.get(url).map((response: Response) => {
+      return response.text();
+    }).catch(error => { return Observable.of('error gettting content: ' + error); });
+  }
+
+  saveText(id: string, text: string, menu: string = null): Observable<string> {
+    var url = 'texts?action=SAVE&id=' + id + '&lang=' + this.state.currentLang;
+    if(menu){
+      url += '&menu=' + menu;
+    }
+
+    let headers = new Headers({ 'Content-Type': 'text/plain;charset=UTF-8' });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.post(url, text, options)
+      .map((response: Response) => {
+        return response.json();
+
+      }).catch(error => { return Observable.of('error saving content: ' + error); });
+
+  }
+
+  login() {
+    this.state.loginError = false;
+    if(true){
+      
+      
+        this.state.loginError = false;
+        this.state.loginuser = '';
+        this.state.loginpwd = '';
+        this.state.logged = true;
+        if (this.state.redirectUrl) {
+          this.router.navigate([this.state.redirectUrl]);
+        }
+    }
+    return this.doLogin().subscribe(res => {
+      if (res.hasOwnProperty('error')) {
+        this.state.loginError = true;
+        this.state.logged = false;
+      } else {
+      
+        this.state.loginError = false;
+        this.state.loginuser = '';
+        this.state.loginpwd = '';
+        this.state.logged = true;
+        if (this.state.redirectUrl) {
+          this.router.navigate([this.state.redirectUrl]);
+        }
+      }
+    });
+  }
+
+  doLogin() {
+    var url = 'login'
+    var params = new URLSearchParams();
+    params.set('user', this.state.loginuser);
+    params.set('pwd', this.state.loginpwd);
+    params.set('action', 'LOGIN');
+    return this.http.get(url, { search: params }).map(res => {
+      return res.json();
+    }, error => {
+      console.log('error : ' + error);
+    });
+
+  }
+
+  logout() {
+    this.doLogout().subscribe(res => {
+      if (res.hasOwnProperty('error')) {
+        console.log(res['error']);
+      }
+      this.state.logged = false;
+      this.router.navigate(['/home']);
+    });
+  }
+
+  doLogout() {
+
+    var url = 'login';
+    //console.log(this.loginuser, this.loginpwd, url);
+    var params = new URLSearchParams();
+    params.set('action', 'LOGOUT');
+    return this.http.get(url, { search: params }).map(res => {
+      return res.json();
+    });
+
   }
 
 }

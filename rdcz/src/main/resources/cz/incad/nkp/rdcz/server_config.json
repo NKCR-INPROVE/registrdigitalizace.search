@@ -40,6 +40,9 @@
     "sigla1 as vlastnik",
     "decode(predloha.stavRec,'planovane','planovane','progress', 'progress','predanoZpracovateli', 'progress', 'pripravenoProMf', 'progress', 'revize', 'progress', 'active', 'progress', 'finished', 'finished', 'archived', 'finished') as stav" 
   ],
+  "users":{
+    "test": "test"
+  },
   "jobs": {}
 }
 

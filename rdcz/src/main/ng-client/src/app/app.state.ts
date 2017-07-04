@@ -19,6 +19,12 @@ export class AppState {
   //Holds client configuration
   config: any;
   configured: boolean = false;
+  
+  loginError: boolean = false;
+  logged: boolean = false;
+  redirectUrl: string = '/admin';
+  loginuser: string = '';
+  loginpwd: string = '';
 
   sorts = [
     { "label": "relevance", "field": "score desc" },

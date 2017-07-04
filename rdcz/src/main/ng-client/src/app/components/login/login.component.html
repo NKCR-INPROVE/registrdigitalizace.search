@@ -13,10 +13,10 @@
               <div class="row">
                 <mz-input-container class="col s12">
                   <i mz-icon-mdi mz-input-prefix [icon]="'account'"></i>
-                  <input mz-input
-                    [label]="'label.user' | translate"
-                    id="user-input"
-                    type="text">
+                  <input mz-input #loginuser id="loginuser" type="text" class="form-control" name="loginuser" value="" 
+                           [label]="'label.user' | translate"
+                           (keyup.enter)="focusp($event, loginpwd)"
+                           [(ngModel)]="state.loginuser" />   
                 </mz-input-container>
               </div>
               <div class="row">
@@ -24,13 +24,14 @@
                   <i mz-icon-mdi mz-input-prefix [icon]="'lock-outline'"></i>
                   <input mz-input
                     [label]="'label.password' | translate"
-                    id="password-input"
-                    type="password">
+                    id="loginpwd" type="password" class="form-control" name="loginpwd" placeholder="Heslo" #loginpwd
+                           (keyup.enter)="service.login()"
+                           [(ngModel)]="state.loginpwd" />
                 </mz-input-container>
               </div>
               <div class="row">
                 <div class="input-field col s12">
-                  <button mz-button [large]="'true'" class="col s12">
+                  <button mz-button [large]="'true'" class="col s12" (click)="service.login()">
                     {{'btn.login' | translate}}
                   </button>
                 </div>

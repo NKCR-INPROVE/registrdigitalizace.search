@@ -34,6 +34,7 @@ import { QueryAsFilterComponent } from './components/results/query-as-filter/que
 import { LoadingComponent } from './components/loading/loading.component';
 import { LoginComponent } from './components/login/login.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { AuthGuard } from "./auth-guard";
 
 
 export function HttpLoaderFactory(http: Http) {
@@ -90,11 +91,12 @@ export function createTranslateLoader(http: Http) {
       { path: 'info', component: InfoComponent },
       { path: 'napoveda', component: NapovedaComponent },
       { path: 'login', component: LoginComponent },
-      { path: 'admin', component: AdminComponent },
+      { path: 'admin', 
+        canActivate: [AuthGuard],component: AdminComponent },
       { path: 'duplicity', component: DuplicityComponent },
     ])
   ],
-  providers: [Title, AppState, AppService],
+  providers: [Title, AppState, AppService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
