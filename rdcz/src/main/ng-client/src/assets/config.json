@@ -14,7 +14,7 @@
     { "label": "SIGLA+ID", "field": "aba_collaps" }
   ],
   "boost": {
-    "qf":"_text_nolemmas^2.0 title_nolemmas^2.0 varnazev_nolemmas^1.5 title_prefix^2.0 title^1.5 autor^1.2 _text_"
+    "qf":"title_full^5.0 _text_nolemmas^2.0 title_nolemmas^2.0 varnazev_nolemmas^1.5 title_prefix^4.0 title^1.5 autor^1.2 _text_"
   },
   "facets":[
     {"field": "financovano", "icon": "diamond", "translate": true, "active": false, "classname": "cz.incad.nkp.digital.Dfinancovano"},

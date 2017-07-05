@@ -59,7 +59,7 @@ export class AppService {
     }
   }
 
-  doSearchParams(): URLSearchParams {
+  doSearchParams(boosted: boolean = true): URLSearchParams {
     let params: URLSearchParams = new URLSearchParams();
     if (this.state.q && this.state.q !== '') {
       params.set('q', this.state.q);
@@ -81,10 +81,13 @@ export class AppService {
 //    params.set('facet.range.start', this.state.currentOd + '');
 //    params.set('facet.range.end', this.state.currentDo + '');
     
-    
     params.set('facet.range.start', '0');
     params.set('facet.range.end', (new Date()).getFullYear() + '');
     params.set('facet.range.gap', '10');
+    
+    if(boosted){
+      params.set('qf', this.state.config['boost']['qf']);
+    }
 
       
     for (let i in this.state.usedFilters) {
