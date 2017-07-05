@@ -62,11 +62,17 @@
     "zobrazit-vice": "Show more",
     "zobrazit-mene": "Show less"
   },
+  
+  
+  "human.vlastnik": "Institution",
+  "value.vlastnik": "Sigla",
+  "count": "Count",
+  
   "field": { 
     "q": "query",
     "stav": "State",
     "financovano": "Financial program",
-    "vlastnik": "Owner",
+    "vlastnik": "Document Owner",
     "digknihovna": "Digital library",
     "druhdokumentu": "Document type",
 

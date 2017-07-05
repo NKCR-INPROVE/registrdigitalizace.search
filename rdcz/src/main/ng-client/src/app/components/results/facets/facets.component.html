@@ -14,6 +14,7 @@
               <mz-collection-item>
                 <i *ngIf="ff.field=='stav'" [class]="'app-state-item app-state-item-' + f.value"></i>
                 <span (click)="add(f)" class="first-content">{{translate(ff, f)}}</span>
+                <span *ngIf="ff.showOriginal">{{f.value}}</span>
                 <a  mz-secondary-content class="app-brand-text text-lighten-2">({{f.count}})</a>
               </mz-collection-item>
             </span>
@@ -45,11 +46,17 @@
           </mz-collapsible-item-header>
           <mz-collapsible-item-body>
             <mz-collection>
+              <ng-container *ngIf="ff.sortable">
+                <a (click)="sortBy(ff,'human')" class="first-content">{{'human.' + ff.field | translate}}</a>
+                <a (click)="sortBy(ff,'value')">{{'value.' + ff.field | translate}}</a>
+                <a (click)="sortBy(ff,'count')" mz-secondary-content class="app-brand-text text-lighten-2">{{'count' | translate}}</a>
+              </ng-container>
               <ng-container *ngFor="let f of ff.values; let i = index">
                 <!-- az bude jejich bug opraven, tuto podminku dat v ramci elementu mz-collection-item -> https://github.com/sherweb/ng2-materialize/issues/144 --> 
-                <span *ngIf="isVisible(i, ff)">
+                <span *ngIf="isVisible(i, ff) || ff.sortable">
                   <mz-collection-item>
                     <span (click)="add(f)" class="first-content">{{translate(ff, f)}}</span>
+                    <span *ngIf="ff.showOriginal"> {{f.value}} </span>
                     <a  mz-secondary-content class="app-brand-text text-lighten-2">({{f.count}})</a>
                   </mz-collection-item>
                 </span>

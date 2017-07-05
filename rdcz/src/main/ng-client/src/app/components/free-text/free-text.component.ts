@@ -32,7 +32,7 @@ export class FreeTextComponent implements OnInit, OnDestroy {
         this.getText();
       }
     ));
-console.log(this.page);
+    
     if (!this.page) {
       this.subscriptions.push(this.router.events.subscribe(val => {
         if (val instanceof NavigationEnd) {

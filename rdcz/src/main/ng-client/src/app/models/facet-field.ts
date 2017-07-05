@@ -6,4 +6,7 @@ export class FacetField {
   icon: string;
   active:boolean;
   classname:string;
+  translate: boolean;
+  showOriginal: boolean; 
+  sortable: boolean;
 }

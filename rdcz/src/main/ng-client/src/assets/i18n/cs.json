@@ -62,12 +62,16 @@
     "zobrazit-vice": "Zobrazit více",
     "zobrazit-mene": "Zobrazit méně"
   },
+  
+  "human.vlastnik": "Název instituce",
+  "value.vlastnik": "Sigla",
+  "count": "Poč. zázn.",
 
   "field": {
     "q": "dotaz",
     "stav": "Stav",
     "financovano": "Finanční program",
-    "vlastnik": "Vlastník",
+    "vlastnik": "Vlastník dokumentu",
     "digknihovna": "Digitální knihovna",
     "druhdokumentu": "Typ dokumentu",
 

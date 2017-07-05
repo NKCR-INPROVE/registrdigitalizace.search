@@ -350,6 +350,10 @@ if(!this.facets){
           facetField.icon = configFacets[i]['icon'];
           facetField.active = !allClosed && configFacets[i]['active'];
           facetField.classname = configFacets[i]['classname'];
+          facetField.translate = configFacets[i]['translate'];
+          facetField.showOriginal = configFacets[i]['showOriginal'];
+          facetField.sortable = configFacets[i]['sortable'];
+          
           facetField.isMultiple = this.config['searchParams']['multipleFacets'] && this.config['searchParams']['multipleFacets'].indexOf(field) > -1;
           if (this.config['searchParams']['json.nl'] === 'map') {
             for (let f in this.facets[field]) {
