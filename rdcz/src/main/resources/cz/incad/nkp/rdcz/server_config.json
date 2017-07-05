@@ -38,6 +38,7 @@
     "nvl(SIGLA1, -predloha.id) || nvl(SYSNO, -predloha.id) as aba_collaps",
     "nvl(financovano, 'neuvedeno') as financovano",
     "sigla1 as vlastnik",
+    "urltitul", "urltitnk", "katalog", "url",
     "decode(predloha.stavRec,'planovane','planovane','progress', 'progress','predanoZpracovateli', 'progress', 'pripravenoProMf', 'progress', 'revize', 'progress', 'active', 'progress', 'finished', 'finished', 'archived', 'finished') as stav" 
   ],
   "users":{
