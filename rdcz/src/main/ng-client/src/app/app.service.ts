@@ -11,6 +11,9 @@ import { Http, Response, URLSearchParams, Headers, RequestOptions } from '@angul
 import { AppState } from './app.state';
 import { ListValue } from './models/list-value';
 
+
+declare var xml2json: any;
+
 @Injectable()
 export class AppService {
 
@@ -146,6 +149,34 @@ export class AppService {
     this.http.get(url, { search: params }).map(res => {
       this.state.processSearch(res.json(), type);
     }).subscribe();
+  }
+  
+  searchAleph(){
+    var url = this.state.config['context'] + 'aleph';
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('base', 'nkc');
+    params.set('op', 'find');
+    params.set('request', 'bc='+this.state.q);
+    return this.http.get(url, { search: params }).map((res: Response) => {
+      
+      return JSON.parse(xml2json(res.text(), ''));
+      //return res.text();
+    });
+  }
+  
+  getFromAleph(set_no: string, no_records:string){
+    var url = this.state.config['context'] + 'aleph';
+    let params: URLSearchParams = new URLSearchParams();
+        
+    params.set('op', 'present');
+    params.set('format', 'marc');
+    params.set('set_no', set_no);
+    params.set('set_entry', '1-' +no_records);
+    return this.http.get(url, { search: params }).map((res: Response) => {
+      
+      return JSON.parse(xml2json(res.text(), ''));
+      //return res.text();
+    });
   }
   
   goToResults(): void {

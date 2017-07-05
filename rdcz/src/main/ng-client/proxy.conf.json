@@ -16,5 +16,14 @@
     },
     "changeOrigin": false,
     "secure": false
+  },
+  "/aleph": {
+    "target": "http://aleph.nkp.cz/X",
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/aleph":""
+    },
+    "changeOrigin": false,
+    "secure": false
   }
 }
