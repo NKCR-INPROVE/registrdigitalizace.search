@@ -32,6 +32,6 @@ export class Result {
   digknihovna: string[];
   index_time: string;
   autor: string[];
-  bib_udaje: string; // Podrobné bib. údaje - CHYBI V INDEXU
+  bibliographich_data: string; // Podrobné bib. údaje - CHYBI V INDEXU
   pocet_predloh: string; // Predloha - CHYBI V INDEXU
 }

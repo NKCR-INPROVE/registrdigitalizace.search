@@ -35,6 +35,7 @@ import { LoadingComponent } from './components/loading/loading.component';
 import { LoginComponent } from './components/login/login.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { AuthGuard } from "./auth-guard";
+import { FreeTextComponent } from './components/free-text/free-text.component';
 
 
 export function HttpLoaderFactory(http: Http) {
@@ -70,7 +71,8 @@ export function createTranslateLoader(http: Http) {
     QueryAsFilterComponent,
     LoadingComponent,
     LoginComponent,
-    AdminComponent
+    AdminComponent,
+    FreeTextComponent
   ],
   imports: [
     BrowserModule,

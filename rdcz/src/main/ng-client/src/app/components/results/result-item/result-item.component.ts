@@ -19,6 +19,7 @@ export class ResultItemComponent implements OnInit, OnDestroy {
 
   showingDetail: boolean = false;
   predlohy: Result[] = [];
+  digObjects: any[] = [];
   predlohyLoaded: boolean = false;
   
   stavy = [];
@@ -44,6 +45,9 @@ export class ResultItemComponent implements OnInit, OnDestroy {
             });
             
             this.predlohy = resp['res']["response"]["docs"];
+//            for(let i in this.predlohy){
+//              if (this.bibDataLink.indexOf(this.predlohy[i].bib))
+//            }
           }
           
         }

@@ -37,9 +37,9 @@
           <strong>{{'label.rok-vydani' | translate}}:</strong>
           {{result.rokvydstr}}
         </label><!--/label -->
-        <label *ngIf="result.bib_udaje">
+        <label *ngIf="result.bibliographich_data">
           <strong>{{'label.bib-udaje' | translate}}:</strong>
-          {{result.bib_udaje}}
+          <a [href]="result.bibliographich_data" target="_blank">{{result.bibliographich_data}}</a>
         </label><!--/label -->
       </div><!--/.col -->
     </div><!--/.row -->
@@ -74,7 +74,7 @@
                 <tr  *ngFor="let p of predlohy">
                   <td><span [class]="'app-state-item app-state-item-' + p.stav"></span></td>
                   <td>
-                    <a mz-tooltip [tooltip]="'http://kramerius.nkp.cz/kramerius/handle/ABA001/1452804'" [position]="'top'" href="http://kramerius.nkp.cz/kramerius/handle/ABA001/1452804" title="">
+                    <a mz-tooltip [tooltip]="p.url" [position]="'top'" [href]="p.url" title="" target="_blank">
                       <i mz-icon-mdi [icon]="'open-in-new'" [size]="'16px'"></i>
                     </a>
                   </td>
@@ -92,16 +92,15 @@
           </mz-collapsible-item-body>
         </mz-collapsible-item>
 
-        <mz-collapsible-item>
+        <mz-collapsible-item *ngIf="digObjects.length > 0">
           <mz-collapsible-item-header>
             <i mz-icon-mdi [icon]="'plus'"></i>
             <i mz-icon-mdi [icon]="'minus'"></i>
-            {{'label.digitalni-dokument' | translate}} <span class="app-brand-text text-lighten-3">(2)</span>
+            {{'label.digitalni-dokument' | translate}} <span class="app-brand-text text-lighten-3">({{digObjects.length}})</span>
           </mz-collapsible-item-header>
           <mz-collapsible-item-body>
             <mz-collection>
-              <a mz-collection-link href="#!">Kramerius NKP (externi link)</a>
-              <a mz-collection-link href="#!">Kramerius NKP (externi link)</a>
+              <a mz-collection-link  *ngFor="let do of digObjects" [href]="do.link" target="_blank">{{do.link}}</a>
             </mz-collection>
           </mz-collapsible-item-body>
         </mz-collapsible-item>
@@ -115,15 +114,20 @@
     <span>
       {{'label.predlohy' | translate}}: {{predlohy.length}} 
     </span>
-    <span class="app-brand-text text-lighten-3">|</span>
-    <span *ngIf="result.cnb_collaps">
+    <span *ngIf="result.ccnb">
+      <span class="app-brand-text text-lighten-3">|</span>
       <strong>ČNB:</strong>
-      {{result.cnb_collaps}}
+      {{result.ccnb[0]}}
     </span>
-    <span class="app-brand-text text-lighten-3">|</span>
-    <span *ngIf="result.isxn_collaps">
+    <span *ngIf="result.isbn">
+      <span class="app-brand-text text-lighten-3">|</span>
       <strong>ISBN:</strong>
-      {{result.isxn_collaps}}
+      {{result.isbn}}
+    </span>
+    <span *ngIf="result.issn">
+      <span class="app-brand-text text-lighten-3">|</span>
+      <strong>ISSN:</strong>
+      {{result.issn}}
     </span>
     <a *ngIf="showingDetail" class="right app-clean-mg" (click)="toggleDetail('app-card-detail-' + result.id)">
        {{'btn.skryt-detail' | translate}}
