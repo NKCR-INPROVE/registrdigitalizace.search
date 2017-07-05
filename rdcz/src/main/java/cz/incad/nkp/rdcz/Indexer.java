@@ -218,6 +218,9 @@ public class Indexer {
             SolrInputDocument idoc = indexRow(rs);
             addNeplatneCnb(idoc, rs.getString("id"), conn);
             addDigKnihovny(idoc, rs.getString("id"), conn);
+            if(rs.getString("katalog") != null){
+              addKatalogUrl(idoc, rs.getString("katalog"), rs.getString("pole001"), conn);
+            }
             addVarNazev(idoc, rs.getString("id"), conn);
             int rokvyd = -1;
             try{
@@ -308,6 +311,28 @@ public class Indexer {
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
           idoc.addField("digknihovna", rs.getString("digk"));
+        }
+        rs.close();
+      }
+      ps.close();
+    } catch (SQLException ex) {
+      LOGGER.log(Level.SEVERE, null, ex);
+    }
+  }
+
+  private void addKatalogUrl(SolrInputDocument idoc, String katalog, String pole001, Connection conn) {
+    try {
+      String sql = "select * from katalog where katalog.VALUE=?";
+      PreparedStatement ps = conn.prepareStatement(sql);
+      ps.setString(1, katalog);
+
+      try (ResultSet rs = ps.executeQuery()) {
+        while (rs.next()) {
+          String url = "http://"+rs.getString("link001prefix")+pole001;
+          if(rs.getString("link001sufix") != null){
+            url += rs.getString("link001sufix");
+          }
+          idoc.addField("bibliographich_data", url);
         }
         rs.close();
       }
