@@ -1,5 +1,6 @@
 {
   "solr.host": "http://localhost:8983/solr/",
+  "aleph.host": "http://aleph.nkp.cz/X",
   
   "sqlFull": "select #fields# from predloha where stavRec <> 'smazat' and stavRec <> 'interni'",
   

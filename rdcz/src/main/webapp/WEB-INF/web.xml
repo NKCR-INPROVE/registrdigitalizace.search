@@ -4,18 +4,19 @@
         <servlet-name>IndexerServlet</servlet-name>
         <servlet-class>cz.incad.nkp.rdcz.IndexerServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AlephServlet</servlet-name>
+        <servlet-class>cz.incad.nkp.rdcz.AlephServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>IndexerServlet</servlet-name>
         <url-pattern>/index</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>InitServlet</servlet-name>
         <servlet-class>cz.incad.nkp.rdcz.InitServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
-    
-    
     <servlet>
         <servlet-name>StaticServlet</servlet-name>
         <jsp-file>/index.jsp</jsp-file>
@@ -28,7 +29,6 @@
         <url-pattern>/napoveda/*</url-pattern>
         <url-pattern>/duplicity/*</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>ForwardServlet</servlet-name>
         <servlet-class>cz.incad.nkp.rdcz.ForwardServlet</servlet-class>
@@ -47,7 +47,6 @@
         <url-pattern>/config</url-pattern>
         <url-pattern>/assets/config.json</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>I18nServlet</servlet-name>
         <servlet-class>cz.incad.nkp.rdcz.I18nServlet</servlet-class>
@@ -57,7 +56,6 @@
         <url-pattern>/assets/i18n/*</url-pattern>
         <url-pattern>/i18n/*</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>TextsServlet</servlet-name>
         <servlet-class>cz.incad.nkp.rdcz.TextsServlet</servlet-class>
@@ -74,7 +72,6 @@
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>SearchServlet</servlet-name>
         <servlet-class>cz.incad.nkp.rdcz.SearchServlet</servlet-class>
@@ -83,7 +80,10 @@
         <servlet-name>SearchServlet</servlet-name>
         <url-pattern>/search/*</url-pattern>
     </servlet-mapping>
-    
+    <servlet-mapping>
+        <servlet-name>AlephServlet</servlet-name>
+        <url-pattern>/aleph</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
