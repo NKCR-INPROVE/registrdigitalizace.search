@@ -9,7 +9,7 @@
             (keyup.enter)="search()"
             [(ngModel)]="state.q">
           <i mz-icon-mdi [icon]="'magnify'" (click)="search()" class="app-cursor-pointer"></i>
-          <i mz-button id="btn-advanced-search" class="app-mdi-menu app-cursor-pointer" mz-tooltip [tooltip]="'btn.rozsirene-hledani' | translate" [position]="'top'"  [class.collapsed]="isAdvancedCollapsed" (click)="openAdvanced()"></i>
+          <i mz-button id="btn-advanced-search" class="app-mdi-menu app-cursor-pointer" mz-tooltip [tooltip]="'btn.rozsirene-hledani' | translate" [position]="'top'"  [class.collapsed]="state.isAdvancedCollapsed" (click)="openAdvanced()"></i>
           <i mz-icon-mdi [icon]="'close'" (click)="cleanQ()"  [class]="'mdi-navigation-close'"></i>
           <!-- Advanced search -->
           <mz-card #filter [backgroundClass]="'white'" [hoverable]="true" 
