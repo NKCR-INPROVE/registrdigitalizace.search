@@ -1,7 +1,8 @@
 <div class="container app-brand lighten-4">
   <div class="row">
     <div class="col s4">
-      <form class="app-form-group shades white" >
+      <form class="app-form-group shades white"
+            #searchForm>
         <div class="input-field app-clean-mg">
           <input id="q" type="search" class="app-clean-mg" placeholder="{{'q.placeholder' | translate}}"
             name="q"
@@ -12,11 +13,12 @@
           <i mz-icon-mdi [icon]="'close'" (click)="cleanQ()"  [class]="'mdi-navigation-close'"></i>
           <!-- Advanced search -->
           <mz-card #filter [backgroundClass]="'white'" [hoverable]="true" 
-            [class.collapse]="isAdvancedCollapsed" [attr.aria-expanded]="isAdvancedCollapsed ? 'false' : 'true'"
-             (keyup.enter)="search()">
+            [class.collapse]="state.isAdvancedCollapsed" [attr.aria-expanded]="state.isAdvancedCollapsed ? 'false' : 'true'"
+             (keyup.enter)="search()"
+             >
             <mz-card-content>
               <mz-input-container>
-                <input mz-input [label]="'label.nazev' | translate" name="advNazev" [(ngModel)]="state.advParams.title" type="text" />
+                <input #advNazev mz-input [label]="'label.nazev' | translate" name="advNazev" [(ngModel)]="state.advParams.title" type="text" />
               </mz-input-container>
               <mz-input-container>
                 <input mz-input [label]="'label.hlavni-autor' | translate" name="advAutor" [(ngModel)]="state.advParams.autor" type="text">

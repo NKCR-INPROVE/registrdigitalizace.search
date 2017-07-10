@@ -87,7 +87,7 @@ export class AppState {
   };
   
   usedAdv = [];
-
+  isAdvancedCollapsed: boolean = true; // pedro
 
   qcheck: boolean;
 
