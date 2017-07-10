@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, Renderer } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+
 
 import { AppService } from '../../app.service';
 import { AppState } from '../../app.state';
@@ -20,8 +20,8 @@ export class SearchBarComponent implements OnInit {
 
   constructor(private service: AppService,
     private router: Router,
-    public state: AppState, 
-    elementRef: ElementRef, private renderer: Renderer) {
+    public state: AppState,
+    private renderer: Renderer) {
   }
 
   ngOnInit() {
