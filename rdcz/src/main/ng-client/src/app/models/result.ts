@@ -12,6 +12,7 @@ export class Result {
   mistovyd: string;
   ccnb: string[];
   issn: string;
+  isbn: string;
   cislo: string;
   carkod: string;
   cislozakazky: string;
