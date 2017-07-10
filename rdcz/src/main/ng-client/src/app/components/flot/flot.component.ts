@@ -121,12 +121,18 @@ export class FlotComponent implements OnChanges, OnInit {
 
       var _this = this;
       this.plotArea.bind("plotselected", function(event, ranges) {
+        console.log('plotselected');
         _this.selecting = true;
         _this.onSelection.emit(ranges);
       });
 
       this.plotArea.bind("plotclick", function(event, pos, item) {
-        if (item && !_this.selecting) {
+        console.log('plotclick');
+        if (_this.selecting) {
+          _this.selecting = false;;
+          return;
+        }
+        if (item) {
           _this.onClick.emit(item);
         }
         if (!item) {

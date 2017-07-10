@@ -27,7 +27,7 @@ export class SearchBarComponent implements OnInit {
   ngOnInit() {
     //    this.searchForm = this.formBuilder.group({});
     this.renderer.listenGlobal('document', 'click', (event) => {
-      if (!this.searchForm.nativeElement.contains(event.target)) {
+      if (!this.state.isAdvancedCollapsed && !this.searchForm.nativeElement.contains(event.target)) {
          this.closeAdv();
       }
     })
