@@ -57,16 +57,16 @@
             <table class="striped">
               <thead>
                 <tr>
-                  <th>{{'label.stav' | translate}}</th>
+                  <th (click)="sortBy('stav')">{{'label.stav' | translate}}</th>
                   <th></th>
-                  <th>{{'label.cislo-rdcz' | translate}}</th>
-                  <th>{{'label.vlastnik' | translate}}</th>
-                  <th>{{'label.rok-per' | translate}}</th>
-                  <th>{{'label.cast-roc' | translate}}</th>
-                  <th>{{'label.cislo' | translate}}</th>
-                  <th>{{'label.financovano' | translate}}</th>
-                  <th>{{'label.signatura' | translate}}</th>
-                  <th>{{'label.car-kod' | translate}}</th>
+                  <th (click)="sortBy('cislordcz')">{{'label.cislo-rdcz' | translate}}</th>
+                  <th (click)="sortBy('vlastnik')">{{'label.vlastnik' | translate}}</th>
+                  <th (click)="sortBy('rokvydstr')">{{'label.rok-per' | translate}}</th>
+                  <th (click)="sortBy('cast')">{{'label.cast-roc' | translate}}</th>
+                  <th (click)="sortBy('rozsah')">{{'label.cislo' | translate}}</th>
+                  <th (click)="sortBy('financovano', true)">{{'label.financovano' | translate}}</th>
+                  <th (click)="sortBy('signatura')">{{'label.signatura' | translate}}</th>
+                  <th (click)="sortBy('carkod')">{{'label.car-kod' | translate}}</th>
                 </tr>
               </thead>
 

@@ -84,6 +84,12 @@ export class ResultItemComponent implements OnInit, OnDestroy {
       this.predlohyLoaded = true;
     } 
   }
+  
+  sortBy(field: string, translated: boolean = false){
+    this.predlohy.sort((a: Result, b: Result) => {
+      return a[field] > b[field] ? 1 : -1;
+    });
+  }
 
 
   // toggle content function by id
