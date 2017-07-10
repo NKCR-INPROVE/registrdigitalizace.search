@@ -28,6 +28,8 @@
         <url-pattern>/info/*</url-pattern>
         <url-pattern>/napoveda/*</url-pattern>
         <url-pattern>/duplicity/*</url-pattern>
+        <url-pattern>/admin/*</url-pattern>
+        <url-pattern>/prihlaseni/*</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>ForwardServlet</servlet-name>
