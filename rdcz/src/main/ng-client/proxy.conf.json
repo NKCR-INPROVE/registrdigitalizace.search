@@ -18,6 +18,15 @@
     "secure": false
   },
   "/aleph": {
+    "target": "http://localhost:8080/rdcz/aleph",
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/aleph":""
+    },
+    "changeOrigin": false,
+    "secure": false
+  },
+  "/alephDirect": {
     "target": "http://aleph.nkp.cz/X",
     "logLevel": "debug",
     "pathRewrite": {

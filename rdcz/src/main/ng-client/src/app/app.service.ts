@@ -154,6 +154,17 @@ export class AppService {
   searchAleph(){
     var url = this.state.config['context'] + 'aleph';
     let params: URLSearchParams = new URLSearchParams();
+    params.set('bc', this.state.q)
+    return this.http.get(url, { search: params }).map((res: Response) => {
+      
+      return res.json();
+      //return res.text();
+    });
+  }
+  
+  searchAlephDirect(){
+    var url = this.state.config['context'] + 'alephDirect';
+    let params: URLSearchParams = new URLSearchParams();
     params.set('base', 'nkc');
     params.set('op', 'find');
     params.set('request', 'bc='+this.state.q);

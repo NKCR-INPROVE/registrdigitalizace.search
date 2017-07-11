@@ -1,6 +1,10 @@
 {
   "solr.host": "http://localhost:8983/solr/",
-  "aleph.host": "http://aleph.nkp.cz/X",
+  "aleph":[
+    {"host":"aleph.mzk.cz/X", "prefixes": ["261","262","311"], "base": "MZK01"}
+  ],
+  "aleph.def.host":"aleph.nkp.cz/X",
+  "aleph.def.base":"nkc",
   
   "sqlFull": "select #fields# from predloha where stavRec <> 'smazat' and stavRec <> 'interni'",
   

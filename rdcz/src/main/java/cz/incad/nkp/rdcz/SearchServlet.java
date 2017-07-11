@@ -38,7 +38,7 @@ import org.json.JSONObject;
  */
 public class SearchServlet extends HttpServlet {
 
-  public static final Logger LOGGER = Logger.getLogger(Options.class.getName());
+  public static final Logger LOGGER = Logger.getLogger(SearchServlet.class.getName());
 
   /**
    * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

@@ -15,7 +15,7 @@ export class SearchBarComponent implements OnInit {
   @ViewChild('advNazev') advNazev: any;
   @ViewChild('searchForm') searchForm: any;
 
-//  public searchForm: FormGroup;
+  //  public searchForm: FormGroup;
 
 
   constructor(private service: AppService,
@@ -28,7 +28,7 @@ export class SearchBarComponent implements OnInit {
     //    this.searchForm = this.formBuilder.group({});
     this.renderer.listenGlobal('document', 'click', (event) => {
       if (!this.state.isAdvancedCollapsed && !this.searchForm.nativeElement.contains(event.target)) {
-         this.closeAdv();
+        this.closeAdv();
       }
     })
   }
@@ -57,17 +57,43 @@ export class SearchBarComponent implements OnInit {
     this.service.goToResults();
   }
 
+
+
   duplicity() {
     if (this.state.q === '') {
       this.router.navigate(['/duplicity']);
     } else {
-      this.service.searchAleph().subscribe(res => {
-        console.log(res['find']['no_records']);
+      this.service.searchAleph().subscribe(res2 => {
+        if (res2['numFound'] > 0) {
+          let varFields = res2['marc']['present']['record']['metadata']['oai_marc']['varfield'];
+          for (let i in varFields) {
+            if (varFields[i]['id'] === 245) {
+              let sub = varFields[i]['subfield'];
+              this.state.q = sub[0]['content'];
+              this.service.goToResults();
+              //return;
+            }
+          }
+        } else {
+          console.log('zadny vysledek');
+          this.router.navigate(['/duplicity']);
+        }
+        //[@id='245']/subfield[@label='a']
+      });
+    }
+  }
+
+  duplicityDirect() {
+    if (this.state.q === '') {
+      this.router.navigate(['/duplicity']);
+    } else {
+      this.service.searchAlephDirect().subscribe(res => {
+        //console.log(res['find']['no_records']);
         if (res['find'] && res['find']['no_records']) {
           let no_records: number = +res['find']['no_records'];
           if (no_records > 0) {
             this.service.getFromAleph(res['find']['set_number'], res['find']['no_records']).subscribe(res2 => {
-              console.log(res2);
+              //console.log(res2);
               let varFields = res2['present']['record']['metadata']['oai_marc']['varfield'];
               for (let i in varFields) {
                 if (varFields[i]['@id'] === '245') {
