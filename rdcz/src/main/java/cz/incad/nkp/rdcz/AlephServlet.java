@@ -36,10 +36,10 @@ public class AlephServlet extends HttpServlet {
    */
   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
           throws ServletException, IOException {
+    response.setContentType("application/json;charset=UTF-8");
 
     try (PrintWriter out = response.getWriter()) {
       response.addHeader("Access-Control-Allow-Origin", "http://localhost:4200");
-      response.setContentType("application/json;charset=UTF-8");
       //response.setContentType("text/xml;charset=UTF-8");
       response.addHeader("Access-Control-Allow-Methods", "GET, POST");
       response.addHeader("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
@@ -79,38 +79,44 @@ public class AlephServlet extends HttpServlet {
 
       String xml = org.apache.commons.io.IOUtils.toString(inputStream, Charset.forName("UTF-8"));
       JSONObject json = XML.toJSONObject(xml);
-      LOGGER.log(Level.INFO, "requesting json {0}", json);
-      if (json.getJSONObject("find").has("error")) {
-        ret.put("numFound", 0).put("error", json.getJSONObject("find").getString("error"));
-      } else {
-        int no_records = Integer.parseInt(json.getJSONObject("find").getString("no_records"));
 
-        if (no_records > 0) {
-          ret.put("numFound", no_records);
+      LOGGER.log(Level.INFO, "requesting json {0}", json);
+      if (json.has("find")) {
+        if (json.getJSONObject("find").has("error")) {
+          ret.put("numFound", 0).put("error", json.getJSONObject("find").getString("error"));
+        } else {
+          int no_records = Integer.parseInt(json.getJSONObject("find").getString("no_records"));
+
+          if (no_records > 0) {
+            ret.put("numFound", no_records);
 //        
 //        params.set('op', 'present');
 //    params.set('format', 'marc');
 //    params.set('set_no', set_no);
 //    params.set('set_entry', '1-' +no_records);
 //    
-          uri = new URIBuilder().setScheme("http")
-                  .setHost(host)
-                  //.setPath("/X")
-                  .setParameter("base", base)
-                  .setParameter("op", "present")
-                  .setParameter("format", "marc")
-                  .setParameter("set_no", json.getJSONObject("find").getString("set_number"))
-                  .setParameter("set_entry", "1-" + json.getJSONObject("find").getString("no_records"))
-                  .build();
-          inputStream = RESTHelper.inputStream(uri.toString());
-          xml = org.apache.commons.io.IOUtils.toString(inputStream, Charset.forName("UTF-8"));
-          JSONObject marc = XML.toJSONObject(xml);
+            uri = new URIBuilder().setScheme("http")
+                    .setHost(host)
+                    //.setPath("/X")
+                    .setParameter("base", base)
+                    .setParameter("op", "present")
+                    .setParameter("format", "marc")
+                    .setParameter("set_no", json.getJSONObject("find").getString("set_number"))
+                    .setParameter("set_entry", "1-" + json.getJSONObject("find").getString("no_records"))
+                    .build();
+            inputStream = RESTHelper.inputStream(uri.toString());
+            xml = org.apache.commons.io.IOUtils.toString(inputStream, Charset.forName("UTF-8"));
+            JSONObject marc = XML.toJSONObject(xml);
 
-          ret.put("marc", marc);
+            ret.put("marc", marc);
 
-        } else {
-          ret.put("numFound", 0);
+          } else {
+            ret.put("numFound", 0);
+          }
         }
+      } else {
+        //{"html":{"head":{"title":"Error 403"},"body":{"h1":"Error 403 Forbidden","i":"194.108.215.43","content":["Access from IP address","not allowed."]}}}
+        ret.put("numFound", 0).put("error", json);
       }
       out.print(ret.toString(2));
       //out.print(xml);
