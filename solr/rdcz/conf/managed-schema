@@ -128,6 +128,7 @@
     <field name="nazev" type="text_cz" indexed="true" stored="true" />
     <field name="titlesort" type="collatedCS" indexed="true" stored="true" sortMissingLast="true" />
     <field name="podnazev" type="string" indexed="true" stored="true" />
+    <field name="varnazev" type="string" indexed="true" stored="true" multiValued="true" />
     
     <field name="autor" type="text_cz" indexed="true" stored="true" />
     
@@ -163,7 +164,12 @@
     <field name="financovano" type="string" indexed="true" stored="true" docValues="true" />
     <field name="vlastnik" type="string" indexed="true" stored="true" docValues="true"  />
     <field name="digknihovna" type="string" indexed="true" stored="true"  multiValued="true" docValues="true"  />
-    <field name="varnazev" type="string" indexed="true" stored="true" multiValued="true" />
+    <field name="url" type="string" indexed="true" stored="true" />
+    <field name="urltitul" type="string" indexed="true" stored="true" docValues="true"  />
+    <field name="urltitnk" type="string" indexed="true" stored="true" docValues="true"  />
+    <field name="katalog" type="string" indexed="true" stored="true" docValues="true"  />
+    <field name="bibliographich_data" type="string" indexed="true" stored="true" multiValued="true"  />
+    
 
     <field name="_text_nolemmas" type="text_general" indexed="true" stored="false" multiValued="true"/>
     <field name="_text_" type="text_cz" indexed="true" stored="false" multiValued="true"/>
