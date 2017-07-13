@@ -12,7 +12,7 @@
 
   "delete_query_stav": "select id from predloha where stavRec='smazat'",
 
-  "update_query": "select #fields# from predloha where (zaldate>=to_date('#from#' 'yyyy-MM-dd') or edidate>=to_date('#from#', 'yyyy-MM-dd')) and stavRec <> 'smazat' and stavRec <> 'interni'",
+  "update_query": "select #fields# from predloha where (zaldate>=to_date('#from#', 'yyyy-MM-dd') or edidate>=to_date('#from#', 'yyyy-MM-dd')) and stavRec <> 'smazat' and stavRec <> 'interni'",
 
   "update_query_ukoly": "select #fields# from predloha P, zakazka Z, ukol U where U.rzakazkauk=Z.id and (P.zaldate>=to_date('#from#', 'yyyy-MM-dd') or P.edidate>=to_date('#from#', 'yyyy-MM-dd')) and Z.rtitnkpza=P.id and P.stavRec <> 'smazat' and P.stavRec <> 'interni'",
   
@@ -49,6 +49,17 @@
   "users":{
     "test": "test"
   },
-  "jobs": {}
+  "jobs": {
+    "index_full":{
+      "type": "index",
+      "cron": "0 15 0 ? * SAT",
+      "full": true
+    },
+    "index_update":{
+      "type": "index",
+      "cron": "0 0/30 6-19 * * ?",
+      "full": false
+    }
+  }
 }
 

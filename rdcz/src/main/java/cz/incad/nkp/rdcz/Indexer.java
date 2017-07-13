@@ -132,13 +132,15 @@ public class Indexer {
     JSONObject jsResp;
     try {
       String url = opts.getString("solrhost", "http://localhost:8983/solr/")
-              + "import/select?wt=json&q=*:*&rows=1&sort=index_time+desc&fl=index_time";
+              + "rdcz/select?wt=json&q=*:*&rows=1&sort=index_time+desc&fl=index_time";
       inputStream = RESTHelper.inputStream(url);
       jsResp = new JSONObject(org.apache.commons.io.IOUtils.toString(inputStream, Charset.forName("UTF-8")));
       
       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+      SimpleDateFormat solrDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
       String index_time = jsResp.getJSONObject("response").getJSONArray("docs").getJSONObject(0).getString("index_time");
-      last = sdf.format(javax.xml.bind.DatatypeConverter.parseDateTime(index_time));
+      last = sdf.format(solrDate.parse(index_time));
+      
     } catch (Exception ex) {
       LOGGER.log(Level.SEVERE, null, ex);
     } finally {

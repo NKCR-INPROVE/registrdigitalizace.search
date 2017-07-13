@@ -42,15 +42,12 @@ public class AppJob implements InterruptableJob {
             }
 
             JobDataMap data = jec.getMergedJobDataMap();
-            if(data.containsKey("runtime_data")){
-                jobdata = (JSONObject) data.get("jobdata");
-//                jobdata.setRuntimeOptions((JSONObject) data.get("runtime_data"));
-            }else{
-                jobdata = (JSONObject) data.get("jobdata");
-//                jobdata.setRuntimeOptions(new JSONObject());
-            }
             
-            
+            String jobName = (String) data.get("jobname");
+
+      jobdata = Options.getInstance().getJSONObject("jobs").getJSONObject(jobName);
+      jobdata.put("interrupted", false);
+
 
             if(jobdata.getString("type").equalsIgnoreCase("admin")){
                 //AdminJob aj = new AdminJob(jobdata);
