@@ -44,7 +44,15 @@ app-used-filters {
           .collection-item {
             @include set-border(bottom, 1, solid, $app-brand-l-5);
           }
-        } 
+        }
+        .app-sort-header {
+          font-size: 0.8rem;
+          span {
+            &:hover {
+              @include set-mdi-icon(after, F045, 14, middle);
+            }
+          }
+        }
         .collection-item {
           display: table;
           width: 100%;
@@ -61,8 +69,14 @@ app-used-filters {
           }
           .first-content {
             display: table-cell;
-            width: 80%;
+            width: 60%;
             @extend .app-cursor-pointer;
+          }
+          .middle-content {
+            display: table-cell;
+            float: none;
+            text-align: left;
+            width: 20%;
           }
           .secondary-content {
             display: table-cell;

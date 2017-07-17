@@ -6,4 +6,12 @@ app-home {
       margin-top: 20px;
     }
   }
+  .collapsible {
+    .collapsible-body {
+      .collection {
+        overflow: auto;
+        height: 215px;
+      }
+    }
+  }
 }

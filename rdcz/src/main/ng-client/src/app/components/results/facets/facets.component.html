@@ -47,28 +47,47 @@
           <mz-collapsible-item-body>
             <mz-collection>
               <ng-container *ngIf="ff.sortable">
-                <a (click)="sortBy(ff,'human')" class="first-content">{{'human.' + ff.field | translate}}</a>
-                <a (click)="sortBy(ff,'value')">{{'value.' + ff.field | translate}}</a>
-                <a (click)="sortBy(ff,'count')" mz-secondary-content class="app-brand-text text-lighten-2">{{'count' | translate}}</a>
+                <span class="app-sort-header">
+                  <mz-collection-item>
+                    <span (click)="sortBy(ff,'human')" class="first-content teal-text text-lighten-1">
+                      {{'human.' + ff.field | translate}}
+                    </span>
+                    <span (click)="sortBy(ff,'value')" class="middle-content app-cursor-pointer teal-text text-lighten-1">
+                      {{'value.' + ff.field | translate}}
+                    </span>
+                    <span (click)="sortBy(ff,'count')" mz-secondary-content  class="app-cursor-pointer">
+                      {{'count' | translate}}
+                    </span>
+                    <!--
+                    <a (click)="sortBy(ff,'human')" class="first-content">{{'human.' + ff.field | translate}}</a>
+                    <a (click)="sortBy(ff,'value')">{{'value.' + ff.field | translate}}</a>
+                    <a (click)="sortBy(ff,'count')" mz-secondary-content class="app-brand-text text-lighten-2">{{'count' | translate}}</a>
+                    -->
+                  </mz-collection-item>
+                </span>
               </ng-container>
-              <ng-container *ngFor="let f of ff.values; let i = index">
+              <!--<ng-container *ngFor="let f of ff.values; let i = index">-->
+              <ng-container *ngFor="let f of ff.values">
                 <!-- az bude jejich bug opraven, tuto podminku dat v ramci elementu mz-collection-item -> https://github.com/sherweb/ng2-materialize/issues/144 --> 
-                <span *ngIf="isVisible(i, ff) || ff.sortable">
+                <!--<span *ngIf="isVisible(i, ff) || ff.sortable">-->
+                <span>
                   <mz-collection-item>
                     <span (click)="add(f)" class="first-content">{{translate(ff, f)}}</span>
-                    <span *ngIf="ff.showOriginal"> {{f.value}} </span>
+                    <span *ngIf="ff.showOriginal" class="middle-content">{{f.value}}</span>
                     <a  mz-secondary-content class="app-brand-text text-lighten-2">({{f.count}})</a>
                   </mz-collection-item>
                 </span>
               </ng-container>
+              <!--
               <mz-collection-item *ngIf="ff.values.length > 5">
-                <strong  *ngIf="!ff.expanded" (click)="toggleMoreFacets(ff)" class="app-cursor-pointer app-brand-text text-lighten-2">
+                <strong *ngIf="!ff.expanded" (click)="toggleMoreFacets(ff)" class="app-cursor-pointer app-brand-text text-lighten-2">
                   {{'text.zobrazit-vice' | translate}} <i class="app-mdi-menu-down"></i>
                 </strong>
                 <strong *ngIf="ff.expanded" (click)="toggleMoreFacets(ff)" class="app-cursor-pointer app-brand-text text-lighten-2">
                   {{'text.zobrazit-mene' | translate}} <i class="app-mdi-menu-up"></i>
                 </strong>
               </mz-collection-item>
+              -->
             </mz-collection>
           </mz-collapsible-item-body>
         </mz-collapsible-item>
