@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, Http } from '@angular/http';
 import { RouterModule } from '@angular/router';
+import { MdTableModule, MdSortModule } from '@angular/material'; // _app
+import { CdkTableModule } from '@angular/cdk'; // _app
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // _app
 
 import { MaterializeModule } from 'ng2-materialize'; // _app
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -88,6 +91,7 @@ export function createTranslateLoader(http: Http) {
             }
         }),
     MaterializeModule.forRoot(), // _app
+    BrowserAnimationsModule, MdSortModule, CdkTableModule, MdTableModule, // _app
     RouterModule.forRoot([
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },

@@ -1,9 +1,85 @@
 <section>
-  <mz-collection>
-    <mz-collection-header><h5>Přehled (cílových) digitálních knihoven</h5></mz-collection-header>
-    <mz-collection-item>Collection item 1</mz-collection-item>
-    <mz-collection-item>Collection item 2</mz-collection-item>
-    <mz-collection-item>Collection item 3</mz-collection-item>
-    <mz-collection-item>Collection item 4</mz-collection-item>
-  </mz-collection>
+  <mz-collapsible [mode]="'expandable'">
+    <mz-collapsible-item [active]="true">
+      <mz-collapsible-item-header>
+        <i mz-icon-mdi [icon]="'eye'"></i> Přehled (cílových) digitálních knihoven
+        <i mz-icon-mdi [icon]="'chevron-down'" [class]="'app-clean-mg'"></i>
+        <i mz-icon-mdi [icon]="'chevron-left'" [class]="'app-clean-mg'"></i>
+      </mz-collapsible-item-header>
+      <mz-collapsible-item-body>
+        
+        <!--
+        <mz-collection>
+          <mz-collection-item>
+            <span class="first-content">DK digitalni knihovny CR</span>
+            <span class="middle-content"><a href="http://kramerius4.nkp.cz" title="http://kramerius4.nkp.cz" target="_blank">http://kramerius4.nkp.cz</a></span>
+            <span mz-secondary-content class="app-brand-text">
+              <a href="#" title="">ABA001</a>,
+              <a href="#" title="">ABA004</a>,
+              <a href="#" title="">VISK7 (+BOA001 Z NZK)</a>
+            </span>
+          </mz-collection-item>
+          <mz-collection-item>
+            <span class="first-content">Collection item 1</span>
+            <span class="middle-content">Collection item 2</span>
+            <span mz-secondary-content class="app-brand-text">Collection item 3</span>
+          </mz-collection-item>
+          <mz-collection-item>
+            <span class="first-content">Collection item 1</span>
+            <span class="middle-content">Collection item 2</span>
+            <span mz-secondary-content class="app-brand-text">Collection item 3</span>
+          </mz-collection-item>
+          <mz-collection-item>
+            <span class="first-content">Collection item 1</span>
+            <span class="middle-content">Collection item 2</span>
+            <span mz-secondary-content class="app-brand-text">Collection item 3</span>
+          </mz-collection-item>
+          <mz-collection-item>
+            <span class="first-content">Collection item 1</span>
+            <span class="middle-content">Collection item 2</span>
+            <span mz-secondary-content class="app-brand-text">Collection item 3</span>
+          </mz-collection-item>
+          <mz-collection-item>
+            <span class="first-content">Collection item 1</span>
+            <span class="middle-content">Collection item 2</span>
+            <span mz-secondary-content class="app-brand-text">Collection item 3</span>
+          </mz-collection-item>
+
+        </mz-collection>
+        -->
+        
+        
+        <div class="example-container mat-elevation-z8">
+          <md-table #table [dataSource]="dataSource" mdSort>
+            <!-- ID Column -->
+            <ng-container cdkColumnDef="userId">
+              <md-header-cell *cdkHeaderCellDef md-sort-header> ID </md-header-cell>
+              <md-cell *cdkCellDef="let row"> {{row.id}} </md-cell>
+            </ng-container>
+
+            <!-- Progress Column -->
+            <ng-container cdkColumnDef="progress">
+              <md-header-cell *cdkHeaderCellDef md-sort-header> Progress </md-header-cell>
+              <md-cell *cdkCellDef="let row"> {{row.progress}}% </md-cell>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container cdkColumnDef="userName">
+              <md-header-cell *cdkHeaderCellDef md-sort-header> Name </md-header-cell>
+              <md-cell *cdkCellDef="let row"> {{row.name}} </md-cell>
+            </ng-container>
+
+            <!-- Color Column -->
+            <ng-container cdkColumnDef="color">
+              <md-header-cell *cdkHeaderCellDef md-sort-header> Color </md-header-cell>
+              <md-cell *cdkCellDef="let row" [style.color]="row.color"> {{row.color}} </md-cell>
+            </ng-container>
+
+            <md-header-row *cdkHeaderRowDef="displayedColumns"></md-header-row>
+            <md-row *cdkRowDef="let row; columns: displayedColumns;"></md-row>
+          </md-table>
+        </div>
+      </mz-collapsible-item-body>
+    </mz-collapsible-item>
+  </mz-collapsible>
 </section>

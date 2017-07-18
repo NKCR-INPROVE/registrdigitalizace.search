@@ -20,6 +20,10 @@ export class FacetsComponent implements OnInit, OnChanges {
   @Input() allClosed = true;
   @Input() allOpen = true;
   subscriptions: Subscription[] = [];
+   
+   
+    currentSort: string= 'human';
+    currentDir: number = 1;
 
   constructor(public service: AppService, public state: AppState) { }
 
@@ -124,6 +128,8 @@ export class FacetsComponent implements OnInit, OnChanges {
   }
   
   sortBy(ff: FacetField, col: string){
+    this.currentSort= col;
+    this.currentDir = - this.currentDir;
     ff.values.sort((a,b) => {
       return a[col] > b[col] ? 1 : -1;
     });

@@ -49,13 +49,20 @@
               <ng-container *ngIf="ff.sortable">
                 <span class="app-sort-header">
                   <mz-collection-item>
-                    <span (click)="sortBy(ff,'human')" class="first-content teal-text text-lighten-1">
+                    <span (click)="sortBy(ff,'human')" class="first-content teal-text text-lighten-1 " 
+                          [class.app-active]="currentSort === 'human'"
+                          [class.app-active-down]="currentDir === 1"
+                          >
                       {{'human.' + ff.field | translate}}
                     </span>
-                    <span (click)="sortBy(ff,'value')" class="middle-content app-cursor-pointer teal-text text-lighten-1">
+                    <span (click)="sortBy(ff,'value')" class="middle-content app-cursor-pointer teal-text text-lighten-1"
+                          [class.app-active]="currentSort === 'value'"
+                          [class.app-active-down]="currentDir === 1">
                       {{'value.' + ff.field | translate}}
                     </span>
-                    <span (click)="sortBy(ff,'count')" mz-secondary-content  class="app-cursor-pointer">
+                    <span (click)="sortBy(ff,'count')" mz-secondary-content class="app-cursor-pointer"
+                          [class.app-active]="currentSort === 'count'"
+                          [class.app-active-down]="currentDir === 1">
                       {{'count' | translate}}
                     </span>
                     <!--
