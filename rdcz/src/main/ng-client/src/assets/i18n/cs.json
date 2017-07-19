@@ -1,23 +1,30 @@
 {
-  "title.app": "Registr digitalizace",
-  "title.jumbotron": "Chcete se zapojit",
-  "title.partneri": "Naši partneři",
-  "title.nk": "Národní Knihovna ČR",
-  "title.knav": "Knihovna Akademie Věd",
-  "title.st": "Search Technologies | formerly Incad",
-  "title.mzk": "Moravská Zemská Knihovna",
-  "title.login": "Prosím, přihlašte se",
-  "nav.home": "Home",
-  "nav.vysledky": "Výsledky",
-  "nav.napoveda": "Nápověda",
-  "nav.info": "Info",
-  "nav.login": "Přihlásit",
-  "btn.jine-zdroje": "Hledat jiné zdroje",
-  "btn.rozsirene-hledani": "Rozšířené hledání",
-  "btn.zobrazit-detail": "Zobrazit detail",
-  "btn.skryt-detail": "Skrýt detail",
-  "btn.test-duplicity": "Test duplicity (pro NK ČR)",
-  "btn.login": "Přihlásit",
+  "title": {
+    "app": "Registr digitalizace",
+    "jumbotron": "Chcete se zapojit",
+    "partneri": "Naši partneři",
+    "nk": "Národní Knihovna ČR",
+    "knav": "Knihovna Akademie Věd",
+    "st": "Search Technologies | formerly Incad",
+    "mzk": "Moravská Zemská Knihovna",
+    "login": "Prosím, přihlašte se"
+  },
+  "nav": {
+    "home": "Home",
+    "vysledky": "Výsledky",
+    "napoveda": "Nápověda",
+    "info": "Info",
+    "login": "Přihlásit"
+  },
+  "btn": {
+    "jine-zdroje": "Hledat jiné zdroje",
+    "rozsirene-hledani": "Rozšířené hledání",
+    "zobrazit-detail": "Zobrazit detail",
+    "skryt-detail": "Skrýt detail",
+    "test-duplicity": "Test duplicity (pro NK ČR)",
+    "login": "Přihlásit",
+    "use": "Použít"
+  },
   "label": {
     "pocet-nalezenych": "Počet nalezených položek",
     "slouceno-podle": "Sloučeno podle",
@@ -60,13 +67,13 @@
     "planovane": "Plánovaná digitalizace",
     "nastaveni-filtru": "Nastavení filtru",
     "zobrazit-vice": "Zobrazit více",
-    "zobrazit-mene": "Zobrazit méně"
+    "zobrazit-mene": "Zobrazit méně",
+    "zrusit-tento-filtr": "Zrušit tento filtr",
+    "zrusit-vsechny-filtry": "Zrušit všechny filtry",
+    "pouzit-tento-filtr": "Použít tento filtr",
+    "prehled-dk-knihoven": "Přehled (cílových) digitálních knihoven",
+    "vymazte": "Vymažte"
   },
-  
-  "human.vlastnik": "Název instituce",
-  "value.vlastnik": "Sigla",
-  "count": "Poč. zázn.",
-
   "field": {
     "q": "dotaz",
     "stav": "Stav",
@@ -74,7 +81,6 @@
     "vlastnik": "Vlastník dokumentu",
     "digknihovna": "Digitální knihovna",
     "druhdokumentu": "Typ dokumentu",
-
     "title": "Název",
     "autor": "Hlavní autor",
     "rokvyd": "Rok(y) vydání",
@@ -87,13 +93,26 @@
     "cislozakazky": "Číslo zakázky",
     "can": "ČAN"
   },
-
-  "q.placeholder": "Hledej v registru digitalizace ...",
   "stav": {
     "finished": "Finished",
     "progress": "In progress",
     "planovane": "Planned"
   },
+  "alerts": {
+    "warning": {
+      "title": "Upozornění",
+      "no-results-1": "Nalezeno 0 výsledků. Zkuste prosím zadat jiný dotaz, nebo",
+      "no-results-2": "všechny filtry"
+    },
+    "info": {
+      "title": "Informace",
+      "duplicity": "Zadáním čárového kódu dokumentu z fondu NK proběhne test na existenci podobného dokumentu v RD podle slov z názvu."
+    }
+  },
+  "human.vlastnik": "Název instituce",
+  "value.vlastnik": "Sigla",
+  "count": "Poč. zázn.",
+  "q.placeholder": "Hledej v registru digitalizace ...",
   "dummy": ""
 }
  

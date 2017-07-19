@@ -1,23 +1,30 @@
 {
-  "title.app": "Digitalization registry",
-  "title.jumbotron": "Do you want to participiate",
-  "title.partneri": "Our partners",
-  "title.nk": "National Library of the Czech republic",
-  "title.knav": "Library of the Academy of Sciences of the Czech Republic",
-  "title.st": "Search Technologies | formerly Incad",
-  "title.mzk": "Moravian library",
-  "title.login": "Please, login",
-  "nav.home": "Home",
-  "nav.vysledky": "Results",
-  "nav.napoveda": "Help",
-  "nav.info": "Info",
-  "nav.login": "Login",
-  "btn.jine-zdroje": "Search other sources",
-  "btn.rozsirene-hledani": "Advanced search",
-  "btn.zobrazit-detail": "Show detail",
-  "btn.skryt-detail": "Hide detail",
-  "btn.test-duplicity": "Duplication test",
-  "btn.login": "Login",
+  "title": {
+    "app": "Digitalization registry",
+    "jumbotron": "Do you want to participiate",
+    "partneri": "Our partners",
+    "nk": "National Library of the Czech republic",
+    "knav": "Library of the Academy of Sciences of the Czech Republic",
+    "st": "Search Technologies | formerly Incad",
+    "mzk": "Moravian library",
+    "login": "Please, login"
+  },
+  "nav": {
+    "home": "Home",
+    "vysledky": "Results",
+    "napoveda": "Help",
+    "info": "Info",
+    "login": "Login"
+  },
+  "btn": {
+    "jine-zdroje": "Search other sources",
+    "rozsirene-hledani": "Advanced search",
+    "zobrazit-detail": "Show detail",
+    "skryt-detail": "Hide detail",
+    "test-duplicity": "Duplication test",
+    "login": "Login",
+    "use": "use"
+  },
   "label": {
     "pocet-nalezenych": "Total found",
     "slouceno-podle": "Collapse by",
@@ -60,14 +67,13 @@
     "planovane": "Planned",
     "nastaveni-filtru": "Used filters",
     "zobrazit-vice": "Show more",
-    "zobrazit-mene": "Show less"
+    "zobrazit-mene": "Show less",
+    "zrusit-tento-filtr": "Remove this filter",
+    "zrusit-vsechny-filtry": "Remove all filters",
+    "pouzit-tento-filtr": "Use this filter",
+    "prehled-dk-knihoven": "List of digital libraries",
+    "vymazte": "Delete"
   },
-  
-  
-  "human.vlastnik": "Institution",
-  "value.vlastnik": "Sigla",
-  "count": "Count",
-  
   "field": { 
     "q": "query",
     "stav": "State",
@@ -75,7 +81,6 @@
     "vlastnik": "Document Owner",
     "digknihovna": "Digital library",
     "druhdokumentu": "Document type",
-
     "title": "Název",
     "autor": "Main author",
     "rokvyd": "Year",
@@ -88,11 +93,25 @@
     "cislozakazky": "Issue number",
     "can": "ČAN"
   },
-  "q.placeholder": "Search in digital registry ...",
   "stav": {
     "finished": "Finished",
     "progress": "In progress",
     "planovane": "Planned"
   },
+  "alerts": {
+    "warning": {
+      "title": "Warning",
+      "no-results-1": "Found 0 results. Please try another query, or",
+      "no-results-2": "all filters"
+    },
+    "info": {
+      "title": "Information",
+      "duplicity": "Entering the barcode of a document from the NK pool will test the existence of a similar document in RD by the words of the title."
+    }
+  },
+  "human.vlastnik": "Institution",
+  "value.vlastnik": "Sigla",
+  "count": "Count",
+  "q.placeholder": "Search in digital registry ...",
   "dummy": ""
 }

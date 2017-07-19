@@ -1,4 +1,5 @@
-<div class="container"><!-- *ngIf="loading" -->
+<!-- RESULTS -->
+<div *ngIf="state.numFound > 0" class="container">
   <div class="row">
     <div class="col s12">
       <app-count-bar></app-count-bar>
@@ -18,6 +19,19 @@
         <app-result-item *ngFor="let res of results" [result]="res" [expanded]="expanded[res[state.currentCollapse.field]]"></app-result-item>
       </section>
       <app-pagination></app-pagination>
+    </div><!--/.col -->
+  </div><!--/.row -->
+</div><!--/.container -->
+
+<!-- ALERT -->
+<div *ngIf="state.numFound == 0" class="container app-mg-top-20">
+  <div class="row">
+    <div class="col s12">
+      <div class="alert alert-warning center app-card-shadow hoverable app-card-hoverable">
+        <i mz-icon-mdi [icon]="'alert'"></i> <strong>{{'alerts.warning.title' | translate}}!</strong> {{'alerts.warning.no-results-1' | translate}}
+        &#160;&#160;<a mz-button [routerLink]="['/results', {}]" (click)="cleanQ()">{{'text.vymazte' | translate}}</a>&#160;&#160;
+        {{'alerts.warning.no-results-2' | translate}}.
+      </div>
     </div><!--/.col -->
   </div><!--/.row -->
 </div><!--/.container -->

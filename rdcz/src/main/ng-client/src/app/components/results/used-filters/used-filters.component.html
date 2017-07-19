@@ -25,26 +25,26 @@
     <li class="active">
       <div class="collapsible-header active">
         <i mz-icon-mdi [icon]="'filter-variant'"></i>{{'text.nastaveni-filtru' | translate}}
-        <i mz-icon-mdi [icon]="'close-circle'" [class]="'app-clean-mg'" (click)="removeAll()"></i>
+        <i mz-icon-mdi [icon]="'close-circle'" [class]="'app-clean-mg'" (click)="removeAll()" mz-tooltip [tooltip]="'text.zrusit-vsechny-filtry' | translate" [position]="'top'"></i>
       </div><!--/.collapsible-header -->
       <div class="collapsible-body" style="display:block">
         <div class="collection">
           <div class="collection-item" *ngIf="state.qcheck && state.q !== ''">
             <span class="first-content" (click)="cleanQ()">{{'field.q' | translate}}: {{state.q}}</span>
-            <a (click)="cleanQ()" class="secondary-content">
-              <span class="app-mdi-close app-brand-text text-app-red"></span>
+            <a (click)="cleanQ()" class="secondary-content" mz-tooltip [tooltip]="'text.zrusit-tento-filtr' | translate" [position]="'top'">
+              <i class="app-mdi-close app-brand-text text-app-red"></i>
             </a>
           </div>
           <div class="collection-item" *ngFor="let f of state.usedFilters">
             <span class="first-content" (click)="remove(f)">{{'field.' + f.field | translate}}: {{translate(f.field, f.value)}}</span>
-            <a (click)="remove(f)" class="secondary-content">
-              <span class="app-mdi-close app-brand-text text-app-red"></span>
+            <a (click)="remove(f)" class="secondary-content"  mz-tooltip [tooltip]="'text.zrusit-tento-filtr' | translate" [position]="'top'">
+              <i class="app-mdi-close app-brand-text text-app-red"></i>
             </a>
           </div>
           <div class="collection-item" *ngFor="let f of state.usedAdv">
             <span class="first-content" (click)="removeAdv(f)">{{'field.' + f | translate}}: {{state.advParams[f]}}</span>
-            <a (click)="removeAdv(f)" class="secondary-content">
-              <span class="app-mdi-close app-brand-text text-app-red"></span>
+            <a (click)="removeAdv(f)" class="secondary-content" mz-tooltip [tooltip]="'text.zrusit-tento-filtr' | translate" [position]="'top'">
+              <i class="app-mdi-close app-brand-text text-app-red"></i>
             </a>
           </div><!--/.collection-item -->
         </div><!--/.collection -->

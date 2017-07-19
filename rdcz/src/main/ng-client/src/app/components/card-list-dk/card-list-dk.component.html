@@ -2,7 +2,7 @@
   <mz-collapsible [mode]="'expandable'">
     <mz-collapsible-item [active]="true">
       <mz-collapsible-item-header>
-        <i mz-icon-mdi [icon]="'eye'"></i> Přehled (cílových) digitálních knihoven
+        <i mz-icon-mdi [icon]="'eye'"></i> {{'text.prehled-dk-knihoven' | translate}}
         <i mz-icon-mdi [icon]="'chevron-down'" [class]="'app-clean-mg'"></i>
         <i mz-icon-mdi [icon]="'chevron-left'" [class]="'app-clean-mg'"></i>
       </mz-collapsible-item-header>
@@ -49,7 +49,7 @@
         -->
         
         
-        <div class="example-container mat-elevation-z8">
+        <div class="example-container">
           <md-table #table [dataSource]="dataSource" mdSort>
             <!-- ID Column -->
             <ng-container cdkColumnDef="userId">

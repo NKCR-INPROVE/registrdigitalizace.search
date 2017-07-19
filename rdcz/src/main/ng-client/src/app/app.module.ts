@@ -40,6 +40,7 @@ import { AdminComponent } from './components/admin/admin.component';
 import { AuthGuard } from "./auth-guard";
 import { FreeTextComponent } from './components/free-text/free-text.component';
 import { CardListDkComponent } from './components/card-list-dk/card-list-dk.component';
+import { FacetsHomeComponent } from './components/facets-home/facets-home.component';
 
 
 export function HttpLoaderFactory(http: Http) {
@@ -77,7 +78,8 @@ export function createTranslateLoader(http: Http) {
     LoginComponent,
     AdminComponent,
     FreeTextComponent,
-    CardListDkComponent
+    CardListDkComponent,
+    FacetsHomeComponent
   ],
   imports: [
     BrowserModule,

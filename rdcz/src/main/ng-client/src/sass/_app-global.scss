@@ -67,6 +67,12 @@ section {
 }
 
 
+// others
+.app-mg-top-20 {
+  margin-top: 20px;
+}
+
+
 // cleaners
 .app-clean-mg,
 .checkbox-field {
@@ -103,6 +109,10 @@ section {
   @include set-mdi-icon(after, F35C, 24, middle);
 }
 
+.app-mdi-close-circle {
+  @include set-mdi-icon(before, F159, 24, middle);
+}
+
 
 // clearfix
 .clearfix {
@@ -127,5 +137,38 @@ section {
     &:hover {
       box-shadow: 0 8px 17px 0 rgba(38, 50, 56, 0.1), 0 6px 20px 0 rgba(38, 50, 56, 0.19);
     }
+  }
+}
+
+
+// alerts
+// https://github.com/Dogfalo/materialize/issues/2340
+/*$('.alert').append('<button class="waves-effect btn-flat close"><i class="material-icons">close</i></button>');
+$('body').on('click', '.alert .close', function() {
+  $(this).parent().fadeOut(300, function() {
+      $(this).remove();
+  });
+});*/
+.alert {
+  @extend .card-panel, .lighten-4, .text-darken-4;
+
+  &.alert-success {
+      @extend .green, .green-text;
+  }
+  &.alert-info {
+      @extend .blue, .blue-text;
+  }
+  &.alert-warning {
+      @extend .yellow.lighten-4, .yellow-text;
+  }
+  &.alert-danger {
+      @extend .red, .red-text;
+  }
+  .close {
+    position: absolute;
+    top: 50%;
+    right: 0.5rem;
+    color: inherit;
+    margin-top: -18px;
   }
 }

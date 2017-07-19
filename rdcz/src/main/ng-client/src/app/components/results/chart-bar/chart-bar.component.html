@@ -3,9 +3,13 @@
     (onClick)="onClick($event)"
     (onSelection)="onSelection($event)"
     [height]="height" [width]="width"></app-flot>
-  <span>{{ranges[0]}} - {{ranges[1]}}</span>
-  <button (click)="use()" mz-button [flat]="true">
-    <span>use</span>
-  </button>
-  <button (click)="clear()" mz-button [flat]="true">x</button>
+  <div class="app-nav">
+    <span>{{ranges[0]}} - {{ranges[1]}}</span>
+    <button (click)="use()" mz-button [flat]="true" mz-tooltip [tooltip]="'text.pouzit-tento-filtr' | translate" [position]="'top'" class="app-brand-text text-app-brand">
+      {{'btn.use' | translate}}
+    </button>
+    <button (click)="clear()" mz-button [flat]="true" mz-tooltip [tooltip]="'text.zrusit-tento-filtr' | translate" [position]="'top'">
+      <i class="app-mdi-close-circle app-brand-text text-app-red"></i>
+    </button>
+  </div>
 </section>
