@@ -21,6 +21,9 @@ export class ResultItemComponent implements OnInit, OnDestroy {
   predlohy: Result[] = [];
   digObjects: any[] = [];
   predlohyLoaded: boolean = false;
+   
+  currentSort: string= 'stav';
+  currentDir: number = 1;
   
   stavy = [];
 
@@ -86,6 +89,8 @@ export class ResultItemComponent implements OnInit, OnDestroy {
   }
   
   sortBy(field: string, translated: boolean = false){
+    this.currentSort= field;
+    this.currentDir = - this.currentDir;
     this.predlohy.sort((a: Result, b: Result) => {
       return a[field] > b[field] ? 1 : -1;
     });

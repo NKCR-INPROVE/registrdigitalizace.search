@@ -76,7 +76,9 @@ app-result-item {
           
           .collapsible-body {
             padding: 0;
-
+            overflow: auto;
+            max-height: 200px;
+            
             table {
               font-size: 13px;
 
@@ -92,6 +94,15 @@ app-result-item {
               }
               th {
                 color: $app-brand-d-1;
+                @extend .app-cursor-pointer;
+                font-weight: normal;
+                
+                &.active {
+                  @include set-mdi-icon(after, F05D, 14, middle);
+                }
+                &.active.active-down:hover, &.active.active-down {
+                  @include set-mdi-icon(after, F045, 14, middle);
+                }
               }
               td {
                 color: $app-brand-l-1;

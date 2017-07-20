@@ -22,8 +22,8 @@ export class FacetsComponent implements OnInit, OnChanges {
   subscriptions: Subscription[] = [];
    
    
-    currentSort: string= 'human';
-    currentDir: number = 1;
+  currentSort: string= 'human';
+  currentDir: number = 1;
 
   constructor(public service: AppService, public state: AppState) { }
 
