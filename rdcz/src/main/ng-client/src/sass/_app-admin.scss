@@ -6,5 +6,17 @@ app-admin {
       margin-top: 40px;
     }
     padding-left: 0.75rem;
+    
+    .collection {
+      a {
+        &.collection-item {
+          &:not(.active) {
+            &:hover {
+              background-color: $app-brand-l-6;
+            }
+          }
+        }
+      }
+    }
   }
 }
