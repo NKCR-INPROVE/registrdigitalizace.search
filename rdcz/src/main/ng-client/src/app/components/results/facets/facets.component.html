@@ -1,4 +1,4 @@
-<section *ngIf="facetFields && facetFields.length > 0 && page === 'results'">
+<section *ngIf="facetFields && facetFields.length > 0">
   <mz-collapsible [mode]="'expandable'">
     <mz-collapsible-item *ngFor="let ff of facetFields" [active]="ff.active">
       <mz-collapsible-item-header>
@@ -33,95 +33,25 @@
   </mz-collapsible>
 </section><!--/result facets -->
 
-
-<section *ngIf="facetFields && facetFields.length > 0 && page === 'home'">
-  <div class="row">
-    <div *ngFor="let ff of facetFields" class="col s4">
-      <mz-collapsible [mode]="'expandable'">
-        <mz-collapsible-item [active]="ff.active || allOpen">
-          <mz-collapsible-item-header>
-            <i mz-icon-mdi [icon]="ff.icon"></i>{{'field.' + ff.field | translate}} <span class="app-brand-text text-lighten-2">({{ff.values.length}})</span>
-            <i mz-icon-mdi [icon]="'chevron-down'" [class]="'app-clean-mg'"></i>
-            <i mz-icon-mdi [icon]="'chevron-left'" [class]="'app-clean-mg'"></i>
-          </mz-collapsible-item-header>
-          <mz-collapsible-item-body>
-            <mz-collection>
-              <ng-container *ngIf="ff.sortable">
-                <span class="app-sort-header">
-                  <mz-collection-item>
-                    <span (click)="sortBy(ff,'human')" class="first-content teal-text text-lighten-1 " 
-                          [class.app-active]="currentSort === 'human'"
-                          [class.app-active-down]="currentDir === 1"
-                          >
-                      {{'human.' + ff.field | translate}}
-                    </span>
-                    <span (click)="sortBy(ff,'value')" class="middle-content app-cursor-pointer teal-text text-lighten-1"
-                          [class.app-active]="currentSort === 'value'"
-                          [class.app-active-down]="currentDir === 1">
-                      {{'value.' + ff.field | translate}}
-                    </span>
-                    <span (click)="sortBy(ff,'count')" mz-secondary-content class="app-cursor-pointer"
-                          [class.app-active]="currentSort === 'count'"
-                          [class.app-active-down]="currentDir === 1">
-                      {{'count' | translate}}
-                    </span>
-                    <!--
-                    <a (click)="sortBy(ff,'human')" class="first-content">{{'human.' + ff.field | translate}}</a>
-                    <a (click)="sortBy(ff,'value')">{{'value.' + ff.field | translate}}</a>
-                    <a (click)="sortBy(ff,'count')" mz-secondary-content class="app-brand-text text-lighten-2">{{'count' | translate}}</a>
-                    -->
-                  </mz-collection-item>
-                </span>
-              </ng-container>
-              <!--<ng-container *ngFor="let f of ff.values; let i = index">-->
-              <ng-container *ngFor="let f of ff.values">
-                <!-- az bude jejich bug opraven, tuto podminku dat v ramci elementu mz-collection-item -> https://github.com/sherweb/ng2-materialize/issues/144 --> 
-                <!--<span *ngIf="isVisible(i, ff) || ff.sortable">-->
-                <span>
-                  <mz-collection-item>
-                    <span (click)="add(f)" class="first-content">{{translate(ff, f)}}</span>
-                    <span *ngIf="ff.showOriginal" class="middle-content">{{f.value}}</span>
-                    <a  mz-secondary-content class="app-brand-text text-lighten-2">({{f.count}})</a>
-                  </mz-collection-item>
-                </span>
-              </ng-container>
-              <!--
-              <mz-collection-item *ngIf="ff.values.length > 5">
-                <strong *ngIf="!ff.expanded" (click)="toggleMoreFacets(ff)" class="app-cursor-pointer app-brand-text text-lighten-2">
-                  {{'text.zobrazit-vice' | translate}} <i class="app-mdi-menu-down"></i>
-                </strong>
-                <strong *ngIf="ff.expanded" (click)="toggleMoreFacets(ff)" class="app-cursor-pointer app-brand-text text-lighten-2">
-                  {{'text.zobrazit-mene' | translate}} <i class="app-mdi-menu-up"></i>
-                </strong>
-              </mz-collection-item>
-              -->
-            </mz-collection>
-          </mz-collapsible-item-body>
-        </mz-collapsible-item>
-      </mz-collapsible>
-    </div><!--/.col -->
-  </div><!--/.row -->
-</section><!--/home facets -->
-
   
-  <!-- NONE NG VERSION
-  <ul  *ngFor="let ff of facetFields" class="collapsible" data-collapsible="expandable">
-    <li>
-      <div class="collapsible-header">
-        <i mz-icon-mdi [icon]="ff.icon"></i>{{'field.' + ff.field | translate}} <span class="app-brand-text text-lighten-2">({{ff.values.length}})</span>
-        <i mz-icon-mdi [icon]="'chevron-down'" [class]="'app-clean-mg'"></i>
-        <i mz-icon-mdi [icon]="'chevron-left'" [class]="'app-clean-mg'"></i>
-      </div>
-      <div class="collapsible-body">
-        <div class="collection">
-          <div *ngFor="let f of ff.values "class="collection-item">
-            <i *ngIf="ff.field=='stav'" [class]="'app-state app-state-' + f.value"></i>
-            <span (click)="add(f)" class="first-content">{{'text.' + f.value | translate}}</span>
-            <a  mz-secondary-content>({{f.count}})</a>
-          </div>
+<!-- NONE NG VERSION
+<ul  *ngFor="let ff of facetFields" class="collapsible" data-collapsible="expandable">
+  <li>
+    <div class="collapsible-header">
+      <i mz-icon-mdi [icon]="ff.icon"></i>{{'field.' + ff.field | translate}} <span class="app-brand-text text-lighten-2">({{ff.values.length}})</span>
+      <i mz-icon-mdi [icon]="'chevron-down'" [class]="'app-clean-mg'"></i>
+      <i mz-icon-mdi [icon]="'chevron-left'" [class]="'app-clean-mg'"></i>
+    </div>
+    <div class="collapsible-body">
+      <div class="collection">
+        <div *ngFor="let f of ff.values "class="collection-item">
+          <i *ngIf="ff.field=='stav'" [class]="'app-state app-state-' + f.value"></i>
+          <span (click)="add(f)" class="first-content">{{'text.' + f.value | translate}}</span>
+          <a  mz-secondary-content>({{f.count}})</a>
         </div>
       </div>
-    </li>
-  </ul>
-  -->
+    </div>
+  </li>
+</ul>
+-->
 

@@ -1,6 +1,7 @@
 // --- FACETS ---
 
 app-facets,
+app-facets-home,
 app-used-filters,
 app-card-list-dk {
   .collapsible {
@@ -49,7 +50,10 @@ app-card-list-dk {
         .app-sort-header {
           font-size: 0.8rem;
           span {
-            &:hover {
+            &.active {
+              @include set-mdi-icon(after, F05D, 14, middle);
+            }
+            &.active.active-down:hover, &.active.active-down {
               @include set-mdi-icon(after, F045, 14, middle);
             }
           }

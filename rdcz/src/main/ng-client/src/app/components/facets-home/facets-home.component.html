@@ -1,3 +1,63 @@
-<p>
-  facets-home works!
-</p>
+<section *ngIf="facetFields && facetFields.length > 0">
+  <div class="row">
+    <div *ngFor="let ff of facetFields" class="col s4">
+      <mz-collapsible [mode]="'expandable'">
+        <mz-collapsible-item [active]="ff.active || allOpen">
+          <mz-collapsible-item-header>
+            <i mz-icon-mdi [icon]="ff.icon"></i>{{'field.' + ff.field | translate}} <span class="app-brand-text text-lighten-2">({{ff.values.length}})</span>
+            <i mz-icon-mdi [icon]="'chevron-down'" [class]="'app-clean-mg'"></i>
+            <i mz-icon-mdi [icon]="'chevron-left'" [class]="'app-clean-mg'"></i>
+          </mz-collapsible-item-header>
+          <mz-collapsible-item-body>
+            <mz-collection *ngIf="ff.sortable">
+              <ng-container>
+                <span class="app-sort-header">
+                  <mz-collection-item>
+                    <span (click)="sortBy(ff,'human')" class="first-content teal-text text-lighten-1 " 
+                          [class.active]="currentSort === 'human'"
+                          [class.active-down]="currentDir === 1"
+                          >
+                      {{'human.' + ff.field | translate}}
+                    </span>
+                    <span (click)="sortBy(ff,'value')" class="middle-content app-cursor-pointer teal-text text-lighten-1"
+                          [class.active]="currentSort === 'value'"
+                          [class.active-down]="currentDir === 1">
+                      {{'value.' + ff.field | translate}}
+                    </span>
+                    <span (click)="sortBy(ff,'count')" mz-secondary-content class="app-cursor-pointer"
+                          [class.active]="currentSort === 'count'"
+                          [class.active-down]="currentDir === 1">
+                      {{'count' | translate}}
+                    </span>
+                  </mz-collection-item>
+                </span>
+              </ng-container>
+              <ng-container *ngFor="let f of ff.values">
+                <!-- az bude jejich bug opraven, tuto podminku dat v ramci elementu mz-collection-item -> https://github.com/sherweb/ng2-materialize/issues/144 --> 
+                <span>
+                  <mz-collection-item>
+                    <span (click)="add(f)" class="first-content">{{translate(ff, f)}}</span>
+                    <span *ngIf="ff.showOriginal" class="middle-content">{{f.value}}</span>
+                    <a  mz-secondary-content class="app-brand-text text-lighten-2">({{f.count}})</a>
+                  </mz-collection-item>
+                </span>
+              </ng-container>
+            </mz-collection>
+            
+            <mz-collection *ngIf="!ff.sortable">
+              <ng-container *ngFor="let f of ff.values">
+                <!-- az bude jejich bug opraven, tuto podminku dat v ramci elementu mz-collection-item -> https://github.com/sherweb/ng2-materialize/issues/144 --> 
+                <span>
+                  <mz-collection-item>
+                    <span (click)="add(f)" class="first-content">{{translate(ff, f)}}</span>
+                    <a  mz-secondary-content class="app-brand-text text-lighten-2">({{f.count}})</a>
+                  </mz-collection-item>
+                </span>
+              </ng-container>
+            </mz-collection>
+          </mz-collapsible-item-body>
+        </mz-collapsible-item>
+      </mz-collapsible>
+    </div><!--/.col -->
+  </div><!--/.row -->
+</section><!--/home facets -->
