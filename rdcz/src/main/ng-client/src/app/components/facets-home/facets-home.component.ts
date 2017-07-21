@@ -23,24 +23,14 @@ export class FacetsHomeComponent implements OnInit, OnChanges {
    
    
     currentSort: string= 'human';
-    currentDir: number = 1;
+    currentDir: number = -1;
 
   constructor(public service: AppService, public state: AppState) { }
 
   ngOnInit() {
-    //    
-    //    this.subscriptions.push(this.state.searchSubject.subscribe(
-    //      (resp) => {
-    //        //console.log(resp);
-    //        if (resp['type'].indexOf('results') > -1) {
-    //          if (resp['state'] === 'start') {
-    //            this.facetFields = [];
-    //          } else {
-    //            this.fillFacets(this.state.facets);
-    //          }
-    //        }
-    //      }
-    //    ));
+    setTimeout(()=>{
+      this.sortBy(this.facetFields[1], 'human');
+    }, 1000);
   }
 
   ngOnDestroy() {
@@ -131,7 +121,7 @@ export class FacetsHomeComponent implements OnInit, OnChanges {
     this.currentSort= col;
     this.currentDir = - this.currentDir;
     ff.values.sort((a,b) => {
-      return a[col] > b[col] ? 1 : -1;
+      return a[col] > b[col] ? this.currentDir : - this.currentDir;
     });
   }
 }

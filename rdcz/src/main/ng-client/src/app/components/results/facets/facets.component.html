@@ -1,6 +1,6 @@
-<section *ngIf="facetFields && facetFields.length > 0">
+<section >
   <mz-collapsible [mode]="'expandable'">
-    <mz-collapsible-item *ngFor="let ff of facetFields" [active]="ff.active">
+    <mz-collapsible-item *ngFor="let ff of state.facetFields" [active]="ff.active">
       <mz-collapsible-item-header>
         <i mz-icon-mdi [icon]="ff.icon"></i>{{'field.' + ff.field | translate}} <span class="app-brand-text text-lighten-2">({{ff.values.length}})</span>
         <i mz-icon-mdi [icon]="'chevron-down'" [class]="'app-clean-mg'"></i>

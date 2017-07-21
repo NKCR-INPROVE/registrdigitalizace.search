@@ -192,7 +192,7 @@ export class AppService {
   
   goToResults(): void {
     let params = this.doUrlParams();
-    this.state.clearResults();
+    //this.state.clearResults();
     this.router.navigate(['/results', params]);
   }
 

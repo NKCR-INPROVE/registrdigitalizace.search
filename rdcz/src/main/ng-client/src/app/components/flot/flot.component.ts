@@ -51,7 +51,6 @@ export class FlotComponent implements OnChanges, OnInit {
   }
 
   public setSelection(sel) {
-    //{xaxis:{from: this.ranges[0], to:this.ranges[1]}
     this.plot.setSelection(sel);
     window.event.preventDefault();
   }

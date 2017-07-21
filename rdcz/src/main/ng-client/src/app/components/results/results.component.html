@@ -24,12 +24,12 @@
 </div><!--/.container -->
 
 <!-- ALERT -->
-<div *ngIf="state.numFound == 0" class="container app-mg-top-20">
+<div *ngIf="state.numFound === 0 && !loading" class="container app-mg-top-20">
   <div class="row">
     <div class="col s12">
       <div class="alert alert-warning center app-card-shadow hoverable app-card-hoverable">
         <i mz-icon-mdi [icon]="'alert'"></i> <strong>{{'alerts.warning.title' | translate}}!</strong> {{'alerts.warning.no-results-1' | translate}}
-        &#160;&#160;<a mz-button [routerLink]="['/results', {}]" (click)="cleanQ()">{{'text.vymazte' | translate}}</a>&#160;&#160;
+        &#160;&#160;<a mz-button (click)="cleanAll()">{{'text.vymazte' | translate}}</a>&#160;&#160;
         {{'alerts.warning.no-results-2' | translate}}.
       </div>
     </div><!--/.col -->

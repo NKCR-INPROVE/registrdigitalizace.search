@@ -19,7 +19,7 @@ export class AppState {
   //Holds client configuration
   config: any;
   configured: boolean = false;
-  
+
   loginError: boolean = false;
   logged: boolean = false;
   redirectUrl: string = '/admin';
@@ -49,6 +49,7 @@ export class AppState {
   public searchSubject: Observable<any> = this._searchSubject.asObservable();
 
   facets: any;
+  facetFields: FacetField[] = [];
   results: Result[] = [];
   numFound: number;
   totalPages: number = 0;
@@ -70,9 +71,9 @@ export class AppState {
   public q: string;
   currentOd: number = 0;
   currentDo: number = (new Date()).getFullYear();
-  
+
   //Advanced parameters
-  advParams= {
+  advParams = {
     title: '',
     autor: '',
     rokvyd: '',
@@ -85,7 +86,7 @@ export class AppState {
     cislozakazky: '',
     can: ''
   };
-  
+
   usedAdv = [];
   isAdvancedCollapsed: boolean = true; // pedro
 
@@ -126,7 +127,7 @@ export class AppState {
     this.facets = null;
     this.results = null;
     this.totalPages = 0;
-      this._searchParamsChanged.next(this);
+    this._searchParamsChanged.next(this);
   }
 
   setSearchParamsFromUrl(params) {
@@ -142,9 +143,9 @@ export class AppState {
     if (params.hasOwnProperty('rows')) {
       this.rows = +params['rows'];
     }
-//    if (params.hasOwnProperty('sort')) {
-//      this.currentSort = params['sort'];
-//    }
+    //    if (params.hasOwnProperty('sort')) {
+    //      this.currentSort = params['sort'];
+    //    }
     if (params.hasOwnProperty('filters')) {
       let f = params['filters'];
       if (f) {
@@ -156,22 +157,22 @@ export class AppState {
         }
       }
     }
-    
-    
+
+
     if (params.hasOwnProperty('adv')) {
       let f = params['adv'];
       if (f) {
         this.advParams = JSON.parse(params['adv']);
       }
       this.usedAdv = [];
-      for(let i in this.advParams){
-        if(this.advParams[i] !== null && this.advParams[i] !== ''){
+      for (let i in this.advParams) {
+        if (this.advParams[i] !== null && this.advParams[i] !== '') {
           this.usedAdv.push(i);
         }
       }
-      
+
     }
-    
+
     if (params.hasOwnProperty('collapse')) {
       //console.log(params['collapse']);
       for (let i in this.collapses) {
@@ -186,8 +187,8 @@ export class AppState {
       this._searchParamsChanged.next(this);
     }
   }
-  
-  setRokVyd(){
+
+  setRokVyd() {
     let f: Filter = this.getFilterByField('rokvyd');
     if (f === null) {
       this.currentOd = 0;
@@ -197,12 +198,12 @@ export class AppState {
       this.currentOd = vals[0];
       this.currentDo = vals[1];
     }
-    
+
   }
 
   removeAllFilters() {
     this.usedFilters = [];
-    for(let i in this.advParams){
+    for (let i in this.advParams) {
       this.advParams[i] = '';
     }
     this.usedAdv = [];
@@ -212,7 +213,7 @@ export class AppState {
 
   removeFilter(f: Filter) {
     let idx = this.usedFilters.indexOf(f);
-    if (f.field === 'rokvyd'){
+    if (f.field === 'rokvyd') {
       this.currentOd = 0;
       this.currentDo = (new Date()).getFullYear();
     }
@@ -242,7 +243,7 @@ export class AppState {
 
   getFilterIdxByField(field: string): number {
 
-    for (let i=0; i<this.usedFilters.length; i++) {
+    for (let i = 0; i < this.usedFilters.length; i++) {
       if (this.usedFilters[i].field === field) {
         return i;
       }
@@ -256,22 +257,22 @@ export class AppState {
     let i: number = this.getFilterIdxByField('rokvyd');
     if (i > -1) {
       this.usedFilters.splice(i, 1);
-    } 
+    }
     let c: Filter = new Filter();
     c.field = 'rokvyd';
     c.value = '[' + this.currentOd + ',' + this.currentDo + ']';
     this.usedFilters.push(c);
     this.start = 0;
   }
-  
-  removeRokFilter(){
+
+  removeRokFilter() {
     this.currentOd = 0;
     this.currentDo = (new Date()).getFullYear();
-      
+
     let i: number = this.getFilterIdxByField('rokvyd');
     if (i > -1) {
       this.usedFilters.splice(i, 1);
-    } 
+    }
   }
 
   setQueryAsFilter() {
@@ -293,8 +294,8 @@ export class AppState {
     this.rows = r;
     //this._searchParamsChanged.next(this);
   }
-  
-  setSort(sort){
+
+  setSort(sort) {
     this.currentSort = sort;
     this._searchParamsChanged.next(this);
   }
@@ -307,7 +308,7 @@ export class AppState {
 
   processSearch(res, type: string) {
     switch (type) {
-      case 'results': {
+      case 'results2': {
         this.facets = res["facet_counts"]["facet_fields"];
         this.results = res["response"]["docs"];
         this.numFound = res['response']['numFound'];
@@ -333,11 +334,11 @@ export class AppState {
 
 
   fillFacets(fields: string[], allClosed: boolean): FacetField[] {
-    
 
-if(!this.facets){
-  return [];
-}
+
+    if (!this.facets) {
+      return [];
+    }
     let facetFields: FacetField[] = [];
 
     let configFacets = this.config['facets'];
@@ -353,7 +354,7 @@ if(!this.facets){
           facetField.translate = configFacets[i]['translate'];
           facetField.showOriginal = configFacets[i]['showOriginal'];
           facetField.sortable = configFacets[i]['sortable'];
-          
+
           facetField.isMultiple = this.config['searchParams']['multipleFacets'] && this.config['searchParams']['multipleFacets'].indexOf(field) > -1;
           if (this.config['searchParams']['json.nl'] === 'map') {
             for (let f in this.facets[field]) {
@@ -375,6 +376,7 @@ if(!this.facets){
         }
       }
     }
+    this.facetFields = facetFields;
     return facetFields;
   }
 
@@ -388,11 +390,11 @@ if(!this.facets){
       facetField.values.push(facet);
     }
   }
-  
-  getFacetByField(field: string){
-    
+
+  getFacetByField(field: string) {
+
     for (let i in this.config['facets']) {
-      if(this.config['facets'][i].field === field){
+      if (this.config['facets'][i].field === field) {
         return this.config['facets'][i];
       }
     }

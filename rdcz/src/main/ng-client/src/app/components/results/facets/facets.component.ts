@@ -131,7 +131,7 @@ export class FacetsComponent implements OnInit, OnChanges {
     this.currentSort= col;
     this.currentDir = - this.currentDir;
     ff.values.sort((a,b) => {
-      return a[col] > b[col] ? 1 : -1;
+      return a[col] > b[col] ? this.currentDir : - this.currentDir;
     });
   }
 }

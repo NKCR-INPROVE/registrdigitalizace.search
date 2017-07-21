@@ -61,7 +61,7 @@ export class ChartBarComponent implements OnInit {
     this.chart.setData(this.data);
     this.subscriptions.push(this.state.searchSubject.subscribe(
       (resp) => {
-        if (resp['type'] === 'home' || resp['type'] === 'results') {
+        if (resp['type'] === 'home' || resp['type'] === 'results2') {
           if (resp['state'] === 'start') {
             this.data = [{ data: [] }];
             this.chart.setData(this.data);
