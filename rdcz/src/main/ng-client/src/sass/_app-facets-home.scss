@@ -1,5 +1,12 @@
 // --- FACETS HOME ---
 
 app-facets-home {
-  
+  section {
+    @extend .app-clean-mg; 
+    >.row {
+      >.col {
+        margin-bottom: 20px;
+      }
+    } 
+  }
 }

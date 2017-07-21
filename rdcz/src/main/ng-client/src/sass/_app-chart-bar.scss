@@ -1,6 +1,9 @@
 // --- CHART-BAR ---
 
 app-chart-bar {
+  canvas {
+    width: 100% !important;
+  }
   .app-nav {
     margin-top: 15px;
     
