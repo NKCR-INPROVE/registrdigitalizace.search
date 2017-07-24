@@ -33,25 +33,3 @@
   </mz-collapsible>
 </section><!--/result facets -->
 
-  
-<!-- NONE NG VERSION
-<ul  *ngFor="let ff of facetFields" class="collapsible" data-collapsible="expandable">
-  <li>
-    <div class="collapsible-header">
-      <i mz-icon-mdi [icon]="ff.icon"></i>{{'field.' + ff.field | translate}} <span class="app-brand-text text-lighten-2">({{ff.values.length}})</span>
-      <i mz-icon-mdi [icon]="'chevron-down'" [class]="'app-clean-mg'"></i>
-      <i mz-icon-mdi [icon]="'chevron-left'" [class]="'app-clean-mg'"></i>
-    </div>
-    <div class="collapsible-body">
-      <div class="collection">
-        <div *ngFor="let f of ff.values "class="collection-item">
-          <i *ngIf="ff.field=='stav'" [class]="'app-state app-state-' + f.value"></i>
-          <span (click)="add(f)" class="first-content">{{'text.' + f.value | translate}}</span>
-          <a  mz-secondary-content>({{f.count}})</a>
-        </div>
-      </div>
-    </div>
-  </li>
-</ul>
--->
-
