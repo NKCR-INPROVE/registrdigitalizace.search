@@ -38,8 +38,7 @@
           {{result.rokvydstr}}
         </label><!--/label -->
         <label *ngIf="result.bibliographich_data">
-          <strong>{{'label.bib-udaje' | translate}}:</strong>
-          <a [href]="result.bibliographich_data" target="_blank">{{result.bibliographich_data}}</a>
+          <a [href]="result.bibliographich_data" target="_blank">{{'label.bib-udaje' | translate}}</a>
         </label><!--/label -->
       </div><!--/.col -->
     </div><!--/.row -->
@@ -67,13 +66,13 @@
                   <th (click)="sortBy('vlastnik')" [class.active]="currentSort === 'vlastnik'" [class.active-down]="currentDir === 1">
                     {{'label.vlastnik' | translate}}
                   </th>
-                  <th (click)="sortBy('rokvydstr')" [class.active]="currentSort === 'rokvydstr'" [class.active-down]="currentDir === 1">
+                  <th (click)="sortBy('rozsah')" [class.active]="currentSort === 'rozsah'" [class.active-down]="currentDir === 1">
                     {{'label.rok-per' | translate}}
                   </th>
                   <th (click)="sortBy('cast')" [class.active]="currentSort === 'cast'" [class.active-down]="currentDir === 1">
                     {{'label.cast-roc' | translate}}
                   </th>
-                  <th (click)="sortBy('rozsah')" [class.active]="currentSort === 'rozsah'" [class.active-down]="currentDir === 1">
+                  <th (click)="sortBy('cisloper')" [class.active]="currentSort === 'cisloper'" [class.active-down]="currentDir === 1">
                     {{'label.cislo' | translate}}
                   </th>
                   <th (click)="sortBy('financovano', true)" [class.active]="currentSort === 'financovano'" [class.active-down]="currentDir === 1">
@@ -92,15 +91,15 @@
                 <tr  *ngFor="let p of predlohy">
                   <td><span [class]="'app-state-item app-state-item-' + p.stav"></span></td>
                   <td>
-                    <a mz-tooltip [tooltip]="p.url" [position]="'top'" [href]="p.url" title="" target="_blank">
+                    <a *ngIf="p.url" mz-tooltip [tooltip]="p.url" [position]="'top'" [href]="p.url" title="" target="_blank">
                       <i mz-icon-mdi [icon]="'open-in-new'" [size]="'16px'"></i>
                     </a>
                   </td>
                   <td>{{p.cislordcz}}</td>
                   <td mz-tooltip [position]="'top'" [tooltip]="translate('cz.incad.nkp.digital.InsVlastnik', p.vlastnik)">{{p.vlastnik}}</td>
-                  <td>{{p.rokvydstr}}</td>
-                  <td>{{p.cast}}</td>
                   <td>{{p.rozsah}}</td>
+                  <td>{{p.cast}}</td>
+                  <td>{{p.cisloper}}</td>
                   <td>{{translate('cz.incad.nkp.digital.Dfinancovano', p.financovano)}}</td>
                   <td>{{p.signatura}}</td>
                   <td>{{p.carkod}}</td>
@@ -132,20 +131,20 @@
     <span>
       {{'label.predlohy' | translate}}: {{predlohy.length}} 
     </span>
-    <span *ngIf="result.ccnb">
+    <span *ngIf="result.ccnb && result.ccnb[0].startsWith('cnb')">
       <span class="app-brand-text text-lighten-3">|</span>
       <strong>čČNB:</strong>
-      {{result.ccnb[0]}}
+      <a [href]="'http://aleph.nkp.cz/F/?func=find-c&amp;local_base=nkc01&amp;ccl_term=cnb=' + result.ccnb[0]" target="_blank">{{result.ccnb[0]}}</a>
     </span>
     <span *ngIf="result.isbn">
       <span class="app-brand-text text-lighten-3">|</span>
       <strong>ISBN:</strong>
-      {{result.isbn}}
+      <a [href]="'http://aleph.nkp.cz/F/?local_base=nkc01&amp;func=find-c&amp;ccl_term=ISN=' + result.isbn" target="_blank">{{result.isbn}}</a>
     </span>
     <span *ngIf="result.issn">
       <span class="app-brand-text text-lighten-3">|</span>
       <strong>ISSN:</strong>
-      {{result.issn}}
+      <a [href]="'http://aleph.techlib.cz/F/?func=find-b&amp;find_code=SSN&amp;local_base=STK02&amp;request=' + result.issn" target="_blank">{{result.issn}}</a>
     </span>
     <a *ngIf="showingDetail" class="right app-clean-mg" (click)="toggleDetail('app-card-detail-' + result.id)">
        {{'btn.skryt-detail' | translate}}

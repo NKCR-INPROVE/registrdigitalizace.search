@@ -23,22 +23,23 @@ export class ResultsComponent implements OnInit, OnDestroy {
   expanded: any = {};
   numFound: number;
   loading: boolean = true;
+  secondRound: boolean = false;
 
-  constructor(private service: AppService, public state: AppState, 
+  constructor(private service: AppService, public state: AppState,
     private router: Router) {
   }
 
 
   ngOnInit() {
-//    if (this.state.config) {
-//      this.getData();
-//    } else {
-//      this.subscriptions.push(this.service.langSubject.subscribe(
-//        () => {
-//          this.getData();
-//        }
-//      ));
-//    }
+    //    if (this.state.config) {
+    //      this.getData();
+    //    } else {
+    //      this.subscriptions.push(this.service.langSubject.subscribe(
+    //        () => {
+    //          this.getData();
+    //        }
+    //      ));
+    //    }
 
     this.subscriptions.push(this.state.searchSubject.subscribe(
       (resp) => {
@@ -48,6 +49,13 @@ export class ResultsComponent implements OnInit, OnDestroy {
             this.expanded = {};
             this.loading = true;
           } else {
+          
+            if (this.state.numFound === 0 && !this.secondRound){
+              this.secondRound = true;
+              let sparams: URLSearchParams = this.service.doSearchParams('results', true, '10%');
+              this.service.search(sparams, 'results');
+              return;
+            }
             this.facetFields = [];
             let ff = this.state.fillFacets(this.state.config['results_facets'], false);
             for (let i in ff) {
@@ -70,6 +78,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
     this.subscriptions.push(this.state.searchParamsChanged.subscribe(
       (resp) => {
+            this.secondRound = false;
         if (resp['state'] === 'start') {
 
         } else {
@@ -89,16 +98,16 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
   getData() {
     this.loading = true;
-//    let params: URLSearchParams = this.service.doSearchParams();
-//    this.service.search(params, 'results2');
+    //    let params: URLSearchParams = this.service.doSearchParams();
+    //    this.service.search(params, 'results2');
   }
 
   rokChanged(e) {
     this.state.addRokFilter(e['from'], e['to']);
     this.service.goToResults();
   }
-  
-  cleanAll(){
+
+  cleanAll() {
     this.state.clearParams();
     this.router.navigate(['/results', {}]);
   }

@@ -72,6 +72,7 @@ export class AppState {
   public q: string;
   currentOd: number = 0;
   currentDo: number = (new Date()).getFullYear();
+  
 
   //Advanced parameters
   advParams = {
@@ -126,6 +127,7 @@ export class AppState {
   clearResults() {
     this.numFound = 0;
     this.facets = null;
+    this.facet_ranges = null;
     this.results = null;
     this.totalPages = 0;
     this._searchParamsChanged.next(this);
@@ -221,7 +223,7 @@ export class AppState {
     this.start = 0;
     if (idx > -1) {
       this.usedFilters.splice(idx, 1);
-//      this._searchParamsChanged.next(this);
+      this._searchParamsChanged.next(this);
     }
 
   }
@@ -229,7 +231,7 @@ export class AppState {
   addFilter(f: Filter) {
     this.usedFilters.push(f);
     this.start = 0;
-    //this._searchParamsChanged.next(this);
+    this._searchParamsChanged.next(this);
   }
 
   getFilterByField(field: string): Filter {
@@ -319,6 +321,7 @@ export class AppState {
       }
       case 'home': {
         this.facets = res["facet_counts"]["facet_fields"];
+        this.facet_ranges = res["facet_counts"]["facet_ranges"];
         this.numFound = res['response']['numFound'];
         break;
       }

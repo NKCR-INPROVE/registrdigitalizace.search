@@ -20,16 +20,15 @@ export class FacetsHomeComponent implements OnInit, OnChanges {
   @Input() allClosed = true;
   @Input() allOpen = true;
   subscriptions: Subscription[] = [];
-   
-   
-    currentSort: string= 'human';
+  
+    currentSort: string= 'count';
     currentDir: number = -1;
 
   constructor(public service: AppService, public state: AppState) { }
 
   ngOnInit() {
     setTimeout(()=>{
-      this.sortBy(this.facetFields[1], 'human');
+      this.sortBy(this.facetFields[1], 'count');
     }, 1000);
   }
 
@@ -118,10 +117,12 @@ export class FacetsHomeComponent implements OnInit, OnChanges {
   }
   
   sortBy(ff: FacetField, col: string){
+    if( this.currentSort === col){
+      this.currentDir = -1 *  this.currentDir;
+    }
     this.currentSort= col;
-    this.currentDir = - this.currentDir;
     ff.values.sort((a,b) => {
-      return a[col] > b[col] ? this.currentDir : - this.currentDir;
+      return a[col] > b[col] ? -this.currentDir : this.currentDir;
     });
   }
 }

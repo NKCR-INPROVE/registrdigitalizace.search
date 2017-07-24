@@ -105,6 +105,10 @@
       "no-results-1": "Found 0 results. Please try another query, or",
       "no-results-2": "all filters"
     },
+    "secondRound": {
+      "title": "Warning",
+      "msg": "Found 0 results. trying similar results."
+    },
     "info": {
       "title": "Information",
       "duplicity": "Entering the barcode of a document from the NK pool will test the existence of a similar document in RD by the words of the title."

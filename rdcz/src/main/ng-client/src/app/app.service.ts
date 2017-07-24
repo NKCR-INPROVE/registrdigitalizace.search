@@ -65,10 +65,23 @@ export class AppService {
   doHomeSearchParams(boosted: boolean = true): URLSearchParams {
     
     let params: URLSearchParams = new URLSearchParams();
+    params.set('q', '*');
+    params.set('facet', 'true');
+    params.set('facet.mincount', '1');
+    for (let i in this.state.config['facets']) {
+        params.append('facet.field', this.state.config['facets'][i]['field']);
+    }
+    params.set('facet.range', 'rokvyd');
+    params.set('facet.range.start', '1');
+    params.set('facet.range.end', (new Date()).getFullYear() + '');
+    params.set('facet.range.gap', '10');
+
+    params.set('rows', '0');
+    this.state.clearParams();
     return params
   }
 
-  doSearchParams(sroute: string, boosted: boolean = true): URLSearchParams {
+  doSearchParams(sroute: string, boosted: boolean = true, mm: string = '100%'): URLSearchParams {
     
     if(sroute === 'home'){
       return this.doHomeSearchParams(false);
@@ -101,6 +114,7 @@ export class AppService {
     if(boosted){
       params.set('qf', this.state.config['boost']['qf']);
     }
+    params.set('mm', mm);
 
       
     for (let i in this.state.usedFilters) {

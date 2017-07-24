@@ -23,11 +23,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (this.state.config) {
-      this.getData();
+//      this.getData();
     } else {
       this.subscriptions.push(this.service.langSubject.subscribe(
         () => {
-          this.getData();
+//          this.getData();
         }
       ));
     }
@@ -72,8 +72,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     params.set('facet.range.gap', '10');
 
     params.set('rows', '0');
-    this.state.clearParams();
-    this.service.search(params, 'home');
+//    this.state.clearParams();
+//    this.service.search(params, 'home');
   }
 
 }

@@ -74,7 +74,7 @@ export class ChartBarComponent implements OnInit {
   }
 
   setData() {
-    if (this.state.facet_ranges['rokvyd']) {
+    if (this.state.facet_ranges && this.state.facet_ranges['rokvyd']) {
       let c: any[] = this.state.facet_ranges['rokvyd']['counts'];
       c = c.filter(val => {
         return val[0] !== '0';

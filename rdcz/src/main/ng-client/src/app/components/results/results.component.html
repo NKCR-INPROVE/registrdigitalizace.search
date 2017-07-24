@@ -1,3 +1,14 @@
+<!-- ALERT -->
+<div *ngIf="secondRound && !loading" class="container app-mg-top-20">
+  <div class="row">
+    <div class="col s12">
+      <div class="alert alert-warning center app-card-shadow hoverable app-card-hoverable">
+        <i mz-icon-mdi [icon]="'alert'"></i> <strong>{{'alerts.secondRound.title' | translate}}!</strong> {{'alerts.secondRound.msg' | translate}}
+      </div>
+    </div><!--/.col -->
+  </div><!--/.row -->
+</div><!--/.container -->
+
 <!-- RESULTS -->
 <div *ngIf="state.numFound > 0" class="container">
   <div class="row">

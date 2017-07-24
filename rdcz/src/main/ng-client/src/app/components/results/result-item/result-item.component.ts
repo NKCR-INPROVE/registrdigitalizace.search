@@ -21,10 +21,10 @@ export class ResultItemComponent implements OnInit, OnDestroy {
   predlohy: Result[] = [];
   digObjects: any[] = [];
   predlohyLoaded: boolean = false;
-   
-  currentSort: string= 'stav';
+
+  currentSort: string = 'stav';
   currentDir: number = 1;
-  
+
   stavy = [];
 
   constructor(private service: AppService, public state: AppState) { }
@@ -33,26 +33,20 @@ export class ResultItemComponent implements OnInit, OnDestroy {
     if (this.result) {
       this.getPredlohy();
     }
-    
+
     this.subscriptions.push(this.state.searchSubject.subscribe(
       (resp) => {
         if (resp['type'].indexOf(this.result[this.state.currentCollapse.field]) > -1) {
           if (resp['state'] === 'start') {
-//            this.facets = null;
-//            this.results = [];
-//            this.expanded = {};
           } else {
             this.stavy = [];
-            resp['res']["facet_counts"]["facet_fields"]['stav'].forEach((a)=>{
+            resp['res']["facet_counts"]["facet_fields"]['stav'].forEach((a) => {
               this.stavy.push(a[0]);
             });
-            
+
             this.predlohy = resp['res']["response"]["docs"];
-//            for(let i in this.predlohy){
-//              if (this.bibDataLink.indexOf(this.predlohy[i].bib))
-//            }
           }
-          
+
         }
       }
     ));
@@ -64,8 +58,8 @@ export class ResultItemComponent implements OnInit, OnDestroy {
     });
     this.subscriptions = [];
   }
-  
-  translate(classname, value){
+
+  translate(classname, value) {
     return this.service.translateFromLists(classname, value);
   }
 
@@ -78,18 +72,18 @@ export class ResultItemComponent implements OnInit, OnDestroy {
         params.set('facet', 'true');
         params.set('facet.mincount', '1');
         params.append('facet.field', 'stav');
-        
+
         this.service.search(params, this.result[this.state.currentCollapse.field]);
       } else {
         this.predlohy.push(this.result);
         this.stavy.push(this.result['stav']);
       }
       this.predlohyLoaded = true;
-    } 
+    }
   }
-  
-  sortBy(field: string, translated: boolean = false){
-    this.currentSort= field;
+
+  sortBy(field: string, translated: boolean = false) {
+    this.currentSort = field;
     this.currentDir = - this.currentDir;
     this.predlohy.sort((a: Result, b: Result) => {
       return a[field] > b[field] ? 1 : -1;
