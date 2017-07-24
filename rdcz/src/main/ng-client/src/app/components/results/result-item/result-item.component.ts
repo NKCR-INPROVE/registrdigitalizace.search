@@ -86,7 +86,7 @@ export class ResultItemComponent implements OnInit, OnDestroy {
     this.currentSort = field;
     this.currentDir = - this.currentDir;
     this.predlohy.sort((a: Result, b: Result) => {
-      return a[field] > b[field] ? 1 : -1;
+      return a[field] > b[field] ? -this.currentDir : this.currentDir;
     });
   }
 
