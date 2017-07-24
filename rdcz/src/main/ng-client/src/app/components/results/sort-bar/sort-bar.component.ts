@@ -19,9 +19,14 @@ export class SortBarComponent implements OnInit {
   }
   
   // toggle element
-  toggleElement(id){
+  toggleElement(button, id){
+    if($('.'+button).hasClass('active')) {
+      $('.'+button).removeClass('active');
+    }
+    else if ($('.'+button).not('.active')) {
+      $('.'+button).addClass('active');
+    }
     $('#'+id).toggleClass('active');
     $('#'+id).slideToggle( "fast" );
   }
-
 }

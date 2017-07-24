@@ -4,6 +4,7 @@ app-sort-bar {
   section {
     
     .col {
+      
       span {
         display: inline-block;
         height: 40px;
@@ -16,6 +17,20 @@ app-sort-bar {
     }
     .col:last-child {
       text-align: right;
+      
+      .app-btn-chart-bar {
+        .app-btn-hidde {
+          display: none;
+        }
+        &.active {
+          .app-btn-show {
+            display: none;
+          }
+          .app-btn-hidde {
+            display: block;
+          }
+        }
+      }
     }
   }
 }

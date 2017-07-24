@@ -18,7 +18,10 @@
         </mz-dropdown>
       </span>
       <span class="app-brand-text text-lighten-3">|</span>&#160;&#160;
-      <span mz-tooltip class="app-mdi-chart-bar app-cursor-pointer" (click)="toggleElement('app-chart-bar')" [tooltip]="'text.skryt-casovou-osu' | translate"></span>
+      <span class="app-btn-chart-bar" (click)="toggleElement('app-btn-chart-bar', 'app-chart-bar')">
+        <span mz-tooltip [tooltip]="'text.zobrazit-casovou-osu' | translate" class="app-mdi-chart-bar app-cursor-pointer app-btn-show"></span>
+        <span mz-tooltip [tooltip]="'text.skryt-casovou-osu' | translate" class="app-mdi-chart-bar app-cursor-pointer app-btn-hidde"></span>
+      </span>
     </div><!--/.col -->
   </div><!--/.row -->
 </section>
