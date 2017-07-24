@@ -51,8 +51,10 @@ export class FlotComponent implements OnChanges, OnInit {
   }
 
   public setSelection(sel) {
-    this.plot.setSelection(sel);
-    window.event.preventDefault();
+    if (this.initialized) {
+      this.plot.setSelection(sel);
+      window.event.preventDefault();
+    }
   }
 
   private dataAtPos(pos) {
@@ -120,13 +122,13 @@ export class FlotComponent implements OnChanges, OnInit {
 
       var _this = this;
       this.plotArea.bind("plotselected", function(event, ranges) {
-        console.log('plotselected');
+        //console.log('plotselected');
         _this.selecting = true;
         _this.onSelection.emit(ranges);
       });
 
       this.plotArea.bind("plotclick", function(event, pos, item) {
-        console.log('plotclick');
+        //console.log('plotclick');
         if (_this.selecting) {
           _this.selecting = false;;
           return;

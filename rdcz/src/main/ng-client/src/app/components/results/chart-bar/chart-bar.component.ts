@@ -45,7 +45,7 @@ export class ChartBarComponent implements OnInit {
     },
     tooltip: {
       show: true,                 //false
-      content: function(label, xval, yval, flotItem){ return xval + ' - ' + (+xval + 9) + ' (' + yval + ')';}      //"%s | X: %x | Y: %y"
+      content: function(label, xval, yval, flotItem) { return xval + ' - ' + (+xval + 9) + ' (' + yval + ')'; }      //"%s | X: %x | Y: %y"
     },
     colors: ["#ffab40", "#ffab40", "#ffab40"]
   }
@@ -57,35 +57,43 @@ export class ChartBarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.data = [{ data: [] }];
-    this.chart.setData(this.data);
+    this.setData();
     this.subscriptions.push(this.state.searchSubject.subscribe(
       (resp) => {
-        if (resp['type'] === 'home' || resp['type'] === 'results2') {
+        if (resp['type'] === 'home' || resp['type'] === 'results') {
+
           if (resp['state'] === 'start') {
             this.data = [{ data: [] }];
             this.chart.setData(this.data);
           } else {
-            if (resp['res']["facet_counts"]["facet_ranges"]['rokvyd']) {
-              let c: any[] = resp['res']["facet_counts"]["facet_ranges"]['rokvyd']['counts'];
-              c = c.filter(val => {
-                return val[0] !== '0';
-              });
-              if(c.length > 0){
-                this.data = [{ data: c }];
-                this.ranges = [
-                  Math.max(+c[0][0], this.state.currentOd), 
-                  Math.min(this.state.currentDo, +c[c.length-1][0]+10)
-                  ];
-//                this.ranges = [c[0][0], +c[c.length-1][0]+10];
-                this.chart.setData(this.data);
-                this.chart.setSelection({xaxis:{from: this.ranges[0], to:this.ranges[1]}});
-              }
-            }
+            this.setData();
           }
         }
       }
     ));
+  }
+
+  setData() {
+    if (this.state.facet_ranges['rokvyd']) {
+      let c: any[] = this.state.facet_ranges['rokvyd']['counts'];
+      c = c.filter(val => {
+        return val[0] !== '0';
+      });
+      if (c.length > 0) {
+        this.data = [{ data: c }];
+        this.ranges = [
+          Math.max(+c[0][0], this.state.currentOd),
+          Math.min(this.state.currentDo, +c[c.length - 1][0] + 10)
+        ];
+        //                this.ranges = [c[0][0], +c[c.length-1][0]+10];
+        this.chart.setData(this.data);
+        this.chart.setSelection({ xaxis: { from: this.ranges[0], to: this.ranges[1] } });
+      }
+
+    } else {
+      this.data = [{ data: [] }];
+      this.chart.setData(this.data);
+    }
   }
 
   ngOnDestroy() {
@@ -108,7 +116,7 @@ export class ChartBarComponent implements OnInit {
 
   onClick(item) {
     //console.log('Rok: ' + item['datapoint'][0]);
-    this.state.addRokFilter(item['datapoint'][0], item['datapoint'][0]+10);
+    this.state.addRokFilter(item['datapoint'][0], item['datapoint'][0] + 10);
     this.service.goToResults();
   }
 

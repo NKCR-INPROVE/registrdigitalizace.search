@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { Http } from '@angular/http';
+import { Http, URLSearchParams } from '@angular/http';
 import { ActivatedRoute, Router, Params, NavigationEnd, NavigationStart } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs/Rx';
@@ -32,9 +32,7 @@ export class AppComponent {
 
   ngOnInit() {
     this.processUrl();
-    this.getConfig().subscribe(cfg => {
-
-    });
+    this.getConfig().subscribe(cfg => { });
 
     this.service.langSubject.subscribe(() => {
       this.translate.get('title.app').subscribe((newTitle: string) => {
@@ -56,32 +54,47 @@ export class AppComponent {
     this.subscriptions.push(this.route.params
       .switchMap((params: Params) => Observable.of(params['start'])).subscribe(start => {
         if (start) {
-          console.log('kk', start);
+          
         }
       }));
 
     this.subscriptions.push(this.router.events.subscribe(val => {
 
       if (val instanceof NavigationEnd) {
+
         let params = this.route.snapshot.firstChild.params;
         this.state.setSearchParamsFromUrl(params);
+
+        let sroute = this.route.snapshot.firstChild.url[0].path;
+        this.fireSearch(sroute);
 
       } else if (val instanceof NavigationStart) {
 
       }
     }));
 
-//
-//    this.subscriptions.push(this.state.searchParamsChanged.subscribe(
-//      (resp) => {
-//        if (resp['state'] === 'start') {
-//
-//        } else {
-//          //this.getData();
-//          this.service.goToResults();
-//        }
-//      }
-//    ));
+    //
+    //    this.subscriptions.push(this.state.searchParamsChanged.subscribe(
+    //      (resp) => {
+    //        if (resp['state'] === 'start') {
+    //
+    //        } else {
+    //          //this.getData();
+    //          this.service.goToResults();
+    //        }
+    //      }
+    //    ));
+  }
+
+  fireSearch(sroute: string) {
+    if (!this.state.configured) {
+      setTimeout(() => {
+        this.fireSearch(sroute);
+      }, 10);
+    } else {
+      let sparams: URLSearchParams = this.service.doSearchParams(sroute);
+      this.service.search(sparams, sroute);
+    }
   }
 
   getConfig() {
@@ -91,12 +104,7 @@ export class AppComponent {
       userLang = /(cs|en)/gi.test(userLang) ? userLang : 'cs';
       if (cfg.hasOwnProperty('defaultLang')) {
         userLang = cfg['defaultLang'];
-            }
-
-//      ///      /TODO
-//      this.translate.setTranslation('e      n', {
-//          HELLO: 'hello {{val      ue}}'
-//      });
+      }
 
       this.state.setConfig(cfg);
       this.service.getLists().subscribe(res => {

@@ -49,6 +49,7 @@ export class AppState {
   public searchSubject: Observable<any> = this._searchSubject.asObservable();
 
   facets: any;
+  facet_ranges: any;
   facetFields: FacetField[] = [];
   results: Result[] = [];
   numFound: number;
@@ -220,7 +221,7 @@ export class AppState {
     this.start = 0;
     if (idx > -1) {
       this.usedFilters.splice(idx, 1);
-      this._searchParamsChanged.next(this);
+//      this._searchParamsChanged.next(this);
     }
 
   }
@@ -308,8 +309,9 @@ export class AppState {
 
   processSearch(res, type: string) {
     switch (type) {
-      case 'results2': {
+      case 'results': {
         this.facets = res["facet_counts"]["facet_fields"];
+        this.facet_ranges = res["facet_counts"]["facet_ranges"];
         this.results = res["response"]["docs"];
         this.numFound = res['response']['numFound'];
         this.totalPages = Math.ceil(this.numFound / this.rows);

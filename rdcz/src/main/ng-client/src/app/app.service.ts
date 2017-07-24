@@ -61,8 +61,18 @@ export class AppService {
       return key;
     }
   }
+  
+  doHomeSearchParams(boosted: boolean = true): URLSearchParams {
+    
+    let params: URLSearchParams = new URLSearchParams();
+    return params
+  }
 
-  doSearchParams(boosted: boolean = true): URLSearchParams {
+  doSearchParams(sroute: string, boosted: boolean = true): URLSearchParams {
+    
+    if(sroute === 'home'){
+      return this.doHomeSearchParams(false);
+    }
     let params: URLSearchParams = new URLSearchParams();
     if (this.state.q && this.state.q !== '') {
       params.set('q', this.state.q);

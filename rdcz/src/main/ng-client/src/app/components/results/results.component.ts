@@ -30,21 +30,20 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    if (this.state.config) {
-      this.getData();
-    } else {
-      this.subscriptions.push(this.service.langSubject.subscribe(
-        () => {
-          this.getData();
-        }
-      ));
-    }
+//    if (this.state.config) {
+//      this.getData();
+//    } else {
+//      this.subscriptions.push(this.service.langSubject.subscribe(
+//        () => {
+//          this.getData();
+//        }
+//      ));
+//    }
 
     this.subscriptions.push(this.state.searchSubject.subscribe(
       (resp) => {
         //console.log(resp);
-        if (resp['type'].indexOf('results2') > -1) {
-          console.log(resp['type'], resp['state']);
+        if (resp['type'].indexOf('results') > -1) {
           if (resp['state'] === 'start') {
             this.expanded = {};
             this.loading = true;
@@ -61,10 +60,9 @@ export class ResultsComponent implements OnInit, OnDestroy {
             }
           }
 
-          //PEDRITO, dej pryc timeout
           setTimeout(() => {
             this.loading = false;
-          }, 100);
+          }, 1000);
         }
       }
     ));
@@ -91,8 +89,8 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
   getData() {
     this.loading = true;
-    let params: URLSearchParams = this.service.doSearchParams();
-    this.service.search(params, 'results2');
+//    let params: URLSearchParams = this.service.doSearchParams();
+//    this.service.search(params, 'results2');
   }
 
   rokChanged(e) {
