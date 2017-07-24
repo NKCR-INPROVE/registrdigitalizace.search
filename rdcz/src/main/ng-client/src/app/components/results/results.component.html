@@ -1,9 +1,15 @@
-<!-- ALERT -->
-<div *ngIf="secondRound && !loading" class="container app-mg-top-20">
+<!-- ALERTS -->
+<div *ngIf="(state.numFound === 0 && !loading) || (secondRound && !loading)" class="container app-mg-top-20" [class.app-clean-pd-bottom]="state.numFound > 0 && !loading">
   <div class="row">
     <div class="col s12">
       <div class="alert alert-warning center app-card-shadow hoverable app-card-hoverable">
-        <i mz-icon-mdi [icon]="'alert'"></i> <strong>{{'alerts.secondRound.title' | translate}}!</strong> {{'alerts.secondRound.msg' | translate}}
+        <i mz-icon-mdi [icon]="'alert'"></i> <strong>{{'alerts.secondRound.title' | translate}}!</strong>
+        <span *ngIf="secondRound && !loading">
+          {{'alerts.secondRound.msg' | translate}}
+        </span>
+        <span *ngIf="state.numFound === 0 && !loading">
+          {{'alerts.warning.no-results-1' | translate}}&#160;&#160;<a mz-button (click)="cleanAll()">{{'text.vymazte' | translate}}</a>&#160;&#160;{{'alerts.warning.no-results-2' | translate}}.
+        </span>
       </div>
     </div><!--/.col -->
   </div><!--/.row -->
@@ -30,19 +36,6 @@
         <app-result-item *ngFor="let res of results" [result]="res" [expanded]="expanded[res[state.currentCollapse.field]]"></app-result-item>
       </section>
       <app-pagination></app-pagination>
-    </div><!--/.col -->
-  </div><!--/.row -->
-</div><!--/.container -->
-
-<!-- ALERT -->
-<div *ngIf="state.numFound === 0 && !loading" class="container app-mg-top-20">
-  <div class="row">
-    <div class="col s12">
-      <div class="alert alert-warning center app-card-shadow hoverable app-card-hoverable">
-        <i mz-icon-mdi [icon]="'alert'"></i> <strong>{{'alerts.warning.title' | translate}}!</strong> {{'alerts.warning.no-results-1' | translate}}
-        &#160;&#160;<a mz-button (click)="cleanAll()">{{'text.vymazte' | translate}}</a>&#160;&#160;
-        {{'alerts.warning.no-results-2' | translate}}.
-      </div>
     </div><!--/.col -->
   </div><!--/.row -->
 </div><!--/.container -->

@@ -102,12 +102,12 @@
   "alerts": {
     "warning": {
       "title": "Warning",
-      "no-results-1": "Found 0 results. Please try another query, or",
+      "no-results-1": "but without any success. Please try another query, or",
       "no-results-2": "all filters"
     },
     "secondRound": {
       "title": "Warning",
-      "msg": "Found 0 results. trying similar results."
+      "msg": "Found 0 results ... trying similar results ..."
     },
     "info": {
       "title": "Information",

@@ -102,12 +102,12 @@
   "alerts": {
     "warning": {
       "title": "Upozornění",
-      "no-results-1": "Nalezeno 0 výsledků. Zkuste prosím zadat jiný dotaz, nebo",
+      "no-results-1": "bohužel bez úspěchu. Zkuste prosím zadat jiný dotaz, nebo",
       "no-results-2": "všechny filtry"
     },
     "secondRound": {
       "title": "Upozornění",
-      "msg": "Nebyly nalezeny žádné záznamy odpovídající dotazu - systém vyhledal podobné záznamy."
+      "msg": "Nalezeno 0 záznamů ... zkouším podobné záznamy ..."
     },
     
     "info": {

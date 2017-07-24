@@ -76,6 +76,14 @@ section {
   margin: 0 2px;
 }
 
+.app-border-radius {
+  border-radius: $app-border-radius;
+}
+
+.app-cursor-pointer {
+  cursor: pointer;
+}
+
 
 // cleaners
 .app-clean-mg,
@@ -83,12 +91,8 @@ section {
   margin: 0 !important;
 }
 
-.app-border-radius {
-  border-radius: $app-border-radius;
-}
-
-.app-cursor-pointer {
-  cursor: pointer;
+.app-clean-pd-bottom {
+  padding-bottom: 0 !important;
 }
 
 
@@ -159,7 +163,8 @@ $('body').on('click', '.alert .close', function() {
 });*/
 .alert {
   @extend .card-panel, .lighten-4, .text-darken-4;
-
+  margin-bottom: 0;
+  
   &.alert-success {
       @extend .green, .green-text;
   }
