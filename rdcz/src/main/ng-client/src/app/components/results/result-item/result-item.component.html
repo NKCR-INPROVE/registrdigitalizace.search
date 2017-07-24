@@ -1,6 +1,5 @@
 <mz-card [hoverable]="true" [class]="'app-item'">
   <mz-card-content>
-    <!--<span [class]="'app-card-triangle app-state-' + result.stav"></span>-->
     <span  class="app-state">
       <span *ngFor="let stav of stavy" [class]="'app-state-item app-state-item-' + stav"></span>
     </span>
@@ -45,7 +44,6 @@
     
     <div class="app-card-detail" [attr.id]="'app-card-detail-' + result.id" style="display:none;">
       <mz-collapsible [mode]="'expandable'">
-
         <mz-collapsible-item>
           <mz-collapsible-item-header>
             <i mz-icon-mdi [icon]="'plus'"></i>
@@ -86,7 +84,6 @@
                   </th>
                 </tr>
               </thead>
-
               <tbody>
                 <tr  *ngFor="let p of predlohy">
                   <td><span [class]="'app-state-item app-state-item-' + p.stav"></span></td>
@@ -121,10 +118,8 @@
             </mz-collection>
           </mz-collapsible-item-body>
         </mz-collapsible-item>
-
       </mz-collapsible>
     </div><!--/.app-card-detail -->
-    
   </mz-card-content>
   
   <mz-card-action>
@@ -132,19 +127,25 @@
       {{'label.predlohy' | translate}}: {{predlohy.length}} 
     </span>
     <span *ngIf="result.ccnb && result.ccnb[0].startsWith('cnb')">
-      <span class="app-brand-text text-lighten-3">|</span>
+      <span class="app-brand-text text-lighten-3 app-pipe">|</span>
       <strong>čČNB:</strong>
-      <a [href]="'http://aleph.nkp.cz/F/?func=find-c&amp;local_base=nkc01&amp;ccl_term=cnb=' + result.ccnb[0]" target="_blank">{{result.ccnb[0]}}</a>
+      <a [href]="'http://aleph.nkp.cz/F/?func=find-c&amp;local_base=nkc01&amp;ccl_term=cnb=' + result.ccnb[0]" target="_blank" class="app-clean-mg">
+        {{result.ccnb[0]}}
+      </a>
     </span>
     <span *ngIf="result.isbn">
-      <span class="app-brand-text text-lighten-3">|</span>
+      <span class="app-brand-text text-lighten-3 app-pipe">|</span>
       <strong>ISBN:</strong>
-      <a [href]="'http://aleph.nkp.cz/F/?local_base=nkc01&amp;func=find-c&amp;ccl_term=ISN=' + result.isbn" target="_blank">{{result.isbn}}</a>
+      <a [href]="'http://aleph.nkp.cz/F/?local_base=nkc01&amp;func=find-c&amp;ccl_term=ISN=' + result.isbn" target="_blank" class="app-clean-mg">
+        {{result.isbn}}
+      </a>
     </span>
     <span *ngIf="result.issn">
-      <span class="app-brand-text text-lighten-3">|</span>
+      <span class="app-brand-text text-lighten-3 app-pipe">|</span>
       <strong>ISSN:</strong>
-      <a [href]="'http://aleph.techlib.cz/F/?func=find-b&amp;find_code=SSN&amp;local_base=STK02&amp;request=' + result.issn" target="_blank">{{result.issn}}</a>
+      <a [href]="'http://aleph.techlib.cz/F/?func=find-b&amp;find_code=SSN&amp;local_base=STK02&amp;request=' + result.issn" target="_blank" class="app-clean-mg">
+        {{result.issn}}
+      </a>
     </span>
     <a *ngIf="showingDetail" class="right app-clean-mg" (click)="toggleDetail('app-card-detail-' + result.id)">
        {{'btn.skryt-detail' | translate}}
