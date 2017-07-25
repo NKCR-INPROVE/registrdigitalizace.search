@@ -4,6 +4,9 @@ app-query-as-filter {
   .collection {
     margin: 0;
     
+    .collection-item {
+      display: block; // temporary fix
+    }
     .checkbox-field {
       label {
         color: $primary-color;
