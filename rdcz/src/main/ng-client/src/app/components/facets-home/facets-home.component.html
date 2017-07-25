@@ -13,16 +13,16 @@
               <ng-container>
                 <span class="app-sort-header">
                   <mz-collection-item>
+                    <span (click)="sortBy(ff,'value')" class="middle-content app-cursor-pointer teal-text text-lighten-1"
+                          [class.active]="currentSort === 'value'"
+                          [class.active-down]="currentDir === 1">
+                      {{'value.' + ff.field | translate}}
+                    </span>
                     <span (click)="sortBy(ff,'human')" class="first-content teal-text text-lighten-1 " 
                           [class.active]="currentSort === 'human'"
                           [class.active-down]="currentDir === 1"
                           >
                       {{'human.' + ff.field | translate}}
-                    </span>
-                    <span (click)="sortBy(ff,'value')" class="middle-content app-cursor-pointer teal-text text-lighten-1"
-                          [class.active]="currentSort === 'value'"
-                          [class.active-down]="currentDir === 1">
-                      {{'value.' + ff.field | translate}}
                     </span>
                     <span (click)="sortBy(ff,'count')" mz-secondary-content class="app-cursor-pointer"
                           [class.active]="currentSort === 'count'"
@@ -36,8 +36,8 @@
                 <!-- az bude jejich bug opraven, tuto podminku dat v ramci elementu mz-collection-item -> https://github.com/sherweb/ng2-materialize/issues/144 --> 
                 <span>
                   <mz-collection-item>
-                    <span (click)="add(f)" class="first-content">{{translate(ff, f)}}</span>
                     <span *ngIf="ff.showOriginal" class="middle-content">{{f.value}}</span>
+                    <span (click)="add(f)" class="first-content">{{translate(ff, f)}}</span>
                     <a  mz-secondary-content class="app-brand-text text-lighten-2">({{f.count}})</a>
                   </mz-collection-item>
                 </span>
