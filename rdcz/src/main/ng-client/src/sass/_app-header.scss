@@ -39,3 +39,11 @@ header {
     } 
   }
 }
+
+
+/*** Medium Devices, Desktops ***/
+@media only screen and (min-width : 992px) {
+  #app-btn-sidenav {
+    display: none !important;
+  }
+}

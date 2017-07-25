@@ -23,8 +23,35 @@
             <a *ngIf="currLang !== 'en'" (click)="changeLang('en')" title="Switch to english">English</a>
             <a *ngIf="currLang !== 'cs'" (click)="changeLang('cs')" title="Přepni na češtinu">Česky</a>
           </mz-navbar-item>
+          <!--<mz-navbar-item>
+            <i mz-icon-mdi [icon]="'menu'" [id]="'btn-sidenav-demo'"></i>
+          </mz-navbar-item>-->
         </mz-navbar-item-container>
+        <button mz-button [id]="'app-btn-sidenav'" [float]="true" class="right app-brand lighten-2 z-depth-0">
+          <i mz-icon-mdi [icon]="'menu'"></i>
+        </button>
       </div><!--/.col -->
     </div><!--/.container -->
   </div><!--/.row -->
 </mz-navbar><!--/.app-navbar -->
+
+
+<mz-sidenav [id]="'app-sidenav'" [collapseButtonId]="'app-btn-sidenav'">
+  <mz-sidenav-link routerLink="home" routerLinkActive="active" #home="routerLinkActive" [active]="home.isActive">
+    <a routerLink="home" title="{{'nav.home' | translate}}">{{'nav.home' | translate}}</a>
+  </mz-sidenav-link>
+  <mz-sidenav-link  routerLink="napoveda" routerLinkActive="active" #napoveda="routerLinkActive" [active]="napoveda.isActive">
+    <a routerLink="napoveda" title="{{'nav.napoveda' | translate}}">{{'nav.napoveda' | translate}}</a>
+  </mz-sidenav-link>
+  <mz-sidenav-link routerLink="info" routerLinkActive="active" #info="routerLinkActive" [active]="info.isActive">
+    <a routerLink="info" title="{{'nav.info' | translate}}">{{'nav.info' | translate}}</a>
+  </mz-sidenav-link>
+  <mz-sidenav-link routerLink="prihlaseni" routerLinkActive="active" #login="routerLinkActive" [active]="login.isActive">
+    <a routerLink="prihlaseni" title="{{'nav.login' | translate}}">{{'nav.login' | translate}}</a>
+  </mz-sidenav-link>
+  <mz-sidenav-divider></mz-sidenav-divider>
+  <mz-sidenav-link>
+    <a *ngIf="currLang !== 'en'" (click)="changeLang('en')" title="Switch to english">English</a>
+    <a *ngIf="currLang !== 'cs'" (click)="changeLang('cs')" title="Přepni na češtinu">Česky</a>
+  </mz-sidenav-link>
+</mz-sidenav>
