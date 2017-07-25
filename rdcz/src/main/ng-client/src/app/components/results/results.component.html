@@ -4,11 +4,15 @@
     <div class="col s12">
       <div class="alert alert-warning center app-card-shadow hoverable app-card-hoverable">
         <i mz-icon-mdi [icon]="'alert'"></i> <strong>{{'alerts.secondRound.title' | translate}}!</strong>
-        <span *ngIf="secondRound && !loading">
-          {{'alerts.secondRound.msg' | translate}}
+        <span *ngIf="secondRound && !loading && state.numFound > 0">
+          {{'alerts.secondRound.msg-1' | translate}}
+          <strong (click)="cleanAll()" class="app-cursor-pointer">{{'text.vymazat' | translate}}</strong>
+          {{'alerts.secondRound.msg-2' | translate}}?
         </span>
         <span *ngIf="state.numFound === 0 && !loading">
-          {{'alerts.warning.no-results-1' | translate}}&#160;&#160;<a mz-button (click)="cleanAll()">{{'text.vymazte' | translate}}</a>&#160;&#160;{{'alerts.warning.no-results-2' | translate}}.
+          {{'alerts.noResults.msg-1' | translate}}
+          <strong (click)="cleanAll()" class="app-cursor-pointer">{{'text.vymazat' | translate}}</strong>
+          {{'alerts.noResults.msg-2' | translate}}.
         </span>
       </div>
     </div><!--/.col -->

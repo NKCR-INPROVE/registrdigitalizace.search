@@ -73,7 +73,7 @@
     "zrusit-vsechny-filtry": "Zrušit všechny filtry",
     "pouzit-tento-filtr": "Použít tento filtr",
     "prehled-dk-knihoven": "Přehled (cílových) digitálních knihoven",
-    "vymazte": "Vymažte"
+    "vymazat": "vymazat"
   },
   "field": {
     "q": "dotaz",
@@ -100,16 +100,16 @@
     "planovane": "Planned"
   },
   "alerts": {
-    "warning": {
+    "noResults": {
       "title": "Upozornění",
-      "no-results-1": "bohužel bez úspěchu. Zkuste prosím zadat jiný dotaz, nebo",
-      "no-results-2": "všechny filtry"
+      "msg-1": "Nalezeno 0 záznamů, hledání podobných záznamů též bez úspěchu. Můžete zkusit dotaz formulovat jinak nebo",
+      "msg-2": "všechny filtry"
     },
     "secondRound": {
       "title": "Upozornění",
-      "msg": "Nalezeno 0 záznamů ... zkouším podobné záznamy ..."
+      "msg-1": "Nalezeno 0 záznamů, nabízím podobné záznamy. Nechcete zkusit dotaz formulovat jinak nebo",
+      "msg-2": "filtry"
     },
-    
     "info": {
       "title": "Informace",
       "duplicity": "Zadáním čárového kódu dokumentu z fondu NK proběhne test na existenci podobného dokumentu v RD podle slov z názvu."

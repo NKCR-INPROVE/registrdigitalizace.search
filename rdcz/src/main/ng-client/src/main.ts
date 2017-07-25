@@ -8,9 +8,11 @@ if (environment.production) {
   enableProdMode();
 }
 
-// platformBrowserDynamic().bootstrapModule(AppModule);
+platformBrowserDynamic().bootstrapModule(AppModule);
+/*
 platformBrowserDynamic().bootstrapModule(AppModule, [
   {
     defaultEncapsulation: ViewEncapsulation.None // _app
   }
 ]);
+*/

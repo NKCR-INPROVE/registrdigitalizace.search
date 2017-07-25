@@ -73,7 +73,7 @@
     "zrusit-vsechny-filtry": "Remove all filters",
     "pouzit-tento-filtr": "Use this filter",
     "prehled-dk-knihoven": "List of digital libraries",
-    "vymazte": "Delete"
+    "vymazat": "delete"
   },
   "field": { 
     "q": "query",
@@ -100,14 +100,15 @@
     "planovane": "Planned"
   },
   "alerts": {
-    "warning": {
+    "noResults": {
       "title": "Warning",
-      "no-results-1": "but without any success. Please try another query, or",
-      "no-results-2": "all filters"
+      "msg-1": "Found 0 results, search for similar records also without success. You can try formulating the query differently or",
+      "msg-2": "all filters"
     },
     "secondRound": {
       "title": "Warning",
-      "msg": "Found 0 results ... trying similar results ..."
+      "msg-1": "Found 0 results, I offer similar records. You do not want to try formulating the query otherwise or",
+      "msg-2": "the filters"
     },
     "info": {
       "title": "Information",
