@@ -22,6 +22,7 @@ app-search-bar {
             left: 0.5rem;
           }
           .mdi-navigation-close,
+          .mdi-close,
           .app-mdi-menu {
             position: absolute;
             font-size: inherit;
@@ -32,9 +33,11 @@ app-search-bar {
             padding-left: 5px;
             @include set-border(left, 1, solid, $app-brand-l-6);
           }
-          .mdi-navigation-close {
+          .mdi-navigation-close,
+          .mdi-close {
             top: 0.1rem;
             right: 2.7rem;
+            @extend .app-cursor-pointer;
           }
           input[type=search] {
             border: 0;
