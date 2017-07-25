@@ -17,20 +17,6 @@ app-sort-bar {
     }
     .col:last-child {
       text-align: right;
-      
-      .app-btn-chart-bar {
-        .app-btn-hidde {
-          display: none;
-        }
-        &.active {
-          .app-btn-show {
-            display: none;
-          }
-          .app-btn-hidde {
-            display: block;
-          }
-        }
-      }
     }
   }
 }

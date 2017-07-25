@@ -8,6 +8,8 @@ import { AppState } from '../../../app.state';
   styleUrls: ['./sort-bar.component.scss']
 })
 export class SortBarComponent implements OnInit {
+  
+  showingChartBar: boolean = false;
 
   constructor(public state: AppState) { }
 
@@ -19,13 +21,8 @@ export class SortBarComponent implements OnInit {
   }
   
   // toggle element
-  toggleElement(button, id){
-    if($('.'+button).hasClass('active')) {
-      $('.'+button).removeClass('active');
-    }
-    else if ($('.'+button).not('.active')) {
-      $('.'+button).addClass('active');
-    }
+  toggleElement(id){
+    this.showingChartBar = !this.showingChartBar;
     $('#'+id).toggleClass('active');
     $('#'+id).slideToggle( "fast" );
   }
