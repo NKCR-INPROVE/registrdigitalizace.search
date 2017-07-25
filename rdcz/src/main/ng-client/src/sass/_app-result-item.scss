@@ -141,6 +141,9 @@ app-result-item {
       span {
         font-size: 0.8rem;
         text-transform: none;
+        a {
+          text-transform: none !important;
+        }
       }
     } //--/.card-action
     
