@@ -4,10 +4,10 @@ app-pie-chart {
   .legend {
     table {
       width:150px !important;
-      right: 0 !important;
+      right: 15% !important;
       bottom: 35px !important;
-      border-collapse:separate;
-      border-spacing:0 5px;
+      border-collapse: separate;
+      border-spacing: 0 5px;
       
       tr {
         color: color("shades", "white");
@@ -20,6 +20,7 @@ app-pie-chart {
           padding: 5px 5px 5px 10px;
           font-weight: bold;
           cursor: pointer;
+          @extend .z-depth-1;
           
           &:hover {
             opacity: 0.8;
@@ -42,6 +43,22 @@ app-pie-chart {
         }
         
       }
+    }
+    > div {
+      background-color: transparent !important;
+    }
+    
+    // mq
+    @media #{$extra-large-and-up} {
+      table {
+        right: 0 !important;
+      } 
+    }
+    
+    @media #{$small-and-down} {
+      table {
+        right: 0 !important;
+      } 
     }
   }
 }
