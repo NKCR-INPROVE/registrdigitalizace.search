@@ -42,7 +42,7 @@ header {
 
 
 // mq
-@media only screen and (min-width : 992px) {
+@media #{$large-and-up} {
   .app-navbar {
     #app-btn-sidenav {
       display: none !important;
@@ -50,7 +50,7 @@ header {
   }
 }
 
-@media only screen and (max-width : 1200px) and (min-width : 992px) {
+@media #{$large-only}  {
   .app-navbar {
     .responsive-img {
       width: 80%;

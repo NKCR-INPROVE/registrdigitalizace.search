@@ -1,6 +1,6 @@
 <div class="container app-brand lighten-4">
   <div class="row">
-    <div class="col s4">
+    <div class="col s12 m4 l5 xl4">
       <form class="app-form-group shades white"
             #searchForm>
         <div class="input-field app-clean-mg">
@@ -55,14 +55,17 @@
         </div>
       </form><!--/.form -->
     </div><!--/.col -->
-    <div class="col s4">
+    <div class="col s12 m3 l3 xl3">
       <strong>
-        <a (click)="duplicity()" class="app-brand-text text-lighten-1" title="{{'Test duplicity' | translate}}">
-          {{'btn.test-duplicity' | translate}}
+        <a (click)="duplicity()" class="app-brand-text text-lighten-1"
+          mz-tooltip 
+          [tooltip]="'tooltip.test-duplicity' | translate" 
+          [position]="'top'">
+          {{'btn.test-duplicity' | translate}} <span class="hide-on-med-only">({{'btn.test-duplicity-desc' | translate}})</span>
         </a>
       </strong>
     </div><!--/.col -->
-    <div class="col s4">
+    <div class="col s12 m5 l4 xl5">
       <button mz-button id="btn-other-sources" href="javascript:void(0)" class="app-mdi-menu-down app-brand lighten-6 app-brand-text text-darken-1 z-depth-0">
         {{'btn.jine-zdroje' | translate}}
       </button>

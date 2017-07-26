@@ -24,8 +24,12 @@
     "zobrazit-detail": "Show detail",
     "skryt-detail": "Hide detail",
     "test-duplicity": "Duplication test",
+    "test-duplicity-desc": "for NK ČR",
     "login": "Login",
     "use": "use"
+  },
+  "tooltip": {
+    "test-duplicity": "Duplication test (for NK ČR)"
   },
   "label": {
     "pocet-nalezenych": "Total found",

@@ -23,9 +23,13 @@
     "rozsirene-hledani": "Rozšířené hledání",
     "zobrazit-detail": "Zobrazit detail",
     "skryt-detail": "Skrýt detail",
-    "test-duplicity": "Test duplicity (pro NK ČR)",
+    "test-duplicity": "Test duplicity",
+    "test-duplicity-desc": "pro NK ČR",
     "login": "Přihlásit",
     "use": "Použít"
+  },
+  "tooltip": {
+    "test-duplicity": "Test duplicity (pro NK ČR)"
   },
   "label": {
     "pocet-nalezenych": "Počet nalezených položek",

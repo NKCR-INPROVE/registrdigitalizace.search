@@ -98,3 +98,26 @@ app-search-bar {
     }
   } 
 }
+
+// mq
+@media #{$small-and-down} {
+  app-search-bar {
+    .col:nth-child(2) {
+      text-align: right;
+    }
+  }
+}
+
+@media #{$large-only}  {
+  app-search-bar {
+    .col:nth-child(2) {
+      strong {
+        a {
+          .hide-on-med-only {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}
