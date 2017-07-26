@@ -36,24 +36,20 @@ header {
           }
         }
       }
-    } 
-  }
-}
-
-
-// mq
-@media #{$large-and-up} {
-  .app-navbar {
-    #app-btn-sidenav {
-      display: none !important;
-    } 
-  }
-}
-
-@media #{$large-only}  {
-  .app-navbar {
-    .responsive-img {
-      width: 80%;
     }
+    
+    // mq
+    @media #{$large-and-up} {
+      #app-btn-sidenav {
+        display: none !important;
+      } 
+    }
+
+    @media #{$large-only}  {
+      .responsive-img {
+        width: 80%;
+      }
+    }
+    // end mq
   }
 }

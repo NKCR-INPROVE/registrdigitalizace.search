@@ -94,30 +94,27 @@ app-search-bar {
           height: $input-height;
           line-height: $input-height;
         }
-      } 
-    }
-  } 
-}
+      }
+      
+      // mq
+      @media #{$small-and-down} {
+        .col:nth-child(2) {
+          text-align: right;
+        }
+      }
 
-// mq
-@media #{$small-and-down} {
-  app-search-bar {
-    .col:nth-child(2) {
-      text-align: right;
-    }
-  }
-}
-
-@media #{$large-only}  {
-  app-search-bar {
-    .col:nth-child(2) {
-      strong {
-        a {
-          .hide-on-med-only {
-            display: none;
+      @media #{$large-only}  {
+        .col:nth-child(2) {
+          strong {
+            a {
+              .hide-on-med-only {
+                display: none;
+              }
+            }
           }
         }
       }
+      // end mq
     }
   }
 }
