@@ -23,9 +23,6 @@
             <a *ngIf="currLang !== 'en'" (click)="changeLang('en')" title="Switch to english">English</a>
             <a *ngIf="currLang !== 'cs'" (click)="changeLang('cs')" title="Přepni na češtinu">Česky</a>
           </mz-navbar-item>
-          <!--<mz-navbar-item>
-            <i mz-icon-mdi [icon]="'menu'" [id]="'btn-sidenav-demo'"></i>
-          </mz-navbar-item>-->
         </mz-navbar-item-container>
         <button mz-button [id]="'app-btn-sidenav'" [float]="true" class="right app-brand lighten-2 z-depth-0">
           <i mz-icon-mdi [icon]="'menu'"></i>
@@ -37,6 +34,9 @@
 
 
 <mz-sidenav [id]="'app-sidenav'" [collapseButtonId]="'app-btn-sidenav'">
+  <mz-sidenav-subheader>
+    {{'nav.hlavni-navigace' | translate}}
+  </mz-sidenav-subheader>
   <mz-sidenav-link routerLink="home" routerLinkActive="active" #home="routerLinkActive" [active]="home.isActive">
     <a routerLink="home" title="{{'nav.home' | translate}}">{{'nav.home' | translate}}</a>
   </mz-sidenav-link>
