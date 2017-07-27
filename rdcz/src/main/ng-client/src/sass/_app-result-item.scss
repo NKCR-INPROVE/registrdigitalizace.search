@@ -51,6 +51,42 @@ app-result-item {
       }
       
       .app-card-detail {
+        
+        table {
+          font-size: 0.8rem;
+          
+          &.app-table-vlastnik {
+            margin-bottom: 20px;
+            
+            td {
+              padding-bottom: 0;
+            }
+          }
+
+          thead {
+            @include set-border(bottom, 1, solid, $app-brand-l-5);
+          }
+          th, td {
+            vertical-align: top;
+            padding: 5px;
+          }
+          th {
+            color: $app-brand-d-1;
+            font-weight: normal;
+          }
+          td {
+            color: $app-brand-l-1;
+            
+            .checkbox-field {
+              [type="checkbox"] + label {
+                padding-left: 30px;
+                font-size: 0.8rem;
+                height: 20px;
+              }
+            }
+          }
+        }
+        
         .collapsible {
           @extend .z-depth-0;
           @extend .app-border-radius;
@@ -76,26 +112,20 @@ app-result-item {
           
           .collapsible-body {
             padding: 0;
-            overflow: auto;
-            max-height: 200px;
+            /*overflow: auto;
+            max-height: 200px;*/
             
             table {
-              font-size: 13px;
-
               thead {
                 @include set-border(bottom, 1, solid, $app-brand-l-6);
               }
               th, td {
-                vertical-align: top;
-                padding: 5px;
                 &:first-child {
                   padding-left: 1rem;
                 }
               }
               th {
-                color: $app-brand-d-1;
                 @extend .app-cursor-pointer;
-                font-weight: normal;
                 
                 &.active {
                   @include set-mdi-icon(after, F05D, 14, middle);
@@ -105,8 +135,6 @@ app-result-item {
                 }
               }
               td {
-                color: $app-brand-l-1;
-
                 span {
                   display: inline-block;
                   width: 13px;

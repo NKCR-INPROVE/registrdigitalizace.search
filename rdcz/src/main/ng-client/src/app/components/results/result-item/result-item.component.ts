@@ -100,4 +100,7 @@ export class ResultItemComponent implements OnInit, OnDestroy {
     $('#' + id + '-btn').toggleClass('active');
     $('#' + id).slideToggle("fast");
   }
+   
+   // jquery table fixed header plugin -> https://www.npmjs.com/package/jquery-table-fixed-header
+   // $(".app-table-predlohy").tableFixedHeader();
 }

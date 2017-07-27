@@ -30,6 +30,8 @@
         "../node_modules/flot/jquery.flot.navigate.js",
         "../node_modules/jquery.flot.tooltip/js/jquery.flot.tooltip.js",
         "../node_modules/flot/jquery.flot.resize.js",
+        "../node_modules/jquery-table-fixed-header/src/jquery.table-fixed-header.js",
+        "../node_modules/jquery-table-fixed-header/src/jquery.container-table-fixed-header.js",
         "../node_modules/tinymce/tinymce.js",
         "../node_modules/tinymce/themes/modern/theme.js",
         "../node_modules/tinymce/plugins/link/plugin.js",
