@@ -12,9 +12,9 @@
             <!-- az bude jejich bug opraven, tuto podminku dat v ramci elementu mz-collection-item -> https://github.com/sherweb/ng2-materialize/issues/144 --> 
             <span *ngIf="isVisible(i, ff)">
               <mz-collection-item>
-                <i *ngIf="ff.field=='stav'" [class]="'app-state-item app-state-item-' + f.value"></i>
-                <span (click)="add(f)" class="first-content">{{translate(ff, f)}}</span>
-                <span *ngIf="ff.showOriginal">{{f.value}}</span>
+                <span *ngIf="ff.field=='stav'"><i [class]="'app-state-item app-state-item-' + f.value"></i></span>
+                <span (click)="add(f)" class="first-content" [class.app-is-col-stav]="ff.field=='stav'" [class.app-is-col-sigla]="ff.showOriginal">{{translate(ff, f)}}</span>
+                <span *ngIf="ff.showOriginal" class="middle-content">{{f.value}}</span>
                 <a  mz-secondary-content class="app-brand-text text-lighten-2">({{f.count}})</a>
               </mz-collection-item>
             </span>

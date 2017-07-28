@@ -21,6 +21,7 @@
                     <span (click)="sortBy(ff,'human')" class="first-content teal-text text-lighten-1 " 
                           [class.active]="currentSort === 'human'"
                           [class.active-down]="currentDir === 1"
+                          [class.app-is-col-sigla]="ff.showOriginal"
                           >
                       {{'human.' + ff.field | translate}}
                     </span>
@@ -37,7 +38,7 @@
                 <span>
                   <mz-collection-item>
                     <span *ngIf="ff.showOriginal" class="middle-content">{{f.value}}</span>
-                    <span (click)="add(f)" class="first-content">{{translate(ff, f)}}</span>
+                    <span (click)="add(f)" class="first-content" [class.app-is-col-sigla]="ff.showOriginal">{{translate(ff, f)}}</span>
                     <a  mz-secondary-content class="app-brand-text text-lighten-2">({{f.count}})</a>
                   </mz-collection-item>
                 </span>

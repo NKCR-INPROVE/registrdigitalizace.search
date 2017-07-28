@@ -70,18 +70,26 @@ app-card-list-dk {
             display: inline-block;
             width: 13px;
             height: 13px;
-            margin-right: 0.5rem;
+            margin-right: 0.6rem;
           }
           .first-content {
             display: table-cell;
-            width: 60%;
+            width: 80%;
             @extend .app-cursor-pointer;
+            
+            &.app-is-col-sigla {
+              width: 60%;
+            }
           }
           .middle-content {
             display: table-cell;
             float: none;
             text-align: left;
             width: 20%;
+            
+            app-home & { // bigger space for sigla col on home page
+              width: 23%;
+            }
           }
           .secondary-content {
             display: table-cell;
