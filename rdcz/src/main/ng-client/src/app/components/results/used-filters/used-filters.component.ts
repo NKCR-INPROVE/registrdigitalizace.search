@@ -5,8 +5,6 @@ import { AppState } from '../../../app.state';
 import { AppService } from '../../../app.service';
 import { Filter } from '../../../models/filter';
 
-import { MzCollapsibleComponent } from 'ng2-materialize'; // _app
-
 @Component({
   selector: 'app-used-filters',
   templateUrl: './used-filters.component.html',

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AppState } from '../../../app.state';
+import { AppService } from '../../../app.service';
 
 @Component({
   selector: 'app-sort-bar',
@@ -11,13 +12,19 @@ export class SortBarComponent implements OnInit {
   
   showingChartBar: boolean = false;
 
-  constructor(public state: AppState) { }
+  constructor(public state: AppState, public service: AppService) { }
 
   ngOnInit() {
   }
   
   setCollapse(col){
     this.state.setCollapse(col);
+    this.service.goToResults();
+  }
+  
+  setSort(s){
+    this.state.setSort(s);
+    this.service.goToResults();
   }
   
   // toggle element

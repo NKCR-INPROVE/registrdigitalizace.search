@@ -28,6 +28,7 @@ export class ResultItemComponent implements OnInit, OnDestroy {
   currentDir: number = 1;
 
   stavy = [];
+  vlastniky = [];
 
   constructor(private service: AppService, public state: AppState) { }
 
@@ -46,8 +47,14 @@ export class ResultItemComponent implements OnInit, OnDestroy {
             resp['res']["facet_counts"]["facet_fields"]['stav'].forEach((a) => {
               this.stavy.push(a[0]);
             });
-
+            this.vlastniky = [];
+            resp['res']["facet_counts"]["facet_fields"]['vlastnik'].forEach((a) => {
+              this.vlastniky.push({sigla: a[0], count: a[1], active: true});
+            });
+            
             this.predlohy = resp['res']["response"]["docs"];
+            this.sortDefault();
+            this.setActiveByVlastnik();
           }
 
         }
@@ -64,6 +71,26 @@ export class ResultItemComponent implements OnInit, OnDestroy {
 
   translate(classname, value) {
     return this.service.translateFromLists(classname, value);
+  }
+  
+  toggleVlastnik(vlastnik: any){
+//    vlastnik['active'] = !vlastnik['active'];
+    this.setActiveByVlastnik();
+  }
+  
+  isActiveVlastnik(sigla: string): boolean{
+    for (let i in this.vlastniky){
+      if(this.vlastniky[i]['sigla'] === sigla){
+        return this.vlastniky[i]['active'];
+      }
+    }
+    return true;
+  }
+  
+  setActiveByVlastnik(){
+    this.predlohy.forEach(p => {
+      p['active'] = this.isActiveVlastnik(p['vlastnik']);
+    });
   }
   
   getDigObjects() {
@@ -96,17 +123,35 @@ export class ResultItemComponent implements OnInit, OnDestroy {
         params.set('facet', 'true');
         params.set('facet.mincount', '1');
         params.append('facet.field', 'stav');
+        params.append('facet.field', 'vlastnik');
 
         this.service.search(params, this.result[this.state.currentCollapse.field]);
       } else {
         this.predlohy.push(this.result);
         this.stavy.push(this.result['stav']);
+        this.vlastniky.push(this.result['vlastnik']);
       }
       this.predlohyLoaded = true;
     }
   }
 
-  sortBy(field: string, translated: boolean = false) {
+  /**
+   * Vychozi mame radit takhle
+   *  Ideální stav by bylo použití dvoustupňového řazení (stačil by u vlastníka a roku)
+   */
+  sortDefault() {
+    this.currentSort = null;
+    this.predlohy.sort((a: Result, b: Result) => {
+      let v: string = a['vlastnik'];
+      if (v.localeCompare(b['vlastnik']) === 0){
+        return a['rozsah'].localeCompare(b['rozsah']);
+      } else {
+        return v.localeCompare(b['vlastnik']);
+      }
+    });
+  }
+
+  sortBy(field: string) {
     this.currentSort = field;
     this.currentDir = - this.currentDir;
     this.predlohy.sort((a: Result, b: Result) => {

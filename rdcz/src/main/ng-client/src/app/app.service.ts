@@ -154,6 +154,7 @@ export class AppService {
 
     params['start'] =  this.state.start;
     params['rows'] =  this.state.rows;
+    params['sort'] = this.state.currentSort.field;
     
     //params['filters'] = [];
     params['filters'] = JSON.stringify(this.state.usedFilters);

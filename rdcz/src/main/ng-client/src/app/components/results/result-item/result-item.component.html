@@ -54,31 +54,19 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr *ngFor="let v of vlastniky">
             <td>
               <mz-checkbox-container>
-                <input mz-checkbox checked [label]="'Národní knihovna České republiky (ABA001)'" id="item-1" type="checkbox">
+                <input mz-checkbox type="checkbox" [id]="'ch_' + result.id + '_' + v.sigla"
+                       [(ngModel)]="v.active"
+                       [label]="translate('cz.incad.nkp.digital.InsVlastnik', v.sigla) + ' (' + v.sigla + ')' " id="item-1" 
+                       (change)="toggleVlastnik(v)">
               </mz-checkbox-container>
             </td>
-            <td>48</td>
+            <td>{{v.count}}</td>
             <td></td>
             <td></td>
             <td><a href="#" title="">cps19950356139</a></td>
-          </tr>
-          <tr>
-            <td>
-              <mz-checkbox-container>
-                <input mz-checkbox checked [label]="'Moravská zemská knihovna, Brno (BOA001)'" id="item-2" type="checkbox">
-              </mz-checkbox-container>
-            </td>
-            <td>5</td>
-            <td></td>
-            <td>
-              <a  mz-tooltip [tooltip]="'http://kramerius.nkp.cz/kramerius/handle/ABA001/11777955'" [position]="'top'" title="" target="_blank">
-                <i mz-icon-mdi [icon]="'open-in-new'" [size]="'16px'"></i>
-              </a>
-            </td>
-            <td><a href="#" title="">000244261</a></td>
           </tr>
         </tbody>
       </table><!--/.app-table-vlastnik -->
@@ -128,7 +116,8 @@
             <div class="app-table-wrapper">
               <table class="striped app-table-predlohy">
                 <tbody>
-                  <tr *ngFor="let p of predlohy">
+                <ng-container *ngFor="let p of predlohy">
+                  <tr *ngIf="p.active">
                     <td><span [class]="'app-state-item app-state-item-' + p.stav"></span></td>
                     <td>
                       <a *ngIf="p.url" mz-tooltip [tooltip]="p.url" [position]="'top'" [href]="p.url" title="" target="_blank">
@@ -144,6 +133,7 @@
                     <td>{{p.signatura}}</td>
                     <td>{{p.carkod}}</td>
                   </tr>
+                </ng-container>
                 </tbody>
               </table>
             </div>
