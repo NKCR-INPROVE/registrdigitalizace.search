@@ -100,9 +100,9 @@
     "can": "ČAN"
   },
   "stav": {
-    "finished": "Finished",
-    "progress": "In progress",
-    "planovane": "Planned"
+    "finished": "Dokončeno",
+    "progress": "Ve zpracování",
+    "planovane": "Plánovaná digitalizace"
   },
   "alerts": {
     "noResults": {
