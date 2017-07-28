@@ -47,10 +47,13 @@ export class ResultItemComponent implements OnInit, OnDestroy {
             resp['res']["facet_counts"]["facet_fields"]['stav'].forEach((a) => {
               this.stavy.push(a[0]);
             });
+            
             this.vlastniky = [];
             resp['res']["facet_counts"]["facet_fields"]['vlastnik'].forEach((a) => {
               this.vlastniky.push({sigla: a[0], count: a[1], active: true});
             });
+            
+            console.log(resp['res']);
             
             this.predlohy = resp['res']["response"]["docs"];
             this.sortDefault();
@@ -129,7 +132,8 @@ export class ResultItemComponent implements OnInit, OnDestroy {
       } else {
         this.predlohy.push(this.result);
         this.stavy.push(this.result['stav']);
-        this.vlastniky.push(this.result['vlastnik']);
+        this.vlastniky.push({sigla: this.result['vlastnik'], count: 1, active: true});
+        this.predlohy[0]['active'] = true;
       }
       this.predlohyLoaded = true;
     }

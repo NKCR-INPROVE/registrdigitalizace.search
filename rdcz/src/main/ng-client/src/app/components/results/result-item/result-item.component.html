@@ -4,10 +4,10 @@
       <span *ngFor="let stav of stavy" [class]="'app-state-item app-state-item-' + stav"></span>
     </span>
     <div class="row">
-      <div class="col s2" *ngIf="hasImg"><!-- Zde bude podminka jestli item obsahuje obrazek, doda Alberto -->
+      <div class="col s2" *ngIf="hasImg">
         <img [src]="imgSrc" alt="" class="responsive-img" />
       </div><!--/.col -->
-      <div [class]="hasImg ? 'col s10' : 'col s12'"><!-- Zde bude podminka jestli item obsahuje obrazek, doda Alberto -->
+      <div [class]="hasImg ? 'col s9' : 'col s12'">
         <span *ngIf="result.title" class="card-title app-brand-text text-app-red">
           <i mz-icon-mdi [icon]="'book-open-page-variant'"></i>
           {{result.title}}
@@ -48,9 +48,11 @@
           <tr>
             <th>Vlastník</th>
             <th>Počet svazků</th>
+            <!--
             <th>Dig.knih. vlastníka</th>
             <th>Dig.knih. NK</th>
             <th>Podrobné bib. údaje</th>
+            -->
           </tr>
         </thead>
         <tbody>
@@ -64,9 +66,11 @@
               </mz-checkbox-container>
             </td>
             <td>{{v.count}}</td>
+            <!--
             <td></td>
             <td></td>
             <td><a href="#" title="">cps19950356139</a></td>
+            -->
           </tr>
         </tbody>
       </table><!--/.app-table-vlastnik -->
@@ -150,7 +154,7 @@
             <mz-collection>
               <a mz-collection-link  *ngFor="let do of digObjects" [href]="do['urldigknihovny'] +
              '/search/handle/uuid:' + 
-             do['uuid']" target="_blank">{{do.urldigknihovny}}</a>
+             do['uuid']" target="_blank">{{do['urldigknihovny'] +'/search/handle/uuid:' + do['uuid']}}</a>
             </mz-collection>
           </mz-collapsible-item-body>
         </mz-collapsible-item>
