@@ -1,7 +1,7 @@
 {
   "context": "/",
   "searchParams": {
-    "rows": 5
+    "rows": 15
   },
   "sorts" : [
     { "label": "relevance", "field": "score desc" },

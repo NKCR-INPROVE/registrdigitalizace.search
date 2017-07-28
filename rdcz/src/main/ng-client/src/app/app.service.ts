@@ -175,6 +175,14 @@ export class AppService {
     }).subscribe();
   }
   
+  getDigObjects(params: URLSearchParams){
+    var url = this.state.config['context'] + 'search/digobjekt/select';
+    return this.http.get(url, { search: params }).map((res: Response) => {
+      return res.json();
+    });
+    
+  }
+  
   searchAleph(){
     var url = this.state.config['context'] + 'aleph';
     let params: URLSearchParams = new URLSearchParams();

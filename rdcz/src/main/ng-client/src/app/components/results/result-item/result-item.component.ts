@@ -21,6 +21,8 @@ export class ResultItemComponent implements OnInit, OnDestroy {
   predlohy: Result[] = [];
   digObjects: any[] = [];
   predlohyLoaded: boolean = false;
+  hasImg : boolean = false;
+  imgSrc: string;
 
   currentSort: string = 'stav';
   currentDir: number = 1;
@@ -32,6 +34,7 @@ export class ResultItemComponent implements OnInit, OnDestroy {
   ngOnInit() {
     if (this.result) {
       this.getPredlohy();
+      this.getDigObjects();
     }
 
     this.subscriptions.push(this.state.searchSubject.subscribe(
@@ -61,6 +64,27 @@ export class ResultItemComponent implements OnInit, OnDestroy {
 
   translate(classname, value) {
     return this.service.translateFromLists(classname, value);
+  }
+  
+  getDigObjects() {
+    if (this.result) {
+      
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('q', this.state.currentCollapse.field + ':"' + this.result[this.state.currentCollapse.field] + '"');
+        params.set('rows', '100');
+
+        this.service.getDigObjects(params).subscribe(res => {
+          this.digObjects = res['response']['docs'];
+          if (this.digObjects.length > 0){
+            this.hasImg = true;
+            this.imgSrc = this.digObjects[0]['urldigknihovny'] +
+             '/search/img?stream=IMG_THUMB&uuid=uuid:' + 
+             this.digObjects[0]['uuid']
+          }
+        });
+      
+      //this.predlohyLoaded = true;
+    }
   }
 
   getPredlohy() {

@@ -4,8 +4,8 @@
       <span *ngFor="let stav of stavy" [class]="'app-state-item app-state-item-' + stav"></span>
     </span>
     <div class="row">
-      <div class="col s2" *ngIf="result.id != '1388'"><!-- Zde bude podminka jestli item obsahuje obrazek, doda Alberto -->
-        <img src="assets/img/thumb-img.jpg" alt="" class="responsive-img" />
+      <div class="col s2" *ngIf="hasImg"><!-- Zde bude podminka jestli item obsahuje obrazek, doda Alberto -->
+        <img [src]="imgSrc" alt="" class="responsive-img" />
       </div><!--/.col -->
       <div [class]="result.id != '1388' ? 'col s10' : 'col s12'"><!-- Zde bude podminka jestli item obsahuje obrazek, doda Alberto -->
         <span *ngIf="result.title" class="card-title app-brand-text text-app-red">
@@ -158,7 +158,9 @@
           </mz-collapsible-item-header>
           <mz-collapsible-item-body>
             <mz-collection>
-              <a mz-collection-link  *ngFor="let do of digObjects" [href]="do.link" target="_blank">{{do.link}}</a>
+              <a mz-collection-link  *ngFor="let do of digObjects" [href]="do['urldigknihovny'] +
+             '/search/handle/uuid:' + 
+             do['uuid']" target="_blank">{{do.urldigknihovny}}</a>
             </mz-collection>
           </mz-collapsible-item-body>
         </mz-collapsible-item>
