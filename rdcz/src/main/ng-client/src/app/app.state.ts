@@ -211,6 +211,9 @@ export class AppState {
     }
     this.usedAdv = [];
     this.start = 0;
+    if (this.qcheck){
+      this.q = '';
+    }
     this._searchParamsChanged.next(this);
   }
 

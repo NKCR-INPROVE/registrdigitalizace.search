@@ -60,7 +60,9 @@ export class PieChartComponent implements OnInit {
     
     
     this.subscriptions.push(this.service.langSubject.subscribe(
-      (resp) => {
+      (a) => {
+        this.options.legend.labelFormatter = this.formatLabel.bind(this);
+        this.chart.setOptions(this.options);
         this.chart.setData(this.data);
       }
     ));
@@ -69,16 +71,6 @@ export class PieChartComponent implements OnInit {
 
     this.data = [];
     this.chart.setData(this.data);
-
-    let this_ = this;
-    setTimeout(() => {
-      jQuery(".legend .legendLabel").each(function(i, row) {
-        let stav = jQuery(this).children('span').data('stav');
-        jQuery(this).click(() => {
-          this_.addFilter(stav);
-        });
-      });
-    }, 1000);
   }
 
   ngOnDestroy() {
@@ -102,8 +94,6 @@ export class PieChartComponent implements OnInit {
   }
 
   onClick(item) {
-    //console.log(item);
-    //console.log('Stav: ' + item['series']['label']);
     this.addFilter(item['series']['label']);
     this.service.goToResults();
   }
@@ -116,6 +106,18 @@ export class PieChartComponent implements OnInit {
       this.data.push({ label: stav[0], data: stav[1] })
     }
     this.chart.setData(this.data);
+    
+
+    let this_ = this;
+    setTimeout(() => {
+      jQuery(".legend .legendLabel").each(function(i, row) {
+        let stav = jQuery(this).children('span').data('stav');
+        jQuery(this).click(() => {
+          this_.addFilter(stav);
+        });
+      });
+    }, 1000);
+    
   }
 
 

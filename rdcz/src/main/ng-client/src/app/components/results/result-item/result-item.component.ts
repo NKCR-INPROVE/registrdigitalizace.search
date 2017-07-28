@@ -102,13 +102,27 @@ export class ResultItemComponent implements OnInit, OnDestroy {
         params.set('rows', '100');
 
         this.service.getDigObjects(params).subscribe(res => {
-          this.digObjects = res['response']['docs'];
-          if (this.digObjects.length > 0){
-            this.hasImg = true;
-            this.imgSrc = this.digObjects[0]['urldigknihovny'] +
-             '/search/img?stream=IMG_THUMB&uuid=uuid:' + 
-             this.digObjects[0]['uuid']
+          this.digObjects = [];
+          this.predlohy.forEach(p => {
+            if(p['url']){
+              this.digObjects.push({url: p['url']});
+            }
+            
+          });
+          
+          for(let i in res['response']['docs']){
+            //this.digObjects.push(res['response']['docs'][i]);
+            let dourl = res['response']['docs'][i]['urldigknihovny'] +'/search/handle/uuid:' + res['response']['docs'][i]['uuid'];
+            this.digObjects.push({url: dourl});
           }
+          if (res['response']['docs'].length > 0){
+            this.hasImg = true;
+            this.imgSrc = res['response']['docs'][0]['urldigknihovny'] +
+             '/search/img?stream=IMG_THUMB&uuid=uuid:' + 
+             res['response']['docs'][0]['uuid']
+          }
+          
+          
         });
       
       //this.predlohyLoaded = true;

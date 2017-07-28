@@ -44,6 +44,12 @@ export class FlotComponent implements OnChanges, OnInit {
     }
   }
 
+  public setOptions(options) {
+    this.options = options;
+    this.draw();
+
+  }
+
   public setData(data) {
     this.data = data;
     this.draw();
@@ -168,9 +174,9 @@ export class FlotComponent implements OnChanges, OnInit {
   //    console.log('clicke');
   //  }
 
-  @HostListener('contextmenu') contextmenu(e) {
-    console.log(e);
-  }
+//  @HostListener('contextmenu') contextmenu(e) {
+//    console.log(e);
+//  }
 
 
 }

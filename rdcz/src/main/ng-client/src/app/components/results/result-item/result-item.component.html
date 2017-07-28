@@ -152,9 +152,7 @@
           </mz-collapsible-item-header>
           <mz-collapsible-item-body>
             <mz-collection>
-              <a mz-collection-link  *ngFor="let do of digObjects" [href]="do['urldigknihovny'] +
-             '/search/handle/uuid:' + 
-             do['uuid']" target="_blank" class="app-link">{{do['urldigknihovny'] +'/search/handle/uuid:' + do['uuid']}}</a>
+              <a mz-collection-link  *ngFor="let do of digObjects" [href]="do['url']" target="_blank" class="app-link">{{do['url']}}</a>
             </mz-collection>
           </mz-collapsible-item-body>
         </mz-collapsible-item>
