@@ -118,7 +118,7 @@
                 <tbody>
                 <ng-container *ngFor="let p of predlohy">
                   <tr *ngIf="p.active">
-                    <td><span [class]="'app-state-item app-state-item-' + p.stav"></span></td>
+                    <td><span mz-tooltip [tooltip]="p.stav" [position]="'top'" [class]="'app-state-item app-cursor-pointer app-state-item-' + p.stav"></span></td>
                     <td>
                       <a *ngIf="p.url" mz-tooltip [tooltip]="p.url" [position]="'top'" [href]="p.url" title="" target="_blank">
                         <i mz-icon-mdi [icon]="'open-in-new'" [size]="'16px'"></i>
