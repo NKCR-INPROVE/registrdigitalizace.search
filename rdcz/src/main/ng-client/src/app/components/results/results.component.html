@@ -27,13 +27,13 @@
     </div><!--/.col -->
   </div><!--/.row -->
   <div class="row">
-    <div class="col s4">
+    <div class="col s12 xl4">
       <app-loading *ngIf="loading"></app-loading>
       <app-query-as-filter *ngIf="state.q"></app-query-as-filter>
       <app-used-filters></app-used-filters>
       <app-facets  *ngIf="!loading" [allClosed]="false"  [facetFields]="facetFields"></app-facets>
     </div><!--/.col -->
-    <div class="col s8">
+    <div class="col s12 xl8">
       <app-sort-bar></app-sort-bar>
       <app-chart-bar [height]="'120px'" [width]="'100%'"></app-chart-bar>
       <section>
