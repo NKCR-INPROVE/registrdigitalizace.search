@@ -53,8 +53,6 @@ export class ResultItemComponent implements OnInit, OnDestroy {
               this.vlastniky.push({sigla: a[0], count: a[1], active: true});
             });
             
-            console.log(resp['res']);
-            
             this.predlohy = resp['res']["response"]["docs"];
             this.sortDefault();
             this.setActiveByVlastnik();
@@ -148,7 +146,14 @@ export class ResultItemComponent implements OnInit, OnDestroy {
     this.predlohy.sort((a: Result, b: Result) => {
       let v: string = a['vlastnik'];
       if (v.localeCompare(b['vlastnik']) === 0){
-        return a['rozsah'].localeCompare(b['rozsah']);
+        if(a['rozsah'] && b['rozsah']){
+          return a['rozsah'].localeCompare(b['rozsah']);
+        } else if(a['cast'] && b['cast']){
+          return a['cast'].localeCompare(b['cast']);
+        } else {
+          return 0;
+        }
+        
       } else {
         return v.localeCompare(b['vlastnik']);
       }

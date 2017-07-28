@@ -51,12 +51,17 @@ export class PieChartComponent implements OnInit {
       (resp) => {
         if (resp['type'] === 'home') {
           if (resp['state'] === 'start') {
-            //          this.facets = null  ;
-            //          this.results = [];
           } else {
             this.setData(resp['res']);
           }
         }
+      }
+    ));
+    
+    
+    this.subscriptions.push(this.service.langSubject.subscribe(
+      (resp) => {
+        this.chart.setData(this.data);
       }
     ));
 
@@ -98,8 +103,9 @@ export class PieChartComponent implements OnInit {
 
   onClick(item) {
     //console.log(item);
-    console.log('Stav: ' + item['series']['label']);
+    //console.log('Stav: ' + item['series']['label']);
     this.addFilter(item['series']['label']);
+    this.service.goToResults();
   }
 
   setData(res) {
