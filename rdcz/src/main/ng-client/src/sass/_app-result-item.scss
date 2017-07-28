@@ -85,7 +85,7 @@ app-result-item {
             }
             
             thead {
-              background-color: $app-brand-l-6;
+              background-color: color("grey", "lighten-4");
               border: none;
             }
           }
