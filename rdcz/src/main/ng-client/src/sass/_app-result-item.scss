@@ -191,6 +191,10 @@ app-result-item {
                 border: none;
                 color: $link-color;
                 
+                &.app-link {
+                  font-size: 0.8rem;
+                }
+                
                 &:hover {
                   background-color: $app-brand-l-6;
                 }
