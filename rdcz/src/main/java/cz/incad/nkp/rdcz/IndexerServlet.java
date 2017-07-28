@@ -67,6 +67,25 @@ public class IndexerServlet extends HttpServlet {
   }
 
   enum Actions {
+    DIGOBJEKT {
+      @Override
+      void doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+
+        resp.setContentType("application/json;charset=UTF-8");
+
+        PrintWriter out = resp.getWriter();
+        JSONObject json = new JSONObject();
+        try {
+          Indexer indexer = new Indexer();
+          json = indexer.indexDigObject();
+          //json.put("indexer", "ok");
+
+        } catch (Exception ex) {
+          json.put("error", ex.toString());
+        }
+        out.println(json.toString(2));
+      }
+    },
     LISTS {
       @Override
       void doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {

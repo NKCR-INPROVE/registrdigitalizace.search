@@ -203,6 +203,68 @@ public class Indexer {
     }
   }
   
+  public JSONObject indexDigObject(){
+    JSONObject ret = new JSONObject();
+    String sql = "select digobjekt.*, dk.nazev, dk.URLDIGKNIHOVNY, " +
+    "nvl(predloha.ccnb, -predloha.id) as cnb_collaps, " +
+    "nvl(predloha.ISSN, nvl(predloha.ISBN, -predloha.id)) as isxn_collaps, " +
+    "nvl(predloha.SIGLA1, -predloha.id) || nvl(predloha.SYSNO, -predloha.id) as aba_collaps " +
+    " from predloha, digobjekt, digknihovna dk" +
+    " where digobjekt.rpredloha_digobjekt=predloha.id and dk.id=digobjekt.rdigknihovna_digobjekt";
+    LOGGER.log(Level.INFO, "Processing {0}", sql);
+    try {
+      Context initContext = new InitialContext();
+      Context envContext = (Context) initContext.lookup("java:/comp/env");
+      DataSource ds = (DataSource) envContext.lookup("jdbc/rlf");
+      try (Connection conn = ds.getConnection()) {
+        PreparedStatement ps = conn.prepareStatement(sql);
+        int batchSize = 500;
+        ArrayList<SolrInputDocument> idocs = new ArrayList<>();
+
+        try (ResultSet rs = ps.executeQuery()) {
+          while (rs.next()) {
+            SolrInputDocument idoc = indexRow(rs);
+            
+            idocs.add(idoc);
+
+            if (idocs.size() >= batchSize) {
+              solr.add("digobjekt", idocs);
+              solr.commit("digobjekt");
+
+              
+              indexed += idocs.size();
+              LOGGER.log(Level.INFO, "{0} docs processed ", indexed);
+              idocs.clear();
+            }
+          }
+          rs.close();
+          ps.close();
+          if (!idocs.isEmpty()) {
+            solr.add("lists", idocs);
+            solr.commit("lists");
+            indexed += idocs.size();
+            idocs.clear();
+          }
+          
+          LOGGER.log(Level.INFO, "Index DigObjekt finished. {0} docs processed ", indexed);
+          ret.put("msg", indexed + " docs processed");
+        } catch (SolrServerException ex) {
+          LOGGER.log(Level.SEVERE, sql);
+          LOGGER.log(Level.SEVERE, null, ex);
+          ret.put("error", ex.toString());
+        } catch (IOException ex) {
+          LOGGER.log(Level.SEVERE, null, ex);
+          ret.put("error", ex.toString());
+        }
+        conn.close();
+      }
+    } catch (NamingException | SQLException ex) {
+      LOGGER.log(Level.SEVERE, null, ex);
+          ret.put("error", ex.toString());
+    }
+    return ret;
+  }
+  
 
   private void getFromDb(String sql) {
     LOGGER.log(Level.INFO, "Processing {0}", sql);
