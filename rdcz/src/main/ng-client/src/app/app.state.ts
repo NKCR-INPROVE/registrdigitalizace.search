@@ -91,7 +91,10 @@ export class AppState {
   };
 
   usedAdv = [];
-  isAdvancedCollapsed: boolean = true; // pedro
+  isAdvancedCollapsed: boolean = true;
+  
+  
+  showingChartBar: boolean = false;
 
   qcheck: boolean;
 

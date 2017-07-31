@@ -10,7 +10,6 @@ import { AppService } from '../../../app.service';
 })
 export class SortBarComponent implements OnInit {
   
-  showingChartBar: boolean = false;
 
   constructor(public state: AppState, public service: AppService) { }
 
@@ -29,7 +28,7 @@ export class SortBarComponent implements OnInit {
   
   // toggle element
   toggleElement(id){
-    this.showingChartBar = !this.showingChartBar;
+    this.state.showingChartBar = !this.state.showingChartBar;
     $('#'+id).toggleClass('active');
     $('#'+id).slideToggle( "fast" );
   }
