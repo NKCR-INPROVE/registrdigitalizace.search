@@ -77,8 +77,25 @@ public class IndexerServlet extends HttpServlet {
         JSONObject json = new JSONObject();
         try {
           Indexer indexer = new Indexer();
-          json = indexer.indexDigObject();
-          //json.put("indexer", "ok");
+          json = indexer.indexDigObject(false);
+
+        } catch (Exception ex) {
+          json.put("error", ex.toString());
+        }
+        out.println(json.toString(2));
+      }
+    },
+    UPDATE_DIGOBJEKT {
+      @Override
+      void doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+
+        resp.setContentType("application/json;charset=UTF-8");
+
+        PrintWriter out = resp.getWriter();
+        JSONObject json = new JSONObject();
+        try {
+          Indexer indexer = new Indexer();
+          json = indexer.indexDigObject(true);
 
         } catch (Exception ex) {
           json.put("error", ex.toString());

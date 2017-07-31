@@ -3,6 +3,8 @@ package cz.incad.nkp.rdcz;
 import cz.incad.FormatUtils;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,7 +34,6 @@ import org.json.JSONObject;
 public class Indexer {
 
   static final Logger LOGGER = Logger.getLogger(Indexer.class.getName());
-
 
   private Options opts;
   private JSONObject jobData;
@@ -135,12 +136,12 @@ public class Indexer {
               + "rdcz/select?wt=json&q=*:*&rows=1&sort=index_time+desc&fl=index_time";
       inputStream = RESTHelper.inputStream(url);
       jsResp = new JSONObject(org.apache.commons.io.IOUtils.toString(inputStream, Charset.forName("UTF-8")));
-      
+
       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
       SimpleDateFormat solrDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
       String index_time = jsResp.getJSONObject("response").getJSONArray("docs").getJSONObject(0).getString("index_time");
       last = sdf.format(solrDate.parse(index_time));
-      
+
     } catch (Exception ex) {
       LOGGER.log(Level.SEVERE, null, ex);
     } finally {
@@ -153,8 +154,36 @@ public class Indexer {
     LOGGER.log(Level.INFO, "last indexed doc time is {0}", last);
     return last;
   }
-  
-  public void indexLists(){
+
+  private String lastDigObjectDate() {
+    String last = null;
+    InputStream inputStream = null;
+    JSONObject jsResp;
+    try {
+      String url = opts.getString("solrhost", "http://localhost:8983/solr/")
+              + "digobjekt/select?wt=json&q=*:*&rows=1&sort=index_time+desc&fl=index_time";
+      inputStream = RESTHelper.inputStream(url);
+      jsResp = new JSONObject(org.apache.commons.io.IOUtils.toString(inputStream, Charset.forName("UTF-8")));
+
+      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+      SimpleDateFormat solrDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+      String index_time = jsResp.getJSONObject("response").getJSONArray("docs").getJSONObject(0).getString("index_time");
+      last = sdf.format(solrDate.parse(index_time));
+
+    } catch (Exception ex) {
+      LOGGER.log(Level.SEVERE, null, ex);
+    } finally {
+      try {
+        inputStream.close();
+      } catch (IOException ex) {
+        LOGGER.log(Level.SEVERE, null, ex);
+      }
+    }
+    LOGGER.log(Level.INFO, "last indexed doc time is {0}", last);
+    return last;
+  }
+
+  public void indexLists() {
     String sql = "select * from dlists";
     LOGGER.log(Level.INFO, "Processing {0}", sql);
     try {
@@ -169,14 +198,13 @@ public class Indexer {
         try (ResultSet rs = ps.executeQuery()) {
           while (rs.next()) {
             SolrInputDocument idoc = indexRow(rs);
-            
+
             idocs.add(idoc);
 
             if (idocs.size() >= batchSize) {
               solr.add("lists", idocs);
               solr.commit("lists");
 
-              
               indexed += idocs.size();
               LOGGER.log(Level.INFO, "{0} docs processed ", indexed);
               idocs.clear();
@@ -202,15 +230,21 @@ public class Indexer {
       LOGGER.log(Level.SEVERE, null, ex);
     }
   }
-  
-  public JSONObject indexDigObject(){
+
+  public JSONObject indexDigObject(boolean update) {
     JSONObject ret = new JSONObject();
-    String sql = "select digobjekt.*, dk.nazev, dk.URLDIGKNIHOVNY, " +
-    "nvl(predloha.ccnb, -predloha.id) as cnb_collaps, " +
-    "nvl(predloha.ISSN, nvl(predloha.ISBN, -predloha.id)) as isxn_collaps, " +
-    "nvl(predloha.SIGLA1, -predloha.id) || nvl(predloha.SYSNO, -predloha.id) as aba_collaps " +
-    " from predloha, digobjekt, digknihovna dk" +
-    " where digobjekt.rpredloha_digobjekt=predloha.id and dk.id=digobjekt.rdigknihovna_digobjekt";
+    String sql = "select digobjekt.*, dk.nazev, dk.URLDIGKNIHOVNY, "
+            + "nvl(predloha.ccnb, -predloha.id) as cnb_collaps, "
+            + "nvl(predloha.ISSN, nvl(predloha.ISBN, -predloha.id)) as isxn_collaps, "
+            + "nvl(predloha.SIGLA1, -predloha.id) || nvl(predloha.SYSNO, -predloha.id) as aba_collaps "
+            + " from predloha, digobjekt, digknihovna dk"
+            + " where digobjekt.rpredloha_digobjekt=predloha.id and dk.id=digobjekt.rdigknihovna_digobjekt";
+    if (update) {
+      String lastIndexTime = lastDigObjectDate();
+      if (lastIndexTime != null) {
+        sql += " and edidate>=" + lastIndexTime;
+      }
+    }
     LOGGER.log(Level.INFO, "Processing {0}", sql);
     try {
       Context initContext = new InitialContext();
@@ -224,14 +258,13 @@ public class Indexer {
         try (ResultSet rs = ps.executeQuery()) {
           while (rs.next()) {
             SolrInputDocument idoc = indexRow(rs);
-            
+
             idocs.add(idoc);
 
             if (idocs.size() >= batchSize) {
               solr.add("digobjekt", idocs);
               solr.commit("digobjekt");
 
-              
               indexed += idocs.size();
               LOGGER.log(Level.INFO, "{0} docs processed ", indexed);
               idocs.clear();
@@ -245,7 +278,7 @@ public class Indexer {
             indexed += idocs.size();
             idocs.clear();
           }
-          
+
           LOGGER.log(Level.INFO, "Index DigObjekt finished. {0} docs processed ", indexed);
           ret.put("msg", indexed + " docs processed");
         } catch (SolrServerException ex) {
@@ -260,11 +293,10 @@ public class Indexer {
       }
     } catch (NamingException | SQLException ex) {
       LOGGER.log(Level.SEVERE, null, ex);
-          ret.put("error", ex.toString());
+      ret.put("error", ex.toString());
     }
     return ret;
   }
-  
 
   private void getFromDb(String sql) {
     LOGGER.log(Level.INFO, "Processing {0}", sql);
@@ -274,23 +306,24 @@ public class Indexer {
       DataSource ds = (DataSource) envContext.lookup("jdbc/rlf");
       try (Connection conn = ds.getConnection()) {
         PreparedStatement ps = conn.prepareStatement(sql);
-        int batchSize = 100;
+        int batchSize = 500;
+
         ArrayList<SolrInputDocument> idocs = new ArrayList<>();
 
         try (ResultSet rs = ps.executeQuery()) {
           while (rs.next()) {
             SolrInputDocument idoc = indexRow(rs);
             addNeplatneCnb(idoc, rs.getString("id"), conn);
-            addDigKnihovny(idoc, rs.getString("id"), conn);
-            if(rs.getString("katalog") != null){
+            addDigKnihovny(idoc, rs, conn);
+            if (rs.getString("katalog") != null) {
               addKatalogUrl(idoc, rs.getString("katalog"), rs.getString("pole001"), conn);
             }
             addVarNazev(idoc, rs.getString("id"), conn);
             int rokvyd = -1;
-            try{
+            try {
               rokvyd = rs.getInt("rokvydstr");
               idoc.addField("rokvyd", rokvyd);
-            } catch(SQLException e){
+            } catch (SQLException e) {
               LOGGER.log(Level.FINE, "rokvyd not number");
             }
             idocs.add(idoc);
@@ -299,7 +332,6 @@ public class Indexer {
               solr.add("rdcz", idocs);
               solr.commit("rdcz");
 
-              
               indexed += idocs.size();
               LOGGER.log(Level.INFO, "{0} docs processed ", indexed);
               idocs.clear();
@@ -343,8 +375,6 @@ public class Indexer {
 
     return idoc;
   }
-  
-  
 
   private void addNeplatneCnb(SolrInputDocument idoc, String predlohaid, Connection conn) {
     try {
@@ -365,11 +395,69 @@ public class Indexer {
     }
   }
 
-  private void addDigKnihovny(SolrInputDocument idoc, String predlohaid, Connection conn) {
+  private void addDigKnihovny(SolrInputDocument idoc, ResultSet rs, Connection conn) {
+
+    String f = "";
     try {
-      String sql = "select digknihovna.nazev as digk from digknihovna, predloha, dlists \n" +
-"                            where predloha.digKnihovna=dlists.value \n" +
-"                            and dlists.id=digknihovna.id and predloha.id=" + predlohaid;
+      if (rs.getString("url") != null) {
+        URI uri = new URI(rs.getString("url").trim());
+        f += " like '" + uri.getScheme() + "://" + uri.getHost() + "%'";
+      }
+    } catch (SQLException  | URISyntaxException ex) {
+      LOGGER.log(Level.WARNING, null, ex);
+    }
+    
+    try {
+      if (rs.getString("urltitul") != null) {
+        URI uri = new URI(rs.getString("urltitul").trim());
+        if(!"".equals(f)){
+          f += " OR ";
+        }
+        f += " like '" + uri.getScheme() + "://" + uri.getHost() + "%'";
+      }
+    } catch (SQLException  | URISyntaxException ex) {
+      LOGGER.log(Level.WARNING, null, ex);
+    }
+    
+    try {
+      if (rs.getString("urltitnk") != null) {
+        URI uri = new URI(rs.getString("urltitnk").trim());
+        if(!"".equals(f)){
+          f += " OR ";
+        }
+        f += " like '" + uri.getScheme() + "://" + uri.getHost() + "%'";
+      }
+    } catch (SQLException  | URISyntaxException ex) {
+      LOGGER.log(Level.WARNING, null, ex);
+    }
+    
+    if("".equals(f)){
+      return;
+    }
+    
+    try {
+      f = "where urldigknihovny " + f;
+      String sql = "select nazev from digknihovna" + f;
+
+      PreparedStatement ps = conn.prepareStatement(sql);
+
+      try (ResultSet rsdk = ps.executeQuery()) {
+        while (rsdk.next()) {
+          idoc.addField("digknihovna", rsdk.getString("nazev"));
+        }
+        rsdk.close();
+      }
+      ps.close();
+    } catch (SQLException ex) {
+      LOGGER.log(Level.SEVERE, null, ex);
+    }
+  }
+
+  private void addDigKnihovnyOld(SolrInputDocument idoc, String predlohaid, Connection conn) {
+    try {
+      String sql = "select digknihovna.nazev as digk from digknihovna, predloha, dlists \n"
+              + "                            where predloha.digKnihovna=dlists.value \n"
+              + "                            and dlists.id=digknihovna.id and predloha.id=" + predlohaid;
       PreparedStatement ps = conn.prepareStatement(sql);
 
       try (ResultSet rs = ps.executeQuery()) {
@@ -392,8 +480,8 @@ public class Indexer {
 
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
-          String url = "http://"+rs.getString("link001prefix")+pole001;
-          if(rs.getString("link001sufix") != null){
+          String url = "http://" + rs.getString("link001prefix") + pole001;
+          if (rs.getString("link001sufix") != null) {
             url += rs.getString("link001sufix");
           }
           idoc.addField("bibliographich_data", url);
@@ -418,7 +506,7 @@ public class Indexer {
         rs.close();
       }
       ps.close();
-      
+
     } catch (SQLException ex) {
       LOGGER.log(Level.SEVERE, null, ex);
     }
