@@ -9,13 +9,13 @@
       </div><!--/.col -->
       <div [class]="hasImg ? 'col s9' : 'col s12'">
         <a *ngIf="result.title" class="card-title app-brand-text text-app-red" (click)="toggleDetail('app-card-detail-' + result.id)">
-          <i *ngIf="result.druhdokumentu == 'BK'" mz-icon-mdi [icon]="'book-open-page-variant'"></i>
-          <i *ngIf="result.druhdokumentu == 'RP'" mz-icon-mdi [icon]="'script'"></i>
-          <i *ngIf="result.druhdokumentu == 'MP'" mz-icon-mdi [icon]="'map'"></i>
-          <i *ngIf="result.druhdokumentu == 'SE'" mz-icon-mdi [icon]="'newspaper'"></i>
-          <i *ngIf="result.druhdokumentu == 'MU'" mz-icon-mdi [icon]="'music-circle'"></i>
-          <i *ngIf="result.druhdokumentu == 'GP'" mz-icon-mdi [icon]="'image'"></i>
-          <i *ngIf="result.druhdokumentu == 'AV'" mz-icon-mdi [icon]="'headphones'"></i>
+          <i *ngIf="result.druhdokumentu == 'BK'" mz-tooltip [tooltip]="'tooltip.BK' | translate" [position]="'top'" mz-icon-mdi [icon]="'book-open-page-variant'"></i>
+          <i *ngIf="result.druhdokumentu == 'RP'" mz-tooltip [tooltip]="'tooltip.RP' | translate" [position]="'top'" mz-icon-mdi [icon]="'script'"></i>
+          <i *ngIf="result.druhdokumentu == 'MP'" mz-tooltip [tooltip]="'tooltip.MP' | translate" [position]="'top'" accesskey=""mz-icon-mdi [icon]="'map'"></i>
+          <i *ngIf="result.druhdokumentu == 'SE'" mz-tooltip [tooltip]="'tooltip.SE' | translate" [position]="'top'" mz-icon-mdi [icon]="'newspaper'"></i>
+          <i *ngIf="result.druhdokumentu == 'MU'" mz-tooltip [tooltip]="'tooltip.MU' | translate" [position]="'top'" mz-icon-mdi [icon]="'music-circle'"></i>
+          <i *ngIf="result.druhdokumentu == 'GP'" mz-tooltip [tooltip]="'tooltip.GP' | translate" [position]="'top'" mz-icon-mdi [icon]="'image'"></i>
+          <i *ngIf="result.druhdokumentu == 'AV'" mz-tooltip [tooltip]="'tooltip.AV' | translate" [position]="'top'" mz-icon-mdi [icon]="'headphones'"></i>
           {{result.title}}
         </a>
         <label *ngIf="result.varnazev">

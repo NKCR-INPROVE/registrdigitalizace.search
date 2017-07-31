@@ -29,7 +29,14 @@
     "use": "use"
   },
   "tooltip": {
-    "test-duplicity": "Duplication test (for NK ČR)"
+    "test-duplicity": "Duplication test (for NK ČR)",
+    "BK": "Monograph",
+    "RP": "Manuscript",
+    "MP": "Map",
+    "SE": "Journal",
+    "MU": "Music",
+    "GP": "Graphics",
+    "AV": "Audio"
   },
   "label": {
     "pocet-nalezenych": "Total found",

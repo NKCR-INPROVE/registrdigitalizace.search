@@ -29,7 +29,14 @@
     "use": "Použít"
   },
   "tooltip": {
-    "test-duplicity": "Test duplicity (pro NK ČR)"
+    "test-duplicity": "Test duplicity (pro NK ČR)",
+    "BK": "Monografie",
+    "RP": "Rkp/st.tisk",
+    "MP": "Mapa",
+    "SE": "Periodikum",
+    "MU": "Hudebnina",
+    "GP": "Grafika",
+    "AV": "Audio"
   },
   "label": {
     "pocet-nalezenych": "Počet nalezených položek",
