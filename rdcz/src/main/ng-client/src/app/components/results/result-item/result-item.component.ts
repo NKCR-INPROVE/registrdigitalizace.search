@@ -23,7 +23,7 @@ export class ResultItemComponent implements OnInit, OnDestroy {
   predlohyLoaded: boolean = false;
   hasImg : boolean = false;
   imgSrc: string;
-  imgWidth: number = 120;
+  imgWidth: number = 100;
 
   currentSort: string = 'stav';
   currentDir: number = 1;
