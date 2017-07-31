@@ -10,13 +10,13 @@
       <div [class]="hasImg ? 'col s9' : 'col s12'">
         <a *ngIf="result.title" class="card-title app-brand-text text-app-red" (click)="toggleDetail('app-card-detail-' + result.id)">
           <i *ngIf="result.druhdokumentu == 'BK'" mz-icon-mdi [icon]="'book-open-page-variant'"></i>
-          <i *ngIf="result.druhdokumentu == 'RP'" mz-icon-mdi [icon]="'printer-3d'"></i>
+          <i *ngIf="result.druhdokumentu == 'RP'" mz-icon-mdi [icon]="'script'"></i>
           <i *ngIf="result.druhdokumentu == 'MP'" mz-icon-mdi [icon]="'map'"></i>
           <i *ngIf="result.druhdokumentu == 'SE'" mz-icon-mdi [icon]="'newspaper'"></i>
           <i *ngIf="result.druhdokumentu == 'MU'" mz-icon-mdi [icon]="'music-circle'"></i>
           <i *ngIf="result.druhdokumentu == 'GP'" mz-icon-mdi [icon]="'image'"></i>
           <i *ngIf="result.druhdokumentu == 'AV'" mz-icon-mdi [icon]="'headphones'"></i>
-          {{result.druhdokumentu}} - {{result.title}}
+          {{result.title}}
         </a>
         <label *ngIf="result.varnazev">
           <strong>{{'label.variantni-nazev' | translate}}:</strong>
