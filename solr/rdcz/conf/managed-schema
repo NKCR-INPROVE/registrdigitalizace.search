@@ -144,7 +144,7 @@
     <field name="isbn" type="string" indexed="true" stored="true" />
     <field name="isxn" type="string" indexed="true" stored="true" multiValued="true" />
 
-    <field name="pole001" type="string" indexed="true" stored="true" />
+    <field name="pole001" type="string" indexed="true" stored="true"  docValues="true" />
     <field name="carkod" type="string" indexed="true" stored="true" />
     <field name="cislozakazky" type="string" indexed="true" stored="true" />
     
