@@ -1,4 +1,4 @@
-<section >
+<section *ngIf="state.facetFields != ''"><!-- If there are not facets, don't generate any html code, because facets border is displayed then --> 
   <mz-collapsible [mode]="'expandable'">
     <mz-collapsible-item *ngFor="let ff of state.facetFields" [active]="ff.active">
       <mz-collapsible-item-header>
