@@ -35,7 +35,8 @@ export class AppState {
     { "label": "Bez sloučení", "field": "none" },
     { "label": "ISSN/ISBN", "field": "isxn_collaps" },
     { "label": "ČNB", "field": "cnb_collaps" },
-    { "label": "SIGLA+ID", "field": "aba_collaps" }
+    //{ "label": "SIGLA+ID", "field": "aba_collaps" },
+    { "label": "Pole 001", "field": "pole001" }
   ];
 
   currentLang: string;

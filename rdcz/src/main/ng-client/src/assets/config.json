@@ -11,7 +11,7 @@
     { "label": "Bez sloučení", "field": "id" },
     { "label": "ISSN/ISBN", "field": "isxn_collaps" },
     { "label": "ČNB", "field": "cnb_collaps" },
-    { "label": "SIGLA+ID", "field": "aba_collaps" }
+    { "label": "Pole 001", "field": "pole001" }
   ],
   "boost": {
     "qf":"title_full^5.0 _text_nolemmas^2.0 title_nolemmas^2.0 varnazev_nolemmas^1.5 title_prefix^4.0 title^1.5 autor^1.2 _text_"

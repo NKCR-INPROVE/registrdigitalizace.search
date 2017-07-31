@@ -8,10 +8,10 @@
         <img [src]="imgSrc" alt="" class="responsive-img" />
       </div><!--/.col -->
       <div [class]="hasImg ? 'col s9' : 'col s12'">
-        <span *ngIf="result.title" class="card-title app-brand-text text-app-red">
+        <a *ngIf="result.title" class="card-title app-brand-text text-app-red" (click)="toggleDetail('app-card-detail-' + result.id)">
           <i mz-icon-mdi [icon]="'book-open-page-variant'"></i>
           {{result.title}}
-        </span>
+        </a>
         <label *ngIf="result.varnazev">
           <strong>{{'label.variantni-nazev' | translate}}:</strong>
           <span *ngFor="let v of result.varnazev">
