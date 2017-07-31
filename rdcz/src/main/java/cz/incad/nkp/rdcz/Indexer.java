@@ -116,6 +116,9 @@ public class Indexer {
     indexLists();
     String fields = opts.getJSONArray("db.fields").join(",").replaceAll("\"", "");
     String sql = opts.getString("sqlFull").replace("#fields#", fields);
+    
+    //sql += " and rownum < 10";
+    
     getFromDb(sql);
     LOGGER.log(Level.INFO, "{0} docs processed", indexed);
 
@@ -401,7 +404,7 @@ public class Indexer {
     try {
       if (rs.getString("url") != null) {
         URI uri = new URI(rs.getString("url").trim());
-        f += " like '" + uri.getScheme() + "://" + uri.getHost() + "%'";
+        f += " urldigknihovny like '" + uri.getScheme() + "://" + uri.getHost() + "%'";
       }
     } catch (SQLException  | URISyntaxException ex) {
       LOGGER.log(Level.WARNING, null, ex);
@@ -413,11 +416,12 @@ public class Indexer {
         if(!"".equals(f)){
           f += " OR ";
         }
-        f += " like '" + uri.getScheme() + "://" + uri.getHost() + "%'";
+        f += " urldigknihovny like '" + uri.getScheme() + "://" + uri.getHost() + "%'";
       }
     } catch (SQLException  | URISyntaxException ex) {
       LOGGER.log(Level.WARNING, null, ex);
     }
+    
     
     try {
       if (rs.getString("urltitnk") != null) {
@@ -425,7 +429,7 @@ public class Indexer {
         if(!"".equals(f)){
           f += " OR ";
         }
-        f += " like '" + uri.getScheme() + "://" + uri.getHost() + "%'";
+        f += " urldigknihovny like '" + uri.getScheme() + "://" + uri.getHost() + "%'";
       }
     } catch (SQLException  | URISyntaxException ex) {
       LOGGER.log(Level.WARNING, null, ex);
@@ -436,9 +440,11 @@ public class Indexer {
     }
     
     try {
-      f = "where urldigknihovny " + f;
+      f = " where " + f;
       String sql = "select nazev from digknihovna" + f;
 
+      //LOGGER.log(Level.INFO, sql);
+    
       PreparedStatement ps = conn.prepareStatement(sql);
 
       try (ResultSet rsdk = ps.executeQuery()) {
