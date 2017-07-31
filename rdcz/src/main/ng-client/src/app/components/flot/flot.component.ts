@@ -59,7 +59,9 @@ export class FlotComponent implements OnChanges, OnInit {
   public setSelection(sel) {
     if (this.initialized) {
       this.plot.setSelection(sel);
-      window.event.preventDefault();
+      if(window.event){
+        window.event.preventDefault();
+      }
     }
   }
 

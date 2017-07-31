@@ -28,7 +28,7 @@ export class SortBarComponent implements OnInit {
   
   // toggle element
   toggleElement(id){
-    this.state.showingChartBar = !this.state.showingChartBar;
+    this.state.chartBarToggle();
     $('#'+id).toggleClass('active');
     $('#'+id).slideToggle( "fast" );
   }

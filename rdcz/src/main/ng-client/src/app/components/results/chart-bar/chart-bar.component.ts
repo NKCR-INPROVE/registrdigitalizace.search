@@ -71,7 +71,17 @@ export class ChartBarComponent implements OnInit {
         }
       }
     ));
+
+    this.subscriptions.push(this.state.chartBarToggled.subscribe(
+      (resp) => {
+        setTimeout(() => {
+          this.chart.setOptions(this.options);
+          this.setData();
+        }, 500);
+      }
+    ));
   }
+  
 
   setData() {
     if (this.state.facet_ranges && this.state.facet_ranges['rokvyd']) {

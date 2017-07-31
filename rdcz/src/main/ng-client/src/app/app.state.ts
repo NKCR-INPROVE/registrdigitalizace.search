@@ -48,6 +48,12 @@ export class AppState {
   //Observe search ocurred
   public _searchSubject = new Subject();
   public searchSubject: Observable<any> = this._searchSubject.asObservable();
+  
+  
+  public _chartBarToggled = new Subject();
+  public chartBarToggled: Observable<any> = this._chartBarToggled.asObservable();
+  
+  
 
   facets: any;
   facet_ranges: any;
@@ -342,6 +348,12 @@ export class AppState {
       }
     }
     this._searchSubject.next({ state: 'finished', type: type, res: res });
+  }
+  
+  chartBarToggle(){
+    this.showingChartBar = !this.showingChartBar;
+    this._chartBarToggled.next(this.showingChartBar);
+    
   }
 
 
