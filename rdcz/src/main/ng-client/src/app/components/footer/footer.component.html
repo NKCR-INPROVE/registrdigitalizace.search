@@ -26,7 +26,7 @@
         </p>
       </div>
       <p>
-        <button mz-button class="app-btn-show-more" [class.collapsed]="isFooterTextCollapsed" (click)="openFooterText()">
+        <button mz-button class="app-btn-show-more app-brand z-depth-0" [class.collapsed]="isFooterTextCollapsed" (click)="openFooterText()">
           <span *ngIf="isFooterTextCollapsed">{{'text.zobrazit-vice' | translate}} <i class="app-mdi-menu-down"></i></span>
           <span *ngIf="!isFooterTextCollapsed">{{'text.zobrazit-mene' | translate}} <i class="app-mdi-menu-up"></i></span>
         </button>
