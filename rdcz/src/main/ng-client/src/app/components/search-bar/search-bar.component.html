@@ -4,7 +4,7 @@
       <form class="app-form-group shades white"
             #searchForm>
         <div class="input-field app-clean-mg">
-          <input id="q" type="search" class="app-clean-mg" placeholder="{{'q.placeholder' | translate}}"
+          <input id="q" type="search" class="app-clean-mg" placeholder="{{'q.placeholder' | translate}}" autocomplete="off"
             name="q"
             (keyup.enter)="search()"
             [(ngModel)]="state.q">
