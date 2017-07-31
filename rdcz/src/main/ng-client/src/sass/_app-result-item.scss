@@ -27,6 +27,10 @@ app-result-item {
       
       .card-title {
         margin: 0;
+        
+        > i.mdi {
+          margin-right: 1px;
+        }
       }
       .row {
         .col {
