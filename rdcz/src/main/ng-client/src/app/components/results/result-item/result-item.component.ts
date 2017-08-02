@@ -63,10 +63,7 @@ export class ResultItemComponent implements OnInit, OnDestroy {
             });
             this.sortDefault();
             this.setActiveByVlastnik();
-            //$("#fixTable")['tableHeadFixer']();
-            //$("#t_"+this.result.id)['tableHeadFixer']();
             $("#t_"+this.result.id).tableHeadFixer();
-            //[id]="'t_'+result.id";
           }
 
         }
