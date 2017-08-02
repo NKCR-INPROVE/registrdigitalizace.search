@@ -37,6 +37,7 @@ export class ResultItemComponent implements OnInit, OnDestroy {
     if (this.result) {
       this.getPredlohy();
       this.getDigObjects();
+      $("#fixTable").tableHeadFixer();
     }
 
     this.subscriptions.push(this.state.searchSubject.subscribe(
@@ -201,5 +202,5 @@ export class ResultItemComponent implements OnInit, OnDestroy {
    
    // jquery table fixed header plugin -> https://www.npmjs.com/package/jquery-table-fixed-header
    // $(".app-table-predlohy").tableFixedHeader();
-   $("#fixTable").tableHeadFixer();
+   /*$("#fixTable").tableHeadFixer();*/
 }

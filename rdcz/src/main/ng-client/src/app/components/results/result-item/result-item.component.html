@@ -89,7 +89,7 @@
             {{'label.seznam-predloh' | translate}} <span class="app-brand-text text-lighten-3">({{predlohy.length}})</span>
           </mz-collapsible-item-header>
           <mz-collapsible-item-body>
-            <table class="striped app-table-predlohy">
+            <table class="striped app-table-predlohy" id="fixTable">
               <thead>
                 <tr>
                   <th (click)="sortBy('stav')" [class.active]="currentSort === 'stav'" [class.active-down]="currentDir === 1">
