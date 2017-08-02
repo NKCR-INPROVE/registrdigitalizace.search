@@ -29,7 +29,7 @@
         "../node_modules/flot/jquery.flot.selection.js",
         "../node_modules/flot/jquery.flot.navigate.js",
         "../node_modules/jquery.flot.tooltip/js/jquery.flot.tooltip.js",
-        
+        "../src/assets/js/tableHeadFixer.js",
         "../node_modules/tinymce/tinymce.js",
         "../node_modules/tinymce/themes/modern/theme.js",
         "../node_modules/tinymce/plugins/link/plugin.js",

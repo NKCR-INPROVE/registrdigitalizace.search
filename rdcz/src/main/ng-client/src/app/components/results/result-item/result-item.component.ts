@@ -201,4 +201,5 @@ export class ResultItemComponent implements OnInit, OnDestroy {
    
    // jquery table fixed header plugin -> https://www.npmjs.com/package/jquery-table-fixed-header
    // $(".app-table-predlohy").tableFixedHeader();
+   $("#fixTable").tableHeadFixer();
 }
