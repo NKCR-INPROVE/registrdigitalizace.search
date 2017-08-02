@@ -89,7 +89,7 @@
             {{'label.seznam-predloh' | translate}} <span class="app-brand-text text-lighten-3">({{predlohy.length}})</span>
           </mz-collapsible-item-header>
           <mz-collapsible-item-body>
-            <table class="striped app-table-predlohy" id="fixTable">
+            <table class="striped app-table-predlohy" [id]="'t_'+result.id">
               <thead>
                 <tr>
                   <th (click)="sortBy('stav')" [class.active]="currentSort === 'stav'" [class.active-down]="currentDir === 1">
@@ -122,31 +122,27 @@
                   </th>
                 </tr>
               </thead>
+              <tbody>
+                <ng-container *ngFor="let p of predlohy">
+                  <tr *ngIf="p.active">
+                    <td><span mz-tooltip [tooltip]="'text.'+p.stav | translate" [position]="'top'" [class]="'app-state-item app-cursor-pointer app-state-item-' + p.stav"></span></td>
+                    <td>
+                      <a *ngIf="p.bibliographich_data" mz-tooltip [tooltip]="'label.bib-udaje' | translate" [position]="'top'" [href]="p.bibliographich_data" title="" target="_blank">
+                        <i mz-icon-mdi [icon]="'open-in-new'" [size]="'16px'"></i>
+                      </a>
+                    </td>
+                    <td>{{p.cislordcz}}</td>
+                    <td mz-tooltip [position]="'top'" [tooltip]="translate('cz.incad.nkp.digital.InsVlastnik', p.vlastnik)">{{p.vlastnik}}</td>
+                    <td>{{p.rozsah}}</td>
+                    <td>{{p.cast}}</td>
+                    <td>{{p.cisloper}}</td>
+                    <td>{{translate('cz.incad.nkp.digital.Dfinancovano', p.financovano)}}</td>
+                    <td>{{p.signatura}}</td>
+                    <td>{{p.carkod}}</td>
+                  </tr>
+                </ng-container>
+              </tbody>
             </table>
-            <div class="app-table-wrapper">
-              <table class="striped app-table-predlohy">
-                <tbody>
-                  <ng-container *ngFor="let p of predlohy">
-                    <tr *ngIf="p.active">
-                      <td><span mz-tooltip [tooltip]="'text.'+p.stav | translate" [position]="'top'" [class]="'app-state-item app-cursor-pointer app-state-item-' + p.stav"></span></td>
-                      <td>
-                        <a *ngIf="p.bibliographich_data" mz-tooltip [tooltip]="'label.bib-udaje' | translate" [position]="'top'" [href]="p.bibliographich_data" title="" target="_blank">
-                          <i mz-icon-mdi [icon]="'open-in-new'" [size]="'16px'"></i>
-                        </a>
-                      </td>
-                      <td>{{p.cislordcz}}</td>
-                      <td mz-tooltip [position]="'top'" [tooltip]="translate('cz.incad.nkp.digital.InsVlastnik', p.vlastnik)">{{p.vlastnik}}</td>
-                      <td>{{p.rozsah}}</td>
-                      <td>{{p.cast}}</td>
-                      <td>{{p.cisloper}}</td>
-                      <td>{{translate('cz.incad.nkp.digital.Dfinancovano', p.financovano)}}</td>
-                      <td>{{p.signatura}}</td>
-                      <td>{{p.carkod}}</td>
-                    </tr>
-                  </ng-container>
-                </tbody>
-              </table>
-            </div>
           </mz-collapsible-item-body>
         </mz-collapsible-item>
 

@@ -51,12 +51,13 @@
 			parent
 				.css({
 					'width' : '100%',
-					'height' : container.css("height"),
-					'overflow' : 'scroll',
-					'max-height' : container.css("max-height"),
-					'min-height' : container.css("min-height"),
-					'max-width' : container.css('max-width'),
-					'min-width' : container.css('min-width')
+					'max-height' : '200px',
+					'overflow' : 'auto',
+                    //'height' : container.css("height"),
+					//'max-height' : container.css("max-height"),
+					//'min-height' : container.css("min-height"),
+					//'max-width' : container.css('max-width'),
+					//'min-width' : container.css('min-width')
 				});
 
 			parent.scroll(function() {

@@ -37,7 +37,6 @@ export class ResultItemComponent implements OnInit, OnDestroy {
     if (this.result) {
       this.getPredlohy();
       this.getDigObjects();
-      $("#fixTable").tableHeadFixer();
     }
 
     this.subscriptions.push(this.state.searchSubject.subscribe(
@@ -64,6 +63,9 @@ export class ResultItemComponent implements OnInit, OnDestroy {
             });
             this.sortDefault();
             this.setActiveByVlastnik();
+            //$("#fixTable")['tableHeadFixer']();
+            $("#t_"+this.result.id)['tableHeadFixer']();
+            //[id]="'t_'+result.id";
           }
 
         }

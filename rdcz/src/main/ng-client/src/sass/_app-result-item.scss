@@ -121,17 +121,26 @@ app-result-item {
           .collapsible-body {
             padding: 0;
             
-            .app-table-wrapper {
+            /*mz-collapsible-item-body {
+              > div {
+                height: auto !important;
+                max-height: 200px !important;
+                overflow: auto !important;
+              }
+            }*/
+            
+            /*.app-table-wrapper {
               max-height: 200px;
               overflow: auto;
-            }
+            }*/
             
             .app-table-predlohy {
               thead {
-                @include set-border(bottom, 1, solid, $app-brand-l-6);
-                overflow: auto;
+                border-bottom: none;
+                //@include set-border(bottom, 1, solid, $app-brand-l-6);
+                /*overflow: auto;*/
               }
-              th, td {
+              /*th, td {
                 width: 10%;
                 
                 &:nth-child(1) {
@@ -162,11 +171,12 @@ app-result-item {
                 &:nth-child(10) {
                   width: 11%;
                 }
-              }
+              }*/
               th {
-                &.app-th-last {
+                box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+                /*&.app-th-last {
                   width: 13%;
-                }
+                }*/
                 @extend .app-cursor-pointer;
                 
                 &.active {
