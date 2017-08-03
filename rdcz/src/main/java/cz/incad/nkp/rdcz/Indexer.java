@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.Context;
@@ -116,9 +117,8 @@ public class Indexer {
     indexLists();
     String fields = opts.getJSONArray("db.fields").join(",").replaceAll("\"", "");
     String sql = opts.getString("sqlFull").replace("#fields#", fields);
-    
+
     //sql += " and rownum < 10";
-    
     getFromDb(sql);
     LOGGER.log(Level.INFO, "{0} docs processed", indexed);
 
@@ -401,59 +401,69 @@ public class Indexer {
   private void addDigKnihovny(SolrInputDocument idoc, ResultSet rs, Connection conn) {
 
     String f = "";
+//    List<String> uris = new ArrayList<>();
     try {
       if (rs.getString("url") != null) {
         URI uri = new URI(rs.getString("url").trim());
         f += " urldigknihovny like '" + uri.getScheme() + "://" + uri.getHost() + "%'";
+//        uris.add(uri.getScheme() + "://" + uri.getHost());
       }
-    } catch (SQLException  | URISyntaxException ex) {
+    } catch (SQLException | URISyntaxException ex) {
       LOGGER.log(Level.WARNING, null, ex);
     }
-    
+
     try {
       if (rs.getString("urltitul") != null) {
         URI uri = new URI(rs.getString("urltitul").trim());
-        if(!"".equals(f)){
+        if (!"".equals(f)) {
           f += " OR ";
         }
         f += " urldigknihovny like '" + uri.getScheme() + "://" + uri.getHost() + "%'";
+//        uris.add(uri.getScheme() + "://" + uri.getHost());
       }
-    } catch (SQLException  | URISyntaxException ex) {
+    } catch (SQLException | URISyntaxException ex) {
       LOGGER.log(Level.WARNING, null, ex);
     }
-    
-    
+
     try {
       if (rs.getString("urltitnk") != null) {
         URI uri = new URI(rs.getString("urltitnk").trim());
-        if(!"".equals(f)){
+        if (!"".equals(f)) {
           f += " OR ";
         }
         f += " urldigknihovny like '" + uri.getScheme() + "://" + uri.getHost() + "%'";
+//        uris.add(uri.getScheme() + "://" + uri.getHost());
       }
-    } catch (SQLException  | URISyntaxException ex) {
+    } catch (SQLException | URISyntaxException ex) {
       LOGGER.log(Level.WARNING, null, ex);
     }
-    
-    if("".equals(f)){
+
+    if ("".equals(f)) {
       return;
     }
-    
+
     try {
       f = " where " + f;
-      String sql = "select nazev from digknihovna" + f;
+      String sql = "select distinct(nazev) from digknihovna" + f;
 
       //LOGGER.log(Level.INFO, sql);
-    
+//      boolean isEmpty = true;
+      
       PreparedStatement ps = conn.prepareStatement(sql);
-
       try (ResultSet rsdk = ps.executeQuery()) {
         while (rsdk.next()) {
           idoc.addField("digknihovna", rsdk.getString("nazev"));
+//          isEmpty = false;
         }
         rsdk.close();
       }
       ps.close();
+      
+//      if (isEmpty) {
+//        for (String u : uris) {
+//          idoc.addField("digknihovna", u);
+//        }
+//      }
     } catch (SQLException ex) {
       LOGGER.log(Level.SEVERE, null, ex);
     }
