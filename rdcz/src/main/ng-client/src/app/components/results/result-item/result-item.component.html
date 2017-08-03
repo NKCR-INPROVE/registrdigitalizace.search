@@ -92,33 +92,51 @@
             <table class="striped app-table-predlohy" [id]="'t_'+result.id">
               <thead>
                 <tr>
-                  <th (click)="sortBy('stav')" [class.active]="currentSort === 'stav'" [class.active-down]="currentDir === 1">
-                    {{'label.stav' | translate}}
+                  <th (click)="sortBy('stav')">
+                    <span [class.active]="currentSort === 'stav'" [class.active-down]="currentDir === 1">
+                      {{'label.stav' | translate}}
+                    </span>
                   </th>
-                  <th></th>
-                  <th (click)="sortBy('cislordcz')" [class.active]="currentSort === 'cislordcz'" [class.active-down]="currentDir === 1">
-                    {{'label.cislo-rdcz' | translate}}
+                  <th><span>&#160;</span></th>
+                  <th (click)="sortBy('cislordcz')">
+                    <span [class.active]="currentSort === 'cislordcz'" [class.active-down]="currentDir === 1">
+                      {{'label.cislo-rdcz' | translate}}
+                    </span>
                   </th>
-                  <th (click)="sortBy('vlastnik')" [class.active]="currentSort === 'vlastnik'" [class.active-down]="currentDir === 1">
-                    {{'label.vlastnik' | translate}}
+                  <th (click)="sortBy('vlastnik')">
+                    <span [class.active]="currentSort === 'vlastnik'" [class.active-down]="currentDir === 1">
+                      {{'label.vlastnik' | translate}}
+                    </span>
                   </th>
-                  <th (click)="sortBy('rozsah')" [class.active]="currentSort === 'rozsah'" [class.active-down]="currentDir === 1">
-                    {{'label.rok-per' | translate}}
+                  <th (click)="sortBy('rozsah')">
+                    <span [class.active]="currentSort === 'rozsah'" [class.active-down]="currentDir === 1">
+                      {{'label.rok-per' | translate}}
+                    </span>
                   </th>
-                  <th (click)="sortBy('cast')" [class.active]="currentSort === 'cast'" [class.active-down]="currentDir === 1">
-                    {{'label.cast-roc' | translate}}
+                  <th (click)="sortBy('cast')">
+                    <span [class.active]="currentSort === 'cast'" [class.active-down]="currentDir === 1">
+                      {{'label.cast-roc' | translate}}
+                    </span>
                   </th>
-                  <th (click)="sortBy('cisloper')" [class.active]="currentSort === 'cisloper'" [class.active-down]="currentDir === 1">
-                    {{'label.cislo' | translate}}
+                  <th (click)="sortBy('cisloper')">
+                    <span [class.active]="currentSort === 'cisloper'" [class.active-down]="currentDir === 1">
+                      {{'label.cislo' | translate}}
+                    </span>
                   </th>
-                  <th (click)="sortBy('financovano')" [class.active]="currentSort === 'financovano'" [class.active-down]="currentDir === 1">
-                    {{'label.financovano' | translate}}
+                  <th (click)="sortBy('financovano')">
+                    <span [class.active]="currentSort === 'financovano'" [class.active-down]="currentDir === 1">
+                      {{'label.financovano' | translate}}
+                    </span>
                   </th>
-                  <th (click)="sortBy('signatura')" [class.active]="currentSort === 'signatura'" [class.active-down]="currentDir === 1">
-                    {{'label.signatura' | translate}}
+                  <th (click)="sortBy('signatura')">
+                    <span [class.active]="currentSort === 'signatura'" [class.active-down]="currentDir === 1">
+                      {{'label.signatura' | translate}}
+                    </span>
                   </th>
-                  <th (click)="sortBy('carkod')" [class.active]="currentSort === 'carkod'" [class.active-down]="currentDir === 1" class="app-th-last">
-                    {{'label.car-kod' | translate}}
+                  <th (click)="sortBy('carkod')">
+                    <span [class.active]="currentSort === 'carkod'" [class.active-down]="currentDir === 1">
+                      {{'label.car-kod' | translate}}
+                    </span>
                   </th>
                 </tr>
               </thead>
