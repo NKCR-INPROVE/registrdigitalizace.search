@@ -17,6 +17,14 @@
     "changeOrigin": false,
     "secure": false
   },
+  "/img": {
+    "target": "http://localhost:8080/rdcz/img",
+    "pathRewrite": {
+      "^/img":""
+    },
+    "changeOrigin": false,
+    "secure": false
+  },
   "/aleph": {
     "target": "http://localhost:8080/rdcz/aleph",
     "logLevel": "debug",

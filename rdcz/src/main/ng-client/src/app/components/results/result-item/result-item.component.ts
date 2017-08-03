@@ -19,6 +19,7 @@ export class ResultItemComponent implements OnInit, OnDestroy {
 
   showingDetail: boolean = false;
   predlohy: Result[] = [];
+  predlohyCount: number;
   digObjects: any[] = [];
   predlohyLoaded: boolean = false;
   hasImg : boolean = false;
@@ -44,6 +45,8 @@ export class ResultItemComponent implements OnInit, OnDestroy {
         if (resp['type'].indexOf(this.result[this.state.currentCollapse.field]) > -1) {
           if (resp['state'] === 'start') {
           } else {
+            this.predlohy = resp['res']["response"]["docs"];
+            
             this.stavy = [];
             resp['res']["facet_counts"]["facet_fields"]['stav'].forEach((a) => {
               this.stavy.push(a[0]);
@@ -54,7 +57,6 @@ export class ResultItemComponent implements OnInit, OnDestroy {
               this.vlastniky.push({sigla: a[0], count: a[1], active: true});
             });
             
-            this.predlohy = resp['res']["response"]["docs"];
             
             this.predlohy.forEach(p => {
               if(p['url']){
@@ -143,9 +145,12 @@ export class ResultItemComponent implements OnInit, OnDestroy {
         params.set('facet.mincount', '1');
         params.append('facet.field', 'stav');
         params.append('facet.field', 'vlastnik');
+        
+        this.predlohyCount = this.expanded['numFound'] + 1;
 
         this.service.search(params, this.result[this.state.currentCollapse.field]);
       } else {
+      this.predlohyCount = 1;
         this.predlohy.push(this.result);
         this.stavy.push(this.result['stav']);
         this.vlastniky.push({sigla: this.result['vlastnik'], count: 1, active: true});
