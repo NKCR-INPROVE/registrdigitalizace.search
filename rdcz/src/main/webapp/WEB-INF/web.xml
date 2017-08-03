@@ -4,14 +4,22 @@
         <servlet-name>IndexerServlet</servlet-name>
         <servlet-class>cz.incad.nkp.rdcz.IndexerServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>AlephServlet</servlet-name>
-        <servlet-class>cz.incad.nkp.rdcz.AlephServlet</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>IndexerServlet</servlet-name>
         <url-pattern>/index</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>ImgServlet</servlet-name>
+        <servlet-class>cz.incad.nkp.rdcz.ImgServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ImgServlet</servlet-name>
+        <url-pattern>/img</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AlephServlet</servlet-name>
+        <servlet-class>cz.incad.nkp.rdcz.AlephServlet</servlet-class>
+    </servlet>
     <servlet>
         <servlet-name>InitServlet</servlet-name>
         <servlet-class>cz.incad.nkp.rdcz.InitServlet</servlet-class>
