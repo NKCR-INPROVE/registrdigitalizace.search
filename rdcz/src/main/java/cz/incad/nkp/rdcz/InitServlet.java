@@ -52,6 +52,19 @@ public class InitServlet extends HttpServlet {
           throws ServletException, IOException {
 
   }
+  
+  @Override
+  public void destroy(){
+    try {
+      LOGGER.log(Level.INFO, "Shutdown scheduler...");
+      org.quartz.Scheduler sched = AppScheduler.getInstance().getScheduler();
+      sched.pauseAll();
+      sched.clear();
+      sched.shutdown();
+    } catch (SchedulerException ex) {
+      LOGGER.log(Level.SEVERE, null, ex);
+    }
+  }
 
   @Override
   public void init() throws ServletException {

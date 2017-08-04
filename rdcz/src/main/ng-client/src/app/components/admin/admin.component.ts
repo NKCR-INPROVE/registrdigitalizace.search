@@ -36,6 +36,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     private service: AppService) { }
 
   ngAfterViewInit() {
+    var that = this;
     tinymce.init({
       selector: '#' + this.elementId,
       menubar: false,
@@ -44,7 +45,35 @@ export class AdminComponent implements OnInit, OnDestroy {
 
       theme: "modern",
       skin_url: 'assets/skins/light',
-      images_upload_url: 'img?action=UPLOAD&name=' + this.selected,
+      //images_upload_url: 'img?action=UPLOAD&id=' + this.selected,
+      
+      images_upload_handler: function (blobInfo, success, failure) {
+        var xhr: XMLHttpRequest;
+        var formData;
+        xhr = new XMLHttpRequest();
+        xhr.withCredentials = false;
+        xhr.open('POST', 'img?action=UPLOAD&id=' + that.selected);
+        xhr.onload = function() {
+          var json;
+
+          if (xhr.status != 200) {
+            failure('HTTP Error: ' + xhr.status);
+            return;
+          }
+          json = JSON.parse(xhr.responseText);
+
+          if (!json || typeof json.location != 'string') {
+            failure('Invalid JSON: ' + xhr.responseText);
+            return;
+          }
+          success(json.location);
+        };
+        formData = new FormData();
+        //formData.append('file', blobInfo.blob(), fileName(blobInfo));
+        console.log(blobInfo.filename(), blobInfo.name());
+        formData.append('file', blobInfo.blob(), blobInfo.filename());
+        xhr.send(formData);
+      },
 
       file_picker_callback: function(cb, value, meta) {
         var input = document.createElement('input');
@@ -127,7 +156,10 @@ export class AdminComponent implements OnInit, OnDestroy {
   getText() {
     this.service.getText(this.selected).subscribe(t => {
       this.text = t;
+      this.editor['settings']['images_upload_url'] = 'img?action=UPLOAD&name=' + this.selected;
       this.editor.setContent(this.text);
+      console.log(this.editor.settings);
+      //images_upload_url: 'img?action=UPLOAD&name=' + this.selected,
     });
   }
 

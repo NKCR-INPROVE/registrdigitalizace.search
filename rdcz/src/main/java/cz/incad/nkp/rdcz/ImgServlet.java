@@ -5,26 +5,25 @@
  */
 package cz.incad.nkp.rdcz;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.FileUtils;
 import org.json.JSONObject;
 
 /**
@@ -89,54 +88,55 @@ public class ImgServlet extends HttpServlet {
         JSONObject json = new JSONObject();
         try {
 
-          String path = InitServlet.CONFIG_DIR + File.separator + "texts";
-          String fileName = request.getParameter("name");
-          
-boolean isMultipart = ServletFileUpload.isMultipartContent(request);
-          
+          String path = InitServlet.CONFIG_DIR + File.separator + "texts" + File.separator + "img";
+          new File(path).mkdirs();
+          String id = request.getParameter("id");
+
+          boolean isMultipart = ServletFileUpload.isMultipartContent(request);
+
           System.out.println(isMultipart);
 
-          
           // Create a factory for disk-based file items
-DiskFileItemFactory factory = new DiskFileItemFactory();
+          DiskFileItemFactory factory = new DiskFileItemFactory();
 
 // Configure a repository (to ensure a secure temp location is used)
-ServletContext servletContext = request.getServletContext();
-File repository = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
-factory.setRepository(repository);
+          ServletContext servletContext = request.getServletContext();
+          File repository = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
+          factory.setRepository(repository);
 
 // Create a new file upload handler
-ServletFileUpload upload = new ServletFileUpload(factory);
+          ServletFileUpload upload = new ServletFileUpload(factory);
 
 // Parse the request
-List<FileItem> items = upload.parseRequest(request);
+          List<FileItem> items = upload.parseRequest(request);
 
-          LOGGER.log(Level.INFO, "filename = {0}", fileName);
-          
+          LOGGER.log(Level.INFO, "id = {0}", id);
+
           // Process the uploaded items
-Iterator<FileItem> iter = items.iterator();
-while (iter.hasNext()) {
-    FileItem item = iter.next();
+          Iterator<FileItem> iter = items.iterator();
+          while (iter.hasNext()) {
+            FileItem item = iter.next();
+            if (item.isFormField()) {
+//              String name = item.getFieldName();
+//              String value = item.getString();
 
-    if (item.isFormField()) {
-        String name = item.getFieldName();
-    String value = item.getString();
-    } else {
-        
-      String fieldName = item.getFieldName();
-    fileName = item.getName();
-    String contentType = item.getContentType();
-    boolean isInMemory = item.isInMemory();
-    long sizeInBytes = item.getSize();
-File uploadedFile = new File(path + File.separator
-                    + fileName);
-    item.write(uploadedFile);
-    
-    }
-}
+            } else {
+
+//              String fieldName = item.getFieldName();
+
+              String fileName = item.getName();
+//              String contentType = item.getContentType();
+//              boolean isInMemory = item.isInMemory();
+//              long sizeInBytes = item.getSize();
+              File uploadedFile = new File(path + File.separator + fileName);
+              item.write(uploadedFile);
+
+              json.put("location", "img?action=GET&id=" + fileName);
+            }
+          }
 
         } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, "error during file upload. Error: {0}", ex );
+          LOGGER.log(Level.SEVERE, "error during file upload. Error: {0}", ex);
           json.put("error", ex.toString());
         }
         out.println(json.toString(2));
@@ -144,20 +144,18 @@ File uploadedFile = new File(path + File.separator
     },
     GET {
       @Override
-      void doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+      void doPerform(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-        resp.setContentType("application/json;charset=UTF-8");
-
-        PrintWriter out = resp.getWriter();
-        JSONObject json = new JSONObject();
-        try {
-          Indexer indexer = new Indexer();
-          json = indexer.indexDigObject(true);
-
-        } catch (Exception ex) {
-          json.put("error", ex.toString());
+        try (OutputStream out = response.getOutputStream()) {
+        String id = request.getParameter("id");
+        String path = InitServlet.CONFIG_DIR + File.separator + "texts" + File.separator + "img";
+        File f = new File(path + File.separator + id);
+        if (f.exists()) {
+            //response.setContentType("image/jpeg");
+            BufferedImage bi = ImageIO.read(f);
+            ImageIO.write(bi, "jpg", out);
+          } 
         }
-        out.println(json.toString(2));
       }
     };
 

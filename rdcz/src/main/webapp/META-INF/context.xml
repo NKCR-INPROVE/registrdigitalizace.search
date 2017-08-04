@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context path="/rdcz"> 
-  
-  <Resource name="jdbc/rlf" auth="Container" type="javax.sql.DataSource"
-       maxActive="100" maxIdle="30" maxWait="10000"
-       username="rlf_nkp_digital" password="vanilkovazmrzlina" driverClassName="oracle.jdbc.OracleDriver"
-       url="jdbc:oracle:thin:@localhost:1521:RELIEF"/>
+<Context path="/rdcz">
+  <Resource auth="Container" driverClassName="oracle.jdbc.OracleDriver" maxActive="100" maxIdle="30" maxWait="10000" name="jdbc/rlf" password="vanilkovazmrzlina" type="javax.sql.DataSource" url="jdbc:oracle:thin:@localhost:1521:RELIEF" username="rlf_nkp_digital"/>
 </Context>
