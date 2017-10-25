@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.FileUtils;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
@@ -70,6 +71,38 @@ public class TextsServlet extends HttpServlet {
   }
 
   enum Actions {
+    LIST {
+      @Override
+      void doPerform(HttpServletRequest request, HttpServletResponse resp) throws Exception {
+
+        resp.setContentType("application/json;charset=UTF-8");
+
+        PrintWriter out = resp.getWriter();
+        JSONObject json = new JSONObject();
+        try {
+
+          String path = InitServlet.CONFIG_DIR + File.separator + "texts" ;
+
+          File folder = new File(path);
+          if (folder.exists()) {
+            File[] listOfFiles = folder.listFiles();
+
+            for (File file : listOfFiles) {
+              if (file.isFile()) {
+                json.append("files", file.getName());
+              }
+            }
+          } else {
+            json.put("files", new JSONArray());
+          }
+
+        } catch (Exception ex) {
+          LOGGER.log(Level.SEVERE, "error during file upload. Error: {0}", ex);
+          json.put("error", ex.toString());
+        }
+        out.println(json.toString(2));
+      }
+    },
 
     LOAD {
       @Override

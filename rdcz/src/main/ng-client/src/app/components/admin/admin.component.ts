@@ -29,8 +29,6 @@ export class AdminComponent implements OnInit, OnDestroy {
   ngOnInit() {
   }
 
-
-
   constructor(
     public state: AppState,
     private service: AppService) { }

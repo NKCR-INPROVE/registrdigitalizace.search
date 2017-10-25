@@ -41,6 +41,7 @@ import { AuthGuard } from "./auth-guard";
 import { FreeTextComponent } from './components/free-text/free-text.component';
 import { CardListDkComponent } from './components/card-list-dk/card-list-dk.component';
 import { FacetsHomeComponent } from './components/facets-home/facets-home.component';
+import { InnerContentComponent } from './components/inner-content/inner-content.component';
 
 
 export function HttpLoaderFactory(http: Http) {
@@ -79,7 +80,8 @@ export function createTranslateLoader(http: Http) {
     AdminComponent,
     FreeTextComponent,
     CardListDkComponent,
-    FacetsHomeComponent
+    FacetsHomeComponent,
+    InnerContentComponent
   ],
   imports: [
     BrowserModule,
@@ -99,6 +101,7 @@ export function createTranslateLoader(http: Http) {
       { path: 'home', component: HomeComponent },
       { path: 'results', component: ResultsComponent },
       { path: 'info', component: InfoComponent },
+      { path: 'info/:page', component: InfoComponent },
       { path: 'napoveda', component: NapovedaComponent },
       { path: 'prihlaseni', component: LoginComponent },
       { path: 'admin', 
@@ -106,6 +109,7 @@ export function createTranslateLoader(http: Http) {
       { path: 'duplicity', component: DuplicityComponent },
     ])
   ],
+  entryComponents: [ InnerContentComponent ],
   providers: [Title, AppState, AppService, AuthGuard],
   bootstrap: [AppComponent]
 })

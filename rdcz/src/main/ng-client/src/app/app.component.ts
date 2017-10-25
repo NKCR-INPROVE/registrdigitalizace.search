@@ -115,6 +115,9 @@ export class AppComponent {
         this.state.stateChanged();
         this.init = true;
       });
+      this.service.getEditablePages().subscribe(res => {
+        this.state.config['editable_pages'] = res;
+      });
       return this.state.config;
     });
   }

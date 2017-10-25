@@ -36,13 +36,16 @@ export class FreeTextComponent implements OnInit, OnDestroy {
     if (!this.page) {
       this.subscriptions.push(this.router.events.subscribe(val => {
         if (val instanceof NavigationEnd) {
+          console.log(val);
           this.id = val.url.substring(1);
+          
           if (this.state.currentLang) {
             this.getText();
           }
         }
       }));
     } else {
+          console.log(this.page);
       this.id = this.page;
       this.getText();
     }

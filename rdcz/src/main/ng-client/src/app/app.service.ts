@@ -246,6 +246,14 @@ export class AppService {
     });
   }
   
+  getEditablePages(): Observable<any>{
+    var url = 'texts?action=LIST&lang=' + this.state.currentLang;
+
+    return this.http.get(url).map((response: Response) => {
+      return response.json()['files'];
+    }).catch(error => { return Observable.of('error gettting content: ' + error); });
+  }
+  
   
   getText(id: string): Observable<string> {
     var url = 'texts?action=LOAD&id=' + id + '&lang=' + this.state.currentLang;
