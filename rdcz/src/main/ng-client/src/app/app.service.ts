@@ -250,7 +250,7 @@ export class AppService {
     var url = 'texts?action=LIST&lang=' + this.state.currentLang;
 
     return this.http.get(url).map((response: Response) => {
-      return response.json()['files'];
+      return response.json();
     }).catch(error => { return Observable.of('error gettting content: ' + error); });
   }
   
@@ -263,11 +263,8 @@ export class AppService {
     }).catch(error => { return Observable.of('error gettting content: ' + error); });
   }
 
-  saveText(id: string, text: string, menu: string = null): Observable<string> {
+  saveText(id: string, text: string): Observable<string> {
     var url = 'texts?action=SAVE&id=' + id + '&lang=' + this.state.currentLang;
-    if(menu){
-      url += '&menu=' + menu;
-    }
 
     let headers = new Headers({ 'Content-Type': 'text/plain;charset=UTF-8' });
     let options = new RequestOptions({ headers: headers });

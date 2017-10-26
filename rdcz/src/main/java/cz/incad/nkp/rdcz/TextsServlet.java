@@ -1,6 +1,5 @@
 package cz.incad.nkp.rdcz;
 
-
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -70,6 +69,25 @@ public class TextsServlet extends HttpServlet {
 
   }
 
+  private static JSONObject dirToJson(File folder) {
+    JSONObject json = new JSONObject();
+    json.put("name", folder.getName());
+
+    File[] listOfFiles = folder.listFiles();
+
+    for (File file : listOfFiles) {
+      if (file.isFile()) {
+        json.append("files", file.getName());
+      } else if (file.isDirectory()) {
+        json.append("dirs", dirToJson(file));
+
+      }
+    }
+
+    return json;
+
+  }
+
   enum Actions {
     LIST {
       @Override
@@ -81,15 +99,17 @@ public class TextsServlet extends HttpServlet {
         JSONObject json = new JSONObject();
         try {
 
-          String path = InitServlet.CONFIG_DIR + File.separator + "texts" ;
+          String path = InitServlet.CONFIG_DIR + File.separator + "texts";
 
           File folder = new File(path);
           if (folder.exists()) {
+            json.put("name", folder.getName());
             File[] listOfFiles = folder.listFiles();
-
             for (File file : listOfFiles) {
               if (file.isFile()) {
                 json.append("files", file.getName());
+              } else if (file.isDirectory()) {
+                json.append("dirs", dirToJson(file));
               }
             }
           } else {
@@ -103,7 +123,6 @@ public class TextsServlet extends HttpServlet {
         out.println(json.toString(2));
       }
     },
-
     LOAD {
       @Override
       void doPerform(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -149,24 +168,24 @@ public class TextsServlet extends HttpServlet {
                 + File.separator + id;
         File f;
         String text = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-        
+
         if (lang != null) {
           f = new File(filename + "_" + lang + ".html");
-          FileUtils.writeStringToFile(f, text,Charset.forName("UTF-8"));
+          FileUtils.writeStringToFile(f, text, Charset.forName("UTF-8"));
         } else {
           f = new File(filename + ".html");
-            FileUtils.writeStringToFile(f, text,Charset.forName("UTF-8"));
+          FileUtils.writeStringToFile(f, text, Charset.forName("UTF-8"));
         }
-        
+
         String menu = request.getParameter("menu");
-        if(menu != null){
+        if (menu != null) {
           String fnmenu = InitServlet.CONFIG_DIR + File.separator + "menu.json";
           File fmenu = new File(fnmenu);
           FileUtils.writeStringToFile(fmenu, menu, Charset.forName("UTF-8"));
           Options.resetInstance();
         }
-        
-          LOGGER.log(Level.INFO, json.toString());
+
+        LOGGER.log(Level.INFO, json.toString());
         out.println(json.toString(2));
       }
     };

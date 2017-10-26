@@ -29,6 +29,6 @@
   "home_facets": ["financovano", "vlastnik", "druhdokumentu"],
   "results_facets": ["financovano", "vlastnik", "digknihovna", "druhdokumentu", "stav"],
   "langMaps": {"cs": "cz"},
-  "editable_pages": ["help", "info"]
+  "editable_pages": {"files" : ["help", "info"]}
             
 }

@@ -42,6 +42,8 @@ import { FreeTextComponent } from './components/free-text/free-text.component';
 import { CardListDkComponent } from './components/card-list-dk/card-list-dk.component';
 import { FacetsHomeComponent } from './components/facets-home/facets-home.component';
 import { InnerContentComponent } from './components/inner-content/inner-content.component';
+import { MenuItemComponent } from './components/admin/menu-item/menu-item.component';
+import { MenuTreeComponent } from './components/admin/menu-tree/menu-tree.component';
 
 
 export function HttpLoaderFactory(http: Http) {
@@ -81,7 +83,9 @@ export function createTranslateLoader(http: Http) {
     FreeTextComponent,
     CardListDkComponent,
     FacetsHomeComponent,
-    InnerContentComponent
+    InnerContentComponent,
+    MenuItemComponent,
+    MenuTreeComponent
   ],
   imports: [
     BrowserModule,

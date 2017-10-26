@@ -16,7 +16,7 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
 
-  menu: any[] = [];
+  menu: any = null;
   selected: string = 'help';
   visibleChanged: boolean = false;
   saved: boolean = false;
@@ -144,9 +144,8 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   fillMenu() {
-    for (let m in this.state.config['editable_pages']) {
-      this.menu.push(m);
-    }
+    this.menu = this.state.config['editable_pages'];
+    
 
     this.getText();
   }
@@ -174,19 +173,8 @@ export class AdminComponent implements OnInit, OnDestroy {
   save() {
 
     const content = this.editor.getContent();
-    //          console.log(content);
-    //          if(1<2){
-    //            return;
-    //          }
-    let m = null;
-    if (this.visibleChanged) {
-      let menuToSave = {};
-      for (let i = 0; i < this.menu.length; i++) {
-        menuToSave[this.menu[i].label] = this.menu[i].menu;
-      }
-      m = JSON.stringify(menuToSave);
-    }
-    this.service.saveText(this.selected, content, m).subscribe(res => {
+    
+    this.service.saveText(this.selected, content).subscribe(res => {
       console.log(res);
       this.saved = !res.hasOwnProperty('error');
     });

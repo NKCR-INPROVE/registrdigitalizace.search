@@ -5,10 +5,9 @@
         <h5>{{'title.admin-page' | translate}}</h5>
         <div class="row">
           <div class="col s12 xl3">
-            <mz-collection>
-              <a mz-collection-link *ngFor="let m of state.config['editable_pages']" (click)="select(m)" [active]="selected === m">
-                {{m | translate}} <i mz-icon-mdi *ngIf="selected === m" [icon]="'check'" [class]="'app-clean-mg'"></i>
-              </a>
+            <mz-collection *ngIf="menu">
+              <app-menu-tree [dir]="menu"></app-menu-tree>
+             
             </mz-collection>  
           </div><!--/.col -->
           <div class="col s12 xl9">
