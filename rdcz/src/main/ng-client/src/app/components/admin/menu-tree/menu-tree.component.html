@@ -1,6 +1,6 @@
 <div>{{dir.name}}
-  <span><a (click)="addFolder()">add folder</a></span>
-  <span><a (click)="addPage()">add page</a></span>
+  <span><i mz-icon-mdi (click)="addFolder()" [icon]="'folder-plus'" title="add folder"></i></span>
+  <span><i mz-icon-mdi (click)="addPage()" [icon]="'file-plus'" title="add page"></i></span>
   <ul class="browser-default">
     <li *ngFor="let d of dir.dirs"><app-menu-tree  [dir]="d" [path]="path + '/' + dir.name"></app-menu-tree></li>
     <li *ngFor="let m of dir['files']">
