@@ -99,6 +99,12 @@ export class AppState {
   usedAdv = [];
   isAdvancedCollapsed: boolean = true;
   
+  //Admin
+  selectAdminItem = 'texts/info';
+  //Admin state variables
+  public _adminSubject = new Subject();
+  public adminChanged: Observable<any> = this._adminSubject.asObservable();
+  
   
   showingChartBar: boolean = false;
 
@@ -108,13 +114,21 @@ export class AppState {
 
   setConfig(cfg) {
     this.config = cfg;
-
     this.rows = cfg['searchParams']['rows'];
     this.sorts = cfg['sorts'];
     this.currentSort = this.sorts[0];
     this.collapses = cfg['collapses'];
     this.configured = true;
     this._configSubject.next(cfg);
+  }
+  
+  configChanged(){
+    this._configSubject.next(this.config);
+  }
+  
+  setSelectAdminItem(s: string){
+    this.selectAdminItem = s;
+    this._adminSubject.next(this);
   }
 
   //params

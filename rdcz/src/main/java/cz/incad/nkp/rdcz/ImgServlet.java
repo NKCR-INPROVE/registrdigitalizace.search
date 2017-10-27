@@ -88,7 +88,7 @@ public class ImgServlet extends HttpServlet {
         JSONObject json = new JSONObject();
         try {
 
-          String path = InitServlet.CONFIG_DIR + File.separator + "texts" + File.separator + "img";
+          String path = InitServlet.CONFIG_DIR + File.separator + "img";
           new File(path).mkdirs();
           String id = request.getParameter("id");
 
@@ -148,7 +148,7 @@ public class ImgServlet extends HttpServlet {
 
         try (OutputStream out = response.getOutputStream()) {
         String id = request.getParameter("id");
-        String path = InitServlet.CONFIG_DIR + File.separator + "texts" + File.separator + "img";
+        String path = InitServlet.CONFIG_DIR + File.separator + "img";
         File f = new File(path + File.separator + id);
         if (f.exists()) {
             //response.setContentType("image/jpeg");

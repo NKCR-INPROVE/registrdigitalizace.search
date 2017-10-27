@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -71,19 +73,22 @@ public class TextsServlet extends HttpServlet {
 
   private static JSONObject dirToJson(File folder) {
     JSONObject json = new JSONObject();
-    json.put("name", folder.getName());
-
+    json.put("name", folder.getName()).put("dirs", new JSONArray()).put("files", new JSONArray());;
+    List<String> files = new ArrayList<>();
     File[] listOfFiles = folder.listFiles();
 
     for (File file : listOfFiles) {
       if (file.isFile()) {
-        json.append("files", file.getName());
+        String shortName = file.getName().split("\\.")[0].split("_")[0];
+        if (!files.contains(shortName)) {
+          files.add(shortName);
+          json.append("files", shortName);
+        }
       } else if (file.isDirectory()) {
         json.append("dirs", dirToJson(file));
-
       }
     }
-
+    System.out.println(json);
     return json;
 
   }
@@ -99,15 +104,21 @@ public class TextsServlet extends HttpServlet {
         JSONObject json = new JSONObject();
         try {
 
-          String path = InitServlet.CONFIG_DIR + File.separator + "texts";
+          String path = InitServlet.CONFIG_DIR + File.separator + "pages";
 
           File folder = new File(path);
           if (folder.exists()) {
-            json.put("name", folder.getName());
+            json.put("name", folder.getName()).put("dirs", new JSONArray()).put("files", new JSONArray());
+            List<String> files = new ArrayList<>();
             File[] listOfFiles = folder.listFiles();
             for (File file : listOfFiles) {
+          System.out.println(json);
               if (file.isFile()) {
-                json.append("files", file.getName());
+                String shortName = file.getName().split("\\.")[0].split("_")[0];
+                if (!files.contains(shortName)) {
+                  files.add(shortName);
+                  json.append("files", shortName);
+                }
               } else if (file.isDirectory()) {
                 json.append("dirs", dirToJson(file));
               }
@@ -115,6 +126,7 @@ public class TextsServlet extends HttpServlet {
           } else {
             json.put("files", new JSONArray());
           }
+          System.out.println(json);
 
         } catch (Exception ex) {
           LOGGER.log(Level.SEVERE, "error during file upload. Error: {0}", ex);
@@ -129,7 +141,9 @@ public class TextsServlet extends HttpServlet {
 
         response.setContentType("text/html;charset=UTF-8");
         String lang = request.getParameter("lang");
-        String filename = InitServlet.CONFIG_DIR + File.separator + "texts"
+//        String filename = InitServlet.CONFIG_DIR + File.separator + "texts"
+//                + File.separator + request.getParameter("id");
+        String filename = InitServlet.CONFIG_DIR 
                 + File.separator + request.getParameter("id");
         File f;
         if (lang != null) {
@@ -164,7 +178,9 @@ public class TextsServlet extends HttpServlet {
 
         String id = request.getParameter("id");
         String lang = request.getParameter("lang");
-        String filename = InitServlet.CONFIG_DIR + File.separator + "texts"
+//        String filename = InitServlet.CONFIG_DIR + File.separator + "texts"
+//                + File.separator + id;
+        String filename = InitServlet.CONFIG_DIR 
                 + File.separator + id;
         File f;
         String text = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));

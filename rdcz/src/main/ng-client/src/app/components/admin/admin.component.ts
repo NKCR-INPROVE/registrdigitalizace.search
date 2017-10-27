@@ -132,6 +132,10 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.service.langSubject.subscribe(val => {
       this.getText();
     }));
+
+    this.subscriptions.push(this.state.adminChanged.subscribe(val => {
+      this.select();
+    }));
   }
 
 
@@ -144,10 +148,14 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   fillMenu() {
-    this.menu = this.state.config['editable_pages'];
+      this.service.getEditablePages().subscribe(res => {
+        this.menu = res;
+        let s = this.menu['name'] + '/' + this.menu['files'][0];
+        this.state.setSelectAdminItem(s);
+        //this.selected = 
+        //this.getText();
+      });
     
-
-    this.getText();
   }
 
   getText() {
@@ -155,17 +163,13 @@ export class AdminComponent implements OnInit, OnDestroy {
       this.text = t;
       this.editor['settings']['images_upload_url'] = 'img?action=UPLOAD&name=' + this.selected;
       this.editor.setContent(this.text);
-      console.log(this.editor.settings);
+      //console.log(this.editor.settings);
       //images_upload_url: 'img?action=UPLOAD&name=' + this.selected,
     });
   }
 
-  select(m: string, m1: string) {
-    if (m1) {
-      this.selected = m + '/' + m1;
-    } else {
-      this.selected = m;
-    }
+  select() {
+    this.selected = this.state.selectAdminItem;
     this.saved = false;
     this.getText();
   }

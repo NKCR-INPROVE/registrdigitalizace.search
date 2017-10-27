@@ -5,10 +5,7 @@
         <h5>{{'title.admin-page' | translate}}</h5>
         <div class="row">
           <div class="col s12 xl3">
-            <mz-collection *ngIf="menu">
-              <app-menu-tree [dir]="menu"></app-menu-tree>
-             
-            </mz-collection>  
+              <app-menu-tree *ngIf="menu" [dir]="menu" [path]="''"></app-menu-tree>
           </div><!--/.col -->
           <div class="col s12 xl9">
             <mz-textarea-container>

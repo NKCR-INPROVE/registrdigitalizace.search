@@ -1,10 +1,12 @@
 <div>{{dir.name}}
-  <ul>
-    <li *ngFor="let dir of dir.dirs"><app-menu-tree  [dir]="dir"></app-menu-tree></li>
-  <li *ngFor="let m of dir['files']">
-    <a mz-collection-link  (click)="select(m)" [active]="selected === m">
-      {{m | translate}} <i mz-icon-mdi *ngIf="selected === m" [icon]="'check'" [class]="'app-clean-mg'"></i>
-    </a>
-  </li>
+  <span><a (click)="addFolder()">add folder</a></span>
+  <span><a (click)="addPage()">add page</a></span>
+  <ul class="browser-default">
+    <li *ngFor="let d of dir.dirs"><app-menu-tree  [dir]="d" [path]="path + '/' + dir.name"></app-menu-tree></li>
+    <li *ngFor="let m of dir['files']">
+      <a mz-collection-link  (click)="select(m)" [active]="isActive(m)">
+        {{m | translate}} <i mz-icon-mdi *ngIf="selected === m" [icon]="'check'" [class]="'app-clean-mg'"></i>
+      </a>
+    </li>
   </ul>
 </div>  
