@@ -1,0 +1,19 @@
+
+
+<mz-modal [fixedFooter]="true" [options]="modalOptions">
+  <mz-modal-header>
+    Modal Title
+  </mz-modal-header>
+  <mz-modal-content>
+    <mz-input-container >
+  <i mz-icon-mdi mz-input-prefix [icon]="'account'"></i>
+  <input mz-input id="val" type="text" class="form-control" name="val" value="" 
+           [label]="'prompt' | translate"
+           [(ngModel)]="val" />   
+</mz-input-container>
+  </mz-modal-content>
+  <mz-modal-footer>
+    <button mz-button [flat]="true" mz-modal-close>Cancel</button>
+    <button mz-button [flat]="true" (click)="ok()" >Ok</button>
+  </mz-modal-footer>
+</mz-modal>
