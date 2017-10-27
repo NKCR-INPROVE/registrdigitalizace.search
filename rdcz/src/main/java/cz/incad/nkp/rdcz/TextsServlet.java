@@ -88,7 +88,6 @@ public class TextsServlet extends HttpServlet {
         json.append("dirs", dirToJson(file));
       }
     }
-    System.out.println(json);
     return json;
 
   }
@@ -112,7 +111,6 @@ public class TextsServlet extends HttpServlet {
             List<String> files = new ArrayList<>();
             File[] listOfFiles = folder.listFiles();
             for (File file : listOfFiles) {
-          System.out.println(json);
               if (file.isFile()) {
                 String shortName = file.getName().split("\\.")[0].split("_")[0];
                 if (!files.contains(shortName)) {
@@ -126,7 +124,6 @@ public class TextsServlet extends HttpServlet {
           } else {
             json.put("files", new JSONArray());
           }
-          System.out.println(json);
 
         } catch (Exception ex) {
           LOGGER.log(Level.SEVERE, "error during file upload. Error: {0}", ex);
