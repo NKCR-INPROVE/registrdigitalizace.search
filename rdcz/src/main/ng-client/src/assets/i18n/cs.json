@@ -8,7 +8,8 @@
     "st": "Search Technologies | formerly Incad",
     "mzk": "Moravská Zemská Knihovna",
     "login": "Prosím, přihlašte se",
-    "admin-page": "Administrativní stránka"
+    "admin-page": "Administrativní stránka",
+    "add-folder-page": "Vložte adresář / stránku"
   },
   "nav": {
     "home": "Home",
@@ -36,7 +37,9 @@
     "SE": "Periodikum",
     "MU": "Hudebnina",
     "GP": "Grafika",
-    "AV": "Audio"
+    "AV": "Audio",
+    "add-folder": "Vložit adresář",
+    "add-page": "Vložit stránku"
   },
   "label": {
     "pocet-nalezenych": "Počet nalezených položek",

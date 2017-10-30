@@ -148,13 +148,59 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   fillMenu() {
-      this.service.getEditablePages().subscribe(res => {
-        this.menu = res;
-        let s = this.menu['name'] + '/' + this.menu['files'][0];
+      //this.service.getEditablePages().subscribe(res => {
+        //this.menu = res;
+        /*this.menu = {
+          "name": "pages",
+          "dirs": [{
+            "name": "info",
+            "dirs": [{
+              "name": "newfolder",
+              "dirs": [{
+                "name": "newfolder",
+                "dirs": [],
+                "files": ["newpage"]
+              }],
+              "files": []
+            }],
+            "files": [
+              "relief",
+              "newpage"
+            ]
+          }],
+          "files": [
+            "info",
+            "help"
+          ]
+        };*/
+        
+        // pedro test
+        this.menu = {
+          "name": "přidat adresář",
+          "dirs": [
+            {
+              "name": "info",
+              "files": [
+                "relief",
+                "search"
+              ]
+            },
+            {
+              "name": "help",
+              "files": [
+                "users",
+                "system"
+              ]
+            }
+          ]
+        };
+    
+        //let s = this.menu['name'] + '/' + this.menu['files'][0]; // pedro commented
+        let s = this.menu['name'] + '/' + this.menu['files']; // pedro modified, because propertu "[0]"
         this.state.setSelectAdminItem(s);
         //this.selected = 
         //this.getText();
-      });
+      //});
     
   }
 
