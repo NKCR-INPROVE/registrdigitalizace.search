@@ -268,8 +268,13 @@ export class AppService {
 
     let headers = new Headers({ 'Content-Type': 'text/plain;charset=UTF-8' });
     let options = new RequestOptions({ headers: headers });
+    
+    //we should convert back routerlink= to routerLink=
+    
+    let ctext = text.replace(/routerlink/g, 'routerLink');
+    console.log(ctext);
 
-    return this.http.post(url, text, options)
+    return this.http.post(url, ctext, options)
       .map((response: Response) => {
         return response.json();
 

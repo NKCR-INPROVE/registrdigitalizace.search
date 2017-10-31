@@ -16,7 +16,7 @@ export class InfoComponent implements AfterViewInit {
   
   
   subscriptions: Subscription[] = [];
-  page: string = 'info';
+  page: string = 'pages/info';
   
 
   constructor(
@@ -39,9 +39,9 @@ export class InfoComponent implements AfterViewInit {
     
     let param = this.route.snapshot.paramMap.get('page');
     if(!param || param === ''){
-      this.page = 'info';
+      this.page = 'pages/info';
     } else {
-      this.page = 'info/' + param;
+      this.page = 'pages/info/' + param;
     }
     
     this.service.getText(this.page).subscribe(t => {

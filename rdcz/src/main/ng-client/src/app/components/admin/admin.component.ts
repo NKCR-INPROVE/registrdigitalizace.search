@@ -39,7 +39,7 @@ export class AdminComponent implements OnInit, OnDestroy {
       selector: '#' + this.elementId,
       menubar: false,
       plugins: ['link', 'paste', 'table', 'save', 'code', 'image'],
-      toolbar: 'save | undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | code',
+      toolbar: 'save | undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | code nglink',
 
       theme: "modern",
       skin_url: 'assets/skins/light',
@@ -107,10 +107,20 @@ export class AdminComponent implements OnInit, OnDestroy {
 
         input.click();
       },
+      //valid_elements: 'a[routerLink|*]',
 
 
       file_browser_callback_types: 'file image media',
       setup: editor => {
+        editor.addButton('nglink', {
+          text: 'Internal link',
+          icon: false,
+          onclick: function () {
+            let ret = '&nbsp;<a routerLink="relief">'+editor.selection.getContent()+'</a>&nbsp;';
+            editor.insertContent(ret);
+          }
+        });
+        //editor.schema.addValidElements('a[attr=routerLink');
         this.editor = editor;
         this.initData();
       },
@@ -161,8 +171,10 @@ export class AdminComponent implements OnInit, OnDestroy {
   getText() {
     this.service.getText(this.selected).subscribe(t => {
       this.text = t;
+      this.editor.schema.addValidElements('a[routerLink|*]');
       this.editor['settings']['images_upload_url'] = 'img?action=UPLOAD&name=' + this.selected;
       this.editor.setContent(this.text);
+      
       //console.log(this.editor.settings);
       //images_upload_url: 'img?action=UPLOAD&name=' + this.selected,
     });
