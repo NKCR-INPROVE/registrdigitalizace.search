@@ -160,48 +160,29 @@ export class AdminComponent implements OnInit, OnDestroy {
   fillMenu() {
       //this.service.getEditablePages().subscribe(res => {
         //this.menu = res;
-        /*this.menu = {
+        this.menu = {
           "name": "pages",
           "dirs": [{
             "name": "info",
-            "dirs": [{
-              "name": "newfolder",
-              "dirs": [{
-                "name": "newfolder",
-                "dirs": [],
-                "files": ["newpage"]
-              }],
-              "files": []
-            }],
+            "dirs": [],
             "files": [
+              "exportSKC",
+              "index",
+              "ccnb",
+              "dotaznik2013",
               "relief",
-              "newpage"
+              "statistika",
+              "vysvetlivky",
+              "napoveda",
+              "newpage",
+              "prehled",
+              "excel",
+              "marcxml"
             ]
           }],
           "files": [
             "info",
             "help"
-          ]
-        };*/
-        
-        // pedro test
-        this.menu = {
-          "name": "přidat adresář",
-          "dirs": [
-            {
-              "name": "info",
-              "files": [
-                "relief",
-                "search"
-              ]
-            },
-            {
-              "name": "help",
-              "files": [
-                "users",
-                "system"
-              ]
-            }
           ]
         };
     
