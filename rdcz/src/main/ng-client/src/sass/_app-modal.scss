@@ -1,0 +1,14 @@
+// --- MODAL ---
+
+.app-modal-add-page-folder {
+  .modal {
+    &.modal-fixed-footer {
+      height: 240px;   
+    }
+    .modal-content {
+      h4 {
+        font-size: 2rem;
+      }
+    }
+  }
+}

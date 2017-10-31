@@ -8,7 +8,8 @@
     "st": "Search Technologies | formerly Incad",
     "mzk": "Moravian library",
     "login": "Please, login",
-    "admin-page": "Admin page"
+    "admin-page": "Admin page",
+    "add-folder-page": "Add folder / page"
   },
   "nav": {
     "home": "Home",
@@ -36,7 +37,9 @@
     "SE": "Journal",
     "MU": "Music",
     "GP": "Graphics",
-    "AV": "Audio"
+    "AV": "Audio",
+    "add-folder": "Add folder",
+    "add-page": "Add page"
   },
   "label": {
     "pocet-nalezenych": "Total found",

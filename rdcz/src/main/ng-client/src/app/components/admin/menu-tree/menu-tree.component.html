@@ -1,12 +1,16 @@
-<div>{{dir.name}}
-  <span><i mz-icon-mdi (click)="addFolder()" [icon]="'folder-plus'" title="add folder"></i></span>
-  <span><i mz-icon-mdi (click)="addPage()" [icon]="'file-plus'" title="add page"></i></span>
+<div class="app-wrapper">
+  <div class="app-header">
+    <i mz-tooltip [tooltip]="'tooltip.add-folder' | translate" [position]="'top'" (click)="addFolder()" class="app-mdi-folder-plus app-cursor-pointer"></i>
+    <strong (click)="addFolder()">{{dir.name}}</strong>
+    <i mz-tooltip [tooltip]="'tooltip.add-page' | translate" [position]="'top'" (click)="addPage()" class="app-mdi-file-plus right app-cursor-pointer"></i>
+  </div>
   <ul class="browser-default">
-    <li *ngFor="let d of dir.dirs"><app-menu-tree  [dir]="d" [path]="path + '/' + dir.name"></app-menu-tree></li>
+    <li *ngFor="let d of dir.dirs"><app-menu-tree [dir]="d" [path]="path + '/' + dir.name"></app-menu-tree></li>
     <li *ngFor="let m of dir['files']">
       <a mz-collection-link  (click)="select(m)" [active]="isActive(m)">
-        {{m | translate}} <i mz-icon-mdi *ngIf="selected === m" [icon]="'check'" [class]="'app-clean-mg'"></i>
+        <i *ngIf="isActive(m)" class="app-mdi-check"></i>
+        {{m | translate}}
       </a>
     </li>
   </ul>
-</div>  
+</div>
