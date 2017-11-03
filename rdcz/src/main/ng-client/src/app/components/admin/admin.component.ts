@@ -158,8 +158,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   fillMenu() {
-      //this.service.getEditablePages().subscribe(res => {
-        //this.menu = res;
+      this.service.getEditablePages().subscribe(res => {
         /*this.menu = {
           "name": "pages",
           "dirs": [{
@@ -204,13 +203,15 @@ export class AdminComponent implements OnInit, OnDestroy {
             }
           ]
         };
+        
+        this.menu = res;
     
         //let s = this.menu['name'] + '/' + this.menu['files'][0]; // pedro commented
         let s = this.menu['name'] + '/' + this.menu['files']; // pedro modified, because propertu "[0]"
         this.state.setSelectAdminItem(s);
         //this.selected = 
         //this.getText();
-      //});
+      });
     
   }
 

@@ -1,6 +1,7 @@
 package cz.incad.nkp.rdcz;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.Charset;
@@ -75,7 +76,12 @@ public class TextsServlet extends HttpServlet {
     JSONObject json = new JSONObject();
     json.put("name", folder.getName()).put("dirs", new JSONArray()).put("files", new JSONArray());;
     List<String> files = new ArrayList<>();
-    File[] listOfFiles = folder.listFiles();
+    File[] listOfFiles = folder.listFiles(new FileFilter() {
+      @Override
+      public boolean accept(File pathname) {
+        return pathname.getName().indexOf(".htm") > 0 || (pathname.isDirectory() && !pathname.getName().equals("img"));
+      }
+    });
 
     for (File file : listOfFiles) {
       if (file.isFile()) {
@@ -109,7 +115,12 @@ public class TextsServlet extends HttpServlet {
           if (folder.exists()) {
             json.put("name", folder.getName()).put("dirs", new JSONArray()).put("files", new JSONArray());
             List<String> files = new ArrayList<>();
-            File[] listOfFiles = folder.listFiles();
+            File[] listOfFiles = folder.listFiles(new FileFilter() {
+      @Override
+      public boolean accept(File pathname) {
+        return pathname.getName().indexOf(".htm") > 0 || (pathname.isDirectory() && !pathname.getName().equals("img"));
+      }
+    });
             for (File file : listOfFiles) {
               if (file.isFile()) {
                 String shortName = file.getName().split("\\.")[0].split("_")[0];
