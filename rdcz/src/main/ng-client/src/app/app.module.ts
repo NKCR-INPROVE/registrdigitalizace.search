@@ -44,6 +44,7 @@ import { FacetsHomeComponent } from './components/facets-home/facets-home.compon
 import { InnerContentComponent } from './components/inner-content/inner-content.component';
 import { MenuTreeComponent } from './components/admin/menu-tree/menu-tree.component';
 import { PromptComponent } from './components/prompt/prompt.component';
+import { LinkListComponent } from './components/link-list/link-list.component';
 
 
 export function HttpLoaderFactory(http: Http) {
@@ -85,7 +86,8 @@ export function createTranslateLoader(http: Http) {
     FacetsHomeComponent,
     InnerContentComponent,
     MenuTreeComponent,
-    PromptComponent
+    PromptComponent,
+    LinkListComponent
   ],
   imports: [
     BrowserModule,
@@ -113,7 +115,7 @@ export function createTranslateLoader(http: Http) {
       { path: 'duplicity', component: DuplicityComponent },
     ])
   ],
-  entryComponents: [ InnerContentComponent, PromptComponent ],
+  entryComponents: [ InnerContentComponent, PromptComponent, LinkListComponent ],
   providers: [Title, AppState, AppService, AuthGuard],
   bootstrap: [AppComponent]
 })

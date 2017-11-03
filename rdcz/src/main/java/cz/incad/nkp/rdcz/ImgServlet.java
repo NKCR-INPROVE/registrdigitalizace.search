@@ -148,11 +148,14 @@ public class ImgServlet extends HttpServlet {
 
         try (OutputStream out = response.getOutputStream()) {
         String id = request.getParameter("id");
-        String path = InitServlet.CONFIG_DIR + File.separator + "img";
+        String path = InitServlet.CONFIG_DIR + File.separator + "pages/img";
         File f = new File(path + File.separator + id);
+        
+          LOGGER.log(Level.INFO, "image: {0}", f.getAbsolutePath());
         if (f.exists()) {
             //response.setContentType("image/jpeg");
             BufferedImage bi = ImageIO.read(f);
+            //ImageIO.write(bi, "jpg", out);
             ImageIO.write(bi, "jpg", out);
           } 
         }

@@ -105,6 +105,12 @@ export class AppState {
   public _adminSubject = new Subject();
   public adminChanged: Observable<any> = this._adminSubject.asObservable();
   
+  //Tracking internal link dialog changes
+  
+  public _linkSelected = new Subject();
+  public linkSelected: Observable<any> = this._linkSelected.asObservable();
+  
+  
   
   showingChartBar: boolean = false;
 
@@ -134,6 +140,11 @@ export class AppState {
   //params
   stateChanged() {
     this._stateSubject.next(this);
+  }
+  
+  linkSelectedChanged(link: string){
+    
+    this._linkSelected.next(link);
   }
 
   setFilters() {

@@ -51,6 +51,23 @@ app-admin {
             list-style-position: inside;
             
             & > li {
+              &.app-root-page {
+                padding: 0.5rem 1rem;
+                @include set-border(bottom, 1, solid, $app-brand-l-5);
+                
+                & > a {
+                  &.active {
+                    color: $secondary-color;
+                  }
+                  &:hover {
+                    background-color: color("grey", "lighten-5");
+                  }
+                }
+                &:last-child {
+                  border-bottom: none !important;
+                }
+              }
+              
               & > app-menu-tree {
                 & > .app-wrapper {
                   & > .app-header {
@@ -67,7 +84,7 @@ app-admin {
                     list-style: none;
                     list-style-position: inside;
                     & > li {
-                      padding: 0.5rem 1rem;
+                      padding: 0.5rem 2rem;
                       @include set-border(bottom, 1, solid, $app-brand-l-5);
                       
                       & > a {

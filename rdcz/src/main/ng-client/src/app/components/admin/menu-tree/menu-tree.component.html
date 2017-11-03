@@ -6,7 +6,7 @@
   </div>
   <ul class="browser-default">
     <li *ngFor="let d of dir.dirs"><app-menu-tree [dir]="d" [path]="path + '/' + dir.name"></app-menu-tree></li>
-    <li *ngFor="let m of dir['files']">
+    <li *ngFor="let m of dir['files']" [class.app-root-page]="!path">
       <a mz-collection-link  (click)="select(m)" [active]="isActive(m)">
         <i *ngIf="isActive(m)" class="app-mdi-check"></i>
         {{m | translate}}

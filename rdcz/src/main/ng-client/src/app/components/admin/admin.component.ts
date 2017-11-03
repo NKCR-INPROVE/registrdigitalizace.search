@@ -1,5 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
+import {MzModalService} from 'ng2-materialize';
+import {LinkListComponent} from '../link-list/link-list.component';
 
 import { AppService } from '../../app.service';
 import { AppState } from '../../app.state';
@@ -28,8 +30,28 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
   }
+  
+
+  showLinkList() {
+    let links = [];
+    for(let i in this.menu['files']){
+      links.push(this.menu['files'][i]);
+    }
+    for(let i in this.menu['dirs'][0]['files']){
+      links.push('info/' + this.menu['dirs'][0]['files'][i]);
+    }
+    this.modalService.open(LinkListComponent, {state: this.state, links: links, selected: ""});
+    //this.dir['files'].push('newpage');
+  }
+  
+  selectLink(link: string){
+    
+            let ret = '<a routerLink="'+link+'">'+ this.editor.selection.getContent()+'</a>';
+            this.editor.insertContent(ret);
+  }
 
   constructor(
+    private modalService: MzModalService,
     public state: AppState,
     private service: AppService) { }
 
@@ -40,7 +62,7 @@ export class AdminComponent implements OnInit, OnDestroy {
       menubar: false,
       plugins: ['link', 'paste', 'table', 'save', 'code', 'image'],
       toolbar: 'save | undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | code nglink',
-
+      
       theme: "modern",
       skin_url: 'assets/skins/light',
       //images_upload_url: 'img?action=UPLOAD&id=' + this.selected,
@@ -79,21 +101,12 @@ export class AdminComponent implements OnInit, OnDestroy {
         input.setAttribute('name', 'file');
         input.setAttribute('accept', 'image/*');
 
-        // Note: In modern browsers input[type="file"] is functional without 
-        // even adding it to the DOM, but that might not be the case in some older
-        // or quirky browsers like IE, so you might want to add it to the DOM
-        // just in case, and visually hide it. And do not forget do remove it
-        // once you do not need it anymore.
-
         input.onchange = function() {
           var file = this['files'][0];
 
           var reader = new FileReader();
           reader.readAsDataURL(file);
           reader.onload = function() {
-            // Note: Now we need to register the blob in TinyMCEs image blob
-            // registry. In the next release this part hopefully won't be
-            // necessary, as we are looking to handle it internally.
             var id = 'blobid' + (new Date()).getTime();
             var blobCache = tinymce.activeEditor.editorUpload.blobCache;
             var base64 = reader.result.split(',')[1];
@@ -115,9 +128,8 @@ export class AdminComponent implements OnInit, OnDestroy {
         editor.addButton('nglink', {
           text: 'Internal link',
           icon: false,
-          onclick: function () {
-            let ret = '&nbsp;<a routerLink="relief">'+editor.selection.getContent()+'</a>&nbsp;';
-            editor.insertContent(ret);
+          onclick: () => {
+            this.showLinkList();
           }
         });
         //editor.schema.addValidElements('a[attr=routerLink');
@@ -146,6 +158,10 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.state.adminChanged.subscribe(val => {
       this.select();
     }));
+
+    this.subscriptions.push(this.state.linkSelected.subscribe(val => {
+      this.selectLink(val);
+    }));
   }
 
 
@@ -159,48 +175,30 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   fillMenu() {
       this.service.getEditablePages().subscribe(res => {
-        /*this.menu = {
+        //this.menu = res;
+        this.menu = {
           "name": "pages",
           "dirs": [{
             "name": "info",
-            "dirs": [{
-              "name": "newfolder",
-              "dirs": [{
-                "name": "newfolder",
-                "dirs": [],
-                "files": ["newpage"]
-              }],
-              "files": []
-            }],
+            "dirs": [],
             "files": [
+              "exportSKC",
+              "index",
+              "ccnb",
+              "dotaznik2013",
               "relief",
-              "newpage"
+              "statistika",
+              "vysvetlivky",
+              "napoveda",
+              "newpage",
+              "prehled",
+              "excel",
+              "marcxml"
             ]
           }],
           "files": [
             "info",
             "help"
-          ]
-        };*/
-        
-        // pedro test
-        this.menu = {
-          "name": "přidat adresář",
-          "dirs": [
-            {
-              "name": "info",
-              "files": [
-                "relief",
-                "search"
-              ]
-            },
-            {
-              "name": "help",
-              "files": [
-                "users",
-                "system"
-              ]
-            }
           ]
         };
         
