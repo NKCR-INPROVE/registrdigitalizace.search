@@ -142,8 +142,8 @@ export class AppState {
     this._stateSubject.next(this);
   }
   
-  linkSelectedChanged(link: string){
-    this._linkSelected.next(link);
+  linkSelectedChanged(link: string, fragment: string){
+    this._linkSelected.next({link: link, fragment: fragment});
   }
 
   setFilters() {

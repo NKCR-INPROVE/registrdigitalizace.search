@@ -3,16 +3,25 @@
     {{'Available links' | translate}}
   </mz-modal-header>
   <mz-modal-content>
+    <div class="row">
+      <div class="col s8">
   <i mz-icon-mdi mz-input-prefix [icon]="'link'"></i>
-  
   <ul class="browser-default">
-    <li *ngFor="let l of links" [class.app-root-page]="!path">
-      <a mz-collection-link  (click)="select(l)" [active]="selected === l">
-        <i *ngIf="selected === l" class="app-mdi-check"></i>
+    <li *ngFor="let l of links" >
+      <a mz-collection-link  (click)="select(l)" [active]="selected === '/' + l">
+        <i *ngIf="selected === '/' + l" class="app-mdi-check"></i>
         {{l}}
       </a>
     </li>
-  </ul>
+  </ul></div>
+      <div class="col s4">
+  <mz-input-container >
+    <input mz-input id="fragment" type="text" class="form-control" name="fragment" value="" 
+             [label]="'fragment' | translate"
+             [(ngModel)]="fragment" />   
+  </mz-input-container></div>
+    </div>
+  
   
   </mz-modal-content>
   <mz-modal-footer>

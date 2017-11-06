@@ -13,6 +13,7 @@ export class LinkListComponent extends MzBaseModal {
   state: AppState;
   links: string[];
   selected: string;
+  fragment: string;
   
   public modalOptions: Materialize.ModalOptions = {
     dismissible: false, // Modal can be dismissed by clicking outside of the modal
@@ -32,16 +33,17 @@ export class LinkListComponent extends MzBaseModal {
   ngOnInit() {
   }
   
-  
-  
   select(l: string){
     this.selected = '/' + l;
-    this.state.linkSelectedChanged(this.selected);
-    this.modalComponent.close();
+    if(this.fragment && this.fragment !== ''){
+      
+    }
+//    this.state.linkSelectedChanged(this.selected);
+//    this.modalComponent.close();
   }
   
   ok(){
-    //this.state.linkSelectedChanged(this.selected);
+    this.state.linkSelectedChanged(this.selected, this.fragment);
     this.modalComponent.close();
   }
 

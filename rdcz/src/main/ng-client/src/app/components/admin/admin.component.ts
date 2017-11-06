@@ -40,6 +40,11 @@ export class AdminComponent implements OnInit, OnDestroy {
       selected = node.getAttribute('routerlink');
     }
     
+    let fragment = "";
+    if(node.hasAttribute('fragment')){
+      fragment = node.getAttribute('fragment');
+    }
+    
     let links = [];
     for(let i in this.menu['files']){
       links.push(this.menu['files'][i]);
@@ -47,22 +52,24 @@ export class AdminComponent implements OnInit, OnDestroy {
     for(let i in this.menu['dirs'][0]['files']){
       links.push('info/' + this.menu['dirs'][0]['files'][i]);
     }
-    this.modalService.open(LinkListComponent, {state: this.state, links: links, selected: selected});
+    this.modalService.open(LinkListComponent, {state: this.state, links: links, selected: selected, fragment: fragment});
     //this.dir['files'].push('newpage');
   }
   
-  selectLink(link: string){
+  selectLink(l: {link: string, fragment: string}){
     let node: Element = this.editor.selection.getNode();
     if(node.hasAttribute('routerlink')){
-      node.setAttribute('routerlink', link);
+      node.setAttribute('routerlink', l.link);
+      node.setAttribute('fragment', l.fragment);
     } else if(node.hasAttribute('href')){
-      node.setAttribute('routerlink', link);
+      node.setAttribute('routerlink', l.link);
+      node.setAttribute('fragment', l.fragment);
       node.removeAttribute('href');
     } else if(this.editor.selection.getContent().length == 0){
-      let ret = ' <a routerLink="'+link+'">'+ link+'</a> ';
+      let ret = ' <a routerLink="' + l.link + ' fragment="' + l.fragment+'">'+ l.link+'</a> ';
       this.editor.insertContent(ret);
     } else {
-      let ret = '<a routerLink="'+link+'">'+ this.editor.selection.getContent()+'</a>';
+      let ret = '<a routerLink="'+l.link + ' fragment="' + l.fragment+'">'+ this.editor.selection.getContent()+'</a>';
       this.editor.insertContent(ret);
     }
   }
@@ -78,8 +85,8 @@ export class AdminComponent implements OnInit, OnDestroy {
     tinymce.init({
       selector: '#' + this.elementId,
       menubar: false,
-      plugins: ['link', 'paste', 'table', 'save', 'code', 'image'],
-      toolbar: 'save | undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | code nglink',
+      plugins: ['link', 'paste', 'table', 'save', 'code', 'image', 'anchor'],
+      toolbar: 'save | undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | code anchor nglink',
       
       theme: "modern",
       content_css: ctx + 'assets/editor.css',
