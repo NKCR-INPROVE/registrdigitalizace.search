@@ -70,6 +70,7 @@
     "signatura": "Signature",
     "car-kod": "Bar code",
     "poznamka": "Comment",
+    "bibpoznamka": "Comment",
     "zaradit-query": "show query as filter",
     "user": "User",
     "password": "Password"

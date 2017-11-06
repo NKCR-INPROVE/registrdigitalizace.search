@@ -70,6 +70,7 @@
     "signatura": "Signatura",
     "car-kod": "Čár. kód",
     "poznamka": "Poznámka",
+    "bibpoznamka": "Poznámka",
     "zaradit-query": "zařadit dotaz jako filtr",
     "user": "Uživatel",
     "password": "Heslo"
