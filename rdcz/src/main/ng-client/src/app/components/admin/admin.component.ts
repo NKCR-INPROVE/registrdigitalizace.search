@@ -33,6 +33,13 @@ export class AdminComponent implements OnInit, OnDestroy {
   
 
   showLinkList() {
+    //console.log(this.editor.selection.getNode());
+    let selected = "";
+    let node: Element = this.editor.selection.getNode();
+    if(node.hasAttribute('routerlink')){
+      selected = node.getAttribute('routerlink');
+    }
+    
     let links = [];
     for(let i in this.menu['files']){
       links.push(this.menu['files'][i]);
@@ -40,14 +47,24 @@ export class AdminComponent implements OnInit, OnDestroy {
     for(let i in this.menu['dirs'][0]['files']){
       links.push('info/' + this.menu['dirs'][0]['files'][i]);
     }
-    this.modalService.open(LinkListComponent, {state: this.state, links: links, selected: ""});
+    this.modalService.open(LinkListComponent, {state: this.state, links: links, selected: selected});
     //this.dir['files'].push('newpage');
   }
   
   selectLink(link: string){
-    
-            let ret = '<a routerLink="'+link+'">'+ this.editor.selection.getContent()+'</a>';
-            this.editor.insertContent(ret);
+    let node: Element = this.editor.selection.getNode();
+    if(node.hasAttribute('routerlink')){
+      node.setAttribute('routerlink', link);
+    } else if(node.hasAttribute('href')){
+      node.setAttribute('routerlink', link);
+      node.removeAttribute('href');
+    } else if(this.editor.selection.getContent().length == 0){
+      let ret = ' <a routerLink="'+link+'">'+ link+'</a> ';
+      this.editor.insertContent(ret);
+    } else {
+      let ret = '<a routerLink="'+link+'">'+ this.editor.selection.getContent()+'</a>';
+      this.editor.insertContent(ret);
+    }
   }
 
   constructor(
@@ -56,6 +73,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     private service: AppService) { }
 
   ngAfterViewInit() {
+    var ctx = this.state.config ? this.state.config['context'] : '/';
     var that = this;
     tinymce.init({
       selector: '#' + this.elementId,
@@ -64,6 +82,8 @@ export class AdminComponent implements OnInit, OnDestroy {
       toolbar: 'save | undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | code nglink',
       
       theme: "modern",
+      content_css: ctx + 'assets/editor.css',
+      body_class: 'underlined',
       skin_url: 'assets/skins/light',
       //images_upload_url: 'img?action=UPLOAD&id=' + this.selected,
       
@@ -204,8 +224,7 @@ export class AdminComponent implements OnInit, OnDestroy {
         
         this.menu = res;
     
-        //let s = this.menu['name'] + '/' + this.menu['files'][0]; // pedro commented
-        let s = this.menu['name'] + '/' + this.menu['files']; // pedro modified, because propertu "[0]"
+        let s = this.menu['name'] + '/' + this.menu['files'][0]; 
         this.state.setSelectAdminItem(s);
         //this.selected = 
         //this.getText();
@@ -217,6 +236,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.service.getText(this.selected).subscribe(t => {
       this.text = t;
       this.editor.schema.addValidElements('a[routerLink|*]');
+      this.editor.schema.addValidElements('a[fragment|*]');
       this.editor['settings']['images_upload_url'] = 'img?action=UPLOAD&name=' + this.selected;
       this.editor.setContent(this.text);
       

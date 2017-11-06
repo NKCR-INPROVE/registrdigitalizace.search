@@ -271,8 +271,7 @@ export class AppService {
     
     //we should convert back routerlink= to routerLink=
     
-    let ctext = text.replace(/routerlink/g, 'routerLink');
-    console.log(ctext);
+    let ctext = text.replace(/routerlink/g, 'routerLink');//.replace(/fragment/g, '[fragment]');
 
     return this.http.post(url, ctext, options)
       .map((response: Response) => {

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Compiler, NgModuleFactory, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule , Router, Params, NavigationEnd, NavigationStart } from '@angular/router';
 
 @Component({
   selector: 'app-inner-content',
@@ -15,6 +15,7 @@ export class InnerContentComponent implements OnInit {
   text: string;
 
   constructor(
+  private router: Router,
     private compiler: Compiler) { 
   }
 //  
@@ -24,8 +25,17 @@ export class InnerContentComponent implements OnInit {
   }
   
   ngOnInit() {
-//    this.dynamicComponent = this.createNewComponent(this.text);
-//    this.dynamicModule = this.compiler.compileModuleSync(this.createComponentModule(this.dynamicComponent));
+    
+    this.router.events.subscribe(event => {
+        if (event instanceof NavigationEnd) {
+            const tree =  this.router.parseUrl(this.router.url);
+            if (tree.fragment) {
+	        const element = document.querySelector("#" + tree.fragment);
+	        if (element) { element.scrollIntoView(true); }
+            }
+         }
+    });
+    
   }
   
   protected createComponentModule (componentType: any) {

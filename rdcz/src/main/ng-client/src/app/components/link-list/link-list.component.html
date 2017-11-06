@@ -1,0 +1,22 @@
+<mz-modal [fixedFooter]="true" [options]="modalOptions" class="app-modal-link-list">
+  <mz-modal-header>
+    {{'Available links' | translate}}
+  </mz-modal-header>
+  <mz-modal-content>
+  <i mz-icon-mdi mz-input-prefix [icon]="'link'"></i>
+  
+  <ul class="browser-default">
+    <li *ngFor="let l of links" [class.app-root-page]="!path">
+      <a mz-collection-link  (click)="select(l)" [active]="selected === l">
+        <i *ngIf="selected === l" class="app-mdi-check"></i>
+        {{l}}
+      </a>
+    </li>
+  </ul>
+  
+  </mz-modal-content>
+  <mz-modal-footer>
+    <button mz-button [flat]="true" mz-modal-close>Cancel</button>
+    <button mz-button [flat]="true" (click)="ok()" >Ok</button>
+  </mz-modal-footer>
+</mz-modal>

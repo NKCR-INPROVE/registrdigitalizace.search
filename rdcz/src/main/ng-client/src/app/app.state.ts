@@ -39,7 +39,7 @@ export class AppState {
     { "label": "Pole 001", "field": "pole001" }
   ];
 
-  currentLang: string;
+  currentLang: string = 'cs';
 
   lists: any = {};
 
@@ -143,7 +143,6 @@ export class AppState {
   }
   
   linkSelectedChanged(link: string){
-    
     this._linkSelected.next(link);
   }
 

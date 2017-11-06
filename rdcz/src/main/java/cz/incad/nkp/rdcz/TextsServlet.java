@@ -83,19 +83,32 @@ public class TextsServlet extends HttpServlet {
       }
     });
 
-    for (File file : listOfFiles) {
-      if (file.isFile()) {
-        String shortName = file.getName().split("\\.")[0].split("_")[0];
-        if (!files.contains(shortName)) {
-          files.add(shortName);
-          json.append("files", shortName);
-        }
-      } else if (file.isDirectory()) {
-        json.append("dirs", dirToJson(file));
-      }
-    }
+    setFiles(json, listOfFiles);
     return json;
-
+  }
+  private static void setFiles(JSONObject json, File[] listOfFiles) {
+    List<String> files = new ArrayList<>();
+    for (File file : listOfFiles) {
+              if (file.isFile()) {
+                String shortName = file.getName().split("\\.")[0];
+                int under = shortName.lastIndexOf("_cs");
+                if(under > -1){
+                  shortName = shortName.substring(0, under);
+                } else {
+                  under = shortName.lastIndexOf("_en");
+                  if(under > -1){
+                    shortName = shortName.substring(0, under);
+                  }
+                }
+                
+                if (!files.contains(shortName)) {
+                  files.add(shortName);
+                  json.append("files", shortName);
+                }
+              } else if (file.isDirectory()) {
+                json.append("dirs", dirToJson(file));
+              }
+            }
   }
 
   enum Actions {
@@ -114,24 +127,14 @@ public class TextsServlet extends HttpServlet {
           File folder = new File(path);
           if (folder.exists()) {
             json.put("name", folder.getName()).put("dirs", new JSONArray()).put("files", new JSONArray());
-            List<String> files = new ArrayList<>();
+            
             File[] listOfFiles = folder.listFiles(new FileFilter() {
-      @Override
-      public boolean accept(File pathname) {
-        return pathname.getName().indexOf(".htm") > 0 || (pathname.isDirectory() && !pathname.getName().equals("img"));
-      }
-    });
-            for (File file : listOfFiles) {
-              if (file.isFile()) {
-                String shortName = file.getName().split("\\.")[0].split("_")[0];
-                if (!files.contains(shortName)) {
-                  files.add(shortName);
-                  json.append("files", shortName);
-                }
-              } else if (file.isDirectory()) {
-                json.append("dirs", dirToJson(file));
+              @Override
+              public boolean accept(File pathname) {
+                return pathname.getName().indexOf(".htm") > 0 || (pathname.isDirectory() && !pathname.getName().equals("img"));
               }
-            }
+            });
+            setFiles(json, listOfFiles);
           } else {
             json.put("files", new JSONArray());
           }
@@ -151,10 +154,10 @@ public class TextsServlet extends HttpServlet {
         String lang = request.getParameter("lang");
 //        String filename = InitServlet.CONFIG_DIR + File.separator + "texts"
 //                + File.separator + request.getParameter("id");
-        String filename = InitServlet.CONFIG_DIR 
+        String filename = InitServlet.CONFIG_DIR
                 + File.separator + request.getParameter("id");
         File f;
-        if (lang != null) {
+        if (lang != null && !"undefined".equals(lang)) {
           f = new File(filename + "_" + lang + ".html");
           if (f.exists()) {
             FileUtils.copyFile(f, response.getOutputStream());
@@ -188,7 +191,7 @@ public class TextsServlet extends HttpServlet {
         String lang = request.getParameter("lang");
 //        String filename = InitServlet.CONFIG_DIR + File.separator + "texts"
 //                + File.separator + id;
-        String filename = InitServlet.CONFIG_DIR 
+        String filename = InitServlet.CONFIG_DIR
                 + File.separator + id;
         File f;
         String text = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
@@ -215,6 +218,10 @@ public class TextsServlet extends HttpServlet {
     };
 
     abstract void doPerform(HttpServletRequest request, HttpServletResponse response) throws Exception;
+  }
+  
+  class FileFilterClass{
+    
   }
 
   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
