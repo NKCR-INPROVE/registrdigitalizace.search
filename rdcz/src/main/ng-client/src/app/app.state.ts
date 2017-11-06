@@ -52,8 +52,6 @@ export class AppState {
   
   public _chartBarToggled = new Subject();
   public chartBarToggled: Observable<any> = this._chartBarToggled.asObservable();
-  
-  
 
   facets: any;
   facet_ranges: any;
@@ -110,7 +108,7 @@ export class AppState {
   public _linkSelected = new Subject();
   public linkSelected: Observable<any> = this._linkSelected.asObservable();
   
-  
+  isDuplicity: boolean = false;
   
   showingChartBar: boolean = false;
 

@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewChild, ElementRef, Renderer } from '@angular/core';
-import { Router } from '@angular/router';
+import {Component, OnInit, ViewChild, ElementRef, Renderer} from '@angular/core';
+import {Router} from '@angular/router';
+import {Subscription} from 'rxjs/Subscription';
 
 
-import { AppService } from '../../app.service';
-import { AppState } from '../../app.state';
+import {AppService} from '../../app.service';
+import {AppState} from '../../app.state';
 
 @Component({
   selector: 'app-search-bar',
@@ -14,6 +15,8 @@ export class SearchBarComponent implements OnInit {
 
   @ViewChild('advNazev') advNazev: any;
   @ViewChild('searchForm') searchForm: any;
+  @ViewChild('q') q: any;
+  subscriptions: Subscription[] = [];
 
   //  public searchForm: FormGroup;
 
@@ -30,12 +33,34 @@ export class SearchBarComponent implements OnInit {
       if (!this.state.isAdvancedCollapsed && !this.searchForm.nativeElement.contains(event.target)) {
         this.closeAdv();
       }
-    })
+    });
+
+
+    this.subscriptions.push(this.state.searchSubject.subscribe(
+      (resp) => {
+        if (this.state.isDuplicity) {
+          console.log(this.q);
+          this.q.nativeElement.focus();
+          this.q.nativeElement.select();
+        }
+      }
+    ));
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach((s: Subscription) => {
+      s.unsubscribe();
+    });
+    this.subscriptions = [];
   }
 
   search() {
-    this.state.isAdvancedCollapsed = true;
-    this.service.goToResults();
+    if (this.state.isDuplicity) {
+      this.duplicity();
+    } else {
+      this.state.isAdvancedCollapsed = true;
+      this.service.goToResults();
+    }
   }
 
   // pedro
@@ -57,7 +82,9 @@ export class SearchBarComponent implements OnInit {
     this.service.goToResults();
   }
 
-
+  changeDuplicity() {
+    //this.state.isDuplicity
+  }
 
   duplicity() {
     if (this.state.q === '') {
@@ -65,7 +92,14 @@ export class SearchBarComponent implements OnInit {
     } else {
       this.service.searchAleph().subscribe(res2 => {
         if (res2['numFound'] > 0) {
-          let varFields = res2['marc']['present']['record']['metadata']['oai_marc']['varfield'];
+          let varFields;
+          if (res2['marc']['present']['record'].length) {
+
+            varFields = res2['marc']['present']['record'][0]['metadata']['oai_marc']['varfield'];
+          } else {
+
+            varFields = res2['marc']['present']['record']['metadata']['oai_marc']['varfield'];
+          }
           for (let i in varFields) {
             if (varFields[i]['id'] === 245) {
               let sub = varFields[i]['subfield'];
