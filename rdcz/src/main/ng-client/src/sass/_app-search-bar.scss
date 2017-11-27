@@ -86,6 +86,13 @@ app-search-bar {
         height: $input-height;
         line-height: $input-height;
         padding-left: 0;
+        
+        .checkbox-field {
+          label {
+            padding-left: 27px;
+            color: inherit;
+          }
+        }
       }
       .col:last-child {
         text-align: right;
