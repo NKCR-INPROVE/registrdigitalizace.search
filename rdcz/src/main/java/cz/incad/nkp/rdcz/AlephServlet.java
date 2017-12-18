@@ -80,13 +80,15 @@ public class AlephServlet extends HttpServlet {
       String xml = org.apache.commons.io.IOUtils.toString(inputStream, Charset.forName("UTF-8"));
       JSONObject json = XML.toJSONObject(xml);
 
-      LOGGER.log(Level.INFO, "requesting json {0}", json);
+      LOGGER.log(Level.INFO, "response is json {0}", json);
       if (json.has("find")) {
         if (json.getJSONObject("find").has("error")) {
           ret.put("numFound", 0).put("error", json.getJSONObject("find").getString("error"));
         } else {
+      LOGGER.log(Level.INFO, "no_records... {0}", json.getJSONObject("find").getString("no_records"));
           int no_records = Integer.parseInt(json.getJSONObject("find").getString("no_records"));
 
+      LOGGER.log(Level.INFO, "no_records integer... {0}", no_records);
           if (no_records > 0) {
             ret.put("numFound", no_records);
 //        
@@ -101,9 +103,12 @@ public class AlephServlet extends HttpServlet {
                     .setParameter("base", base)
                     .setParameter("op", "present")
                     .setParameter("format", "marc")
-                    .setParameter("set_no", json.getJSONObject("find").getString("set_number"))
+                    .setParameter("set_no", json.getJSONObject("find").getInt("set_number") + "")
                     .setParameter("set_entry", "1-" + json.getJSONObject("find").getString("no_records"))
                     .build();
+            
+      LOGGER.log(Level.INFO, "find... {0}", uri.toString());
+      
             inputStream = RESTHelper.inputStream(uri.toString());
             xml = org.apache.commons.io.IOUtils.toString(inputStream, Charset.forName("UTF-8"));
             JSONObject marc = XML.toJSONObject(xml);
@@ -121,7 +126,7 @@ public class AlephServlet extends HttpServlet {
       out.print(ret.toString(2));
       //out.print(xml);
     } catch (URISyntaxException ex) {
-      Logger.getLogger(AlephServlet.class.getName()).log(Level.SEVERE, null, ex);
+      LOGGER.log(Level.SEVERE, null, ex);
     }
   }
 

@@ -276,8 +276,8 @@ public class Indexer {
           rs.close();
           ps.close();
           if (!idocs.isEmpty()) {
-            solr.add("lists", idocs);
-            solr.commit("lists");
+            solr.add("digobjekt", idocs);
+            solr.commit("digobjekt");
             indexed += idocs.size();
             idocs.clear();
           }
