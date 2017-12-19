@@ -80,15 +80,14 @@ public class AlephServlet extends HttpServlet {
       String xml = org.apache.commons.io.IOUtils.toString(inputStream, Charset.forName("UTF-8"));
       JSONObject json = XML.toJSONObject(xml);
 
-      LOGGER.log(Level.INFO, "response is json {0}", json);
+      LOGGER.log(Level.FINE, "response is json {0}", json);
       if (json.has("find")) {
         if (json.getJSONObject("find").has("error")) {
           ret.put("numFound", 0).put("error", json.getJSONObject("find").getString("error"));
         } else {
-      LOGGER.log(Level.INFO, "no_records... {0}", json.getJSONObject("find").getString("no_records"));
           int no_records = Integer.parseInt(json.getJSONObject("find").getString("no_records"));
 
-      LOGGER.log(Level.INFO, "no_records integer... {0}", no_records);
+      LOGGER.log(Level.FINE, "no_records integer... {0}", no_records);
           if (no_records > 0) {
             ret.put("numFound", no_records);
 //        
