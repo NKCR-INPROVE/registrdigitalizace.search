@@ -150,7 +150,12 @@
                   <tr *ngIf="p.active">
                     <td><span mz-tooltip [tooltip]="'text.'+p.stav | translate" [position]="'top'" [class]="'app-state-item app-cursor-pointer app-state-item-' + p.stav"></span></td>
                     <td>
+                      <!--
                       <a *ngIf="p.bibliographich_data" mz-tooltip [tooltip]="'label.bib-udaje' | translate" [position]="'top'" [href]="p.bibliographich_data" title="" target="_blank">
+                        <i mz-icon-mdi [icon]="'open-in-new'" [size]="'16px'"></i>
+                      </a>
+                      -->
+                      <a *ngIf="p.ext_url" mz-tooltip [tooltip]="'label.digitalni-dokument' | translate" [position]="'top'" [href]="p.ext_url" title="" target="_blank">
                         <i mz-icon-mdi [icon]="'open-in-new'" [size]="'16px'"></i>
                       </a>
                     </td>
@@ -177,7 +182,7 @@
             {{'label.digitalni-dokument' | translate}} <span class="app-brand-text text-lighten-3">({{digObjects.length}})</span>
           </mz-collapsible-item-header>
           <mz-collapsible-item-body>
-            <mz-collection>
+            <mz-collection class="app-dig-object">
               <a mz-collection-link  *ngFor="let do of digObjects" [href]="do['url']" target="_blank" class="app-link">{{do['url']}}</a>
             </mz-collection>
           </mz-collapsible-item-body>

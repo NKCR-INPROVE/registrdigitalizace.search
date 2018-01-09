@@ -175,6 +175,13 @@ app-result-item {
               }
             }
             
+            .app-dig-object{
+              >div{
+                max-height: 150px;
+                overflow: auto;
+              }
+            }
+            
             .collection {
               padding: 10px 0;
               .collection-item {
