@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild, ElementRef, Renderer} from '@angular/core';
-import {Router} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
 
 
@@ -23,6 +23,7 @@ export class SearchBarComponent implements OnInit {
 
   constructor(private service: AppService,
     private router: Router,
+    private route: ActivatedRoute,
     public state: AppState,
     private renderer: Renderer) {
   }
@@ -38,13 +39,15 @@ export class SearchBarComponent implements OnInit {
 
     this.subscriptions.push(this.state.searchSubject.subscribe(
       (resp) => {
-        if (this.state.isDuplicity) {
-          console.log(this.q);
+        if (this.state.isDuplicity || !this.state.q || this.state.q === ''){
           this.q.nativeElement.focus();
           this.q.nativeElement.select();
         }
       }
     ));
+    
+    this.q.nativeElement.focus();
+    this.q.nativeElement.select();
   }
 
   ngOnDestroy() {
