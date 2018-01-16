@@ -381,9 +381,8 @@ public class Indexer {
 
   private void addNeplatneCnb(SolrInputDocument idoc, String predlohaid, Connection conn) {
     try {
-      String sql = "select value from digknihovna, predloha, dlists "
-              + "where predloha.digKnihovna=dlists.value "
-              + "and dlists.id=digknihovna.id and predloha.id=" + predlohaid;
+      String sql = "select value from nepccnb "
+              + "where RPREDLOHA_NEPCCNB=" + predlohaid;
       PreparedStatement ps = conn.prepareStatement(sql);
 
       try (ResultSet rs = ps.executeQuery()) {
