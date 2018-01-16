@@ -15,9 +15,9 @@ export class InfoComponent implements AfterViewInit {
   @ViewChild(InnerContentComponent) inn: InnerContentComponent;
   
   
+  menu: any = null;
   subscriptions: Subscription[] = [];
   page: string = 'pages/info';
-  
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
@@ -26,13 +26,50 @@ export class InfoComponent implements AfterViewInit {
     private route: ActivatedRoute) { }
 
   ngAfterViewInit() {
-    
+    this.fillMenu();
     this.loadComponent();
     this.subscriptions.push(this.service.langSubject.subscribe(
       () => {
         this.loadComponent();
       }
     ));
+  }
+  
+  
+
+  fillMenu() {
+      this.service.getEditablePages().subscribe(res => {
+        //this.menu = res;
+        this.menu = {
+          "name": "pages",
+          "dirs": [{
+            "name": "info",
+            "dirs": [],
+            "files": [
+              "exportSKC",
+              "index",
+              "ccnb",
+              "dotaznik2013",
+              "relief",
+              "statistika",
+              "vysvetlivky",
+              "napoveda",
+              "newpage",
+              "prehled",
+              "excel",
+              "marcxml"
+            ]
+          }],
+          "files": [
+            "info",
+            "help"
+          ]
+        };
+        
+        this.menu = res;
+    
+      });
+    
   }
   
   loadComponent() {

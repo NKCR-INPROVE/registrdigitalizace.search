@@ -130,7 +130,12 @@ export class AppService {
     
     for(let i in this.state.advParams){
       if(this.state.advParams[i] !== null && this.state.advParams[i] !== ''){
-        params.append('fq', i + ':"' + this.state.advParams[i] + '"');
+        if(i === 'title'){
+          params.append('fq', 'title:"' + this.state.advParams[i].trim() + '" OR varnazev:"' + this.state.advParams[i].trim() + '"');
+        }else{
+          params.append('fq', i + ':"' + this.state.advParams[i].trim() + '"');
+        }
+        
       }
     }
     
