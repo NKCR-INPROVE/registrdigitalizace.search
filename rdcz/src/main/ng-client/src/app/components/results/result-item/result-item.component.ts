@@ -26,7 +26,7 @@ export class ResultItemComponent implements OnInit, OnDestroy {
   imgSrc: string;
   imgWidth: number = 100;
 
-  currentSort: string = 'stav';
+  currentSort: string = 'rozsah';
   currentDir: number = 1;
 
   stavy = [];
@@ -179,20 +179,18 @@ export class ResultItemComponent implements OnInit, OnDestroy {
    *  Ideální stav by bylo použití dvoustupňového řazení (stačil by u vlastníka a roku)
    */
   sortDefault() {
-    this.currentSort = null;
+    this.currentSort = 'rozsah';
     this.predlohy.sort((a: Result, b: Result) => {
-      let v: string = a['vlastnik'];
-      if (v.localeCompare(b['vlastnik']) === 0) {
-        if (a['rozsah'] && b['rozsah']) {
-          return a['rozsah'].localeCompare(b['rozsah']);
-        } else if (a['cast'] && b['cast']) {
+      let v: string = a['rozsah'];
+      if (v.localeCompare(b['rozsah']) === 0) {
+        if (a['cast'] && b['cast']) {
           return a['cast'].localeCompare(b['cast']);
         } else {
           return 0;
         }
 
       } else {
-        return v.localeCompare(b['vlastnik']);
+        return v.localeCompare(b['rozsah']);
       }
     });
   }
