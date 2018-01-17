@@ -72,13 +72,12 @@ export class ResultItemComponent implements OnInit, OnDestroy {
   }
   
   addDigObjUrl(url){
-    
     for(let i in this.digObjects){
-      if(this.digObjects[i]['url'] === url){
+      if(this.digObjects[i]['url'] === url.trim()){
         return;
       }
     }
-    this.digObjects.push({url: url});
+      this.digObjects.push({url: url.trim()});
   }
   
   addExtUrl(p: any){
@@ -194,6 +193,9 @@ export class ResultItemComponent implements OnInit, OnDestroy {
     this.currentSort = 'rozsah';
     this.predlohy.sort((a: Result, b: Result) => {
       let v: string = a['rozsah'];
+      if(!v){
+        return 0;
+      }
       if (v.localeCompare(b['rozsah']) === 0) {
         if (a['cast'] && b['cast']) {
           return a['cast'].localeCompare(b['cast']);
@@ -211,7 +213,13 @@ export class ResultItemComponent implements OnInit, OnDestroy {
     this.currentSort = field;
     this.currentDir = - this.currentDir;
     this.predlohy.sort((a: Result, b: Result) => {
-      return a[field] > b[field] ? -this.currentDir : this.currentDir;
+      if(!a.hasOwnProperty(field)){
+        return -this.currentDir;
+      } else if(!b.hasOwnProperty(field)){
+        return this.currentDir;
+      } else { 
+        return a[field] > b[field] ? -this.currentDir : this.currentDir;
+      }
     });
   }
 
