@@ -4,7 +4,22 @@
       <div class="col s12">   
         <div class="row">
           <div class="col s12 xl3 app-menu-col">
-              <app-menu-tree *ngIf="menu" [dir]="menu" [path]="''"></app-menu-tree>
+            
+            
+            
+            <div class="app-wrapper" *ngIf="menu">
+              <ul class="browser-default">
+                <li *ngFor="let m of menu.dirs[0]['files']" >
+                  <a mz-collection-link  (click)="select(m)" [active]="isActive(m)">
+                    <i *ngIf="isActive(m)" class="app-mdi-check"></i>
+                    {{m | translate}}
+                  </a>
+                </li>
+              </ul>
+            </div>
+            
+            
+            
           </div><!--/.col -->
           <div class="col s12 xl9">
             <app-inner-content #inn></app-inner-content>

@@ -1,5 +1,5 @@
 import { Component, AfterViewInit, ViewChild, ComponentFactoryResolver } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { AppState } from '../../app.state';
 import { AppService } from '../../app.service';
@@ -23,19 +23,30 @@ export class InfoComponent implements AfterViewInit {
     private componentFactoryResolver: ComponentFactoryResolver,
     public state: AppState,
     public service: AppService,
+    private router: Router,
     private route: ActivatedRoute) { }
 
   ngAfterViewInit() {
     this.fillMenu();
-    this.loadComponent();
+    let param = this.route.snapshot.paramMap.get('page');
+    this.loadComponent(param);
     this.subscriptions.push(this.service.langSubject.subscribe(
       () => {
-        this.loadComponent();
+        this.loadComponent(param);
       }
     ));
   }
   
-  
+
+  select(f: string) {
+    this.router.navigate(['/info/' + f]);
+    this.loadComponent(f);
+//    this.page = 'pages/' + f;
+  }
+
+  isActive(f: string) {
+    return this.page === 'pages/' + f;
+  }
 
   fillMenu() {
       this.service.getEditablePages().subscribe(res => {
@@ -72,9 +83,8 @@ export class InfoComponent implements AfterViewInit {
     
   }
   
-  loadComponent() {
+  loadComponent(param) {
     
-    let param = this.route.snapshot.paramMap.get('page');
     if(!param || param === ''){
       this.page = 'pages/info';
     } else {
