@@ -71,14 +71,26 @@ export class ResultItemComponent implements OnInit, OnDestroy {
     ));
   }
   
+  addDigObjUrl(url){
+    
+    for(let i in this.digObjects){
+      if(this.digObjects[i]['url'] === url){
+        return;
+      }
+    }
+    this.digObjects.push({url: url});
+  }
+  
   addExtUrl(p: any){
     if (p['url']) {
-      this.digObjects.push({url: p['url']});
+      //this.digObjects.push({url: p['url']});
       p['ext_url'] = p['url'];
     } else if (p['urltitul']) {
       p['ext_url'] = p['urltitul'];
+      this.addDigObjUrl(p['urltitul']);
     } else if (p['urltitnk']) {
       p['ext_url'] = p['urltitnk'];
+      this.addDigObjUrl(p['urltitnk']);
     }
   }
 
@@ -176,7 +188,7 @@ export class ResultItemComponent implements OnInit, OnDestroy {
 
   /**
    * Vychozi mame radit takhle
-   *  Ideální stav by bylo použití dvoustupňového řazení (stačil by u vlastníka a roku)
+   *  Ideální stav by bylo použití dvoustupňového řazení podle Rok periodika a Část/ročník,
    */
   sortDefault() {
     this.currentSort = 'rozsah';
