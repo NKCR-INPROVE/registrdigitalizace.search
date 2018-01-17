@@ -152,8 +152,12 @@ export class AppState {
     this.q = '';
     this.currentOd = 0;
     this.currentDo = (new Date()).getFullYear();
+    for(let i in this.advParams){
+      this.advParams[i] = '';
+    }
     this.start = 0;
     this.usedFilters = [];
+    this.usedAdv = [];
   }
 
   clearResults() {
