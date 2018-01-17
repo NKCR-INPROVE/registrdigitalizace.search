@@ -90,7 +90,7 @@ export class AppState {
     carkod: '',
     cislordcz: '',
     pole001: '',
-    cislozakazky: '',
+    vydavatel: '',
     can: ''
   };
 
