@@ -18,7 +18,6 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
 
-  menu: any = null;
   selected: any = {path: '/pages', menuitem: {"name":"help", "en":"Help","cs":"Nápověda"}};
   visibleChanged: boolean = false;
   saved: boolean = false;
@@ -46,11 +45,11 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
     
     let links = [];
-    for(let i in this.menu['files']){
-      links.push(this.menu['files'][i]);
+    for(let i in this.state.info_menu['files']){
+      links.push(this.state.info_menu['files'][i]);
     }
-    for(let i in this.menu['dirs'][0]['files']){
-      links.push('info/' + this.menu['dirs'][0]['files'][i]);
+    for(let i in this.state.info_menu['dirs'][0]['files']){
+      links.push('info/' + this.state.info_menu['dirs'][0]['files'][i]);
     }
     this.modalService.open(LinkListComponent, {state: this.state, links: links, selected: selected, fragment: fragment});
     //this.dir['files'].push('newpage');
@@ -202,8 +201,8 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   fillMenu() {
       this.service.getEditablePages().subscribe(res => {
-        //this.menu = res;
-        this.menu = {
+        //this.state.info_menu = res;
+        this.state.info_menu = {
   "name": "pages",
   "pages": [
     {"name":"help", "en":"Help","cs":"Nápověda"},
@@ -228,9 +227,9 @@ export class AdminComponent implements OnInit, OnDestroy {
   ]
 };
         
-        this.menu = res;
+        this.state.info_menu = res;
     
-        let s = '/pages/' + this.menu['pages'][0]; 
+        let s = '/pages/' + this.state.info_menu['pages'][0]; 
         //this.state.setSelectAdminItem(s);
       });
     
@@ -273,7 +272,7 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   changeVisible() {
     this.visibleChanged = true;
-    //console.log(this.menu);
+    //console.log(this.state.info_menu);
   }
 
 }

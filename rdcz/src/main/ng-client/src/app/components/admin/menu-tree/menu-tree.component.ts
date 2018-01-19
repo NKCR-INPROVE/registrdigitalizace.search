@@ -3,6 +3,7 @@ import {MzModalService} from 'ng2-materialize';
 import {PromptComponent} from '../../prompt/prompt.component';
 
 import {AppState} from '../../../app.state';
+import {AppService} from 'app/app.service';
 
 @Component({
   selector: 'app-menu-tree',
@@ -16,13 +17,42 @@ export class MenuTreeComponent implements OnInit {
 
   constructor(
     private modalService: MzModalService,
+    private service: AppService,
     public state: AppState) {}
 
   ngOnInit() {
   }
 
-  remove(f: any) {
-    let s = {path: this.path, menuitem: f};
+  moveup(parent: any[], index: number) {
+    if (index === 0) {
+      return;
+    }
+    let clonedBottom = Object.assign({}, parent[index]);
+    let clonedUp = Object.assign({}, parent[index - 1]);
+    parent[index] = clonedUp;
+    parent[index - 1] = clonedBottom;
+    this.service.saveMenu(null).subscribe(res => {
+      console.log(res);
+    });
+  }
+
+  movedown(parent: any[], index: number) {
+    if (index < parent.length - 1) {
+      let clonedBottom = Object.assign({}, parent[index + 1]);
+      let clonedUp = Object.assign({}, parent[index]);
+      parent[index + 1] = clonedUp;
+      parent[index] = clonedBottom;
+      this.service.saveMenu(null).subscribe(res => {
+        console.log(res);
+      });
+    }
+  }
+
+  remove(f: any[], index: number) {
+    f.splice(index, 1);
+    this.service.saveMenu(null).subscribe(res => {
+      console.log(res);
+    });
   }
 
   select(f: any) {
@@ -31,22 +61,24 @@ export class MenuTreeComponent implements OnInit {
   }
 
   isActive(f: string) {
-    if(!this.state.selectAdminItem){
+    if (!this.state.selectAdminItem) {
       return false;
     }
     let s = this.path + '/' + this.dir['name'] + '/' + f;
     return this.state.selectAdminItem['menuitem']['name'] === s;
   }
 
-  addPage() {
-    this.modalService.open(PromptComponent, {dir: this.dir, isFolder: false});
+  addPage(f) {
+
+    //let s = {path: this.path, menuitem: f};
+    this.modalService.open(PromptComponent, {state: this.state, service: this.service, path: this.path, menuitem: f, isFolder: false});
     //this.dir['files'].push('newpage');
   }
-  
-  addFolder() {
-    this.modalService.open(PromptComponent, {dir: this.dir, isFolder: true});
-    
-//    this.dir['dirs'].push({name: 'newfolder', files: [], dirs: []});
+
+  addFolder(f) {
+    this.modalService.open(PromptComponent, {state: this.state, service: this.service, path: this.path, menuitem: f, isFolder: true});
+
+    //    this.dir['dirs'].push({name: 'newfolder', files: [], dirs: []});
   }
 
 

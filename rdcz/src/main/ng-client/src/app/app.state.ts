@@ -98,6 +98,7 @@ export class AppState {
   isAdvancedCollapsed: boolean = true;
   
   //Admin
+  info_menu: any = null;
   selectAdminItem: any;
   //Admin state variables
   public _adminSubject = new Subject();

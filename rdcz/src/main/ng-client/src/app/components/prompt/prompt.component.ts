@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MzBaseModal, MzModalComponent } from 'ng2-materialize';
+import {AppState} from 'app/app.state';
+import {AppService} from 'app/app.service';
 
 @Component({
   selector: 'app-prompt',
@@ -7,8 +9,13 @@ import { MzBaseModal, MzModalComponent } from 'ng2-materialize';
   styleUrls: ['./prompt.component.scss']
 })
 export class PromptComponent extends MzBaseModal {
+  
+  state: AppState;
+  service: AppService;
+  
   val: string;
-  dir: any;
+  path: string;
+  menuitem: any;
   isFolder: boolean = false;
 
   public modalOptions: Materialize.ModalOptions = {
@@ -29,11 +36,15 @@ export class PromptComponent extends MzBaseModal {
   }
   
   ok(){
-    if(this.isFolder){
-      this.dir['dirs'].push({name: this.val, files: [], dirs: []});
+    if(this.menuitem.hasOwnProperty('pages')){
+      this.menuitem['pages'].push({name: this.val, cs: this.val, en: this.val});
     } else {
-      this.dir['files'].push(this.val);
+      this.menuitem['pages'] = [{name: this.val, cs: this.val, en: this.val}];
     }
+    this.service.saveMenu(null).subscribe(res => {
+      console.log(res);
+      
+    });
     this.modalComponent.close();
   }
 

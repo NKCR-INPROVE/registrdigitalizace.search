@@ -287,8 +287,8 @@ export class AppService {
   }
 
   saveMenu(menu: any): Observable<string> {
-    console.log(menu);
-    var url = 'texts?action=SAVEMENU&menu=' + JSON.stringify(menu);
+    //var url = 'texts?action=SAVEMENU&menu=' + JSON.stringify(menu);
+    var url = 'texts?action=SAVEMENU&menu=' + JSON.stringify(this.state.info_menu);
     return this.http.get(url)
       .map((response: Response) => {
         return response.json();
