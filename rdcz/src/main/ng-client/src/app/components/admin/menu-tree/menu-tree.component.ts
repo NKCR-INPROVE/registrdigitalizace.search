@@ -21,14 +21,21 @@ export class MenuTreeComponent implements OnInit {
   ngOnInit() {
   }
 
-  select(f: string) {
-    let s = this.path + '/' + this.dir['name'] + '/' + f;
+  remove(f: any) {
+    let s = {path: this.path, menuitem: f};
+  }
+
+  select(f: any) {
+    let s = {path: this.path, menuitem: f};
     this.state.setSelectAdminItem(s);
   }
 
   isActive(f: string) {
+    if(!this.state.selectAdminItem){
+      return false;
+    }
     let s = this.path + '/' + this.dir['name'] + '/' + f;
-    return this.state.selectAdminItem === s;
+    return this.state.selectAdminItem['menuitem']['name'] === s;
   }
 
   addPage() {

@@ -1,16 +1,23 @@
 <div class="app-wrapper">
+  <!--
   <div class="app-header">
     <i mz-tooltip [tooltip]="'tooltip.add-folder' | translate" [position]="'top'" (click)="addFolder()" class="app-mdi-folder-plus app-cursor-pointer"></i>
     <strong (click)="addFolder()">{{dir.name}}</strong>
     <i mz-tooltip [tooltip]="'tooltip.add-page' | translate" [position]="'top'" (click)="addPage()" class="app-mdi-file-plus right app-cursor-pointer"></i>
   </div>
+  -->
   <ul class="browser-default">
-    <li *ngFor="let d of dir.dirs"><app-menu-tree [dir]="d" [path]="path + '/' + dir.name"></app-menu-tree></li>
-    <li *ngFor="let m of dir['files']" [class.app-root-page]="!path">
-      <a mz-collection-link  (click)="select(m)" [active]="isActive(m)">
-        <i *ngIf="isActive(m)" class="app-mdi-check"></i>
-        {{m | translate}}
+    <li *ngFor="let m of dir['pages']" [class.app-root-page]="!path">
+      <a mz-collection-link  (click)="select(m)" [active]="isActive(m.name)">
+        <i *ngIf="isActive(m.name)" class="app-mdi-check"></i>
+        {{m.name | translate}}
       </a>
+      <a mz-collection-link>
+        <i class="app-mdi-close" (click)="remove(m)"></i>
+      </a>
+      <i mz-tooltip [tooltip]="'tooltip.add-page' | translate" [position]="'top'" (click)="addPage()" class="app-mdi-file-plus right app-cursor-pointer"></i>
+      <i mz-tooltip [tooltip]="'tooltip.add-folder' | translate" [position]="'top'" (click)="addFolder()" class="app-mdi-folder-plus app-cursor-pointer"></i>
+      <app-menu-tree *ngIf="m.pages" [dir]="m" [path]="path + '/' + m.name"></app-menu-tree>
     </li>
   </ul>
 </div>

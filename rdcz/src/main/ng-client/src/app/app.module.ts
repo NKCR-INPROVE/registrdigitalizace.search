@@ -19,6 +19,7 @@ import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { InfoComponent } from './components/info/info.component';
+import { InfoMenuComponent } from './components/info/info-menu/info-menu.component'; 
 import { NapovedaComponent } from './components/napoveda/napoveda.component';
 import { ResultsComponent } from './components/results/results.component';
 import { FacetsComponent } from './components/results/facets/facets.component';
@@ -63,6 +64,7 @@ export function createTranslateLoader(http: Http) {
     HeaderComponent,
     FooterComponent,
     InfoComponent,
+    InfoMenuComponent,
     NapovedaComponent,
     ResultsComponent,
     FacetsComponent,
@@ -107,6 +109,7 @@ export function createTranslateLoader(http: Http) {
       { path: 'home', component: HomeComponent },
       { path: 'results', component: ResultsComponent },
       { path: 'info', component: InfoComponent },
+      { path: 'info/:page/:page', component: InfoComponent },
       { path: 'info/:page', component: InfoComponent },
       { path: 'napoveda', component: NapovedaComponent },
       { path: 'prihlaseni', component: LoginComponent },

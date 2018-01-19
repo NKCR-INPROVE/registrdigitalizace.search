@@ -28,18 +28,19 @@ export class InfoComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.fillMenu();
-    let param = this.route.snapshot.paramMap.get('page');
+    let param = '/' + this.route.snapshot.url.join("/");
+    //console.log(this.route.snapshot);
     this.loadComponent(param);
     this.subscriptions.push(this.service.langSubject.subscribe(
       () => {
-        this.loadComponent(param);
+        this.loadComponent('/' + this.route.snapshot.url.join("/"));
       }
     ));
   }
   
 
   select(f: string) {
-    this.router.navigate(['/info/' + f]);
+    this.router.navigate([f]);
     this.loadComponent(f);
 //    this.page = 'pages/' + f;
   }
@@ -84,11 +85,10 @@ export class InfoComponent implements AfterViewInit {
   }
   
   loadComponent(param) {
-    
     if(!param || param === ''){
-      this.page = 'pages/info';
+      this.page = 'pages';
     } else {
-      this.page = 'pages/info/' + param;
+      this.page = 'pages' + param;
     }
     
     this.service.getText(this.page).subscribe(t => {

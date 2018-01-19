@@ -286,6 +286,17 @@ export class AppService {
 
   }
 
+  saveMenu(menu: any): Observable<string> {
+    console.log(menu);
+    var url = 'texts?action=SAVEMENU&menu=' + JSON.stringify(menu);
+    return this.http.get(url)
+      .map((response: Response) => {
+        return response.json();
+
+      }).catch(error => { return Observable.of('error saving content: ' + error); });
+
+  }
+
   login() {
     this.state.loginError = false;
     if(1<2){

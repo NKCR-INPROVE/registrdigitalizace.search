@@ -98,7 +98,7 @@ export class AppState {
   isAdvancedCollapsed: boolean = true;
   
   //Admin
-  selectAdminItem = 'texts/info';
+  selectAdminItem: any;
   //Admin state variables
   public _adminSubject = new Subject();
   public adminChanged: Observable<any> = this._adminSubject.asObservable();
@@ -130,7 +130,7 @@ export class AppState {
     this._configSubject.next(this.config);
   }
   
-  setSelectAdminItem(s: string){
+  setSelectAdminItem(s: any){
     this.selectAdminItem = s;
     this._adminSubject.next(this);
   }
