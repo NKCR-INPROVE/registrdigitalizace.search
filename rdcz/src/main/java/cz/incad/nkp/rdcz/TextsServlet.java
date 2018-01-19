@@ -111,6 +111,28 @@ public class TextsServlet extends HttpServlet {
               }
             }
   }
+  
+  private static JSONObject findMenuItem(JSONObject menu, JSONObject menu_item, boolean isNew){
+    LOGGER.log(Level.FINE, "menu_item: {0}", menu_item);
+    ArrayList<String> menu_path =  new ArrayList<String>(Arrays.asList(menu_item.getString("path").split("/")));
+    menu_path.remove(0);
+    if(!isNew){
+      menu_path.add(menu_item.getJSONObject("menuitem").getString("name"));
+    }
+    JSONObject item = menu;
+    for(String m : menu_path){
+      //item = menu.get
+      for(int i=0;i < item.getJSONArray("pages").length(); i++){
+        String name = item.getJSONArray("pages").getJSONObject(i).getString("name");
+        if(m.equals(name)){
+          item = item.getJSONArray("pages").getJSONObject(i);
+          break;
+        }
+      }
+    }
+    return item;
+  }
+  
 
   enum Actions {
     LIST {
@@ -122,12 +144,9 @@ public class TextsServlet extends HttpServlet {
         PrintWriter out = resp.getWriter();
         JSONObject json = new JSONObject();
         try {
-
           String path = InitServlet.CONFIG_DIR + File.separator + "menu.json";
-
           String s = FileUtils.readFileToString(new File(path), "UTF-8");
           json = new JSONObject(s);
-
         } catch (Exception ex) {
           LOGGER.log(Level.SEVERE, "error during file upload. Error: {0}", ex);
           json.put("error", ex.toString());
@@ -146,33 +165,80 @@ public class TextsServlet extends HttpServlet {
         try {
 
           String path = InitServlet.CONFIG_DIR + File.separator + "menu.json";
+          
+          //the new menu item
+          JSONObject new_menu = new JSONObject(request.getParameter("menu"));
+          FileUtils.write(new File(path), new_menu.toString(2), "UTF-8");
+          
+        } catch (Exception ex) {
+          LOGGER.log(Level.SEVERE, "error saving menu. Error: {0}", ex.toString());
+          json.put("error", ex.toString());
+        }
+        out.println(json.toString(2));
+      }
+    },
+    SAVEMENU2 {
+      @Override
+      void doPerform(HttpServletRequest request, HttpServletResponse resp) throws Exception {
+
+        resp.setContentType("application/json;charset=UTF-8");
+
+        PrintWriter out = resp.getWriter();
+        JSONObject json = new JSONObject();
+        try {
+
+          String path = InitServlet.CONFIG_DIR + File.separator + "menu.json";
 
           String s = FileUtils.readFileToString(new File(path), "UTF-8");
           JSONObject menu = new JSONObject(s);
           
           //the new menu item
           JSONObject menu_item = new JSONObject(request.getParameter("menu"));
-          LOGGER.log(Level.INFO, "menu_item: {0}", menu_item);
-          ArrayList<String> menu_path =  new ArrayList<String>(Arrays.asList(menu_item.getString("path").split("/")));
-          menu_path.remove(0);
-          menu_path.add(menu_item.getJSONObject("menuitem").getString("name"));
-          JSONObject item = menu;
-          for(String m : menu_path){
-            //item = menu.get
-            for(int i=0;i < item.getJSONArray("pages").length(); i++){
-              String name = item.getJSONArray("pages").getJSONObject(i).getString("name");
-              
-              if(m.equals(name)){
-                System.out.println(name);
-                item = item.getJSONArray("pages").getJSONObject(i);
-                break;
-              }
-            }
-          }
-          LOGGER.log(Level.INFO, "item: {0}", item);
+          JSONObject item = findMenuItem(menu, menu_item, false);
+          LOGGER.log(Level.FINE, "item: {0}", item);
           item.put("cs", menu_item.getJSONObject("menuitem").get("cs"));
           item.put("en", menu_item.getJSONObject("menuitem").get("en"));
-          LOGGER.log(Level.INFO, "menu: {0}", menu);
+          LOGGER.log(Level.FINE, "menu: {0}", menu);
+          FileUtils.write(new File(path), menu.toString(2), "UTF-8");
+          
+        } catch (Exception ex) {
+          LOGGER.log(Level.SEVERE, "error saving menu. Error: {0}", ex.toString());
+          json.put("error", ex.toString());
+        }
+        out.println(json.toString(2));
+      }
+    },
+    INSERT_MENU {
+      @Override
+      void doPerform(HttpServletRequest request, HttpServletResponse resp) throws Exception {
+
+        resp.setContentType("application/json;charset=UTF-8");
+
+        PrintWriter out = resp.getWriter();
+        JSONObject json = new JSONObject();
+        try {
+
+          String path = InitServlet.CONFIG_DIR + File.separator + "menu.json";
+
+          String s = FileUtils.readFileToString(new File(path), "UTF-8");
+          JSONObject menu = new JSONObject(s);
+          
+          //the new menu item
+          JSONObject menu_item = new JSONObject(request.getParameter("menu"));
+          int index = Integer.parseInt(request.getParameter("idx"));
+          JSONObject item = findMenuItem(menu, menu_item, true);
+          
+          LOGGER.log(Level.FINE, "item: {0}", item);
+          if(item.has("pages")){
+            int length = item.getJSONArray("pages").length();
+            for(int i=length; i>index; i-- ){
+              item.getJSONArray("pages").put(i, item.getJSONArray("pages").get(i-1));
+            }
+            item.getJSONArray("pages").put(index, menu_item.getJSONObject("menuitem"));
+          } else {
+            item.append("pages", menu_item.getJSONObject("menuitem"));
+          }
+          LOGGER.log(Level.FINE, "menu: {0}", menu);
           
           FileUtils.write(new File(path), menu.toString(2), "UTF-8");
         } catch (Exception ex) {
