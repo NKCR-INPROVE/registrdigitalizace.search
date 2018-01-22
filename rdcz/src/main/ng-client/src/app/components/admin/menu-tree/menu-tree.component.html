@@ -12,7 +12,6 @@
          <i mz-icon-mdi [icon]="'dots-vertical'"></i>
       </a>
       <mz-dropdown [id]="'actions-menu-'+m.name" [constrainWidth]="false" [dropdownButtonId]="m.name">
-        <mz-dropdown-item><span>{{m.name}}</span></mz-dropdown-item>
         <mz-dropdown-item><a (click)="addPage(m)">{{'button.add_page' | translate}}</a></mz-dropdown-item>
         <mz-dropdown-item><a (click)="remove(dir['pages'], idx)">{{'button.remove_page' | translate}}</a></mz-dropdown-item>
         <mz-dropdown-item><a (click)="moveup(dir['pages'], idx)">{{'button.move_up' | translate}}</a></mz-dropdown-item>

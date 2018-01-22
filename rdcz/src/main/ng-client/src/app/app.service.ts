@@ -287,9 +287,11 @@ export class AppService {
   }
 
   saveMenu(menu: any): Observable<string> {
-    //var url = 'texts?action=SAVEMENU&menu=' + JSON.stringify(menu);
-    var url = 'texts?action=SAVEMENU&menu=' + JSON.stringify(this.state.info_menu);
-    return this.http.get(url)
+    let params: URLSearchParams = new URLSearchParams();
+    params.append('action', 'SAVEMENU');
+    params.append('menu', JSON.stringify(this.state.info_menu));
+    var url = 'texts';
+    return this.http.get(url, { search: params })
       .map((response: Response) => {
         return response.json();
 
