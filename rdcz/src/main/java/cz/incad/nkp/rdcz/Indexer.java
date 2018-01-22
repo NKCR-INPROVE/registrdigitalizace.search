@@ -301,6 +301,22 @@ public class Indexer {
     return ret;
   }
 
+  public JSONObject indexById(String id) {
+    LOGGER.log(Level.INFO, "Index by id started ");
+    Date start = new Date();
+    JSONObject ret = new JSONObject();
+    String fields = opts.getJSONArray("db.fields").join(",").replaceAll("\"", "");
+    String sql = opts.getString("sqlFull").replace("#fields#", fields);
+    sql += " and predloha.idcislo='" + id + "'"; 
+    getFromDb(sql);
+    ret.put("success", indexed);
+    Date end = new Date();
+    String ellapsed = FormatUtils.formatInterval(end.getTime() - start.getTime());
+    ret.put("ellapsed time", ellapsed);
+    LOGGER.log(Level.INFO, "Index finished. {0} docs processed in {1} ", new Object[]{indexed, ellapsed});
+    return ret;
+  }
+
   private void getFromDb(String sql) {
     LOGGER.log(Level.INFO, "Processing {0}", sql);
     try {

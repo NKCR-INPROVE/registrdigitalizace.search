@@ -169,6 +169,23 @@ public class IndexerServlet extends HttpServlet {
         }
         out.println(json.toString(2));
       }
+    },
+    UPDATE_ID {
+      @Override
+      void doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+
+        resp.setContentType("application/json;charset=UTF-8");
+        PrintWriter out = resp.getWriter();
+        JSONObject json = new JSONObject();
+        try {
+          Indexer indexer = new Indexer();
+          json.put("indexer", indexer.indexById(req.getParameter("id")));
+
+        } catch (Exception ex) {
+          json.put("error", ex.toString());
+        }
+        out.println(json.toString(2));
+      }
     };
 
     abstract void doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception;
