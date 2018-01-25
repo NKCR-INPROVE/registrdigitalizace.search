@@ -82,6 +82,7 @@ export class SearchBarComponent implements OnInit {
   }
 
   cleanQ() {
+    this.state.start = 0;
     this.state.q = '';
     this.service.goToResults();
   }
