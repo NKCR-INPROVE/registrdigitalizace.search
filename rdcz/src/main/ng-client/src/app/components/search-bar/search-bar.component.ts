@@ -58,6 +58,7 @@ export class SearchBarComponent implements OnInit {
   }
 
   search() {
+    this.state.start = 0;
     if (this.state.isDuplicity) {
       this.duplicity();
     } else {
