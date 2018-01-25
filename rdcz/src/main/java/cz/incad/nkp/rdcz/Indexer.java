@@ -75,6 +75,9 @@ public class Indexer {
     LOGGER.log(Level.INFO, "Update index started ");
     Date start = new Date();
     JSONObject ret = new JSONObject();
+    
+    ret.put("Index DigObjekt", indexDigObject(true));
+    
     String fields = opts.getJSONArray("db.fields").join(",").replaceAll("\"", "");
     String sql = opts.getString("update_query").replace("#fields#", fields);
     String lastIndexTime = readIndexTime();
@@ -115,9 +118,11 @@ public class Indexer {
     Date start = new Date();
     JSONObject ret = new JSONObject();
     indexLists();
+    
+    ret.put("Index DigObjekt", indexDigObject(false));
+    
     String fields = opts.getJSONArray("db.fields").join(",").replaceAll("\"", "");
     String sql = opts.getString("sqlFull").replace("#fields#", fields);
-
     //sql += " and rownum < 10";
     getFromDb(sql);
     LOGGER.log(Level.INFO, "{0} docs processed", indexed);

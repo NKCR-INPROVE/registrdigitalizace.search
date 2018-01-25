@@ -87,7 +87,7 @@ public class AlephServlet extends HttpServlet {
         } else {
           int no_records = Integer.parseInt(json.getJSONObject("find").getString("no_records"));
 
-      LOGGER.log(Level.FINE, "no_records integer... {0}", no_records);
+          LOGGER.log(Level.FINE, "no_records integer... {0}", no_records);
           if (no_records > 0) {
             ret.put("numFound", no_records);
 //        

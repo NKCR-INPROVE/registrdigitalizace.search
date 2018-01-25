@@ -72,12 +72,14 @@ export class ResultItemComponent implements OnInit, OnDestroy {
   }
   
   addDigObjUrl(url){
-    for(let i in this.digObjects){
-      if(this.digObjects[i]['url'] === url.trim()){
-        return;
+    if(url){
+      for(let i in this.digObjects){
+        if(this.digObjects[i]['url'] === url.trim()){
+          return;
+        }
       }
-    }
       this.digObjects.push({url: url.trim()});
+    }
   }
   
   addExtUrl(p: any){
@@ -86,11 +88,12 @@ export class ResultItemComponent implements OnInit, OnDestroy {
       p['ext_url'] = p['url'];
     } else if (p['urltitul']) {
       p['ext_url'] = p['urltitul'];
-      this.addDigObjUrl(p['urltitul']);
     } else if (p['urltitnk']) {
       p['ext_url'] = p['urltitnk'];
-      this.addDigObjUrl(p['urltitnk']);
     }
+    
+    this.addDigObjUrl(p['urltitul']);
+    this.addDigObjUrl(p['urltitnk']);
   }
 
   ngOnDestroy() {
@@ -140,7 +143,8 @@ export class ResultItemComponent implements OnInit, OnDestroy {
         for (let i in res['response']['docs']) {
           //this.digObjects.push(res['response']['docs'][i]);
           let dourl = res['response']['docs'][i]['urldigknihovny'] + '/search/handle/uuid:' + res['response']['docs'][i]['uuid'];
-          this.digObjects.push({url: dourl});
+          this.addDigObjUrl(dourl);
+          //this.digObjects.push({url: dourl});
         }
         if (res['response']['docs'].length > 0) {
           this.hasImg = true;
