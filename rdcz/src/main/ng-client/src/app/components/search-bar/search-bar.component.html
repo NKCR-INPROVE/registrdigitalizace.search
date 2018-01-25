@@ -27,6 +27,9 @@
                 <input mz-input [label]="'label.rok-vydani' | translate" name="advRokVyd" [(ngModel)]="state.advParams.rokvyd" type="text">
               </mz-input-container>
               <mz-input-container>
+                <input mz-input [label]="'label.nakladatel' | translate" name="advVydavatel" [(ngModel)]="state.advParams.vydavatel" type="text">
+              </mz-input-container>
+              <mz-input-container>
                 <input mz-input [label]="'ISSN/ISBN'" name="advISXN" [(ngModel)]="state.advParams.isxn" type="text">
               </mz-input-container>
               <mz-input-container>
@@ -43,9 +46,6 @@
               </mz-input-container>
               <mz-input-container>
                 <input mz-input [label]="'label.pole001' | translate" name="advPole001" [(ngModel)]="state.advParams.pole001" type="text">
-              </mz-input-container>
-              <mz-input-container>
-                <input mz-input [label]="'label.nakladatel' | translate" name="advVydavatel" [(ngModel)]="state.advParams.vydavatel" type="text">
               </mz-input-container>
               <mz-input-container>
                 <input mz-input [label]="'ČAN'" name="advCan" [(ngModel)]="state.advParams.can" type="text">
