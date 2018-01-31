@@ -200,38 +200,38 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   fillMenu() {
-      this.service.getEditablePages().subscribe(res => {
-        //this.state.info_menu = res;
-        this.state.info_menu = {
-  "name": "pages",
-  "pages": [
-    {"name":"help", "en":"Help","cs":"Nápověda"},
-    {"name":"info", "en":"Info","cs":"Info", "pages": [
-		  {"name":"ccnb", "en":"How to obtain ČČNB","cs":"Jak získat ČČNB pro české novodobé dokumenty"},
-		  {"name":"data", "en":"Jak posílat data","cs":"Jak posílat data", "pages":[
-				{"name":"excel", "en":"Table","cs":"Tabuka"},
-				{"name":"marcxml", "en":"MARCXML","cs":"MARCXML"},
-				{"name":"exportSKC", "en":"SKC service","cs":"služba SKC"}
-			  ]
-			},
-		  {"name":"nueva", "en":"new","cs":"nova"},
-		  {"name":"prehled_instituci-zaloha", "en":"prehled_instituci-zaloha","cs":"prehled_instituci-zaloha"},
-		  {"name":"prehled_instituci", "en":"Přehled zapojených institucí ","cs":"Přehled zapojených institucí "},
-		  {"name":"relief", "en":"relief","cs":"relief"},
-		  {"name":"statistika_titulu", "en":"Statistika počtu titulů","cs":"Statistika počtu titulů"},
-		  {"name":"statistika_titulu2014", "en":"statistika_titulu2014","cs":"statistika_titulu2014"},
-		  {"name":"dotaznik2013", "en":"Výsledky dotazníku 2013","cs":"Výsledky dotazníku 2013"},
-		]
-	  }
-	 
-  ]
-};
+    this.service.getEditablePages().subscribe(res => {
+      //this.state.info_menu = res;
+      this.state.info_menu = {
+        "name": "pages",
+        "pages": [
+          {"name":"help", "en":"Help","cs":"Nápověda"},
+          {"name":"info", "en":"Info","cs":"Info", "pages": [
+                {"name":"ccnb", "en":"How to obtain ČČNB","cs":"Jak získat ČČNB pro české novodobé dokumenty"},
+                {"name":"data", "en":"Jak posílat data","cs":"Jak posílat data", "pages":[
+                      {"name":"excel", "en":"Table","cs":"Tabuka"},
+                      {"name":"marcxml", "en":"MARCXML","cs":"MARCXML"},
+                      {"name":"exportSKC", "en":"SKC service","cs":"služba SKC"}
+                    ]
+                  },
+                {"name":"nueva", "en":"new","cs":"nova"},
+                {"name":"prehled_instituci-zaloha", "en":"prehled_instituci-zaloha","cs":"prehled_instituci-zaloha"},
+                {"name":"prehled_instituci", "en":"Přehled zapojených institucí ","cs":"Přehled zapojených institucí "},
+                {"name":"relief", "en":"relief","cs":"relief"},
+                {"name":"statistika_titulu", "en":"Statistika počtu titulů","cs":"Statistika počtu titulů"},
+                {"name":"statistika_titulu2014", "en":"statistika_titulu2014","cs":"statistika_titulu2014"},
+                {"name":"dotaznik2013", "en":"Výsledky dotazníku 2013","cs":"Výsledky dotazníku 2013"},
+              ]
+            }
+
+        ]
+      };
         
-        this.state.info_menu = res;
-    
-        let s = '/pages/' + this.state.info_menu['pages'][0]; 
-        //this.state.setSelectAdminItem(s);
-      });
+      this.state.info_menu = res;
+
+      let s = '/pages/' + this.state.info_menu['pages'][0]; 
+      //this.state.setSelectAdminItem(s);
+    });
     
   }
 

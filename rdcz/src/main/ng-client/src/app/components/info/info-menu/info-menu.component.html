@@ -1,3 +1,18 @@
+<ul class="browser-default">
+  <ng-container *ngFor="let m of dir['pages']">
+    <li [class.active]="isActive(m.name)">
+      <a *ngIf="m.name !== ''" (click)="select(m.name)">
+        <i *ngIf="isActive(m.name)" class="app-mdi-check"></i>
+        {{m[state.currentLang]}}
+      </a>
+      <span *ngIf="m.name === ''">{{m[state.currentLang]}}</span>
+      <app-info-menu *ngIf="m.pages" [dir]="m" [path]="path" (selected)="select($event)"></app-info-menu>
+    </li>
+  </ng-container>
+</ul>
+
+
+<!-- old version to remove
 <div class="app-wrapper">
   <ul class="browser-default">
     
@@ -11,4 +26,4 @@
     </li>
     
   </ul>
-</div>
+</div>-->

@@ -64,8 +64,8 @@ export class MenuTreeComponent implements OnInit {
     if (!this.state.selectAdminItem) {
       return false;
     }
-    let s = this.path + '/' + this.dir['name'] + '/' + f;
-    return this.state.selectAdminItem['menuitem']['name'] === s;
+    //let s = this.path + '/' + this.dir['name'] + '/' + f;
+    return this.state.selectAdminItem['menuitem']['name'] === f;
   }
 
   addPage(f) {
