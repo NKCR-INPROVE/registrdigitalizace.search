@@ -133,15 +133,13 @@ export class AppService {
         if(i === 'title'){
           params.append('fq', 'title:"' + this.state.advParams[i].trim() + '" OR varnazev:"' + this.state.advParams[i].trim() + '"');
           if (boosted && (!this.state.q || this.state.q === '')) {
-            params.set('q.alt', this.state.advParams[i].trim());
+            params.set('q', this.state.advParams[i].trim());
           }
         }else{
           params.append('fq', i + ':"' + this.state.advParams[i].trim() + '"');
         }
-        
       }
     }
-    
 
     if (this.state.currentCollapse['field'] !== 'id') {
       params.append('fq', '{!collapse field=' + this.state.currentCollapse['field'] + '}');
