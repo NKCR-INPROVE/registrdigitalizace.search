@@ -2,7 +2,7 @@
   <ng-container *ngFor="let m of dir['pages']; let idx = index;" [class.app-root-page]="!path">
     <li [class.active]="isActive(m.name)" [class.disabled]="m.disabled">
       <span class="right app-cursor-pointer" id="{{m.name}}">
-        <i mz-icon-mdi [icon]="'dots-vertical'"></i>
+        <i class="app-mdi-dots-vertical"></i>
       </span>
       <mz-dropdown [id]="'actions-menu-'+m.name" [constrainWidth]="false" [dropdownButtonId]="m.name">
         <mz-dropdown-item><a (click)="addPage(m)">{{'btn.add-page' | translate}}</a></mz-dropdown-item>

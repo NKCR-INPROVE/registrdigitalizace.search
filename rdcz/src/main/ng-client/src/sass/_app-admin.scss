@@ -23,16 +23,22 @@ app-admin {
             padding-left: 0;
           }
         }
-      }
+      } 
       
       app-menu-tree {
         & > .browser-default {
+          padding-left: 20px;
+          
           & > li {
             list-style-position: inside;
+            
+            & > span {
+              padding: $app-left-menu-el-pd 0;
+            }
 
             & > a {
-              height: 36px;
-              line-height: 36px;
+              display: inline-block;
+              padding: $app-left-menu-el-pd 0;
               color: $app-brand-d-1;
 
               &:hover {
@@ -50,7 +56,9 @@ app-admin {
             }
             
             &.disabled {
-              opacity: 0.5;
+              & > a {
+                opacity: 0.5; 
+              }
             }
           }
         }  
