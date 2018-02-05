@@ -155,7 +155,7 @@
                         <i mz-icon-mdi [icon]="'open-in-new'" [size]="'16px'"></i>
                       </a>
                       -->
-                      <a *ngIf="p.ext_url" mz-tooltip [tooltip]="'label.digitalni-dokument' | translate" [position]="'top'" [href]="p.ext_url" title="" target="_blank">
+                      <a *ngIf="p.ext_url && p.ext_url.startsWith('http')" mz-tooltip [tooltip]="'label.digitalni-dokument' | translate" [position]="'top'" [href]="p.ext_url" title="" target="_blank">
                         <i mz-icon-mdi [icon]="'open-in-new'" [size]="'16px'"></i>
                       </a>
                     </td>
@@ -183,7 +183,10 @@
           </mz-collapsible-item-header>
           <mz-collapsible-item-body>
             <mz-collection class="app-dig-object">
-              <a mz-collection-link  *ngFor="let dobj of digObjects" [href]="dobj['url']" target="_blank" class="app-link">{{dobj['url']}}</a>
+              <ng-container *ngFor="let dobj of digObjects">
+                <a *ngIf="dobj['url'].startsWith('http')" mz-collection-link  [href]="dobj['url']" target="_blank" class="app-link">{{dobj['url']}}</a>
+                <span *ngIf="!dobj['url'].startsWith('http')"  class="app-dig-object-info">{{dobj['url']}}</span>
+              </ng-container>
             </mz-collection>
           </mz-collapsible-item-body>
         </mz-collapsible-item>

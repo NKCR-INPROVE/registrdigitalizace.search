@@ -78,6 +78,7 @@ export class ResultItemComponent implements OnInit, OnDestroy {
           return;
         }
       }
+      //if()
       this.digObjects.push({url: url.trim()});
     }
   }
