@@ -18625,16 +18625,10 @@ app-info-collaboration-box .collapsible, app-login section .card {
 .app-card-hoverable.hoverable:hover, app-jumbotron section .hoverable.card:hover, app-results app-result-item .hoverable.card:hover, app-login section .hoverable.card:hover {
   box-shadow: 0 8px 17px 0 rgba(38, 50, 56, 0.1), 0 6px 20px 0 rgba(38, 50, 56, 0.19); }
 
-/*$('.alert').append('<button class="waves-effect btn-flat close"><i class="material-icons">close</i></button>');
-$('body').on('click', '.alert .close', function() {
-  $(this).parent().fadeOut(300, function() {
-      $(this).remove();
-  });
-});*/
-/* line 169, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
+/* line 160, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
 .alert {
   margin-bottom: 0; }
-  /* line 185, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
+  /* line 176, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
   .alert .close {
     position: absolute;
     top: 50%;

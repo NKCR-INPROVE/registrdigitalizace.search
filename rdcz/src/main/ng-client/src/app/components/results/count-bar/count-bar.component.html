@@ -6,7 +6,7 @@
       </span>
     </div>
     <div class="col s6">
-      <app-pagination></app-pagination>
+      <app-pagination *ngIf="state.numFound > 0"></app-pagination>
     </div>
   </div>
 </section>

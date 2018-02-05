@@ -1,5 +1,5 @@
 <!-- ALERTS -->
-<div *ngIf="(state.numFound === 0 && !loading) || (secondRound && !loading)" class="container app-mg-top-20" [class.app-clean-pd-bottom]="state.numFound > 0 && !loading">
+<!--<div *ngIf="(state.numFound === 0 && !loading) || (secondRound && !loading)" class="container app-mg-top-20" [class.app-clean-pd-bottom]="state.numFound > 0 && !loading">
   <div class="row">
     <div class="col s12">
       <div class="alert alert-warning center app-card-shadow hoverable app-card-hoverable">
@@ -15,12 +15,13 @@
           {{'alerts.noResults.msg-2' | translate}}.
         </span>
       </div>
-    </div><!--/.col -->
-  </div><!--/.row -->
-</div><!--/.container -->
+    </div>
+  </div>
+</div>-->
 
 <!-- RESULTS -->
-<div *ngIf="state.numFound > 0" class="container">
+<!--<div *ngIf="state.numFound > 0" class="container">-->
+<div class="container">
   <div class="row">
     <div class="col s12">
       <app-count-bar></app-count-bar>
@@ -34,12 +35,27 @@
       <app-facets  *ngIf="!loading" [allClosed]="false"  [facetFields]="facetFields"></app-facets>
     </div><!--/.col -->
     <div class="col s12 xl8">
-      <app-sort-bar></app-sort-bar>
-      <app-chart-bar [height]="'120px'" [width]="'100%'"></app-chart-bar>
+      <app-sort-bar *ngIf="state.numFound > 0"></app-sort-bar>
+      <app-chart-bar *ngIf="state.numFound > 0" [height]="'120px'" [width]="'100%'"></app-chart-bar>
       <section>
         <app-result-item *ngFor="let res of results" [result]="res" [expanded]="expanded[res[state.currentCollapse.field]]"></app-result-item>
+        
+        <div *ngIf="(state.numFound === 0 && !loading) || (secondRound && !loading)" class="alert alert-warning center app-card-shadow hoverable app-card-hoverable app-clean-mg">
+          <i mz-icon-mdi [icon]="'alert'"></i> <strong>{{'alerts.secondRound.title' | translate}}!</strong>
+          <span *ngIf="secondRound && !loading && state.numFound > 0">
+            {{'alerts.secondRound.msg-1' | translate}}
+            <strong (click)="cleanAll()" class="app-cursor-pointer">{{'text.vymazat' | translate}}</strong>
+            {{'alerts.secondRound.msg-2' | translate}}?
+          </span>
+          <span *ngIf="state.numFound === 0 && !loading">
+            {{'alerts.noResults.msg-1' | translate}}
+            <strong (click)="cleanAll()" class="app-cursor-pointer">{{'text.vymazat' | translate}}</strong>
+            {{'alerts.noResults.msg-2' | translate}}.
+          </span>
+        </div>
+        
       </section>
-      <app-pagination></app-pagination>
+      <app-pagination *ngIf="state.numFound > 0"></app-pagination>
     </div><!--/.col -->
   </div><!--/.row -->
 </div><!--/.container -->
