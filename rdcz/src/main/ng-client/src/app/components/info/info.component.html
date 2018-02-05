@@ -1,14 +1,16 @@
 <div class="container">  
   <div class="row">
     <div class="col s12 xl3 app-menu-col" *ngIf="menu">
-      <ul class="browser-default">
-        <li [class.active]="isMain()">
-          <a routerLink="/info">
-            <i *ngIf="isMain()" class="app-mdi-check"></i>
-            {{menu['pages'][1][state.currentLang] | translate}}
-          </a>
-        </li>
-      </ul>
+      <span class="app-info-menu-main-page-wrapper">
+        <ul class="browser-default app-clean-mg">
+          <li [class.active]="isMain()">
+            <a routerLink="/info">
+              <i *ngIf="isMain()" class="app-mdi-check"></i>
+              {{menu['pages'][1][state.currentLang] | translate}}
+            </a>
+          </li>
+        </ul>
+      </span>
       <app-info-menu [dir]="menu['pages'][1]" [path]="''" (selected)="select($event)"></app-info-menu>
     </div><!--/.col -->
     <div class="col s12 xl9">

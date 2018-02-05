@@ -1,57 +1,55 @@
 // --- INFO ---
 
 app-info {
-  /*section {*/
-    h5 {
-      @include set-border(bottom, 1, solid, $app-brand-l-5);
-      margin-top: 20px !important;
-      margin-bottom: 20px;
-      padding-bottom: 20px;
-    }
-    
-    padding-left: 0.75rem;
-    
-    .app-menu-col {
-      
-      & > app-info-menu {
-        & > .browser-default {
-          &:first-child {
-            margin-top: 0;
-            padding-left: 0.75rem;
-          }
+  h5 {
+    @include set-border(bottom, 1, solid, $app-brand-l-5);
+    margin-top: 20px !important;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+  }
+
+  padding-left: 0.75rem;
+
+  .app-menu-col {
+
+    & > app-info-menu, 
+    .app-info-menu-main-page-wrapper {
+      & > .browser-default {
+        &:first-child {
+          margin-top: 0;
+          padding-left: 0.75rem;
         }
       }
-      
-      app-info-menu {
-        & > .browser-default {
-          & > li {
-            list-style-position: inside;
+    }
 
-            & > a {
-              height: 36px;
-              line-height: 36px;
-              color: $app-brand-d-1;
+    app-info-menu, 
+    .app-info-menu-main-page-wrapper {
+      & > .browser-default {
+        & > li {
+          list-style-position: inside;
 
-              &:hover {
-                color: $link-color;
-              }
-            }
+          & > a {
+            height: 36px;
+            line-height: 36px;
+            color: $app-brand-d-1;
 
-            &.active {
-              list-style: none;
-
-              & > a {
-                font-weight: bold;
-                color: $link-color;
-              }
+            &:hover {
+              color: $link-color;
             }
           }
-        }  
-      }
+
+          &.active {
+            list-style: none;
+
+            & > a {
+              font-weight: bold;
+              color: $link-color;
+            }
+          }
+        }
+      }  
     }
- /* }*/
-  
-  
+  }
   
   .card .card-content p {
     margin: inherit !important;
