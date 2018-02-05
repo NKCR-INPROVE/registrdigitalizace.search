@@ -18809,7 +18809,11 @@ app-card-list-dk .collapsible .collapsible-body .collection .collection-item spa
   text-align: left !important; }
 
 /* line 6, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-home.scss */
-app-home .collapsible .collapsible-body .collection {
+app-home .container > .row:last-child {
+  margin-bottom: 10px; }
+
+/* line 13, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-home.scss */
+app-home .container > .row .col .collapsible .collapsible-body .collection {
   overflow: auto;
   height: 215px; }
 

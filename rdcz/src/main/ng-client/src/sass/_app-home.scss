@@ -1,11 +1,21 @@
 // --- HOME ---
 
 app-home {
-  .collapsible {
-    .collapsible-body {
-      .collection {
-        overflow: auto;
-        height: 215px;
+  .container {
+    & > .row {
+      &:last-child {
+        margin-bottom: 10px;  
+      }
+      
+      .col {
+        .collapsible {
+          .collapsible-body {
+            .collection {
+              overflow: auto;
+              height: 215px;
+            }
+          }
+        }
       }
     }
   }
