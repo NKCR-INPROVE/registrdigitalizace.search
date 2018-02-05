@@ -18,7 +18,9 @@
     "napoveda": "Help",
     "info": "Info",
     "login": "Login",
-    "hlavni-navigace": "Main navigation"
+    "hlavni-navigace": "Main navigation",
+    "contact": "Contact",
+    "contact-desc": "Send us email"
   },
   "btn": {
     "jine-zdroje": "Search other sources",
