@@ -31,7 +31,6 @@ export class InfoMenuComponent implements OnInit {
 
   isActive(f: string) {
 //    let s = this.path + '/' + this.dir['name'] + '/' + f;
-//    console.log(s, param);
     return this.route.snapshot.paramMap.get('page') === f;
   }
 

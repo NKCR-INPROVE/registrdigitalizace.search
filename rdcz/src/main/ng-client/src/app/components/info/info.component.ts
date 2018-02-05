@@ -44,6 +44,13 @@ export class InfoComponent implements AfterViewInit {
     this.loadComponent(f);
 //    this.page = 'pages/' + f;
   }
+  
+  isMain(){
+    if(!this.menu){
+      return true;
+    }
+    return this.route.snapshot.paramMap.get('page') === null;
+  }
 
   isActive(f: string) {
     return this.page === 'pages/' + f;

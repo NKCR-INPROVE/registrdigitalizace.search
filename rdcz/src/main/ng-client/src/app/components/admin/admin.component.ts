@@ -90,7 +90,7 @@ export class AdminComponent implements OnInit, OnDestroy {
       theme: "modern",
       content_css: ctx + 'assets/editor.css',
       body_class: 'underlined',
-      skin_url: 'assets/skins/light',
+      skin_url: ctx + 'assets/skins/light',
       //images_upload_url: 'img?action=UPLOAD&id=' + this.selected,
       
       images_upload_handler: function (blobInfo, success, failure) {

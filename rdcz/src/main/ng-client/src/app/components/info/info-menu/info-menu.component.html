@@ -10,20 +10,3 @@
     </li>
   </ng-container>
 </ul>
-
-
-<!-- old version to remove
-<div class="app-wrapper">
-  <ul class="browser-default">
-    
-    <li *ngFor="let m of dir['pages']" [class.app-root-page]="!path">
-      <a *ngIf="m.name !== ''" mz-collection-link  (click)="select(m.name)" [active]="isActive(m.name)">
-        <i *ngIf="isActive(m.name)" class="app-mdi-check"></i>
-        {{m[state.currentLang]}}
-      </a>
-      <span *ngIf="m.name === ''">{{m[state.currentLang]}}</span>
-      <app-info-menu *ngIf="m.pages" [dir]="m" [path]="path" (selected)="select($event)"></app-info-menu>
-    </li>
-    
-  </ul>
-</div>-->
