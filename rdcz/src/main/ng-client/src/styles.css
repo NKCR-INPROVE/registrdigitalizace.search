@@ -19019,28 +19019,32 @@ app-results app-result-item .card {
         /* line 185, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-result-item.scss */
         app-results app-result-item .card .card-content .app-card-detail .collapsible .collapsible-body .collection {
           padding: 10px 0; }
-          /* line 187, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-result-item.scss */
+          /* line 188, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-result-item.scss */
+          app-results app-result-item .card .card-content .app-card-detail .collapsible .collapsible-body .collection .app-dig-object-info {
+            font-size: 0.8rem;
+            padding: 0 20px; }
+          /* line 193, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-result-item.scss */
           app-results app-result-item .card .card-content .app-card-detail .collapsible .collapsible-body .collection .collection-item {
             padding: 0 20px;
             border: none;
             color: #b71c1c; }
-            /* line 192, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-result-item.scss */
+            /* line 198, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-result-item.scss */
             app-results app-result-item .card .card-content .app-card-detail .collapsible .collapsible-body .collection .collection-item.app-link {
               font-size: 0.8rem; }
-            /* line 196, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-result-item.scss */
+            /* line 202, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-result-item.scss */
             app-results app-result-item .card .card-content .app-card-detail .collapsible .collapsible-body .collection .collection-item:hover {
               background-color: #eceff1; }
-  /* line 206, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-result-item.scss */
+  /* line 212, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-result-item.scss */
   app-results app-result-item .card .card-action {
     border-color: #d5dfe3; }
-    /* line 209, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-result-item.scss */
+    /* line 215, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-result-item.scss */
     app-results app-result-item .card .card-action span {
       font-size: 0.8rem;
       text-transform: none; }
-      /* line 212, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-result-item.scss */
+      /* line 218, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-result-item.scss */
       app-results app-result-item .card .card-action span a {
         text-transform: none !important; }
-  /* line 218, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-result-item.scss */
+  /* line 224, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-result-item.scss */
   app-results app-result-item .card:not(:last-child) {
     margin-bottom: 20px; }
 

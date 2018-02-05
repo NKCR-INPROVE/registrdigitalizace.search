@@ -185,7 +185,7 @@
             <mz-collection class="app-dig-object">
               <ng-container *ngFor="let dobj of digObjects">
                 <a *ngIf="dobj['url'].startsWith('http')" mz-collection-link  [href]="dobj['url']" target="_blank" class="app-link">{{dobj['url']}}</a>
-                <span *ngIf="!dobj['url'].startsWith('http')"  class="app-dig-object-info">{{dobj['url']}}</span>
+                <span *ngIf="!dobj['url'].startsWith('http')" class="app-dig-object-info">{{dobj['url']}}</span>
               </ng-container>
             </mz-collection>
           </mz-collapsible-item-body>
