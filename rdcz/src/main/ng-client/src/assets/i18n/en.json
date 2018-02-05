@@ -28,7 +28,13 @@
     "test-duplicity": "Duplication test",
     "test-duplicity-desc": "for NK ČR",
     "login": "Login",
-    "use": "use"
+    "use": "use",
+    "add-page": "Add page",
+    "remove-page": "Remove page",
+    "move-up": "Move up",
+    "move-down": "Move down",
+    "disable-page": "Disable page",
+    "active-page": "Active page"
   },
   "tooltip": {
     "test-duplicity": "Duplication test (for NK ČR)",

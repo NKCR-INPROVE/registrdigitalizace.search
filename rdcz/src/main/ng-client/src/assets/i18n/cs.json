@@ -28,7 +28,13 @@
     "test-duplicity": "Test duplicity",
     "test-duplicity-desc": "pro NK ČR",
     "login": "Přihlásit",
-    "use": "Použít"
+    "use": "Použít",
+    "add-page": "Vložit stránku",
+    "remove-page": "Odstranit stránku",
+    "move-up": "Posunout nahoru",
+    "move-down": "Posunout dolů",
+    "disable-page": "Zneaktivnit stránku",
+    "active-page": "Aktivovat stránku"
   },
   "tooltip": {
     "test-duplicity": "Test duplicity (pro NK ČR)",

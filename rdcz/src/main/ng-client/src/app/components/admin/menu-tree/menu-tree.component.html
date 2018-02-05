@@ -5,10 +5,12 @@
         <i mz-icon-mdi [icon]="'dots-vertical'"></i>
       </span>
       <mz-dropdown [id]="'actions-menu-'+m.name" [constrainWidth]="false" [dropdownButtonId]="m.name">
-        <mz-dropdown-item><a (click)="addPage(m)">{{'button.add_page' | translate}}</a></mz-dropdown-item>
-        <mz-dropdown-item><a (click)="remove(dir['pages'], idx)">{{'button.remove_page' | translate}}</a></mz-dropdown-item>
-        <mz-dropdown-item><a (click)="moveup(dir['pages'], idx)">{{'button.move_up' | translate}}</a></mz-dropdown-item>
-        <mz-dropdown-item><a (click)="movedown(dir['pages'], idx)">{{'button.move_down' | translate}}</a></mz-dropdown-item>
+        <mz-dropdown-item><a (click)="addPage(m)">{{'btn.add-page' | translate}}</a></mz-dropdown-item>
+        <mz-dropdown-item><a (click)="remove(dir['pages'], idx)">{{'btn.remove-page' | translate}}</a></mz-dropdown-item>
+        <mz-dropdown-item><a (click)="moveup(dir['pages'], idx)">{{'btn.move-up' | translate}}</a></mz-dropdown-item>
+        <mz-dropdown-item><a (click)="movedown(dir['pages'], idx)">{{'btn.move-down' | translate}}</a></mz-dropdown-item>
+        <!--<mz-dropdown-item><a (click)="disable(dir['pages'], idx)">{{'btn.disable-page' | translate}}</a></mz-dropdown-item>
+        <mz-dropdown-item><a (click)="active(dir['pages'], idx)">{{'btn.active-page' | translate}}</a></mz-dropdown-item>-->
       </mz-dropdown>
 
       <a (click)="select(m)">
