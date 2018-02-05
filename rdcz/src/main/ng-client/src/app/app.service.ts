@@ -131,8 +131,14 @@ export class AppService {
     for(let i in this.state.advParams){
       if(this.state.advParams[i] !== null && this.state.advParams[i] !== ''){
         if(i === 'title'){
+          
           params.append('fq', 'title:"' + this.state.advParams[i].trim() + '" OR varnazev:"' + this.state.advParams[i].trim() + '"');
           if (boosted && (!this.state.q || this.state.q === '')) {
+//            params.set('bq', 'title_full:"' + this.state.advParams[i].trim() +
+//             '"^5.0 title_nolemmas:"' + this.state.advParams[i].trim() +
+//              '"^2.0 varnazev_nolemmas:"' + this.state.advParams[i].trim() +
+//               '"^1.5 title_prefix:"' + this.state.advParams[i].trim() +
+//                '"^4.0 title:"' + this.state.advParams[i].trim() + '"^1.5 ');
             params.set('q', this.state.advParams[i].trim());
           }
         }else{
