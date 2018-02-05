@@ -18448,6 +18448,12 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
   font: normal normal normal 20px/1 "Material Design Icons";
   vertical-align: middle; }
 
+/* line 40, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-mixins.scss */
+.app-mdi-cancel:before {
+  content: "\F739";
+  font: normal normal normal 20px/1 "Material Design Icons";
+  vertical-align: middle; }
+
 /* line 5, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-modal.scss */
 .app-modal-add-page-folder .modal.modal-fixed-footer {
   height: 240px; }
@@ -19316,131 +19322,31 @@ app-admin section {
   /* line 13, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-admin.scss */
   app-admin section #editEl_ifr {
     height: 300px !important; }
-  /* line 17, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-admin.scss */
-  app-admin section .app-menu-col {
-    /*      & > app-menu-tree {
-        & > .app-wrapper {
-          & > .app-header {
-            @extend .app-cursor-pointer;
-            padding: 0.5rem 1rem;
-            background-color: $secondary-color;
-            border-radius: $app-border-radius;
-            color: color("shades", "white");
-            
-            & > .app-mdi-file-plus {
-              display: none;
-            }
-            & > .app-mdi-folder-plus {
-              padding-left: 0 !important;
-              padding-right: 5px;
-            }
-            & > strong {
-              display: inline-block;
-              &:first-letter {
-                text-transform: uppercase;
-              } 
-            }
-            
-            &:hover {
-              background-color: color("teal", "base");
-            }
-          }
-          & > ul {
-            @include set-border(all, 1, solid, $app-brand-l-5);
-            @extend .app-card-shadow;
-            border-radius: $app-border-radius;
-            @extend .app-clean-pd;
-            list-style: none;
-            list-style-position: inside;
-            
-            & > li {
-              &.app-root-page {
-                padding: 0.5rem 1rem;
-                @include set-border(bottom, 1, solid, $app-brand-l-5);
-                
-                & > a {
-                  &.active {
-                    color: $secondary-color;
-                  }
-                  &:hover {
-                    background-color: color("grey", "lighten-5");
-                  }
-                }
-                &:last-child {
-                  border-bottom: none !important;
-                }
-              }
-              
-              & > app-menu-tree {
-                & > .app-wrapper {
-                  & > .app-header {
-                    padding: 0.7rem 1rem;
-                    @include set-border(bottom, 1, solid, $app-brand-l-5);
-                    background-color: $app-brand-l-6;
-                    
-                    & > .app-mdi-folder-plus {
-                      display: none;
-                    }
-                  }
-                  & > ul {
-                    @extend .app-clean-pd;
-                    list-style: none;
-                    list-style-position: inside;
-                    & > li {
-                      padding: 0.5rem 2rem;
-                      @include set-border(bottom, 1, solid, $app-brand-l-5);
-                      
-                      & > a {
-                        &.active {
-                          color: $secondary-color;
-                        }
-                      }
-                      &:hover {
-                        background-color: color("grey", "lighten-5");
-                      }
-                    }
-                  }
-                }
-              }
-              &:last-child {
-                & > app-menu-tree {
-                  & > .app-wrapper {
-                    & > ul {
-                      & > li {
-                        &:last-child {
-                         border-bottom: none !important; 
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }*/ }
-    /* line 21, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-admin.scss */
-    app-admin section .app-menu-col > app-menu-tree > .browser-default:first-child {
-      margin-top: 0;
-      padding-left: 0; }
-    /* line 30, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-admin.scss */
-    app-admin section .app-menu-col app-menu-tree > .browser-default > li {
-      list-style-position: inside; }
-      /* line 33, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-admin.scss */
-      app-admin section .app-menu-col app-menu-tree > .browser-default > li > a {
-        height: 36px;
-        line-height: 36px;
-        color: #546e7a; }
-        /* line 38, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-admin.scss */
-        app-admin section .app-menu-col app-menu-tree > .browser-default > li > a:hover {
-          color: #b71c1c; }
-      /* line 43, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-admin.scss */
-      app-admin section .app-menu-col app-menu-tree > .browser-default > li.active {
-        list-style: none; }
-        /* line 46, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-admin.scss */
-        app-admin section .app-menu-col app-menu-tree > .browser-default > li.active > a {
-          font-weight: bold;
-          color: #b71c1c; }
+  /* line 21, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-admin.scss */
+  app-admin section .app-menu-col > app-menu-tree > .browser-default:first-child {
+    margin-top: 0;
+    padding-left: 0; }
+  /* line 30, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-admin.scss */
+  app-admin section .app-menu-col app-menu-tree > .browser-default > li {
+    list-style-position: inside; }
+    /* line 33, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-admin.scss */
+    app-admin section .app-menu-col app-menu-tree > .browser-default > li > a {
+      height: 36px;
+      line-height: 36px;
+      color: #546e7a; }
+      /* line 38, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-admin.scss */
+      app-admin section .app-menu-col app-menu-tree > .browser-default > li > a:hover {
+        color: #b71c1c; }
+    /* line 43, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-admin.scss */
+    app-admin section .app-menu-col app-menu-tree > .browser-default > li.active {
+      list-style: none; }
+      /* line 46, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-admin.scss */
+      app-admin section .app-menu-col app-menu-tree > .browser-default > li.active > a {
+        font-weight: bold;
+        color: #b71c1c; }
+    /* line 52, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-admin.scss */
+    app-admin section .app-menu-col app-menu-tree > .browser-default > li.disabled {
+      opacity: 0.5; }
 
 /* line 3, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-info.scss */
 app-info {

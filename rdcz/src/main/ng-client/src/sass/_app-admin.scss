@@ -48,113 +48,13 @@ app-admin {
                 color: $link-color;
               }
             }
+            
+            &.disabled {
+              opacity: 0.5;
+            }
           }
         }  
       }
-      
-      
-      
-/*      & > app-menu-tree {
-        & > .app-wrapper {
-          & > .app-header {
-            @extend .app-cursor-pointer;
-            padding: 0.5rem 1rem;
-            background-color: $secondary-color;
-            border-radius: $app-border-radius;
-            color: color("shades", "white");
-            
-            & > .app-mdi-file-plus {
-              display: none;
-            }
-            & > .app-mdi-folder-plus {
-              padding-left: 0 !important;
-              padding-right: 5px;
-            }
-            & > strong {
-              display: inline-block;
-              &:first-letter {
-                text-transform: uppercase;
-              } 
-            }
-            
-            &:hover {
-              background-color: color("teal", "base");
-            }
-          }
-          & > ul {
-            @include set-border(all, 1, solid, $app-brand-l-5);
-            @extend .app-card-shadow;
-            border-radius: $app-border-radius;
-            @extend .app-clean-pd;
-            list-style: none;
-            list-style-position: inside;
-            
-            & > li {
-              &.app-root-page {
-                padding: 0.5rem 1rem;
-                @include set-border(bottom, 1, solid, $app-brand-l-5);
-                
-                & > a {
-                  &.active {
-                    color: $secondary-color;
-                  }
-                  &:hover {
-                    background-color: color("grey", "lighten-5");
-                  }
-                }
-                &:last-child {
-                  border-bottom: none !important;
-                }
-              }
-              
-              & > app-menu-tree {
-                & > .app-wrapper {
-                  & > .app-header {
-                    padding: 0.7rem 1rem;
-                    @include set-border(bottom, 1, solid, $app-brand-l-5);
-                    background-color: $app-brand-l-6;
-                    
-                    & > .app-mdi-folder-plus {
-                      display: none;
-                    }
-                  }
-                  & > ul {
-                    @extend .app-clean-pd;
-                    list-style: none;
-                    list-style-position: inside;
-                    & > li {
-                      padding: 0.5rem 2rem;
-                      @include set-border(bottom, 1, solid, $app-brand-l-5);
-                      
-                      & > a {
-                        &.active {
-                          color: $secondary-color;
-                        }
-                      }
-                      &:hover {
-                        background-color: color("grey", "lighten-5");
-                      }
-                    }
-                  }
-                }
-              }
-              &:last-child {
-                & > app-menu-tree {
-                  & > .app-wrapper {
-                    & > ul {
-                      & > li {
-                        &:last-child {
-                         border-bottom: none !important; 
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }*/
     }
   }
 }

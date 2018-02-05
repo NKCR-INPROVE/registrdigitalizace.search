@@ -1,6 +1,6 @@
 <ul class="browser-default">
   <ng-container *ngFor="let m of dir['pages']; let idx = index;" [class.app-root-page]="!path">
-    <li [class.active]="isActive(m.name)">
+    <li [class.active]="isActive(m.name)" [class.disabled]="m.disabled">
       <span class="right app-cursor-pointer" id="{{m.name}}">
         <i mz-icon-mdi [icon]="'dots-vertical'"></i>
       </span>
@@ -15,33 +15,11 @@
 
       <a (click)="select(m)">
         <i *ngIf="isActive(m.name)" class="app-mdi-check"></i>
-        {{m.name | translate}}
+        {{m.name | translate}}&#160;
+        <i *ngIf="m.disabled" class="app-mdi-cancel"></i>
       </a>
       <div class="clearfix"></div>
       <app-menu-tree *ngIf="m.pages" [dir]="m" [path]="path + '/' + m.name"></app-menu-tree>
     </li>
   </ng-container>
 </ul>
-
-<!-- old version to remove
-<div class="app-wrapper">
-  <ul class="browser-default">
-    <li *ngFor="let m of dir['pages']; let idx = index;" [class.app-root-page]="!path">
-      <a id="{{m.name}}" class="right">
-         <i mz-icon-mdi [icon]="'dots-vertical'"></i>
-      </a>
-      <mz-dropdown [id]="'actions-menu-'+m.name" [constrainWidth]="false" [dropdownButtonId]="m.name">
-        <mz-dropdown-item><a (click)="addPage(m)">{{'button.add_page' | translate}}</a></mz-dropdown-item>
-        <mz-dropdown-item><a (click)="remove(dir['pages'], idx)">{{'button.remove_page' | translate}}</a></mz-dropdown-item>
-        <mz-dropdown-item><a (click)="moveup(dir['pages'], idx)">{{'button.move_up' | translate}}</a></mz-dropdown-item>
-        <mz-dropdown-item><a (click)="movedown(dir['pages'], idx)">{{'button.move_down' | translate}}</a></mz-dropdown-item>
-      </mz-dropdown>
-      <a mz-collection-link  (click)="select(m)" [active]="isActive(m.name)">
-        <i *ngIf="isActive(m.name)" class="app-mdi-check"></i>
-        {{m.name | translate}}
-      </a>
-      <app-menu-tree *ngIf="m.pages" [dir]="m" [path]="path + '/' + m.name"></app-menu-tree>
-    </li>
-  </ul>
-</div>
--->
