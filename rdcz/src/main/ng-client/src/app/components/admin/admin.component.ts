@@ -91,16 +91,28 @@ export class AdminComponent implements OnInit, OnDestroy {
     let node: Element = this.editor.selection.getNode();
     if(node.hasAttribute('routerlink')){
       node.setAttribute('routerlink', l.link);
-      node.setAttribute('fragment', l.fragment);
+      if(l.fragment && l.fragment !== ''){
+        node.setAttribute('fragment', l.fragment);
+      }
     } else if(node.hasAttribute('href')){
       node.setAttribute('routerlink', l.link);
-      node.setAttribute('fragment', l.fragment);
+      if(l.fragment && l.fragment !== ''){
+        node.setAttribute('fragment', l.fragment);
+      }
       node.removeAttribute('href');
     } else if(this.editor.selection.getContent().length == 0){
-      let ret = ' <a routerLink="' + l.link + ' fragment="' + l.fragment+'">'+ l.link+'</a> ';
+      let ret = ' <a routerLink="' + l.link + '"';
+      if(l.fragment && l.fragment !== ''){
+        ret += ' fragment="' + l.fragment;
+      }
+      ret += '>'+ l.link+'</a> ';
       this.editor.insertContent(ret);
     } else {
-      let ret = '<a routerLink="'+l.link + ' fragment="' + l.fragment+'">'+ this.editor.selection.getContent()+'</a>';
+      let ret = ' <a routerLink="' + l.link + '"';
+      if(l.fragment && l.fragment !== ''){
+        ret += ' fragment="' + l.fragment;
+      }
+      ret += '>'+ this.editor.selection.getContent() +'</a> ';
       this.editor.insertContent(ret);
     }
   }
