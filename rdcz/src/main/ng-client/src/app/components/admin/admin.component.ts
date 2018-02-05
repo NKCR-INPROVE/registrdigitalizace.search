@@ -64,31 +64,55 @@ export class AdminComponent implements OnInit, OnDestroy {
     links.push('prihlaseni');  
     links.push('home');  
     
-    for(let i in this.state.info_menu['pages']){
-      links.push(this.state.info_menu['pages'][i]['name']);
-    }
-    for(let i in this.state.info_menu['pages'][1]['pages']){
-      links.push('info/' + this.state.info_menu['pages'][1]['pages'][i]['name']);
-    }
-    console.log(links);
+    this.addLinks(links, this.state.info_menu['pages']);
+
+//    for(let i in this.state.info_menu['pages']){
+//      links.push(this.state.info_menu['pages'][i]['name']);
+//    }
+//    for(let i in this.state.info_menu['pages'][1]['pages']){
+//      links.push('info/' + this.state.info_menu['pages'][1]['pages'][i]['name']);
+//    }
+    
     this.modalService.open(LinkListComponent, {state: this.state, links: links, selected: selected, fragment: fragment});
     //this.dir['files'].push('newpage');
+  }
+  
+  addLinks(links: string[], pages: any[]){
+    console.log(pages);
+    for(let i in pages){
+      links.push(pages[i]['name']);
+      if(pages[i].hasOwnProperty('pages')){
+        this.addLinks(links, pages[i]['pages']);
+      }
+    }
   }
   
   selectLink(l: {link: string, fragment: string}){
     let node: Element = this.editor.selection.getNode();
     if(node.hasAttribute('routerlink')){
       node.setAttribute('routerlink', l.link);
-      node.setAttribute('fragment', l.fragment);
+      if(l.fragment && l.fragment !== ''){
+        node.setAttribute('fragment', l.fragment);
+      }
     } else if(node.hasAttribute('href')){
       node.setAttribute('routerlink', l.link);
-      node.setAttribute('fragment', l.fragment);
+      if(l.fragment && l.fragment !== ''){
+        node.setAttribute('fragment', l.fragment);
+      }
       node.removeAttribute('href');
     } else if(this.editor.selection.getContent().length == 0){
-      let ret = ' <a routerLink="' + l.link + ' fragment="' + l.fragment+'">'+ l.link+'</a> ';
+      let ret = ' <a routerLink="' + l.link + '"';
+      if(l.fragment && l.fragment !== ''){
+        ret += ' fragment="' + l.fragment;
+      }
+      ret += '>'+ l.link+'</a> ';
       this.editor.insertContent(ret);
     } else {
-      let ret = '<a routerLink="'+l.link + ' fragment="' + l.fragment+'">'+ this.editor.selection.getContent()+'</a>';
+      let ret = ' <a routerLink="' + l.link + '"';
+      if(l.fragment && l.fragment !== ''){
+        ret += ' fragment="' + l.fragment;
+      }
+      ret += '>'+ this.editor.selection.getContent() +'</a> ';
       this.editor.insertContent(ret);
     }
   }

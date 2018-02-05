@@ -148,7 +148,7 @@ public class ImgServlet extends HttpServlet {
 
         try (OutputStream out = response.getOutputStream()) {
         String id = request.getParameter("id");
-        String path = InitServlet.CONFIG_DIR + File.separator + "pages/img";
+        String path = InitServlet.CONFIG_DIR + File.separator + "img";
         File f = new File(path + File.separator + id);
         
           LOGGER.log(Level.INFO, "image: {0}", f.getAbsolutePath());

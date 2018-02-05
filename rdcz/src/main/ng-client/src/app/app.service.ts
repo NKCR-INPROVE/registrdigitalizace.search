@@ -136,10 +136,11 @@ export class AppService {
           if (boosted && (!this.state.q || this.state.q === '')) {
 //            params.set('bq', 'title_full:"' + this.state.advParams[i].trim() +
 //             '"^5.0 title_nolemmas:"' + this.state.advParams[i].trim() +
-//              '"^2.0 varnazev_nolemmas:"' + this.state.advParams[i].trim() +
-//               '"^1.5 title_prefix:"' + this.state.advParams[i].trim() +
+//              '"^2.0 varnazev:"' + this.state.advParams[i].trim() +
+//               '"^1.1 title_prefix:"' + this.state.advParams[i].trim() +
 //                '"^4.0 title:"' + this.state.advParams[i].trim() + '"^1.5 ');
             params.set('q', this.state.advParams[i].trim());
+                
           }
         }else{
           params.append('fq', i + ':"' + this.state.advParams[i].trim() + '"');
