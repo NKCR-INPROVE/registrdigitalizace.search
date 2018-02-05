@@ -9,8 +9,8 @@
         <mz-dropdown-item><a (click)="remove(dir['pages'], idx)">{{'btn.remove-page' | translate}}</a></mz-dropdown-item>
         <mz-dropdown-item><a (click)="moveup(dir['pages'], idx)">{{'btn.move-up' | translate}}</a></mz-dropdown-item>
         <mz-dropdown-item><a (click)="movedown(dir['pages'], idx)">{{'btn.move-down' | translate}}</a></mz-dropdown-item>
-        <!--<mz-dropdown-item><a (click)="disable(dir['pages'], idx)">{{'btn.disable-page' | translate}}</a></mz-dropdown-item>
-        <mz-dropdown-item><a (click)="active(dir['pages'], idx)">{{'btn.active-page' | translate}}</a></mz-dropdown-item>-->
+        <mz-dropdown-item *ngIf="!m.disabled"><a (click)="disable(m)">{{'btn.disable-page' | translate}}</a></mz-dropdown-item>
+        <mz-dropdown-item *ngIf="m.disabled"><a (click)="enable(m)">{{'btn.active-page' | translate}}</a></mz-dropdown-item>
       </mz-dropdown>
 
       <a (click)="select(m)">

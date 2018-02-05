@@ -1,6 +1,6 @@
 <ul class="browser-default">
   <ng-container *ngFor="let m of dir['pages']">
-    <li [class.active]="isActive(m.name)">
+    <li *ngIf="!m.disabled" [class.active]="isActive(m.name)">
       <a *ngIf="m.name !== ''" (click)="select(m.name)">
         <i *ngIf="isActive(m.name)" class="app-mdi-check"></i>
         {{m[state.currentLang]}}

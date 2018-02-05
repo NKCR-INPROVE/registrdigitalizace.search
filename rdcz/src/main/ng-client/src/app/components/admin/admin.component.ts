@@ -45,12 +45,32 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
     
     let links = [];
-    for(let i in this.state.info_menu['files']){
-      links.push(this.state.info_menu['files'][i]);
+    
+    
+//    { path: 'home', component: HomeComponent },
+//      { path: 'results', component: ResultsComponent },
+//      { path: 'info', component: InfoComponent },
+//      { path: 'info/:page/:page', component: InfoComponent },
+//      { path: 'info/:page', component: InfoComponent },
+//      { path: 'napoveda', component: NapovedaComponent },
+//      { path: 'prihlaseni', component: LoginComponent },
+//      { path: 'admin', 
+//        canActivate: [AuthGuard],component: AdminComponent },
+//      { path: 'duplicity', component: DuplicityComponent },
+      
+    //From router
+    links.push('home');  
+    links.push('results');  
+    links.push('prihlaseni');  
+    links.push('home');  
+    
+    for(let i in this.state.info_menu['pages']){
+      links.push(this.state.info_menu['pages'][i]['name']);
     }
-    for(let i in this.state.info_menu['dirs'][0]['files']){
-      links.push('info/' + this.state.info_menu['dirs'][0]['files'][i]);
+    for(let i in this.state.info_menu['pages'][1]['pages']){
+      links.push('info/' + this.state.info_menu['pages'][1]['pages'][i]['name']);
     }
+    console.log(links);
     this.modalService.open(LinkListComponent, {state: this.state, links: links, selected: selected, fragment: fragment});
     //this.dir['files'].push('newpage');
   }
@@ -84,7 +104,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     tinymce.init({
       selector: '#' + this.elementId,
       menubar: false,
-      plugins: ['link', 'paste', 'table', 'save', 'code', 'image', 'anchor'],
+      plugins: ['link', 'paste', 'table', 'save', 'code', 'image', 'anchor', 'lists'],
       toolbar: 'save | undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | code anchor nglink',
       
       theme: "modern",

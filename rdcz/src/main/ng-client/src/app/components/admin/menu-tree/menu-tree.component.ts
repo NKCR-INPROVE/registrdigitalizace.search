@@ -55,6 +55,20 @@ export class MenuTreeComponent implements OnInit {
     });
   }
 
+  disable(m: any) {
+    m['disabled'] = true;
+    this.service.saveMenu(null).subscribe(res => {
+      console.log(res);
+    });
+  }
+
+  enable(m: any) {
+    m['disabled'] = false;
+    this.service.saveMenu(null).subscribe(res => {
+      console.log(res);
+    });
+  }
+
   select(f: any) {
     let s = {path: this.path, menuitem: f};
     this.state.setSelectAdminItem(s);
