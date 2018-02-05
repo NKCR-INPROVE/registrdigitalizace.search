@@ -18471,13 +18471,14 @@ app-root {
   -webkit-flex-direction: column;
   flex-direction: column;
   height: 100%;
-  color: #546e7a !important; }
-  /* line 19, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
+  color: #546e7a !important;
+  position: relative; }
+  /* line 20, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
   body > .preloader-wrapper,
   app-root > .preloader-wrapper {
     margin-top: 100px; }
 
-/* line 24, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
+/* line 25, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
 main {
   -webkit-box-flex: 1;
   -webkit-flex: 1 0 auto;
@@ -18485,61 +18486,63 @@ main {
   width: 100%;
   position: relative; }
 
-/* line 33, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
+/* line 34, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
 a {
   cursor: pointer; }
 
-/* line 39, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
+/* line 40, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
 .preloader-wrapper {
   margin-right: auto;
   margin-left: auto; }
 
-/* line 52, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
+/* line 53, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
 .row {
   margin-bottom: 0; }
 
-/* line 58, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
+/* line 59, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
 section {
   margin-bottom: 20px; }
 
-/* line 64, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
+/* line 65, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
 .app-container {
   padding-left: 0.75rem !important;
   padding-right: 0.75rem !important; }
 
-/* line 71, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
+/* line 72, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
 .app-mg-top-20 {
   margin-top: 20px; }
 
-/* line 75, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
+/* line 76, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
 .app-pipe {
   margin: 0 2px; }
 
-/* line 79, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
+/* line 80, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
 .app-border-radius, app-search-bar .container, app-search-bar .container .row .col:first-child .app-form-group, app-results app-result-item .card .card-content .app-card-detail .collapsible, app-facets .collapsible,
 app-facets-home .collapsible,
 app-used-filters .collapsible,
-app-card-list-dk .collapsible {
+app-card-list-dk .collapsible,
+app-info-collaboration-box .collapsible {
   border-radius: 2px; }
 
-/* line 83, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
+/* line 84, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
 .app-cursor-pointer, app-search-bar .container .row .col:first-child .app-form-group .mdi-navigation-close,
 app-search-bar .container .row .col:first-child .app-form-group .mdi-close, app-results app-result-item .card .card-content .app-card-detail .collapsible .collapsible-body .app-table-predlohy thead tr th, app-facets .collapsible .collapsible-body .collection .collection-item .first-content,
 app-facets-home .collapsible .collapsible-body .collection .collection-item .first-content,
 app-used-filters .collapsible .collapsible-body .collection .collection-item .first-content,
-app-card-list-dk .collapsible .collapsible-body .collection .collection-item .first-content {
+app-card-list-dk .collapsible .collapsible-body .collection .collection-item .first-content,
+app-info-collaboration-box .collapsible .collapsible-body .collection .collection-item .first-content {
   cursor: pointer; }
 
-/* line 89, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
+/* line 90, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
 .app-clean-mg, app-jumbotron section .card, app-facets-home section,
 .checkbox-field {
   margin: 0 !important; }
 
-/* line 94, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
+/* line 95, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
 .app-clean-pd {
   padding: 0 !important; }
 
-/* line 98, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
+/* line 99, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
 .app-clean-pd-bottom {
   padding-bottom: 0 !important; }
 
@@ -18588,36 +18591,37 @@ app-card-list-dk .collapsible .collapsible-body .collection .collection-item .fi
 .clearfix:after {
   clear: both; }
 
-/* line 136, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
+/* line 137, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
 .app-state-item {
   background-color: #90a4ae; }
 
-/* line 137, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
+/* line 138, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
 .app-state-item-finished {
   background-color: #66bb6a; }
 
-/* line 138, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
+/* line 139, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
 .app-state-item-progress {
   background-color: #ffab40; }
 
-/* line 139, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
+/* line 140, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
 .app-state-item-planovane {
   background-color: #880e4f; }
 
-/* line 143, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
+/* line 144, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
 .app-card-shadow, app-results app-result-item .card, app-facets .collapsible,
 app-facets-home .collapsible,
 app-used-filters .collapsible,
-app-card-list-dk .collapsible, app-login section .card {
+app-card-list-dk .collapsible,
+app-info-collaboration-box .collapsible, app-login section .card {
   box-shadow: 0 2px 2px 0 rgba(38, 50, 56, 0), 0 1px 5px 0 rgba(38, 50, 56, 0.1), 0 3px 1px -20px rgba(38, 50, 56, 0.1); }
 
-/* line 147, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
+/* line 148, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
 .app-card-border {
   border-width: 1px 1px 1px 1px;
   border-style: solid;
   border-color: #d5dfe3; }
 
-/* line 153, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
+/* line 154, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
 .app-card-hoverable.hoverable:hover, app-jumbotron section .hoverable.card:hover, app-results app-result-item .hoverable.card:hover, app-login section .hoverable.card:hover {
   box-shadow: 0 8px 17px 0 rgba(38, 50, 56, 0.1), 0 6px 20px 0 rgba(38, 50, 56, 0.19); }
 
@@ -18627,10 +18631,10 @@ $('body').on('click', '.alert .close', function() {
       $(this).remove();
   });
 });*/
-/* line 168, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
+/* line 169, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
 .alert {
   margin-bottom: 0; }
-  /* line 184, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
+  /* line 185, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-global.scss */
   .alert .close {
     position: absolute;
     top: 50%;
@@ -18647,16 +18651,30 @@ header {
   header .app-navbar nav {
     background-color: transparent;
     margin: 40px 0 20px 0; }
-    /* line 16, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-header.scss */
+    /* line 14, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-header.scss */
+    header .app-navbar nav .container {
+      position: relative; }
+      /* line 17, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-header.scss */
+      header .app-navbar nav .container .app-beta {
+        position: absolute;
+        /*top: -6px;
+          left: -35px;
+          transform: rotate(-45deg);
+          box-shadow: 5px 6px 16px -6px rgba(0,0,0,0.99);*/
+        left: 250px;
+        top: 12px;
+        box-shadow: 5px 6px 16px -6px rgba(0, 0, 0, 0.4);
+        margin: 0; }
+    /* line 32, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-header.scss */
     header .app-navbar nav ul li.active {
       background-color: #eceff1; }
-    /* line 19, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-header.scss */
+    /* line 35, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-header.scss */
     header .app-navbar nav ul li a {
       position: relative; }
-      /* line 22, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-header.scss */
+      /* line 38, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-header.scss */
       header .app-navbar nav ul li a:hover {
         background-color: transparent; }
-        /* line 25, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-header.scss */
+        /* line 41, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-header.scss */
         header .app-navbar nav ul li a:hover:after {
           content: '';
           position: absolute;
@@ -18667,11 +18685,11 @@ header {
           padding: 0 15px;
           background-color: #78909c; }
   @media only screen and (min-width: 993px) {
-    /* line 43, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-header.scss */
+    /* line 59, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-header.scss */
     header .app-navbar #app-btn-sidenav {
       display: none !important; } }
   @media only screen and (max-width: 1200px) and (min-width: 992px) {
-    /* line 49, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-header.scss */
+    /* line 65, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-header.scss */
     header .app-navbar .responsive-img {
       width: 80%; } }
 
@@ -18787,29 +18805,8 @@ app-jumbotron section {
 
 /* line 8, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-card-list-dk.scss */
 app-card-list-dk .collapsible .collapsible-body .collection .collection-item span {
-  width: 33.33% !important;
+  width: 50% !important;
   text-align: left !important; }
-
-/* line 16, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-card-list-dk.scss */
-app-card-list-dk .collapsible .collapsible-body .example-container {
-  /*display: flex;
-        flex-direction: column;*/
-  /* max-height: 215px;
-        min-width: 215px;*/
-  height: 215px;
-  overflow: auto; }
-
-/* line 24, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-card-list-dk.scss */
-app-card-list-dk .collapsible .collapsible-body .example-header {
-  min-height: 64px;
-  display: flex;
-  align-items: center;
-  padding-left: 24px;
-  font-size: 20px; }
-
-/* line 31, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-card-list-dk.scss */
-app-card-list-dk .collapsible .collapsible-body .mat-table {
-  overflow: auto; }
 
 /* line 6, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-home.scss */
 app-home .collapsible .collapsible-body .collection {
@@ -19043,20 +19040,22 @@ app-results app-result-item .card {
   app-results app-result-item .card:not(:last-child) {
     margin-bottom: 20px; }
 
-/* line 7, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-facets.scss */
+/* line 8, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-facets.scss */
 app-facets .collapsible,
 app-facets-home .collapsible,
 app-used-filters .collapsible,
-app-card-list-dk .collapsible {
+app-card-list-dk .collapsible,
+app-info-collaboration-box .collapsible {
   margin: 0; }
-  /* line 12, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-facets.scss */
+  /* line 13, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-facets.scss */
   app-facets .collapsible .collapsible-header,
   app-facets-home .collapsible .collapsible-header,
   app-used-filters .collapsible .collapsible-header,
-  app-card-list-dk .collapsible .collapsible-header {
+  app-card-list-dk .collapsible .collapsible-header,
+  app-info-collaboration-box .collapsible .collapsible-header {
     background-color: #eceff1;
     position: relative; }
-    /* line 16, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-facets.scss */
+    /* line 17, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-facets.scss */
     app-facets .collapsible .collapsible-header .mdi-chevron-down, app-facets .collapsible .collapsible-header .mdi-chevron-left, app-facets .collapsible .collapsible-header .mdi-close-circle,
     app-facets-home .collapsible .collapsible-header .mdi-chevron-down,
     app-facets-home .collapsible .collapsible-header .mdi-chevron-left,
@@ -19066,65 +19065,77 @@ app-card-list-dk .collapsible {
     app-used-filters .collapsible .collapsible-header .mdi-close-circle,
     app-card-list-dk .collapsible .collapsible-header .mdi-chevron-down,
     app-card-list-dk .collapsible .collapsible-header .mdi-chevron-left,
-    app-card-list-dk .collapsible .collapsible-header .mdi-close-circle {
+    app-card-list-dk .collapsible .collapsible-header .mdi-close-circle,
+    app-info-collaboration-box .collapsible .collapsible-header .mdi-chevron-down,
+    app-info-collaboration-box .collapsible .collapsible-header .mdi-chevron-left,
+    app-info-collaboration-box .collapsible .collapsible-header .mdi-close-circle {
       position: absolute;
       top: 0;
       right: 15px; }
-    /* line 21, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-facets.scss */
+    /* line 22, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-facets.scss */
     app-facets .collapsible .collapsible-header .mdi-chevron-down,
     app-facets-home .collapsible .collapsible-header .mdi-chevron-down,
     app-used-filters .collapsible .collapsible-header .mdi-chevron-down,
-    app-card-list-dk .collapsible .collapsible-header .mdi-chevron-down {
+    app-card-list-dk .collapsible .collapsible-header .mdi-chevron-down,
+    app-info-collaboration-box .collapsible .collapsible-header .mdi-chevron-down {
       display: none; }
-    /* line 24, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-facets.scss */
+    /* line 25, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-facets.scss */
     app-facets .collapsible .collapsible-header .mdi-chevron-left,
     app-facets-home .collapsible .collapsible-header .mdi-chevron-left,
     app-used-filters .collapsible .collapsible-header .mdi-chevron-left,
-    app-card-list-dk .collapsible .collapsible-header .mdi-chevron-left {
+    app-card-list-dk .collapsible .collapsible-header .mdi-chevron-left,
+    app-info-collaboration-box .collapsible .collapsible-header .mdi-chevron-left {
       display: block; }
-    /* line 28, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-facets.scss */
+    /* line 29, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-facets.scss */
     app-facets .collapsible .collapsible-header.active .mdi-chevron-down,
     app-facets-home .collapsible .collapsible-header.active .mdi-chevron-down,
     app-used-filters .collapsible .collapsible-header.active .mdi-chevron-down,
-    app-card-list-dk .collapsible .collapsible-header.active .mdi-chevron-down {
+    app-card-list-dk .collapsible .collapsible-header.active .mdi-chevron-down,
+    app-info-collaboration-box .collapsible .collapsible-header.active .mdi-chevron-down {
       display: block; }
-    /* line 31, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-facets.scss */
+    /* line 32, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-facets.scss */
     app-facets .collapsible .collapsible-header.active .mdi-chevron-left,
     app-facets-home .collapsible .collapsible-header.active .mdi-chevron-left,
     app-used-filters .collapsible .collapsible-header.active .mdi-chevron-left,
-    app-card-list-dk .collapsible .collapsible-header.active .mdi-chevron-left {
+    app-card-list-dk .collapsible .collapsible-header.active .mdi-chevron-left,
+    app-info-collaboration-box .collapsible .collapsible-header.active .mdi-chevron-left {
       display: none; }
-  /* line 36, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-facets.scss */
+  /* line 37, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-facets.scss */
   app-facets .collapsible .collapsible-body,
   app-facets-home .collapsible .collapsible-body,
   app-used-filters .collapsible .collapsible-body,
-  app-card-list-dk .collapsible .collapsible-body {
+  app-card-list-dk .collapsible .collapsible-body,
+  app-info-collaboration-box .collapsible .collapsible-body {
     padding: 0; }
-    /* line 42, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-facets.scss */
+    /* line 43, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-facets.scss */
     app-facets .collapsible .collapsible-body .collection > span:last-child > .collection-item,
     app-facets-home .collapsible .collapsible-body .collection > span:last-child > .collection-item,
     app-used-filters .collapsible .collapsible-body .collection > span:last-child > .collection-item,
-    app-card-list-dk .collapsible .collapsible-body .collection > span:last-child > .collection-item {
+    app-card-list-dk .collapsible .collapsible-body .collection > span:last-child > .collection-item,
+    app-info-collaboration-box .collapsible .collapsible-body .collection > span:last-child > .collection-item {
       border-bottom: none !important; }
-    /* line 46, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-facets.scss */
+    /* line 47, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-facets.scss */
     app-facets .collapsible .collapsible-body .collection > span .collection-item,
     app-facets-home .collapsible .collapsible-body .collection > span .collection-item,
     app-used-filters .collapsible .collapsible-body .collection > span .collection-item,
-    app-card-list-dk .collapsible .collapsible-body .collection > span .collection-item {
+    app-card-list-dk .collapsible .collapsible-body .collection > span .collection-item,
+    app-info-collaboration-box .collapsible .collapsible-body .collection > span .collection-item {
       border-width: 0 0 1px 0;
       border-style: solid;
       border-color: #d5dfe3; }
-    /* line 50, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-facets.scss */
+    /* line 51, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-facets.scss */
     app-facets .collapsible .collapsible-body .collection .app-sort-header,
     app-facets-home .collapsible .collapsible-body .collection .app-sort-header,
     app-used-filters .collapsible .collapsible-body .collection .app-sort-header,
-    app-card-list-dk .collapsible .collapsible-body .collection .app-sort-header {
+    app-card-list-dk .collapsible .collapsible-body .collection .app-sort-header,
+    app-info-collaboration-box .collapsible .collapsible-body .collection .app-sort-header {
       font-size: 0.8rem; }
       /* line 40, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-mixins.scss */
       app-facets .collapsible .collapsible-body .collection .app-sort-header span.active:after,
       app-facets-home .collapsible .collapsible-body .collection .app-sort-header span.active:after,
       app-used-filters .collapsible .collapsible-body .collection .app-sort-header span.active:after,
-      app-card-list-dk .collapsible .collapsible-body .collection .app-sort-header span.active:after {
+      app-card-list-dk .collapsible .collapsible-body .collection .app-sort-header span.active:after,
+      app-info-collaboration-box .collapsible .collapsible-body .collection .app-sort-header span.active:after {
         content: "\F05D";
         font: normal normal normal 14px/1 "Material Design Icons";
         vertical-align: middle; }
@@ -19135,65 +19146,75 @@ app-card-list-dk .collapsible {
       app-used-filters .collapsible .collapsible-body .collection .app-sort-header span.active.active-down:hover:after,
       app-used-filters .collapsible .collapsible-body .collection .app-sort-header span.active.active-down:after,
       app-card-list-dk .collapsible .collapsible-body .collection .app-sort-header span.active.active-down:hover:after,
-      app-card-list-dk .collapsible .collapsible-body .collection .app-sort-header span.active.active-down:after {
+      app-card-list-dk .collapsible .collapsible-body .collection .app-sort-header span.active.active-down:after,
+      app-info-collaboration-box .collapsible .collapsible-body .collection .app-sort-header span.active.active-down:hover:after,
+      app-info-collaboration-box .collapsible .collapsible-body .collection .app-sort-header span.active.active-down:after {
         content: "\F045";
         font: normal normal normal 14px/1 "Material Design Icons";
         vertical-align: middle; }
-    /* line 61, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-facets.scss */
+    /* line 62, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-facets.scss */
     app-facets .collapsible .collapsible-body .collection .collection-item,
     app-facets-home .collapsible .collapsible-body .collection .collection-item,
     app-used-filters .collapsible .collapsible-body .collection .collection-item,
-    app-card-list-dk .collapsible .collapsible-body .collection .collection-item {
+    app-card-list-dk .collapsible .collapsible-body .collection .collection-item,
+    app-info-collaboration-box .collapsible .collapsible-body .collection .collection-item {
       display: table;
       width: 100%; }
-      /* line 65, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-facets.scss */
+      /* line 66, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-facets.scss */
       app-facets .collapsible .collapsible-body .collection .collection-item:hover,
       app-facets-home .collapsible .collapsible-body .collection .collection-item:hover,
       app-used-filters .collapsible .collapsible-body .collection .collection-item:hover,
-      app-card-list-dk .collapsible .collapsible-body .collection .collection-item:hover {
+      app-card-list-dk .collapsible .collapsible-body .collection .collection-item:hover,
+      app-info-collaboration-box .collapsible .collapsible-body .collection .collection-item:hover {
         background-color: #fafafa; }
-      /* line 69, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-facets.scss */
+      /* line 70, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-facets.scss */
       app-facets .collapsible .collapsible-body .collection .collection-item .app-state-item:first-child,
       app-facets-home .collapsible .collapsible-body .collection .collection-item .app-state-item:first-child,
       app-used-filters .collapsible .collapsible-body .collection .collection-item .app-state-item:first-child,
-      app-card-list-dk .collapsible .collapsible-body .collection .collection-item .app-state-item:first-child {
+      app-card-list-dk .collapsible .collapsible-body .collection .collection-item .app-state-item:first-child,
+      app-info-collaboration-box .collapsible .collapsible-body .collection .collection-item .app-state-item:first-child {
         display: inline-block;
         width: 13px;
         height: 13px;
         margin-right: 0.6rem; }
-      /* line 75, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-facets.scss */
+      /* line 76, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-facets.scss */
       app-facets .collapsible .collapsible-body .collection .collection-item .first-content,
       app-facets-home .collapsible .collapsible-body .collection .collection-item .first-content,
       app-used-filters .collapsible .collapsible-body .collection .collection-item .first-content,
-      app-card-list-dk .collapsible .collapsible-body .collection .collection-item .first-content {
+      app-card-list-dk .collapsible .collapsible-body .collection .collection-item .first-content,
+      app-info-collaboration-box .collapsible .collapsible-body .collection .collection-item .first-content {
         display: table-cell;
         width: 80%; }
-        /* line 80, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-facets.scss */
+        /* line 81, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-facets.scss */
         app-facets .collapsible .collapsible-body .collection .collection-item .first-content.app-is-col-sigla,
         app-facets-home .collapsible .collapsible-body .collection .collection-item .first-content.app-is-col-sigla,
         app-used-filters .collapsible .collapsible-body .collection .collection-item .first-content.app-is-col-sigla,
-        app-card-list-dk .collapsible .collapsible-body .collection .collection-item .first-content.app-is-col-sigla {
+        app-card-list-dk .collapsible .collapsible-body .collection .collection-item .first-content.app-is-col-sigla,
+        app-info-collaboration-box .collapsible .collapsible-body .collection .collection-item .first-content.app-is-col-sigla {
           width: 60%; }
-      /* line 84, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-facets.scss */
+      /* line 85, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-facets.scss */
       app-facets .collapsible .collapsible-body .collection .collection-item .middle-content,
       app-facets-home .collapsible .collapsible-body .collection .collection-item .middle-content,
       app-used-filters .collapsible .collapsible-body .collection .collection-item .middle-content,
-      app-card-list-dk .collapsible .collapsible-body .collection .collection-item .middle-content {
+      app-card-list-dk .collapsible .collapsible-body .collection .collection-item .middle-content,
+      app-info-collaboration-box .collapsible .collapsible-body .collection .collection-item .middle-content {
         display: table-cell;
         float: none;
         text-align: left;
         width: 20%; }
-        /* line 90, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-facets.scss */
+        /* line 91, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-facets.scss */
         app-home app-facets .collapsible .collapsible-body .collection .collection-item .middle-content, app-home
         app-facets-home .collapsible .collapsible-body .collection .collection-item .middle-content, app-home
         app-used-filters .collapsible .collapsible-body .collection .collection-item .middle-content, app-home
-        app-card-list-dk .collapsible .collapsible-body .collection .collection-item .middle-content {
+        app-card-list-dk .collapsible .collapsible-body .collection .collection-item .middle-content, app-home
+        app-info-collaboration-box .collapsible .collapsible-body .collection .collection-item .middle-content {
           width: 23%; }
-      /* line 94, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-facets.scss */
+      /* line 95, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-facets.scss */
       app-facets .collapsible .collapsible-body .collection .collection-item .secondary-content,
       app-facets-home .collapsible .collapsible-body .collection .collection-item .secondary-content,
       app-used-filters .collapsible .collapsible-body .collection .collection-item .secondary-content,
-      app-card-list-dk .collapsible .collapsible-body .collection .collection-item .secondary-content {
+      app-card-list-dk .collapsible .collapsible-body .collection .collection-item .secondary-content,
+      app-info-collaboration-box .collapsible .collapsible-body .collection .collection-item .secondary-content {
         display: table-cell;
         float: none;
         text-align: right;
@@ -19423,11 +19444,13 @@ app-admin section {
           font-weight: bold;
           color: #b71c1c; }
 
-/* line 4, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-info.scss */
-app-info section {
-  padding-left: 0.75rem; }
+/* line 3, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-info.scss */
+app-info {
+  /*section {*/
+  padding-left: 0.75rem;
+  /* }*/ }
   /* line 5, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-info.scss */
-  app-info section h5 {
+  app-info h5 {
     border-width: 0 0 1px 0;
     border-style: solid;
     border-color: #d5dfe3;
@@ -19435,26 +19458,31 @@ app-info section {
     margin-bottom: 20px;
     padding-bottom: 20px; }
   /* line 18, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-info.scss */
-  app-info section .app-menu-col > app-info-menu > .browser-default:first-child {
+  app-info .app-menu-col > app-info-menu > .browser-default:first-child {
+    margin-top: 0;
     padding-left: 0.75rem; }
-  /* line 26, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-info.scss */
-  app-info section .app-menu-col app-info-menu > .browser-default > li {
+  /* line 27, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-info.scss */
+  app-info .app-menu-col app-info-menu > .browser-default > li {
     list-style-position: inside; }
-    /* line 29, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-info.scss */
-    app-info section .app-menu-col app-info-menu > .browser-default > li > a {
+    /* line 30, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-info.scss */
+    app-info .app-menu-col app-info-menu > .browser-default > li > a {
       height: 36px;
       line-height: 36px;
       color: #546e7a; }
-      /* line 34, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-info.scss */
-      app-info section .app-menu-col app-info-menu > .browser-default > li > a:hover {
+      /* line 35, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-info.scss */
+      app-info .app-menu-col app-info-menu > .browser-default > li > a:hover {
         color: #b71c1c; }
-    /* line 39, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-info.scss */
-    app-info section .app-menu-col app-info-menu > .browser-default > li.active {
+    /* line 40, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-info.scss */
+    app-info .app-menu-col app-info-menu > .browser-default > li.active {
       list-style: none; }
-      /* line 42, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-info.scss */
-      app-info section .app-menu-col app-info-menu > .browser-default > li.active > a {
+      /* line 43, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-info.scss */
+      app-info .app-menu-col app-info-menu > .browser-default > li.active > a {
         font-weight: bold;
         color: #b71c1c; }
+  /* line 56, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-info.scss */
+  app-info .card .card-content p {
+    margin: inherit !important;
+    color: inherit; }
 
 /* line 3, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-footer.scss */
 footer {

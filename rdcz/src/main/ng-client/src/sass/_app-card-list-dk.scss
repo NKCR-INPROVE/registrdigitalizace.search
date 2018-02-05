@@ -6,30 +6,11 @@ app-card-list-dk {
       .collection {
         .collection-item {
           span {
-            width: 33.33% !important;
+            //width: 33.33% !important;
+            width: 50% !important;
             text-align: left !important;
           }
         }
-      }
-      
-      // table angular material
-      .example-container {
-        /*display: flex;
-        flex-direction: column;*/
-       /* max-height: 215px;
-        min-width: 215px;*/
-        height: 215px;
-        overflow: auto;
-      }
-      .example-header {
-        min-height: 64px;
-        display: flex;
-        align-items: center;
-        padding-left: 24px;
-        font-size: 20px;
-      }
-      .mat-table {
-        overflow: auto;
       }
     }
   }

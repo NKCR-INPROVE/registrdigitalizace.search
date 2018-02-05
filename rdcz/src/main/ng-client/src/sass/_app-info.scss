@@ -1,7 +1,7 @@
 // --- INFO ---
 
 app-info {
-  section {
+  /*section {*/
     h5 {
       @include set-border(bottom, 1, solid, $app-brand-l-5);
       margin-top: 20px !important;
@@ -16,6 +16,7 @@ app-info {
       & > app-info-menu {
         & > .browser-default {
           &:first-child {
+            margin-top: 0;
             padding-left: 0.75rem;
           }
         }
@@ -48,5 +49,12 @@ app-info {
         }  
       }
     }
+ /* }*/
+  
+  
+  
+  .card .card-content p {
+    margin: inherit !important;
+    color: inherit;
   }
 }

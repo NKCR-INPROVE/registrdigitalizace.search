@@ -11,6 +11,22 @@ header {
       background-color: transparent;
       margin: 40px 0 20px 0;
       
+      .container {
+        position: relative;
+        
+        .app-beta {
+          position: absolute;
+          /*top: -6px;
+          left: -35px;
+          transform: rotate(-45deg);
+          box-shadow: 5px 6px 16px -6px rgba(0,0,0,0.99);*/
+          left: 250px;
+          top: 12px;
+          box-shadow: 5px 6px 16px -6px rgba(0,0,0,0.40);
+          margin: 0;
+        }
+      }
+      
       ul {
         li {
           &.active {

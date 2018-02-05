@@ -46,6 +46,7 @@ import { InnerContentComponent } from './components/inner-content/inner-content.
 import { MenuTreeComponent } from './components/admin/menu-tree/menu-tree.component';
 import { PromptComponent } from './components/prompt/prompt.component';
 import { LinkListComponent } from './components/link-list/link-list.component';
+import { InfoCollaborationBoxComponent } from './components/info-collaboration-box/info-collaboration-box.component';
 
 
 export function HttpLoaderFactory(http: Http) {
@@ -89,7 +90,8 @@ export function createTranslateLoader(http: Http) {
     InnerContentComponent,
     MenuTreeComponent,
     PromptComponent,
-    LinkListComponent
+    LinkListComponent,
+    InfoCollaborationBoxComponent
   ],
   imports: [
     BrowserModule,

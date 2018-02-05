@@ -9,7 +9,8 @@
     "mzk": "Moravian library",
     "login": "Please, login",
     "admin-page": "Admin page",
-    "add-folder-page": "Add folder / page"
+    "add-folder-page": "Add folder / page",
+    "beta-version": "Beta version"
   },
   "nav": {
     "home": "Home",
@@ -89,7 +90,8 @@
     "zrusit-vsechny-filtry": "Remove all filters",
     "pouzit-tento-filtr": "Use this filter",
     "prehled-dk-knihoven": "List of digital libraries",
-    "vymazat": "delete"
+    "vymazat": "delete",
+    "informace-ke-spolupraci": "Information to cooperate"
   },
   "field": { 
     "q": "query",

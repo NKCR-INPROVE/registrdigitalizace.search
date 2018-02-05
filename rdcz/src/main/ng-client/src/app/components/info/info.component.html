@@ -1,18 +1,12 @@
-<section>
-  <div class="container">
-    <div class="row">
-      <div class="col s12">   
-        <div class="row">
-          <div class="col s12 xl3 app-menu-col">
-            <app-info-menu *ngIf="menu" [dir]="menu['pages'][1]" [path]="''" (selected)="select($event)"></app-info-menu>
-          </div><!--/.col -->
-          <div class="col s12 xl9">
-            <app-inner-content #inn></app-inner-content>
-          </div><!--/.col -->
-        </div><!--/.row -->
-      </div><!--/.col -->
-    </div><!--/.row -->
-  </div><!--/.container -->
-</section>
+<div class="container">  
+  <div class="row">
+    <div class="col s12 xl3 app-menu-col">
+      <app-info-menu *ngIf="menu" [dir]="menu['pages'][1]" [path]="''" (selected)="select($event)"></app-info-menu>
+    </div><!--/.col -->
+    <div class="col s12 xl9">
+      <app-inner-content #inn></app-inner-content>
+    </div><!--/.col -->
+  </div><!--/.row -->
+</div><!--/.container -->
 
       

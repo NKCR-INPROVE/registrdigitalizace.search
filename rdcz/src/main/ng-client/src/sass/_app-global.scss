@@ -15,6 +15,7 @@ app-root {
   flex-direction: column;
   height: 100%;
   color: $primary-color !important;
+  position: relative;
   
   > .preloader-wrapper {
     margin-top: 100px;

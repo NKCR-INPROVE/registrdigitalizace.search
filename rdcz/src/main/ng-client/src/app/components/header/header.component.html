@@ -5,6 +5,7 @@
         <a routerLink="home" class="brand-logo" title="Home - {{'title.app' | translate}}">
           <img *ngIf="currLang" [src]="'assets/img/logo-rd-' + currLang + '.png'" class="responsive-img" alt="{{'app.title' | translate}}" />
         </a>
+        <mz-badge [caption]="'title.beta-version' | translate" [badgeClass]="'blue app-beta'"></mz-badge>
         <mz-navbar-item-container [align]="'right'">
           <mz-navbar-item routerLink="home" routerLinkActive="active" #home="routerLinkActive" [active]="home.isActive">
             <a routerLink="home" title="{{'nav.home' | translate}}">{{'nav.home' | translate}}</a>

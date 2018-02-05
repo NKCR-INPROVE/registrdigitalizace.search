@@ -21,14 +21,14 @@ export class FacetsHomeComponent implements OnInit, OnChanges {
   @Input() allOpen = true;
   subscriptions: Subscription[] = [];
   
-    currentSort: string= 'count';
-    currentDir: number = -1;
+    currentSort: string= 'value';
+    currentDir: number = 1;
 
   constructor(public service: AppService, public state: AppState) { }
 
   ngOnInit() {
     setTimeout(()=>{
-      this.sortBy(this.facetFields[1], 'count');
+      this.sortBy(this.facetFields[1], 'value');
     }, 1000);
   }
 

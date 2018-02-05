@@ -9,7 +9,8 @@
     "mzk": "Moravská Zemská Knihovna",
     "login": "Prosím, přihlašte se",
     "admin-page": "Administrativní stránka",
-    "add-folder-page": "Vložte adresář / stránku"
+    "add-folder-page": "Vložte adresář / stránku",
+    "beta-version": "Beta verze"
   },
   "nav": {
     "home": "Home",
@@ -82,14 +83,15 @@
     "finished": "Dokončeno",
     "progress": "Ve zpracování",
     "planovane": "Plánovaná digitalizace",
-    "nastaveni-filtru": "Nastavení filtru",
+    "nastaveni-filtru": "Použité filtry",
     "zobrazit-vice": "Zobrazit více",
     "zobrazit-mene": "Zobrazit méně",
     "zrusit-tento-filtr": "Zrušit tento filtr",
     "zrusit-vsechny-filtry": "Zrušit všechny filtry",
     "pouzit-tento-filtr": "Použít tento filtr",
     "prehled-dk-knihoven": "Přehled (cílových) digitálních knihoven",
-    "vymazat": "vymazat"
+    "vymazat": "vymazat",
+    "informace-ke-spolupraci": "Informace ke spolupráci"
   },
   "field": {
     "q": "dotaz",
