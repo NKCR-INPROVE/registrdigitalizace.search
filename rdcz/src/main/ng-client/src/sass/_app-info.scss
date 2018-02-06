@@ -82,6 +82,10 @@ app-info {
               font-weight: bold;
 
               td {
+                &:nth-child(2) {
+                  word-break: normal;
+                }
+                
                 @include set-border(bottom, 1, solid, $app-brand-l-4);
               }  
             }
@@ -91,6 +95,9 @@ app-info {
             }
 
             td {
+              &:nth-child(2) {
+                word-break: break-word;
+              }
               vertical-align: top; 
             }
           } 

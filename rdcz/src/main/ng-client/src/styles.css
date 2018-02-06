@@ -19436,13 +19436,19 @@ app-info {
         border-width: 0 0 1px 0;
         border-style: solid;
         border-color: #cfd8dc; }
-    /* line 89, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-info.scss */
+        /* line 85, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-info.scss */
+        app-info .app-edit-col .app-edit-content table tbody tr:first-child td:nth-child(2) {
+          word-break: normal; }
+    /* line 93, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-info.scss */
     app-info .app-edit-col .app-edit-content table tbody tr:hover:not(:first-child) {
       background-color: #d5dfe3 !important; }
-    /* line 93, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-info.scss */
+    /* line 97, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-info.scss */
     app-info .app-edit-col .app-edit-content table tbody tr td {
       vertical-align: top; }
-  /* line 102, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-info.scss */
+      /* line 98, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-info.scss */
+      app-info .app-edit-col .app-edit-content table tbody tr td:nth-child(2) {
+        word-break: break-word; }
+  /* line 109, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-info.scss */
   app-info .card .card-content p {
     margin: inherit !important;
     color: inherit; }
