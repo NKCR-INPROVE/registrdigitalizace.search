@@ -113,8 +113,8 @@ export class AdminComponent implements OnInit, OnDestroy {
       selector: '#' + this.elementId,
       menubar: false,
       plugins: ['link', 'paste', 'table', 'save', 'code', 'image', 'anchor', 'lists'],
-      toolbar: 'save | undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | code anchor nglink',
-      
+      //toolbar: 'save | undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | table | link image | code anchor nglink',
+      toolbar: 'save | undo redo | insert | styleselect | bold italic | table | link image | code anchor nglink',
       theme: "modern",
       content_css: ctx + 'assets/editor.css',
       body_class: 'underlined',

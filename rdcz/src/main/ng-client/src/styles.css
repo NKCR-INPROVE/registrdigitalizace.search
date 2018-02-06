@@ -5105,16 +5105,16 @@ table {
   table.bordered > tbody > tr {
     border-bottom: 1px solid #d0d0d0; }
   /* line 374, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/node_modules/materialize-css/sass/components/_global.scss */
-  table.striped > tbody > tr:nth-child(odd) {
+  table.striped > tbody > tr:nth-child(odd), app-info .app-edit-col .app-edit-content table > tbody > tr:nth-child(odd) {
     background-color: #f2f2f2; }
   /* line 378, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/node_modules/materialize-css/sass/components/_global.scss */
-  table.striped > tbody > tr > td {
+  table.striped > tbody > tr > td, app-info .app-edit-col .app-edit-content table > tbody > tr > td {
     border-radius: 0; }
   /* line 383, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/node_modules/materialize-css/sass/components/_global.scss */
-  table.highlight > tbody > tr {
+  table.highlight > tbody > tr, app-info .app-edit-col .app-edit-content table > tbody > tr {
     transition: background-color .25s ease; }
     /* line 385, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/node_modules/materialize-css/sass/components/_global.scss */
-    table.highlight > tbody > tr:hover {
+    table.highlight > tbody > tr:hover, app-info .app-edit-col .app-edit-content table > tbody > tr:hover {
       background-color: #f2f2f2; }
   /* line 391, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/node_modules/materialize-css/sass/components/_global.scss */
   table.centered thead tr th, table.centered tbody tr td {
@@ -8134,7 +8134,7 @@ textarea {
   opacity: 1;
   position: static; }
   /* line 283, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/node_modules/materialize-css/sass/components/forms/_input-fields.scss */
-  .autocomplete-content li .highlight {
+  .autocomplete-content li .highlight, .autocomplete-content li app-info .app-edit-col .app-edit-content table, app-info .app-edit-col .app-edit-content .autocomplete-content li table {
     color: #444; }
   /* line 285, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/node_modules/materialize-css/sass/components/forms/_input-fields.scss */
   .autocomplete-content li img {
@@ -19016,7 +19016,7 @@ app-results app-result-item .card {
             width: 13px;
             height: 13px; }
           /* line 173, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-result-item.scss */
-          app-results app-result-item .card .card-content .app-card-detail .collapsible .collapsible-body .app-table-predlohy.striped > tbody > tr:nth-child(odd) {
+          app-results app-result-item .card .card-content .app-card-detail .collapsible .collapsible-body .app-table-predlohy.striped > tbody > tr:nth-child(odd), app-results app-result-item .card .card-content .app-card-detail .collapsible .collapsible-body app-info .app-edit-col .app-edit-content table.app-table-predlohy > tbody > tr:nth-child(odd), app-info .app-edit-col .app-edit-content app-results app-result-item .card .card-content .app-card-detail .collapsible .collapsible-body table.app-table-predlohy > tbody > tr:nth-child(odd) {
             background-color: #fafafa; }
         /* line 179, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-result-item.scss */
         app-results app-result-item .card .card-content .app-card-detail .collapsible .collapsible-body .app-dig-object > div {
@@ -19368,7 +19368,7 @@ app-admin section {
 app-info {
   padding-left: 0.75rem; }
   /* line 4, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-info.scss */
-  app-info h5 {
+  app-info h4, app-info h5 {
     border-width: 0 0 1px 0;
     border-style: solid;
     border-color: #d5dfe3;
@@ -19411,7 +19411,38 @@ app-info {
         app-info .app-menu-col .app-info-menu-main-page-wrapper > .browser-default > li.active > a {
           font-weight: bold;
           color: #b71c1c; }
-  /* line 60, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-info.scss */
+  /* line 62, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-info.scss */
+  app-info .app-edit-col .app-edit-content h4 {
+    font-size: 1.6rem; }
+  /* line 63, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-info.scss */
+  app-info .app-edit-col .app-edit-content h5 {
+    font-size: 1.2rem; }
+  /* line 65, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-info.scss */
+  app-info .app-edit-col .app-edit-content ul {
+    padding-left: 20px !important; }
+    /* line 68, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-info.scss */
+    app-info .app-edit-col .app-edit-content ul li {
+      list-style-type: disc !important;
+      list-style-position: inside !important; }
+  /* line 74, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-info.scss */
+  app-info .app-edit-col .app-edit-content table {
+    border: none !important; }
+    /* line 80, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-info.scss */
+    app-info .app-edit-col .app-edit-content table tbody tr:first-child {
+      background-color: transparent !important;
+      font-weight: bold; }
+      /* line 84, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-info.scss */
+      app-info .app-edit-col .app-edit-content table tbody tr:first-child td {
+        border-width: 0 0 1px 0;
+        border-style: solid;
+        border-color: #cfd8dc; }
+    /* line 89, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-info.scss */
+    app-info .app-edit-col .app-edit-content table tbody tr:hover:not(:first-child) {
+      background-color: #d5dfe3 !important; }
+    /* line 93, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-info.scss */
+    app-info .app-edit-col .app-edit-content table tbody tr td {
+      vertical-align: top; }
+  /* line 102, /Users/petr.kudela/Projects/rdcz/github/rdcz/src/main/ng-client/src/sass/_app-info.scss */
   app-info .card .card-content p {
     margin: inherit !important;
     color: inherit; }
