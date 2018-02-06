@@ -76,6 +76,7 @@ public class Indexer {
     Date start = new Date();
     JSONObject ret = new JSONObject();
     
+    ret.put("Index DigKnihovny", indexDigKnihovny(false));
     ret.put("Index DigObjekt", indexDigObject(true));
     
     String fields = opts.getJSONArray("db.fields").join(",").replaceAll("\"", "");
@@ -118,6 +119,7 @@ public class Indexer {
     Date start = new Date();
     JSONObject ret = new JSONObject();
     indexLists();
+    indexDigKnihovny(false);
     
     ret.put("Index DigObjekt", indexDigObject(false));
     
@@ -288,6 +290,69 @@ public class Indexer {
           }
 
           LOGGER.log(Level.INFO, "Index DigObjekt finished. {0} docs processed ", indexed);
+          ret.put("msg", indexed + " docs processed");
+        } catch (SolrServerException ex) {
+          LOGGER.log(Level.SEVERE, sql);
+          LOGGER.log(Level.SEVERE, null, ex);
+          ret.put("error", ex.toString());
+        } catch (IOException ex) {
+          LOGGER.log(Level.SEVERE, null, ex);
+          ret.put("error", ex.toString());
+        }
+        conn.close();
+      }
+    } catch (NamingException | SQLException ex) {
+      LOGGER.log(Level.SEVERE, null, ex);
+      ret.put("error", ex.toString());
+    }
+    return ret;
+  }
+
+  public JSONObject indexDigKnihovny(boolean update) {
+    JSONObject ret = new JSONObject();
+    String sql = "select * "
+            + " from digknihovna";
+    if (update) {
+      String lastIndexTime = lastDigObjectDate();
+      if (lastIndexTime != null) {
+        sql += " where edidate>=" + lastIndexTime;
+      }
+    }
+    LOGGER.log(Level.INFO, "Processing {0}", sql);
+    try {
+      Context initContext = new InitialContext();
+      Context envContext = (Context) initContext.lookup("java:/comp/env");
+      DataSource ds = (DataSource) envContext.lookup("jdbc/rlf");
+      try (Connection conn = ds.getConnection()) {
+        PreparedStatement ps = conn.prepareStatement(sql);
+        int batchSize = 500;
+        ArrayList<SolrInputDocument> idocs = new ArrayList<>();
+
+        try (ResultSet rs = ps.executeQuery()) {
+          while (rs.next()) {
+            SolrInputDocument idoc = indexRow(rs);
+
+            idocs.add(idoc);
+
+            if (idocs.size() >= batchSize) {
+              solr.add("digknihovny", idocs);
+              solr.commit("digknihovny");
+
+              indexed += idocs.size();
+              LOGGER.log(Level.INFO, "{0} docs processed ", indexed);
+              idocs.clear();
+            }
+          }
+          rs.close();
+          ps.close();
+          if (!idocs.isEmpty()) {
+            solr.add("digknihovny", idocs);
+            solr.commit("digknihovny");
+            indexed += idocs.size();
+            idocs.clear();
+          }
+
+          LOGGER.log(Level.INFO, "Index DigKnihovny finished. {0} docs processed ", indexed);
           ret.put("msg", indexed + " docs processed");
         } catch (SolrServerException ex) {
           LOGGER.log(Level.SEVERE, sql);
