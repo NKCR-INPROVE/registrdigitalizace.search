@@ -151,17 +151,23 @@ public class ImgServlet extends HttpServlet {
         String path = InitServlet.CONFIG_DIR + File.separator + "img";
         File f = new File(path + File.separator + id);
         
-          LOGGER.log(Level.INFO, "image: {0}", f.getAbsolutePath());
+        LOGGER.log(Level.INFO, "image: {0}", f.getAbsolutePath());
         if (f.exists()) {
-            //response.setContentType("image/jpeg");
+          
+          ServletContext cntx= request.getServletContext();
+          // retrieve mimeType dynamically
+          String mime = cntx.getMimeType(path + File.separator + id);
+      
+          LOGGER.log(Level.INFO, "mime: {0}", mime);
+            response.setContentType(mime);
             BufferedImage bi = ImageIO.read(f);
+            ImageIO.write(bi, mime.split("/")[1], out);
             //ImageIO.write(bi, "jpg", out);
-            ImageIO.write(bi, "jpg", out);
           } 
         }
       }
     };
-
+ 
     abstract void doPerform(HttpServletRequest req, HttpServletResponse resp) throws Exception;
   }
 
