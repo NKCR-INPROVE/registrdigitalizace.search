@@ -45,18 +45,6 @@ export class AdminComponent implements OnInit, OnDestroy {
     }
     
     let links = [];
-    
-    
-//    { path: 'home', component: HomeComponent },
-//      { path: 'results', component: ResultsComponent },
-//      { path: 'info', component: InfoComponent },
-//      { path: 'info/:page/:page', component: InfoComponent },
-//      { path: 'info/:page', component: InfoComponent },
-//      { path: 'napoveda', component: NapovedaComponent },
-//      { path: 'prihlaseni', component: LoginComponent },
-//      { path: 'admin', 
-//        canActivate: [AuthGuard],component: AdminComponent },
-//      { path: 'duplicity', component: DuplicityComponent },
       
     //From router
     links.push('home');  
@@ -64,25 +52,17 @@ export class AdminComponent implements OnInit, OnDestroy {
     links.push('prihlaseni');  
     links.push('home');  
     
-    this.addLinks(links, this.state.info_menu['pages']);
-
-//    for(let i in this.state.info_menu['pages']){
-//      links.push(this.state.info_menu['pages'][i]['name']);
-//    }
-//    for(let i in this.state.info_menu['pages'][1]['pages']){
-//      links.push('info/' + this.state.info_menu['pages'][1]['pages'][i]['name']);
-//    }
+    this.addLinks(links, this.state.info_menu['pages'], '');
     
     this.modalService.open(LinkListComponent, {state: this.state, links: links, selected: selected, fragment: fragment});
-    //this.dir['files'].push('newpage');
   }
   
-  addLinks(links: string[], pages: any[]){
+  addLinks(links: string[], pages: any[], path: string){
     console.log(pages);
     for(let i in pages){
-      links.push(pages[i]['name']);
+      links.push(path + pages[i]['name']);
       if(pages[i].hasOwnProperty('pages')){
-        this.addLinks(links, pages[i]['pages']);
+        this.addLinks(links, pages[i]['pages'], path + pages[i]['name'] + '/');
       }
     }
   }
@@ -93,11 +73,15 @@ export class AdminComponent implements OnInit, OnDestroy {
       node.setAttribute('routerlink', l.link);
       if(l.fragment && l.fragment !== ''){
         node.setAttribute('fragment', l.fragment);
+      } else {
+        node.removeAttribute('fragment');
       }
     } else if(node.hasAttribute('href')){
       node.setAttribute('routerlink', l.link);
       if(l.fragment && l.fragment !== ''){
         node.setAttribute('fragment', l.fragment);
+      } else {
+        node.removeAttribute('fragment');
       }
       node.removeAttribute('href');
     } else if(this.editor.selection.getContent().length == 0){
