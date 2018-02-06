@@ -45,7 +45,7 @@
     that avoids logging every request
 -->
 
-<schema name="rdcz" version="1.6">
+<schema name="rdcz-digknihovny" version="1.6">
     <!-- attribute "name" is the name of this schema and is only used for display purposes.
        version="x.y" is Solr's version number for the schema syntax and 
        semantics.  It should not normally be changed by applications.
@@ -121,92 +121,14 @@
    <field name="index_time" type="date" indexed="true" stored="true" default="NOW" /> 
     
     <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false" />
-    <field name="title" type="text_cz" indexed="true" stored="true" multiValued="false" />
-    <field name="title_nolemmas" type="text_general" indexed="true" stored="false" multiValued="false" />
-    <field name="title_prefix" type="text_prefix" indexed="true" stored="false" multiValued="false" />
-    <field name="title_full" type="string_lowercase" indexed="true" stored="false" multiValued="false" />
-    <field name="nazev" type="text_cz" indexed="true" stored="true" />
-    <field name="titlesort" type="collatedCS" indexed="true" stored="true" sortMissingLast="true" />
-    <field name="podnazev" type="string" indexed="true" stored="true" />
-    <field name="varnazev" type="text_cz" indexed="true" stored="true" multiValued="true" />
-    
-    <field name="autor" type="text_cz" indexed="true" stored="true" />
-    
-    <field name="rokvyd" type="tint" indexed="true" stored="true" />
-    <field name="rokvydstr" type="string" indexed="true" stored="true" />
-    <field name="edice" type="string" indexed="true" stored="true" />
-    <field name="rozsah" type="string" indexed="true" stored="true" />
-    <field name="cast" type="string" indexed="true" stored="true" />
-    <field name="vydavatel" type="string" indexed="true" stored="true" />
-    <field name="mistovyd" type="string" indexed="true" stored="true" />
-    <field name="ccnb" type="string" indexed="true" stored="true" multiValued="true" />
-    <field name="issn" type="string" indexed="true" stored="true" />
-    <field name="isbn" type="string" indexed="true" stored="true" />
-    <field name="isxn" type="string" indexed="true" stored="true" multiValued="true" />
+    <dynamicField name="*" type="string" />
 
-    <field name="pole001" type="string" indexed="true" stored="true"  docValues="true" />
-    <field name="carkod" type="string" indexed="true" stored="true" />
-    <field name="cislozakazky" type="string" indexed="true" stored="true" />
-    
-    <field name="signatura" type="string" indexed="true" stored="true" />
-    <field name="cisloper" type="string" indexed="true" stored="true" />
-    <field name="cislordcz" type="string" indexed="true" stored="true" />
-    <field name="bibpoznamka" type="string" indexed="true" stored="true" />
-    
-    
-    <field name="druhdokumentu" type="string" indexed="true" stored="true" docValues="true" />  
-    <field name="rperiodikum" type="string" indexed="true" stored="true" />                    
-
-    <field name="cnb_collaps" type="string" indexed="true" stored="true" docValues="true" />
-    <field name="isxn_collaps" type="string" indexed="true" stored="true" docValues="true"  />
-    <field name="aba_collaps" type="string" indexed="true" stored="true" docValues="true"  />
-    <field name="stav" type="string" indexed="true" stored="true" docValues="true"  />
-    <field name="financovano" type="string" indexed="true" stored="true" docValues="true" />
-    <field name="vlastnik" type="string" indexed="true" stored="true" docValues="true"  />
-    <field name="digknihovna" type="string" indexed="true" stored="true"  multiValued="true" docValues="true"  />
-    <field name="url" type="string" indexed="true" stored="true" />
-    <field name="urltitul" type="string" indexed="true" stored="true" docValues="true"  />
-    <field name="urltitnk" type="string" indexed="true" stored="true" docValues="true"  />
-    <field name="katalog" type="string" indexed="true" stored="true" docValues="true"  />
-    <field name="bibliographich_data" type="string" indexed="true" stored="true" multiValued="true"  />
-    
-
-    <field name="_text_nolemmas" type="text_general" indexed="true" stored="false" multiValued="true"/>
-    <field name="_text_" type="text_cz" indexed="true" stored="false" multiValued="true"/>
     
     <!-- Only enabled in the "schemaless" data-driven example (assuming the client
          does not know what fields may be searched) because it's very expensive to index everything twice. -->
     <!-- <copyField source="*" dest="_text_"/> -->
 
-    <copyField source="id" dest="_text_"/>
-    <copyField source="title" dest="_text_"/>
-    <copyField source="title" dest="title_nolemmas"/>
-    <copyField source="title" dest="title_prefix"/>
-    <copyField source="title" dest="title_full"/>
     
-    <copyField source="autor" dest="_text_"/>
-    
-    <copyField source="varnazev" dest="_text_"/>
-    
-    <copyField source="rokvydstr" dest="_text_"/>
-    <copyField source="edice" dest="_text_"/>
-    <copyField source="rozsah" dest="_text_"/>
-    <copyField source="cast" dest="_text_"/>
-    <copyField source="vydavatel" dest="_text_"/>
-    <copyField source="mistovyd" dest="_text_"/>
-    
-    <copyField source="ccnb" dest="_text_"/>
-    <copyField source="issn" dest="_text_"/>
-    <copyField source="isbn" dest="_text_"/>
-    <copyField source="issn" dest="isxn"/>
-    <copyField source="isbn" dest="isxn"/>
-    <copyField source="pole001" dest="_text_"/>
-    <copyField source="cislordcz" dest="_text_"/>
-    <copyField source="carkod" dest="_text_"/>
-    <copyField source="cislozakazky" dest="_text_"/>
-    
-    <copyField source="title" dest="titlesort"/>
-
     <!-- uncomment the following to ignore any fields that don't already match an existing 
         field name or dynamic field, rather than reporting them as an error. 
         alternately, change the type="ignored" to some other type e.g. "text" if you want 
@@ -511,85 +433,21 @@
       </analyzer>
     </fieldType>
     
-    <!-- Lowercase bez diakrity bez tokenizer -->
-    <fieldType name="string_lowercase" class="solr.TextField" positionIncrementGap="100">
-      <analyzer> 
-        <tokenizer class="solr.KeywordTokenizerFactory"/>
-        <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.ASCIIFoldingFilterFactory"/>       
-      </analyzer>
-    </fieldType>
-    
 
     <!-- Lowercase bez diakrity pro boost nazacatku pole -->
     <fieldType name="text_prefix" class="solr.TextField" positionIncrementGap="100">
         <analyzer type="index">
-	    <tokenizer class="solr.KeywordTokenizerFactory" />
-	    <filter class="solr.ASCIIFoldingFilterFactory" preserveOriginal="false"/>
-	    <filter class="solr.LowerCaseFilterFactory"/>
+            <tokenizer class="solr.LowerCaseTokenizerFactory"/>
             <filter class="solr.EdgeNGramFilterFactory" minGramSize="4" maxGramSize="15" />
         </analyzer>
         <analyzer type="query">
-	    <tokenizer class="solr.KeywordTokenizerFactory" />
-	    <filter class="solr.ASCIIFoldingFilterFactory" preserveOriginal="false"/>
-	    <filter class="solr.LowerCaseFilterFactory"/>
+            <tokenizer class="solr.LowerCaseTokenizerFactory"/>
         </analyzer>
     </fieldType>
 
 
     <!-- some examples for different languages (generally ordered by ISO code) -->
 
-    <!-- Czech -->
-    <dynamicField name="*_txt_cz" type="text_cz"  indexed="true"  stored="true"/>
-    <dynamicField name="*_cze" type="text_cz"  indexed="true"  stored="true"/>
-    <fieldType name="text_cz" class="solr.TextField" positionIncrementGap="100">
-      <analyzer type="index">
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt"  />
-        <!-- in this example, we will only use synonyms at query time
-        <filter class="solr.SynonymFilterFactory" synonyms="index_synonyms.txt" ignoreCase="true" expand="false"/>
-        -->
-        <filter class="solr.HunspellStemFilterFactory" dictionary="hunspell/cs_CZ.dic" affix="hunspell/cs_CZ.aff" ignoreCase="true" />
-        <filter class="solr.ASCIIFoldingFilterFactory" preserveOriginal="false"/>
-        <filter class="solr.LowerCaseFilterFactory"/>
-      </analyzer>
-      <analyzer type="query">
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt"  />
-        <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
-        <filter class="solr.HunspellStemFilterFactory" dictionary="hunspell/cs_CZ.dic" affix="hunspell/cs_CZ.aff" ignoreCase="true" />
-        <filter class="solr.ASCIIFoldingFilterFactory" preserveOriginal="false"/>
-        <filter class="solr.LowerCaseFilterFactory"/>
-      </analyzer>
-    </fieldType>
-    
-    <fieldType name="text_cz_stem" class="solr.TextField" positionIncrementGap="100">
-      <analyzer> 
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.ASCIIFoldingFilterFactory"/>       
-        <filter class="solr.StopFilterFactory" ignoreCase="true" words="lang/stopwords_cz.txt" />
-        <filter class="solr.CzechStemFilterFactory"/>       
-      </analyzer>
-    </fieldType>
-    
-    <fieldType name="collatedCS" class="solr.ICUCollationField"
-           locale="cs" strength="primary" alternate="shifted" numeric="true" />
-
-    
-    <!-- German -->
-    <dynamicField name="*_txt_de" type="text_de"  indexed="true"  stored="true"/>
-    <fieldType name="text_de" class="solr.TextField" positionIncrementGap="100">
-      <analyzer> 
-        <tokenizer class="solr.StandardTokenizerFactory"/>
-        <filter class="solr.LowerCaseFilterFactory"/>
-        <filter class="solr.StopFilterFactory" ignoreCase="true" words="lang/stopwords_de.txt" format="snowball" />
-        <filter class="solr.GermanNormalizationFilterFactory"/>
-        <filter class="solr.GermanLightStemFilterFactory"/>
-        <!-- less aggressive: <filter class="solr.GermanMinimalStemFilterFactory"/> -->
-        <!-- more aggressive: <filter class="solr.SnowballPorterFilterFactory" language="German2"/> -->
-      </analyzer>
-    </fieldType>
 
     <!-- Similarity is the scoring routine for each document vs. a query.
        A custom Similarity or SimilarityFactory may be specified here, but 
