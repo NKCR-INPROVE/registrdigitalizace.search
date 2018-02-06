@@ -242,6 +242,16 @@ export class AppService {
     this.router.navigate(['/results', params]);
   }
 
+  getDigKnihovny(): Observable<any> {
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('q', '*');
+    params.set('rows', '1000');
+    var url = this.state.config['context'] + 'search/digknihovny/select';
+    return this.http.get(url, { search: params }).map(res => {
+      return res.json()['response']['docs'];
+    });
+  }
+
   getLists(): Observable<any> {
     let params: URLSearchParams = new URLSearchParams();
     params.set('q', '*');
