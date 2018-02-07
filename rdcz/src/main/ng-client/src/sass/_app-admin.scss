@@ -33,13 +33,12 @@ app-admin {
             list-style-position: inside;
             
             & > span {
-              padding: $app-left-menu-el-pd 0;
+              line-height: $app-left-menu-el-line-height;
             }
 
             & > a {
-              display: inline-block;
-              padding: $app-left-menu-el-pd 0;
               color: $app-brand-d-1;
+              line-height: $app-left-menu-el-line-height;
 
               &:hover {
                 color: $link-color;

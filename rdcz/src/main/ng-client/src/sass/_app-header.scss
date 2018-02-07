@@ -16,13 +16,10 @@ header {
         
         .app-beta {
           position: absolute;
-          /*top: -6px;
-          left: -35px;
-          transform: rotate(-45deg);
-          box-shadow: 5px 6px 16px -6px rgba(0,0,0,0.99);*/
           left: 250px;
           top: 12px;
-          box-shadow: 5px 6px 16px -6px rgba(0,0,0,0.40);
+          //box-shadow: 5px 6px 16px -6px rgba(0,0,0,0.40);
+          box-shadow: 0px 4px 16px -6px rgba(0, 0, 0, 0.7);
           margin: 0;
         }
       }
