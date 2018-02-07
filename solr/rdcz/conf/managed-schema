@@ -131,6 +131,7 @@
     <field name="varnazev" type="text_cz" indexed="true" stored="true" multiValued="true" />
     
     <field name="autor" type="text_cz" indexed="true" stored="true" />
+    <field name="autor_first" type="text_first" indexed="true" stored="true" />
     
     <field name="rokvyd" type="tint" indexed="true" stored="true" />
     <field name="rokvydstr" type="string" indexed="true" stored="true" />
@@ -185,6 +186,7 @@
     <copyField source="title" dest="title_full"/>
     
     <copyField source="autor" dest="_text_"/>
+    <copyField source="autor" dest="autor_first"/>
     
     <copyField source="varnazev" dest="_text_"/>
     
@@ -519,6 +521,24 @@
         <filter class="solr.ASCIIFoldingFilterFactory"/>       
       </analyzer>
     </fieldType>
+    
+
+    <!-- Lowercase bez diakrity pro boost prvniho slova -->
+    <fieldType name="text_first" class="solr.TextField" positionIncrementGap="100">
+        <analyzer type="index">
+	    <tokenizer class="solr.StandardTokenizerFactory" />
+	    <filter class="solr.ASCIIFoldingFilterFactory" preserveOriginal="false"/>
+	    <filter class="solr.LowerCaseFilterFactory"/>
+        <filter class="solr.LimitTokenCountFilterFactory" maxTokenCount="1" />
+        </analyzer>
+		
+        <analyzer type="query">
+	    <tokenizer class="solr.KeywordTokenizerFactory" />
+	    <filter class="solr.ASCIIFoldingFilterFactory" preserveOriginal="false"/>
+	    <filter class="solr.LowerCaseFilterFactory"/>
+        </analyzer>
+    </fieldType>
+
     
 
     <!-- Lowercase bez diakrity pro boost nazacatku pole -->
