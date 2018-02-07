@@ -132,7 +132,9 @@ export class AppService {
       if(this.state.advParams[i] !== null && this.state.advParams[i] !== ''){
         if(i === 'title'){
           
-          params.append('fq', 'title:"' + this.state.advParams[i].trim() + '" OR varnazev:"' + this.state.advParams[i].trim() + '"');
+          params.append('fq', 'title:"' + this.state.advParams[i].trim() +
+           '" OR title_prefix:"' + this.state.advParams[i].trim() +
+           '" OR varnazev:"' + this.state.advParams[i].trim() + '"');
           if (boosted && (!this.state.q || this.state.q === '')) {
 //            params.set('bq', 'title_full:"' + this.state.advParams[i].trim() +
 //             '"^5.0 title_nolemmas:"' + this.state.advParams[i].trim() +
@@ -246,6 +248,7 @@ export class AppService {
     let params: URLSearchParams = new URLSearchParams();
     params.set('q', '*');
     params.set('rows', '1000');
+    params.set('sort', 'nazev asc');
     var url = this.state.config['context'] + 'search/digknihovny/select';
     return this.http.get(url, { search: params }).map(res => {
       return res.json()['response']['docs'];

@@ -113,7 +113,7 @@ export class AppState {
   
   showingChartBar: boolean = false;
 
-  qcheck: boolean;
+  qcheck: boolean = true;
 
   public route: string;
 

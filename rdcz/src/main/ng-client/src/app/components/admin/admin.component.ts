@@ -18,7 +18,7 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
 
-  selected: any = {path: '/pages', menuitem: {"name":"help", "en":"Help","cs":"Nápověda"}};
+  selected: any = {path: 'pages', menuitem: {"name":"help", "en":"Help","cs":"Nápověda"}};
   visibleChanged: boolean = false;
   saved: boolean = false;
 
@@ -37,8 +37,12 @@ export class AdminComponent implements OnInit, OnDestroy {
     let node: Element = this.editor.selection.getNode();
     if(node.hasAttribute('routerlink')){
       selected = node.getAttribute('routerlink');
+    } else {
+      selected = this.selected['path'] + '/' + this.selected['menuitem']['name'];
+      //clean pages/
+      selected = selected.substring(5);
     }
-    
+    console.log(selected);
     let fragment = "";
     if(node.hasAttribute('fragment')){
       fragment = node.getAttribute('fragment');
@@ -58,7 +62,6 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
   
   addLinks(links: string[], pages: any[], path: string){
-    console.log(pages);
     for(let i in pages){
       links.push(path + pages[i]['name']);
       if(pages[i].hasOwnProperty('pages')){
@@ -70,20 +73,30 @@ export class AdminComponent implements OnInit, OnDestroy {
   selectLink(l: {link: string, fragment: string}){
     let node: Element = this.editor.selection.getNode();
     if(node.hasAttribute('routerlink')){
-      node.setAttribute('routerlink', l.link);
+      if(l.link && l.link !== ''){
+        node.setAttribute('routerlink', l.link);
+      } else {
+        node.removeAttribute('routerlink');
+      }
       if(l.fragment && l.fragment !== ''){
         node.setAttribute('fragment', l.fragment);
       } else {
         node.removeAttribute('fragment');
       }
+      
     } else if(node.hasAttribute('href')){
-      node.setAttribute('routerlink', l.link);
+      if(l.link && l.link !== ''){
+        node.setAttribute('routerlink', l.link);
+      } else {
+        node.removeAttribute('routerlink');
+      }
       if(l.fragment && l.fragment !== ''){
         node.setAttribute('fragment', l.fragment);
       } else {
         node.removeAttribute('fragment');
       }
       node.removeAttribute('href');
+      
     } else if(this.editor.selection.getContent().length == 0){
       let ret = ' <a routerLink="' + l.link + '"';
       if(l.fragment && l.fragment !== ''){

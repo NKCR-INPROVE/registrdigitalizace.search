@@ -1,24 +1,25 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {Subscription} from 'rxjs/Subscription';
-import {URLSearchParams} from '@angular/http';
 
 import {AppService} from '../../app.service';
 import {AppState} from '../../app.state';
-import {FacetField} from '../../models/facet-field';
+import { Filter } from '../../models/filter';
 
 @Component({
   selector: 'app-card-list-dk',
   templateUrl: './card-list-dk.component.html',
   styleUrls: ['./card-list-dk.component.scss']
 })
-export class CardListDkComponent {
+export class CardListDkComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
   digknihovny: any[] = [];
 
 
 
-  constructor(private service: AppService, public state: AppState) {
+  constructor(
+    private service: AppService, 
+    public state: AppState) {
   }
 
 
@@ -44,10 +45,21 @@ export class CardListDkComponent {
   getData() {
     this.service.getDigKnihovny().subscribe(res => {
       this.digknihovny = res;
+      this.digknihovny.forEach(dg => {
+        if(dg['poznweb'] && dg['poznweb'] !== ''){
+          dg['sigly'] = dg['poznweb'].split(',');
+        }
+      });
     })
   }
   
-  filter(dg: any){
-    
+  filter(dg: string){
+//    let url1: string = dg['url'].replace(/:/g, '\\:') + '*';
+    let f = new Filter();
+    f.field = 'digknihovna';
+    f.value = dg['nazev'].trim();
+    this.state.addFilter(f);
+//    this.state.q = 'url:' + url1.trim();
+    this.service.goToResults();
   }
 }

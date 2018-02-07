@@ -10,27 +10,14 @@
         <mz-collection>
           <mz-collection-item *ngFor="let dg of digknihovny">
             <span class="first-content">
-              <a target="_blank" [href]="dg.urldigknihovny">{{dg.nazev}}</a>
+              <a (click)="filter(dg)">{{dg.nazev}}</a>
             <br/>
             <span *ngIf="dg.poznweb && dg.poznweb !== ''">
-            ({{dg.poznweb}})
+              ({{dg.poznweb}})
             </span>
             </span>
-            <span class="middle-content">{{dg.urldigknihovny}}</span>
-            <!--<span mz-secondary-content class="app-brand-text">Collection item 3</span>-->
-          </mz-collection-item>
-          <mz-collection-item>
-            <span class="first-content">DK digitalni knihovny CR</span>
-            <span class="middle-content"><a href="http://kramerius4.nkp.cz" title="http://kramerius4.nkp.cz" target="_blank">http://kramerius4.nkp.cz</a></span>
-            <!--<span mz-secondary-content class="app-brand-text">
-              <a href="#" title="">ABA001</a>,
-              <a href="#" title="">ABA004</a>,
-              <a href="#" title="">VISK7 (+BOA001 Z NZK)</a>
-            </span>-->
-          </mz-collection-item>
-          <mz-collection-item>
-            <span class="first-content">Collection item 1</span>
-            <span class="middle-content">Collection item 2</span>
+            <span class="middle-content">
+              <a target="_blank" [href]="dg.urldigknihovny">{{dg.urldigknihovny}}</a></span>
             <!--<span mz-secondary-content class="app-brand-text">Collection item 3</span>-->
           </mz-collection-item>
         </mz-collection>

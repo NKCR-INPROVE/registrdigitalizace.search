@@ -29,7 +29,7 @@
       </div><!--/.collapsible-header -->
       <div class="collapsible-body" style="display:block">
         <div class="collection">
-          <div class="collection-item" *ngIf="state.qcheck && state.q !== ''">
+          <div class="collection-item" *ngIf="state.qcheck && state.q && state.q !== ''">
             <span class="first-content" (click)="cleanQ()">{{'field.q' | translate}}: {{state.q}}</span>
             <a (click)="cleanQ()" class="secondary-content" mz-tooltip [tooltip]="'text.zrusit-tento-filtr' | translate" [position]="'top'">
               <i class="app-mdi-close app-brand-text text-app-red"></i>
