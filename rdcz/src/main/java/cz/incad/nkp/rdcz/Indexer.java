@@ -494,7 +494,7 @@ public class Indexer {
 //        uris.add(uri.getScheme() + "://" + uri.getHost());
       }
     } catch (SQLException | URISyntaxException ex) {
-      LOGGER.log(Level.WARNING, null, ex);
+      LOGGER.log(Level.WARNING, ex.toString());
     }
 
     try {
@@ -507,7 +507,7 @@ public class Indexer {
 //        uris.add(uri.getScheme() + "://" + uri.getHost());
       }
     } catch (SQLException | URISyntaxException ex) {
-      LOGGER.log(Level.WARNING, null, ex);
+      LOGGER.log(Level.WARNING, ex.toString());
     }
 
     try {
@@ -520,7 +520,7 @@ public class Indexer {
 //        uris.add(uri.getScheme() + "://" + uri.getHost());
       }
     } catch (SQLException | URISyntaxException ex) {
-      LOGGER.log(Level.WARNING, null, ex);
+      LOGGER.log(Level.WARNING, ex.toString());
     }
 
     if ("".equals(f)) {
