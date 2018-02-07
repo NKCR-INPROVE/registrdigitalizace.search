@@ -65,8 +65,8 @@
         {{'btn.jine-zdroje' | translate}}
       </button>
       <mz-dropdown [id]="'dropdown-other-sources'" [dropdownButtonId]="'btn-other-sources'">
-        <mz-dropdown-item><a href="http://books.google.com/books?q=test" target="_blank">Google books</a></mz-dropdown-item>
-        <mz-dropdown-item><a href="https://opacplus.bsb-muenchen.de/InfoGuideClient/start.do?Login=opacext&SearchType=1&Query=-1=%22test%22" target="_blank">BSB</a></mz-dropdown-item>
+        <mz-dropdown-item><a [href]="'http://books.google.com/books?q='+state.q" target="_blank">Google books</a></mz-dropdown-item>
+        <mz-dropdown-item><a [href]="'https://www.difmoe.eu/d/search/?q=' + state.q" target="_blank">DiFMOE</a></mz-dropdown-item>
       </mz-dropdown>
     </div><!--/.col -->
   </div><!--/.row -->
