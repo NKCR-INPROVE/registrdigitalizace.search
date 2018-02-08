@@ -25,6 +25,14 @@
     "changeOrigin": false,
     "secure": false
   },
+  "/login": {
+    "target": "http://localhost:8080/rdcz/login",
+    "pathRewrite": {
+      "^/login":""
+    },
+    "changeOrigin": false,
+    "secure": false
+  },
   "/aleph": {
     "target": "http://localhost:8080/rdcz/aleph",
     "logLevel": "debug",
