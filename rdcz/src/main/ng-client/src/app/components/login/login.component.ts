@@ -25,7 +25,6 @@ export class LoginComponent implements OnInit {
     setTimeout(() => {
         this.loginuser.nativeElement.focus();
       }, 100);
-
   }
 
   focusp(e, el){

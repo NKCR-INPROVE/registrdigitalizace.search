@@ -18,6 +18,8 @@
     "napoveda": "Help",
     "info": "Info",
     "login": "Login",
+    "logout": "Logout",
+    "admin": "Admin",
     "hlavni-navigace": "Main navigation",
     "contact": "Contact",
     "contact-desc": "Send us email"
@@ -97,7 +99,7 @@
     "zrusit-tento-filtr": "Remove this filter",
     "zrusit-vsechny-filtry": "Remove all filters",
     "pouzit-tento-filtr": "Use this filter",
-    "prehled-dk-knihoven": "List of digital libraries",
+    "prehled-dk-knihoven": "Digital library",
     "vymazat": "delete",
     "informace-ke-spolupraci": "Information to cooperate"
   },

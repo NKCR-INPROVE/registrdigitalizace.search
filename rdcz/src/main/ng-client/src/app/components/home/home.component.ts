@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   //facets: any = [];
   facetFields: FacetField[] = [];
+  dkFacet : any[];
 
   constructor(private service: AppService, public state: AppState) {
   }
@@ -40,7 +41,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.facetFields = [];
         } else if (resp['type'] === 'home') {
           this.facetFields = this.state.fillFacets(this.state.config['home_facets'], false);
-          
+          this.dkFacet = this.state.facets['digknihovna'];
           //this.facets = resp['res']["facet_counts"]["facet_fields"];
         }
 

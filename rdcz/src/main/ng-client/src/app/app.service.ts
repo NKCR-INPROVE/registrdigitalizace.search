@@ -243,12 +243,32 @@ export class AppService {
     //this.state.clearResults();
     this.router.navigate(['/results', params]);
   }
+  
+  getDigKnihovnu(nazev: string): Observable<any> {
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('q', 'nazev:"' + nazev +'"');
+    params.set('rows', '1');
+    var url = this.state.config['context'] + 'search/digknihovny/select';
+    return this.http.get(url, { search: params }).map(res => {
+      return res.json()['response']['docs'][0];
+    });
+  }
+  
+  getDigKnihovnyCount(nazev: string): Observable<number> {
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('q', 'digknihovna:"' + nazev +'"');
+    params.set('rows', '0');
+    var url = this.state.config['context'] + 'search/rdcz/select';
+    return this.http.get(url, { search: params }).map(res => {
+      return res.json()['response']['numFound'];
+    });
+  }
 
   getDigKnihovny(): Observable<any> {
     let params: URLSearchParams = new URLSearchParams();
     params.set('q', '*');
     params.set('rows', '1000');
-    params.set('sort', 'nazev asc');
+//    params.set('sort', 'nazev asc');
     var url = this.state.config['context'] + 'search/digknihovny/select';
     return this.http.get(url, { search: params }).map(res => {
       return res.json()['response']['docs'];
@@ -322,16 +342,16 @@ export class AppService {
 
   login() {
     this.state.loginError = false;
-    if(1<2){
-        this.state.loginError = false;
-        this.state.loginuser = '';
-        this.state.loginpwd = '';
-        this.state.logged = true;
-        if (this.state.redirectUrl) {
-          this.router.navigate([this.state.redirectUrl]);
-        }
-        return;
-    }
+//    if(1<2){
+//        this.state.loginError = false;
+//        this.state.loginuser = '';
+//        this.state.loginpwd = '';
+//        this.state.logged = true;
+//        if (this.state.redirectUrl) {
+//          this.router.navigate([this.state.redirectUrl]);
+//        }
+//        return;
+//    }
     return this.doLogin().subscribe(res => {
       if (res.hasOwnProperty('error')) {
         this.state.loginError = true;
@@ -368,6 +388,7 @@ export class AppService {
       if (res.hasOwnProperty('error')) {
         console.log(res['error']);
       }
+      this.state.loginError = false;
       this.state.logged = false;
       this.router.navigate(['/home']);
     });

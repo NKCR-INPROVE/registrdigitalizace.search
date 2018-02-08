@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AppService } from '../../app.service';
+import {AppState} from 'app/app.state';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +13,8 @@ export class HeaderComponent implements OnInit {
   currLang: string;
 
   constructor(
-    private service: AppService) { }
+    private service: AppService,
+    public state: AppState) { }
 
   ngOnInit() {
     this.service.langSubject.subscribe((lang) => {

@@ -18,6 +18,8 @@
     "napoveda": "Nápověda",
     "info": "Info",
     "login": "Přihlásit",
+    "logout": "Odhlásit",
+    "admin": "Admin",
     "hlavni-navigace": "Hlavní navigace",
     "contact": "Kontakt",
     "contact-desc": "Pošlete nám email"
@@ -97,7 +99,7 @@
     "zrusit-tento-filtr": "Zrušit tento filtr",
     "zrusit-vsechny-filtry": "Zrušit všechny filtry",
     "pouzit-tento-filtr": "Použít tento filtr",
-    "prehled-dk-knihoven": "Přehled (cílových) digitálních knihoven",
+    "prehled-dk-knihoven": "Digitální knihovna",
     "vymazat": "vymazat",
     "informace-ke-spolupraci": "Informace ke spolupráci"
   },

@@ -19,7 +19,13 @@
           <mz-navbar-item>
             <a href="mailto:rdcz@nkp.cz" title="{{'nav.contact-desc' | translate}}">{{'nav.contact' | translate}}</a>
           </mz-navbar-item>
-          <mz-navbar-item routerLink="prihlaseni" routerLinkActive="active" #login="routerLinkActive" [active]="login.isActive">
+          <mz-navbar-item *ngIf="state.logged" routerLink="admin" routerLinkActive="active" #admin="routerLinkActive" [active]="admin.isActive">
+            <a routerLink="admin" title="{{'nav.admin' | translate}}">{{'nav.admin' | translate}}</a>
+          </mz-navbar-item>
+          <mz-navbar-item *ngIf="state.logged" >
+            <a (click)="service.logout()" title="{{'nav.logout' | translate}}">{{'nav.logout' | translate}}</a>
+          </mz-navbar-item>
+          <mz-navbar-item *ngIf="!state.logged" routerLink="prihlaseni" routerLinkActive="active" #login="routerLinkActive" [active]="login.isActive">
             <a routerLink="prihlaseni" title="{{'nav.login' | translate}}">{{'nav.login' | translate}}</a>
           </mz-navbar-item>
           <mz-navbar-item>

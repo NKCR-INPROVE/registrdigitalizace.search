@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnInit, OnDestroy, Input} from '@angular/core';
 import {Subscription} from 'rxjs/Subscription';
 
 import {AppService} from '../../app.service';
@@ -12,10 +12,9 @@ import { Filter } from '../../models/filter';
 })
 export class CardListDkComponent implements OnInit, OnDestroy {
 
+
   subscriptions: Subscription[] = [];
-  digknihovny: any[] = [];
-
-
+  @Input() digknihovny: any[] = [];
 
   constructor(
     private service: AppService, 
@@ -25,11 +24,11 @@ export class CardListDkComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (this.state.config) {
-      this.getData();
+      this.getDigKnihovny();
     } else {
       this.subscriptions.push(this.service.langSubject.subscribe(
         () => {
-          this.getData();
+          this.getDigKnihovny();
         }
       ));
     }
@@ -42,13 +41,21 @@ export class CardListDkComponent implements OnInit, OnDestroy {
     this.subscriptions = [];
   }
 
+  getDigKnihovny() {
+      this.digknihovny.forEach(dg => {
+        this.service.getDigKnihovnu(dg[0].trim()).subscribe(res => {
+          dg[2] = res;
+        });
+      });
+  }
+
   getData() {
     this.service.getDigKnihovny().subscribe(res => {
       this.digknihovny = res;
       this.digknihovny.forEach(dg => {
-        if(dg['poznweb'] && dg['poznweb'] !== ''){
-          dg['sigly'] = dg['poznweb'].split(',');
-        }
+        this.service.getDigKnihovnyCount(dg['nazev'].trim()).subscribe(c => {
+          dg['count'] = c;
+        });
       });
     })
   }
@@ -57,7 +64,7 @@ export class CardListDkComponent implements OnInit, OnDestroy {
 //    let url1: string = dg['url'].replace(/:/g, '\\:') + '*';
     let f = new Filter();
     f.field = 'digknihovna';
-    f.value = dg['nazev'].trim();
+    f.value = dg.trim();
     this.state.addFilter(f);
 //    this.state.q = 'url:' + url1.trim();
     this.service.goToResults();

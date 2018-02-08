@@ -31,12 +31,15 @@
               </div>
               <div class="row">
                 <div class="input-field col s12">
-                  <button mz-button [large]="'true'" class="col s12" (click)="service.login()">
+                  <button *ngIf="!state.logged" mz-button [large]="'true'" class="col s12" (click)="service.login()">
                     {{'btn.login' | translate}}
                   </button>
                 </div>
               </div>
             </form>
+            <div class="alert alert-warning" *ngIf="state.loginError">
+              {{'Špatné přihlašovací údaje' | translate}}.
+            </div>
           </mz-card-content>
         </mz-card>
       </div><!--/.col -->
