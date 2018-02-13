@@ -56,13 +56,16 @@ export class FacetsHomeComponent implements OnInit, OnChanges {
   }
 
   translate(ff: FacetField, f: Facet) {
+//    if (f.field === 'vlastnik'){
+//    console.log(ff, f);
+//    }
     if (ff.translate) {
       if (ff.classname) {
-        if(f['human']){
-          return f['human'];
+        if (f['human_' + this.state.currentLang]){
+          return f['human_' + this.state.currentLang];
         } else {
           let human = this.service.translateFromLists(ff.classname, f.value);
-          f['human'] = human;
+          f['human_' + this.state.currentLang] = human;
           return human;
         }
       } else {
