@@ -19,15 +19,9 @@ export class NapovedaComponent implements OnInit {
     public service: AppService) {}
 
   ngOnInit() {
-    this.subscriptions.push(this.service.langSubject.subscribe(
-      () => {
-
-        this.service.getText('pages/help').subscribe(t => {
-          this.inn.setText(t);
-        });
-      }
-    ));
-
+    this.service.getText('pages/help').subscribe(t => {
+      this.inn.setText(t);
+    });
   }
 
 }
