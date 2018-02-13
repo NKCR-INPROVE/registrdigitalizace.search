@@ -1,5 +1,5 @@
-import { Component, AfterViewInit, ViewChild, ComponentFactoryResolver } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ViewChild, ComponentFactoryResolver } from '@angular/core';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { AppState } from '../../app.state';
 import { AppService } from '../../app.service';
@@ -10,14 +10,14 @@ import {InnerContentComponent} from '../inner-content/inner-content.component';
   templateUrl: './info.component.html',
   styleUrls: ['./info.component.scss']
 })
-export class InfoComponent implements AfterViewInit {
+export class InfoComponent implements OnInit {
   
   @ViewChild(InnerContentComponent) inn: InnerContentComponent;
   
-  
+  loading: boolean = true;
   menu: any = null;
   subscriptions: Subscription[] = [];
-  page: string = 'pages/info';
+  page: string = '';
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
@@ -26,22 +26,27 @@ export class InfoComponent implements AfterViewInit {
     private router: Router,
     private route: ActivatedRoute) { }
 
-  ngAfterViewInit() {
+  ngOnInit() {
     this.fillMenu();
     let param = '/' + this.route.snapshot.url.join("/");
-    //console.log(this.route.snapshot);
     this.loadComponent(param);
     this.subscriptions.push(this.service.langSubject.subscribe(
       () => {
         this.loadComponent('/' + this.route.snapshot.url.join("/"));
       }
     ));
+    
+    this.subscriptions.push(this.router.events.subscribe(event => {
+        if (event instanceof NavigationEnd) {
+            this.loadComponent('/' + this.route.snapshot.url.join("/"));
+         }
+    }));
   }
   
 
   select(f: string) {
     this.router.navigate([f]);
-    this.loadComponent(f);
+//    this.loadComponent(f);
 //    this.page = 'pages/' + f;
   }
   
@@ -91,11 +96,20 @@ export class InfoComponent implements AfterViewInit {
   }
   
   loadComponent(param) {
+    let newPage = '';
     if(!param || param === ''){
-      this.page = 'pages';
+      newPage = 'pages';
     } else {
-      this.page = 'pages' + param;
+      newPage = 'pages' + param;
     }
+    
+    if(newPage.split("#")[0] === this.page.split("#")[0]){
+      // The same page, skipping
+      return;
+    }
+    this.page = newPage.toString();
+    this.loading = true;
+    //this.inn.setText('');
     
     this.service.getText(this.page).subscribe(t => {
 //      let componentFactory = this.componentFactoryResolver.resolveComponentFactory(InnerContentComponent);
@@ -104,10 +118,12 @@ export class InfoComponent implements AfterViewInit {
 //      let componentRef = viewContainerRef.createComponent(componentFactory);
 //      (<InnerContentComponent>componentRef.instance).setText(t);
       this.inn.setText(t);
+      this.loading = false;
     });
   }
 
   ngOnDestroy() {
+    console.log('destroy');
     this.subscriptions.forEach((s: Subscription) => {
       s.unsubscribe();
     });

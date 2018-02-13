@@ -26,6 +26,12 @@ export class InnerContentComponent implements OnInit {
   
   ngOnInit() {
     
+    const tree =  this.router.parseUrl(this.router.url);
+    if (tree.fragment) {
+        const element = document.querySelector("#" + tree.fragment);
+        if (element) { element.scrollIntoView(true); }
+    }
+            
     this.router.events.subscribe(event => {
         if (event instanceof NavigationEnd) {
             const tree =  this.router.parseUrl(this.router.url);

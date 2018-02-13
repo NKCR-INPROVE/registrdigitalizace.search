@@ -303,7 +303,6 @@ export class AppService {
   
   getText(id: string): Observable<string> {
     var url = 'texts?action=LOAD&id=' + id + '&lang=' + this.state.currentLang;
-
     return this.http.get(url).map((response: Response) => {
       return response.text();
     }).catch(error => { return Observable.of('error gettting content: ' + error); });
