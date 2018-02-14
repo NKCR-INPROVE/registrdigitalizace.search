@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { AppState } from '../../app.state';
 import { AppService } from '../../app.service';
 import {InnerContentComponent} from '../inner-content/inner-content.component';
+import {NgProgress} from 'ngx-progressbar';
 
 @Component({
   selector: 'app-info',
@@ -11,7 +12,6 @@ import {InnerContentComponent} from '../inner-content/inner-content.component';
   styleUrls: ['./info.component.scss']
 })
 export class InfoComponent implements OnInit {
-  
   @ViewChild(InnerContentComponent) inn: InnerContentComponent;
   
   loading: boolean = true;
@@ -20,6 +20,7 @@ export class InfoComponent implements OnInit {
   page: string = '';
 
   constructor(
+    public ngProgress: NgProgress,
     private componentFactoryResolver: ComponentFactoryResolver,
     public state: AppState,
     public service: AppService,
@@ -108,6 +109,7 @@ export class InfoComponent implements OnInit {
       return;
     }
     this.page = newPage.toString();
+    this.ngProgress.start();
     this.loading = true;
     //this.inn.setText('');
     
@@ -119,6 +121,7 @@ export class InfoComponent implements OnInit {
 //      (<InnerContentComponent>componentRef.instance).setText(t);
       this.inn.setText(t);
       this.loading = false;
+      this.ngProgress.done();
     });
   }
 

@@ -14,7 +14,7 @@
       <app-info-menu [dir]="menu['pages'][1]" [path]="''" (selected)="select($event)"></app-info-menu>
     </div><!--/.col -->
     <div class="col s12 xl9 app-edit-col">
-      <app-loading *ngIf="loading"></app-loading>
+      <ng-progress #progressBar [color]="'#4285f4'" [showSpinner]="false" ></ng-progress>
       <app-inner-content #inn></app-inner-content>
     </div><!--/.col -->
   </div><!--/.row -->
