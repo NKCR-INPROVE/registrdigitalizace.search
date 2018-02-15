@@ -22,16 +22,24 @@ export class InfoMenuComponent implements OnInit {
     public state: AppState) {}
 
   ngOnInit() {
-    this.page = this.route.snapshot.paramMap.get('page');
+//    this.page = this.route.snapshot.paramMap.get('page');
   }
 
   select(f: string) {
-    this.selected.emit(this.path + '/' + this.dir['name'] + '/' + f);
+    this.selected.emit(this.dir['name'] + '/' + f);
+  }
+  propagate(f: string) {
+    this.selected.emit(this.dir['name'] + '/' + f);
   }
 
   isActive(f: string) {
-//    let s = this.path + '/' + this.dir['name'] + '/' + f;
-    return this.route.snapshot.paramMap.get('page') === f;
+    let param = '/' + this.route.snapshot.url.join("/");
+    if (this.route.snapshot.children.length > 0){
+      param += '/' + this.route.snapshot.children[0].url.join("/");
+    }
+    return param.endsWith(this.dir['name'] + '/' + f);
+    //console.log(this.page, this.dir['name'], f);
+    //return this.route.snapshot.paramMap.get('page') === f;
   }
 
 

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
-import { URLSearchParams } from '@angular/http';
+import { HttpParams } from '@angular/common/http';
 
 import { AppService } from '../../app.service';
 import { AppState } from '../../app.state';
@@ -52,8 +52,11 @@ export class ResultsComponent implements OnInit, OnDestroy {
           
             if (this.state.numFound === 0 && !this.secondRound){
               this.secondRound = true;
-              let sparams: URLSearchParams = this.service.doSearchParams('results', true, '10%');
-              this.service.search(sparams, 'results');
+              let sparams: HttpParams = this.service.doSearchParams('results', true, '10%');
+              
+              this.service.search(sparams, 'results').subscribe(res => {
+                this.state.processSearch(res, 'results');
+              });
               return;
             }
             this.facetFields = [];

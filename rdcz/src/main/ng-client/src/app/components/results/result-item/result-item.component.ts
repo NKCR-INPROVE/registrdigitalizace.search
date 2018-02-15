@@ -1,6 +1,6 @@
 import {Component, OnInit, OnDestroy, Input} from '@angular/core';
 import {Subscription} from 'rxjs/Subscription';
-import {URLSearchParams} from '@angular/http';
+import { HttpParams } from '@angular/common/http';
 
 import {AppService} from '../../../app.service';
 import {AppState} from '../../../app.state';
@@ -131,7 +131,7 @@ export class ResultItemComponent implements OnInit, OnDestroy {
   getDigObjects() {
     if (this.result) {
 
-      let params: URLSearchParams = new URLSearchParams();
+      let params: HttpParams = new HttpParams();
       if (this.state.currentCollapse.field === 'id') {
         params.set('q', 'rpredloha_digobjekt:"' + this.result[this.state.currentCollapse.field] + '"');
       } else {
@@ -163,17 +163,19 @@ export class ResultItemComponent implements OnInit, OnDestroy {
   getPredlohy() {
     if (this.result) {
       if (this.expanded) {
-        let params: URLSearchParams = new URLSearchParams();
-        params.set('q', this.state.currentCollapse.field + ':"' + this.result[this.state.currentCollapse.field] + '"');
-        params.set('rows', (this.expanded['numFound'] + 1) + '');
-        params.set('facet', 'true');
-        params.set('facet.mincount', '1');
-        params.append('facet.field', 'stav');
-        params.append('facet.field', 'vlastnik');
+        let params: HttpParams = new HttpParams()
+        .set('q', this.state.currentCollapse.field + ':"' + this.result[this.state.currentCollapse.field] + '"')
+        .set('rows', (this.expanded['numFound'] + 1) + '')
+        .set('facet', 'true')
+        .set('facet.mincount', '1')
+        .append('facet.field', 'stav')
+        .append('facet.field', 'vlastnik');
 
         this.predlohyCount = this.expanded['numFound'] + 1;
 
-        this.service.search(params, this.result[this.state.currentCollapse.field]);
+        this.service.search(params, this.result[this.state.currentCollapse.field]).subscribe(res => {
+                this.state.processSearch(res, this.result[this.state.currentCollapse.field]);
+              });
       } else {
         this.predlohyCount = 1;
         this.predlohy.push(this.result);

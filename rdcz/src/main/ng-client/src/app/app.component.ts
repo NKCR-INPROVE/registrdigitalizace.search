@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { Http, URLSearchParams } from '@angular/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
+//import { URLSearchParams } from '@angular/http';
 import { ActivatedRoute, Router, Params, NavigationEnd, NavigationStart } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs/Rx';
@@ -26,7 +27,7 @@ export class AppComponent {
     private service: AppService,
     private translate: TranslateService,
     private titleService: Title,
-    private http: Http,
+    private http: HttpClient,
     private route: ActivatedRoute,
     private router: Router) { }
 
@@ -92,14 +93,16 @@ export class AppComponent {
         this.fireSearch(sroute);
       }, 10);
     } else {
-      let sparams: URLSearchParams = this.service.doSearchParams(sroute);
-      this.service.search(sparams, sroute);
+      let sparams: HttpParams = this.service.doSearchParams(sroute);
+      this.service.search(sparams, sroute).subscribe(res => {
+        this.state.processSearch(res, sroute);
+      });
     }
   }
 
   getConfig() {
     return this.http.get("assets/config.json").map(res => {
-      let cfg = res.json();
+      let cfg = res;
       var userLang = navigator.language.split('-')[0]; // use navigator lang if available
       userLang = /(cs|en)/gi.test(userLang) ? userLang : 'cs';
       if (cfg.hasOwnProperty('defaultLang')) {

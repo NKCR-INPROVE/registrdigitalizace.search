@@ -13,8 +13,8 @@
       </span>
       <app-info-menu [dir]="menu['pages'][1]" [path]="''" (selected)="select($event)"></app-info-menu>
     </div><!--/.col -->
-    <div class="col s12 xl9 app-edit-col">
-      <ng-progress #progressBar [color]="'#4285f4'" [showSpinner]="false" ></ng-progress>
+    <div class="col s12 xl9 app-edit-col" >
+      <ng-progress id="bar-1" #progressBar [color]="'#4285f4'"  ></ng-progress>
       <app-inner-content #inn></app-inner-content>
     </div><!--/.col -->
   </div><!--/.row -->
