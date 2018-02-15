@@ -131,14 +131,12 @@ export class ResultItemComponent implements OnInit, OnDestroy {
   getDigObjects() {
     if (this.result) {
 
-      let params: HttpParams = new HttpParams();
+      let params: HttpParams = new HttpParams().set('rows', '100');
       if (this.state.currentCollapse.field === 'id') {
-        params.set('q', 'rpredloha_digobjekt:"' + this.result[this.state.currentCollapse.field] + '"');
+        params = params.set('q', 'rpredloha_digobjekt:"' + this.result[this.state.currentCollapse.field] + '"');
       } else {
-        params.set('q', this.state.currentCollapse.field + ':"' + this.result[this.state.currentCollapse.field] + '"');
+        params = params.set('q', this.state.currentCollapse.field + ':"' + this.result[this.state.currentCollapse.field] + '"');
       }
-
-      params.set('rows', '100');
 
       this.service.getDigObjects(params).subscribe(res => {
         for (let i in res['response']['docs']) {

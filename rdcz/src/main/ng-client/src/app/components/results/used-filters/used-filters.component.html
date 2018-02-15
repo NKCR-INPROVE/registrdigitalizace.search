@@ -1,4 +1,4 @@
-<section *ngIf="state.configured && (state.usedFilters.length > 0 || (state.qcheck && state.q !== '') || state.usedAdv.length > 0)">
+<section *ngIf="state.configured && (state.usedFilters.length > 0 || (state.qcheck && state.q && state.q !== '') || state.usedAdv.length > 0)">
   <!--
   <mz-collapsible [mode]="'expandable'" *ngIf="filtersGroup.length > 0">
     <mz-collapsible-item [active]="true" *ngFor="let filters of filtersGroup">

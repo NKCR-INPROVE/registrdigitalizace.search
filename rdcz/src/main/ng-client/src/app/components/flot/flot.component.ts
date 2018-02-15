@@ -39,7 +39,7 @@ export class FlotComponent implements OnChanges, OnInit {
   }
 
   draw() {
-    if (this.initialized) {
+    if (this.isVisible() && this.initialized) {
       this.plot = $.plot(this.plotArea, this.data, this.options);
     }
   }
@@ -55,9 +55,13 @@ export class FlotComponent implements OnChanges, OnInit {
     this.draw();
 
   }
+  
+  private isVisible(): boolean{
+    return  $(this.el.nativeElement).find('div').is(':visible');
+  }
 
   public setSelection(sel) {
-    if (this.initialized) {
+    if (this.isVisible() && this.initialized) {
       this.plot.setSelection(sel);
       if(window.event){
         window.event.preventDefault();
