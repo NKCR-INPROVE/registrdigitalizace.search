@@ -34,7 +34,7 @@ export class InfoComponent implements OnInit {
     
     this.subscriptions.push(this.service.langSubject.subscribe(
       () => {
-        this.loadComponent();
+        this.loadComponent(true);
       }
     ));
 
@@ -105,7 +105,7 @@ export class InfoComponent implements OnInit {
 
   }
 
-  loadComponent() {
+  loadComponent(force: boolean = false) {
     let param = '/' + this.route.snapshot.url.join("/");
     if (this.route.snapshot.children.length > 0){
       param += '/' + this.route.snapshot.children[0].url.join("/");
@@ -118,7 +118,7 @@ export class InfoComponent implements OnInit {
       newPage = 'pages' + param;
     }
 
-    if (newPage.split("#")[0] === this.page.split("#")[0]) {
+    if (!force && newPage.split("#")[0] === this.page.split("#")[0]) {
       // The same page, skipping
       return;
     }
