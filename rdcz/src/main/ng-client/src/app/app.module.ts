@@ -51,9 +51,9 @@ import {InfoCollaborationBoxComponent} from './components/info-collaboration-box
 import {CustomRouteReuseStrategy} from 'app/router-strategy';
 
 
-export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http);
-}
+//export function HttpLoaderFactory(http: HttpClient) {
+//  return new TranslateHttpLoader(http);
+//}
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -102,7 +102,7 @@ export function createTranslateLoader(http: HttpClient) {
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
+        useFactory: createTranslateLoader,
         deps: [HttpClient]
       }
     }),

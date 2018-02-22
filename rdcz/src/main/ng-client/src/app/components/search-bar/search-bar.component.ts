@@ -108,7 +108,11 @@ export class SearchBarComponent implements OnInit {
           for (let i in varFields) {
             if (varFields[i]['id'] === 245) {
               let sub = varFields[i]['subfield'];
-              this.state.q = sub[0]['content'];
+              if(sub && sub.hasOwnProperty('length')){
+                this.state.q = sub[0]['content'];
+              } else if(sub.hasOwnProperty('content')){
+                this.state.q = sub['content'];
+              }
               this.service.goToResults();
               //return;
             }

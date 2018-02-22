@@ -45,6 +45,7 @@ export class UsedFiltersComponent implements OnInit, OnDestroy {
   
   cleanQ() {
     this.state.q = '';
+    this.state.start = 0;
     this.service.goToResults();
   }
   

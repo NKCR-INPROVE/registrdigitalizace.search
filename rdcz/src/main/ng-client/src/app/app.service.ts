@@ -197,17 +197,13 @@ export class AppService {
   
   searchAleph(){
     var url = this.state.config['context'] + 'aleph';
-    let params: HttpParams = new HttpParams();
-    params.set('bc', this.state.q)
+    let params: HttpParams = new HttpParams().set('bc', this.state.q)
     return this.http.get(url, { params: params });
   }
   
   searchAlephDirect(){
     var url = this.state.config['context'] + 'alephDirect';
-    let params: HttpParams = new HttpParams();
-    params.set('base', 'nkc');
-    params.set('op', 'find');
-    params.set('request', 'bc='+this.state.q);
+    let params: HttpParams = new HttpParams().set('base', 'nkc').set('op', 'find').set('request', 'bc='+this.state.q);
     return this.http.get(url, { params: params }).map((res: Response) => {
       
       return JSON.parse(xml2json(res.text(), ''));
