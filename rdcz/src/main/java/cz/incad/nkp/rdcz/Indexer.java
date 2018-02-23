@@ -238,8 +238,11 @@ public class Indexer {
           LOGGER.log(Level.SEVERE, null, ex);
         }
         conn.close();
+      } catch (SQLException ex) {
+        LOGGER.log(Level.SEVERE, "Error getting connection");
+        LOGGER.log(Level.SEVERE, null, ex);
       }
-    } catch (NamingException | SQLException ex) {
+    } catch (NamingException ex) {
       LOGGER.log(Level.SEVERE, null, ex);
     }
   }
