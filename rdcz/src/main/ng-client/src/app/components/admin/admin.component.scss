@@ -1,3 +1,7 @@
 /deep/ .underlined /deep/ a{
   text-decoration: underline;
 }
+
+/deep/.mce-window{
+  width: 50% !important;
+}
