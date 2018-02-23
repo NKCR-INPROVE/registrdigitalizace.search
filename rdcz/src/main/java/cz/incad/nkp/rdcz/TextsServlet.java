@@ -148,7 +148,7 @@ public class TextsServlet extends HttpServlet {
           String s = FileUtils.readFileToString(new File(path), "UTF-8");
           json = new JSONObject(s);
         } catch (Exception ex) {
-          LOGGER.log(Level.SEVERE, "error during file upload. Error: {0}", ex);
+          LOGGER.log(Level.SEVERE, "error getting file list. Error: {0}", ex);
           json.put("error", ex.toString());
         }
         out.println(json.toString(2));
@@ -276,7 +276,7 @@ public class TextsServlet extends HttpServlet {
           }
 
         } catch (Exception ex) {
-          LOGGER.log(Level.SEVERE, "error during file upload. Error: {0}", ex);
+          LOGGER.log(Level.SEVERE, "error getting file list. Error: {0}", ex);
           json.put("error", ex.toString());
         }
         out.println(json.toString(2));

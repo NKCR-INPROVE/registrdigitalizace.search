@@ -5,9 +5,8 @@
  */
 package cz.incad.nkp.rdcz;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
+import java.io.FileFilter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
@@ -15,7 +14,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -25,7 +23,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
@@ -121,14 +119,9 @@ public class FileServlet extends HttpServlet {
             if (item.isFormField()) {
 //              String name = item.getFieldName();
 //              String value = item.getString();
-
             } else {
 
-//              String fieldName = item.getFieldName();
               String fileName = item.getName();
-//              String contentType = item.getContentType();
-//              boolean isInMemory = item.isInMemory();
-//              long sizeInBytes = item.getSize();
               File uploadedFile = new File(path + File.separator + fileName);
               item.write(uploadedFile);
 
@@ -152,7 +145,6 @@ public class FileServlet extends HttpServlet {
           String path = InitServlet.CONFIG_DIR + File.separator + "files";
           File f = new File(path + File.separator + id);
 
-          LOGGER.log(Level.INFO, "image: {0}", f.getAbsolutePath());
           if (f.exists()) {
 
             ServletContext cntx = request.getServletContext();
@@ -171,6 +163,38 @@ public class FileServlet extends HttpServlet {
             FileUtils.copyFile(f, out);
           }
         }
+      }
+    },
+    LIST {
+      @Override
+      void doPerform(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        response.setContentType("application/json;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        JSONObject json = new JSONObject();
+       try {
+
+          String path = InitServlet.CONFIG_DIR + File.separator + "files";
+
+          File folder = new File(path);
+          if (folder.exists()) {
+            json.put("files", new JSONArray());
+            
+            File[] listOfFiles = folder.listFiles();
+            for (File file : listOfFiles) {
+              if (file.isFile()) {
+                json.append("files", file.getName());
+              }
+            }
+          } else {
+            json.put("files", new JSONArray());
+          }
+
+        } catch (Exception ex) {
+          LOGGER.log(Level.SEVERE, "error getting file list. Error: {0}", ex);
+          json.put("error", ex.toString());
+        }
+        out.println(json.toString(2));
       }
     };
 
