@@ -85,7 +85,8 @@
     "bibpoznamka": "Poznámka",
     "zaradit-query": "zařadit dotaz jako filtr",
     "user": "Uživatel",
-    "password": "Heslo"
+    "password": "Heslo",
+    "menu-title": "štítek v menu"
   },
   "text": {
     "pocet-nalezenych": "titulů",

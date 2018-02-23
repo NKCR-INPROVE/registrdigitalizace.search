@@ -8,7 +8,9 @@
             <app-menu-tree *ngIf="state.info_menu" [dir]="state.info_menu" [path]="state.info_menu.name"></app-menu-tree>
           </div><!--/.col -->
           <div class="col s12 xl9">
-            <input *ngIf="state.info_menu && selected" id="menu_label" type="text"  name="menu_label" [(ngModel)]="selected.menuitem[state.currentLang]">
+            <mz-input-container>
+            <input  *ngIf="state.info_menu && selected" mz-input [label]="'label.menu-title' | translate" id="menu_label" type="text"  name="menu_label" [(ngModel)]="selected.menuitem[state.currentLang]">
+            </mz-input-container>
             <mz-textarea-container>
               <textarea mz-textarea
                 [label]="'Editace obsahu'"

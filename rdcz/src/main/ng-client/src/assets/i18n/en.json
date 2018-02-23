@@ -85,7 +85,8 @@
     "bibpoznamka": "Comment",
     "zaradit-query": "show query as filter",
     "user": "User",
-    "password": "Password"
+    "password": "Password",
+    "menu-title": "label in menu"
   },
   "text": {
     "pocet-nalezenych": "title",
