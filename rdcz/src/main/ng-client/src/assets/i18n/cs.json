@@ -58,7 +58,7 @@
     "add-page": "Vložit stránku"
   },
   "label": {
-    "pocet-nalezenych": "Počet nalezených položek",
+    "pocet-nalezenych": "Nalezeno",
     "slouceno-podle": "Sloučeno podle",
     "serazeno-podle": "Seřazeno podle",
     "nazev": "Název",
@@ -93,7 +93,7 @@
     "menu-title": "štítek v menu"
   },
   "text": {
-    "pocet-nalezenych": "titulů",
+    "pocet-nalezenych": "položek",
     "zobrazit-casovou-osu": "Zobrazit časovou osu",
     "skryt-casovou-osu": "Skrýt časovou osu",
     "finished": "Dokončeno",

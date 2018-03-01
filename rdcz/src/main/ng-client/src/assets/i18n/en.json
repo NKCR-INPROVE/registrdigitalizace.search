@@ -58,7 +58,7 @@
     "add-page": "Add page"
   },
   "label": {
-    "pocet-nalezenych": "Total found",
+    "pocet-nalezenych": "Found",
     "slouceno-podle": "Collapse by",
     "serazeno-podle": "Sort by",
     "nazev": "Title",
@@ -93,7 +93,7 @@
     "menu-title": "label in menu"
   },
   "text": {
-    "pocet-nalezenych": "title",
+    "pocet-nalezenych": "records",
     "zobrazit-casovou-osu": "Show chart bar",
     "skryt-casovou-osu": "Hidde chart bar",
     "finished": "Completed",

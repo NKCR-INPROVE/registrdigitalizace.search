@@ -78,7 +78,6 @@ export class ResultItemComponent implements OnInit, OnDestroy {
           return;
         }
       }
-      //if()
       this.digObjects.push({url: url.trim()});
     }
   }
@@ -93,6 +92,9 @@ export class ResultItemComponent implements OnInit, OnDestroy {
       p['ext_url'] = p['urltitnk'];
     }
     
+    if(p['druhdokumentu'] !== 'SE'){
+      this.addDigObjUrl(p['url']);
+    }
     this.addDigObjUrl(p['urltitul']);
     this.addDigObjUrl(p['urltitnk']);
   }
