@@ -25,6 +25,10 @@
     "contact": "Kontakt",
     "contact-desc": "Pošlete nám email"
   },
+  "footer": {
+    "text-1": "Registr digitalizace je společnou aktivitou Národní knihovny České republiky, Knihovny Akademie věd, Moravské zemské knihovny a Content Analytics divize společnosti Accenture (dříve Incad). Jde o národní registr digitalizovaných dokumentů, který je napojený na digitalizační workflow jednotlivých institucí. Jeho základním posláním je zamezit nechtěným duplicitám ve výběru dokumentů určených pro digitalizaci a také přispět k efektivnímu sdílení výsledků různorodých digitalizačních aktivit, například těch podpořených dotačním mechanismem Ministerstva kultury ČR VISK 7.",
+    "text-2": "Systém je vystavěn na aplikačním frameworku RIII (J2EE). Data jsou následně ukládána do relační databáze Oracle. Pro zpřístupnění aktuální informace o stavu digitalizace koncovým uživatelům je použit vyhledávací nástroj Apache SOLR. Všechny uživatelské přístupy jsou realizovány prostřednictvím webové aplikace. Registr digitalizace aktivně komunikuje s dalšími systémy používanými v jednotlivých knihovnách – mimo již uvedených digitalizačních workflow je napojen na knihovní katalogy či digitální knihovnu Kramerius."
+  },
   "btn": {
     "jine-zdroje": "Další zdroje",
     "rozsirene-hledani": "Rozšířené hledání",
