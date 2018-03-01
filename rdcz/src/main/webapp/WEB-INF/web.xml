@@ -17,6 +17,14 @@
         <url-pattern>/img</url-pattern>
     </servlet-mapping>
     <servlet>
+        <servlet-name>FileServlet</servlet-name>
+        <servlet-class>cz.incad.nkp.rdcz.FileServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FileServlet</servlet-name>
+        <url-pattern>/file</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>AlephServlet</servlet-name>
         <servlet-class>cz.incad.nkp.rdcz.AlephServlet</servlet-class>
     </servlet>

@@ -3,8 +3,10 @@ package cz.incad.nkp.rdcz;
 import cz.incad.FormatUtils;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -43,6 +45,7 @@ public class Indexer {
   private JSONObject jobData;
   SolrClient solr;
   int indexed;
+  int deleted;
   int errors;
 
   public Indexer() {
@@ -68,20 +71,103 @@ public class Indexer {
   public JSONObject run(JSONObject jobData) throws IOException {
     this.jobData = jobData;
     if (this.jobData.optBoolean("full")) {
-      return full();
+      return full(true);
     } else {
       return update();
     }
+  }
+
+  private void deleteAll() {
+    try {
+      solr.deleteByQuery("rdcz", "*:*");
+      solr.commit("rdcz");
+      LOGGER.log(Level.INFO, "Core rdcz deleted!! ");
+      
+      solr.deleteByQuery("lists", "*:*");
+      solr.commit("lists");
+      LOGGER.log(Level.INFO, "Core lists deleted!! ");
+      
+      solr.deleteByQuery("digknihovny", "*:*");
+      solr.commit("digknihovny");
+      LOGGER.log(Level.INFO, "Core digknihovny deleted!! ");
+      
+      solr.deleteByQuery("digobjekt", "*:*");
+      solr.commit("digobjekt");
+      LOGGER.log(Level.INFO, "Core digobjekt deleted!! ");
+    } catch (SolrServerException ex) {
+      Logger.getLogger(Indexer.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IOException ex) {
+      Logger.getLogger(Indexer.class.getName()).log(Level.SEVERE, null, ex);
+    }
+
+  }
+
+  public JSONObject remove() {
+    LOGGER.log(Level.INFO, "Remove from index started ");
+    Date start = new Date();
+    JSONObject ret = new JSONObject();
+    String sql = opts.getString("delete_query");
+    String lastIndexTime = readIndexTime();
+    if (lastIndexTime == null) {
+      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+      lastIndexTime = sdf.format(new Date());
+    }
+    sql = sql.replaceAll("#from#", lastIndexTime);
+
+    try {
+      Context initContext = new InitialContext();
+      Context envContext = (Context) initContext.lookup("java:/comp/env");
+      DataSource ds = (DataSource) envContext.lookup("jdbc/rlf");
+      try (Connection conn = ds.getConnection()) {
+        PreparedStatement ps = conn.prepareStatement(sql);
+        int batchSize = 500;
+
+        ArrayList<String> idocs = new ArrayList<>();
+
+        try (ResultSet rs = ps.executeQuery()) {
+          while (rs.next()) {
+            idocs.add(rs.getString("recordid"));
+
+            if (idocs.size() >= batchSize) {
+              solr.deleteById("rdcz", idocs);
+              solr.commit("rdcz");
+
+              deleted += idocs.size();
+              LOGGER.log(Level.INFO, "{0} docs processed ", deleted);
+              idocs.clear();
+            }
+          }
+          if (!idocs.isEmpty()) {
+            solr.deleteById("rdcz", idocs);
+            solr.commit("rdcz");
+
+            deleted += idocs.size();
+            LOGGER.log(Level.INFO, "{0} docs processed ", deleted);
+            idocs.clear();
+          }
+        } catch (SolrServerException | IOException ex) {
+          Logger.getLogger(Indexer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      }
+      ret.put("success removed from graveyard", deleted);
+    } catch (NamingException | SQLException ex) {
+      LOGGER.log(Level.SEVERE, null, ex);
+    }
+    Date end = new Date();
+    String ellapsed = FormatUtils.formatInterval(end.getTime() - start.getTime());
+    ret.put("ellapsed time", ellapsed);
+    LOGGER.log(Level.INFO, "Index finished. {0} docs processed in {1} ", new Object[]{indexed, ellapsed});
+    return ret;
   }
 
   public JSONObject update() throws IOException {
     LOGGER.log(Level.INFO, "Update index started ");
     Date start = new Date();
     JSONObject ret = new JSONObject();
-    
+
     ret.put("Index DigKnihovny", indexDigKnihovny(false));
     ret.put("Index DigObjekt", indexDigObject(true));
-    
+
     String fields = opts.getJSONArray("db.fields").join(",").replaceAll("\"", "");
     String sql = opts.getString("update_query").replace("#fields#", fields);
     String lastIndexTime = readIndexTime();
@@ -91,12 +177,13 @@ public class Indexer {
     }
     sql = sql.replaceAll("#from#", lastIndexTime);
     indexPredlohy(sql);
+    remove();
 
     ret.put("success indexed reliefu", indexed);
     Date end = new Date();
     String ellapsed = FormatUtils.formatInterval(end.getTime() - start.getTime());
     ret.put("ellapsed time", ellapsed);
-    LOGGER.log(Level.INFO, "Index finished. {0} docs processed in {1} ", new Object[]{indexed, ellapsed});
+    LOGGER.log(Level.INFO, "Index finished. {0} docs indexed, {1} docs removed in {2} ", new Object[]{indexed, deleted, ellapsed});
     return ret;
   }
 
@@ -117,15 +204,19 @@ public class Indexer {
     return ret;
   }
 
-  public JSONObject full() throws IOException {
+  public JSONObject full(boolean clean) throws IOException {
     LOGGER.log(Level.INFO, "Full index started ");
     Date start = new Date();
     JSONObject ret = new JSONObject();
+    
+    if(clean){
+      deleteAll();
+    }
     indexLists();
     indexDigKnihovny(false);
-    
+
     ret.put("Index DigObjekt", indexDigObject(false));
-    
+
     String fields = opts.getJSONArray("db.fields").join(",").replaceAll("\"", "");
     String sql = opts.getString("sqlFull").replace("#fields#", fields);
     //sql += " and rownum < 10";
@@ -258,7 +349,7 @@ public class Indexer {
     if (update) {
       String lastIndexTime = lastDigObjectDate();
       if (lastIndexTime != null) {
-        sql += " and edidate>=" + lastIndexTime;
+        sql += " and predloha.edidate>=" + lastIndexTime;
       }
     }
     LOGGER.log(Level.INFO, "Processing {0}", sql);
@@ -383,7 +474,7 @@ public class Indexer {
     JSONObject ret = new JSONObject();
     String fields = opts.getJSONArray("db.fields").join(",").replaceAll("\"", "");
     String sql = opts.getString("sqlFull").replace("#fields#", fields);
-    sql += " and predloha.idcislo='" + id + "'"; 
+    sql += " and predloha.idcislo='" + id + "'";
     indexPredlohy(sql);
     ret.put("success", indexed);
     Date end = new Date();
@@ -492,61 +583,63 @@ public class Indexer {
   private void addDigKnihovny(SolrInputDocument idoc, ResultSet rs, Connection conn) {
 
     String f = "";
+//    try {
+//      f = " rpredloha_digobjekt = '" + rs.getString("id") + "'";
+//    } catch (SQLException ex) {
+//      LOGGER.log(Level.WARNING, ex.toString());
+//    }
     try {
       if (rs.getString("url") != null) {
-        URI uri = new URI(rs.getString("url").split(" ")[0].trim());
+        URI uri = new URI(URLEncoder.encode(rs.getString("url").split(" ")[0].trim(), "UTF-8"));
         f += " urldigknihovny like '" + uri.getScheme() + "://" + uri.getHost() + "%'";
       }
-    } catch (SQLException | URISyntaxException ex) {
+    } catch (SQLException | URISyntaxException | UnsupportedEncodingException ex) {
       LOGGER.log(Level.WARNING, ex.toString());
-    }
+    } 
 
     try {
       if (rs.getString("urltitul") != null) {
-        URI uri = new URI(rs.getString("urltitul").split(" ")[0].trim());
+        URI uri = new URI(URLEncoder.encode(rs.getString("urltitul").split(" ")[0].trim(), "UTF-8"));
         if (!"".equals(f)) {
           f += " OR ";
         }
         f += " urldigknihovny like '" + uri.getScheme() + "://" + uri.getHost() + "%'";
       }
-    } catch (SQLException | URISyntaxException ex) {
+    } catch (SQLException | URISyntaxException | UnsupportedEncodingException ex) {
       LOGGER.log(Level.WARNING, ex.toString());
     }
 
     try {
       if (rs.getString("urltitnk") != null) {
-        URI uri = new URI(rs.getString("urltitnk").split(" ")[0].trim());
+        URI uri = new URI(URLEncoder.encode(rs.getString("urltitnk").split(" ")[0].trim(), "UTF-8"));
         if (!"".equals(f)) {
           f += " OR ";
         }
         f += " urldigknihovny like '" + uri.getScheme() + "://" + uri.getHost() + "%'";
       }
-    } catch (SQLException | URISyntaxException ex) {
+    } catch (SQLException | URISyntaxException | UnsupportedEncodingException ex) {
       LOGGER.log(Level.WARNING, ex.toString());
     }
 
-    if ("".equals(f)) {
-      return;
-    }
+    if (!"".equals(f)) {
+      try {
+        f = " where " + f;
+        String sql = "select distinct(nazev) from digknihovna" + f;
 
-    try {
-      f = " where " + f;
-      String sql = "select distinct(nazev) from digknihovna" + f;
-
-      //LOGGER.log(Level.INFO, sql);
-      
-      PreparedStatement ps = conn.prepareStatement(sql);
-      try (ResultSet rsdk = ps.executeQuery()) {
-        while (rsdk.next()) {
-          idoc.addField("digknihovna", rsdk.getString("nazev"));
+        //LOGGER.log(Level.INFO, sql);
+        PreparedStatement ps = conn.prepareStatement(sql);
+        try (ResultSet rsdk = ps.executeQuery()) {
+          while (rsdk.next()) {
+            idoc.addField("digknihovna", rsdk.getString("nazev"));
+          }
+          rsdk.close();
         }
-        rsdk.close();
+        ps.close();
+      } catch (SQLException ex) {
+        LOGGER.log(Level.SEVERE, null, ex);
       }
-      ps.close();
-    } catch (SQLException ex) {
-      LOGGER.log(Level.SEVERE, null, ex);
     }
-    
+
     try {
       //Add from digobjekt core
       //params.set('q', 'rpredloha_digobjekt:"' + rs.getString("id").trim() + '"');
@@ -554,7 +647,7 @@ public class Indexer {
       q.setQuery("rpredloha_digobjekt:" + rs.getString("id").trim());
       q.setRows(1000);
       QueryResponse qr = solr.query("digobjekt", q);
-      for(SolrDocument sdoc : qr.getResults()){
+      for (SolrDocument sdoc : qr.getResults()) {
         idoc.addField("digknihovna", sdoc.getFirstValue("nazev"));
       }
     } catch (SQLException | SolrServerException | IOException ex) {
