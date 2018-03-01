@@ -1,7 +1,7 @@
 {
   "/search/**": {
-    "target2": "http://localhost:8983/solr/",
-    "target": "http://localhost:8080/rdcz/search/",
+    "target": "http://localhost:8983/solr/",
+    "target2": "http://localhost:8080/rdcz/search/",
     "ignorePath": false,
     "logLevel": "debug",
     "pathRewrite": {
