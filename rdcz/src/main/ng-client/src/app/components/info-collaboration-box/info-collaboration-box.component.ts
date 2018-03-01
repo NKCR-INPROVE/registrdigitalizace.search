@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AppState} from 'app/app.state';
 
 @Component({
   selector: 'app-info-collaboration-box',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InfoCollaborationBoxComponent implements OnInit {
 
-  constructor() { }
+  constructor(public state: AppState) { }
 
   ngOnInit() {
   }

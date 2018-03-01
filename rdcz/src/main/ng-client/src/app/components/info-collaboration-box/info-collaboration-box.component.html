@@ -7,13 +7,22 @@
         <i mz-icon-mdi [icon]="'chevron-left'" [class]="'app-clean-mg'"></i>
       </mz-collapsible-item-header>
       <mz-collapsible-item-body>
-        <mz-collection>
+        <mz-collection *ngIf="state.currentLang === 'cs'">
           <mz-collection-item>
             Digitalizujete a dosud nepřispíváte? Zapojte se! <a routerLink="/info" title="informační stránky">Na informačních stránkách</a> najdete doporučení, 
             návody i <a routerLink="/info/prehled_instituci" title="přehled přispívajících institucí">přehled přispívajících institucí</a> včetně kontaktů.<br />
           </mz-collection-item>
           <mz-collection-item>
             Využívejte kontrolu v RD na ochranu před zbytečnou duplicitní digitalizací! Můžete vyhledávat i v Dalších zdrojích ze zahraničních digitalizací.
+          </mz-collection-item>
+        </mz-collection>
+        
+        <mz-collection *ngIf="state.currentLang === 'en'">
+          <mz-collection-item>
+        Digitization registry is a national registry of digitized documents. 
+        Its main aim is to avoid unwanted duplicate digitization. 
+        It serves also as the central access point to digitzed documents. 
+        To know more about the digitizing institutions, see the list of <a routerLink="/info/prehled_instituci" title="přehled přispívajících institucí">participating institutions</a>.
           </mz-collection-item>
         </mz-collection>
       </mz-collapsible-item-body>

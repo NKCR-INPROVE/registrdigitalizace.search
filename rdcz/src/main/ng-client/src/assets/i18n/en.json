@@ -1,6 +1,6 @@
 {
   "title": {
-    "app": "Digitalization registry",
+    "app": "Digitization registry",
     "jumbotron": "Do you want to participiate",
     "partneri": "Our partners",
     "nk": "National Library of the Czech republic",
@@ -107,7 +107,7 @@
     "pouzit-tento-filtr": "Use this filter",
     "prehled-dk-knihoven": "Digital library",
     "vymazat": "delete",
-    "informace-ke-spolupraci": "Information to cooperate"
+    "informace-ke-spolupraci": "Basic information"
   },
   "field": { 
     "q": "query",
