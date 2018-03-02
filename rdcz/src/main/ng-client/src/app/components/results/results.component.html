@@ -38,7 +38,7 @@
     </div><!--/.col -->
     <div class="col s12 xl8">
       <app-sort-bar *ngIf="state.numFound > 0"></app-sort-bar>
-      <app-chart-bar *ngIf="state.numFound > 0" [height]="'120px'" [width]="'100%'"></app-chart-bar>
+      <app-chart-bar *ngIf="state.numFound > 0" [height]="'120px'" [width]="'100%'" [showTotal]="false"></app-chart-bar>
       <section>
         <app-result-item *ngFor="let res of results" [result]="res" [expanded]="expanded[res[state.currentCollapse.field]]"></app-result-item>
         

@@ -89,89 +89,96 @@
             {{'label.seznam-predloh' | translate}} <span class="app-brand-text text-lighten-3">({{predlohy.length}})</span>
           </mz-collapsible-item-header>
           <mz-collapsible-item-body>
-            <table class="striped app-table-predlohy" [id]="'t_'+result.id">
-              <thead>
-                <tr>
-                  <th (click)="sortBy('stav')">
-                    <span [class.active]="currentSort === 'stav'" [class.active-down]="currentDir === 1">
-                      {{'label.stav' | translate}}
-                    </span>
-                  </th>
-                  <th><span>&#160;</span></th>
-                  <th (click)="sortBy('cislordcz')">
-                    <span [class.active]="currentSort === 'cislordcz'" [class.active-down]="currentDir === 1">
-                      {{'label.cislo-rdcz' | translate}}
-                    </span>
-                  </th>
-                  <th (click)="sortBy('vlastnik')">
-                    <span [class.active]="currentSort === 'vlastnik'" [class.active-down]="currentDir === 1">
-                      {{'label.vlastnik' | translate}}
-                    </span>
-                  </th>
-                  <th (click)="sortBy('rozsah')">
-                    <span [class.active]="currentSort === 'rozsah'" [class.active-down]="currentDir === 1">
-                      {{'label.rok-per' | translate}}
-                    </span>
-                  </th>
-                  <th (click)="sortBy('cast')">
-                    <span [class.active]="currentSort === 'cast'" [class.active-down]="currentDir === 1">
-                      {{'label.cast-roc' | translate}}
-                    </span>
-                  </th>
-                  <th (click)="sortBy('cisloper')">
-                    <span [class.active]="currentSort === 'cisloper'" [class.active-down]="currentDir === 1">
-                      {{'label.cislo' | translate}}
-                    </span>
-                  </th>
-                  <th (click)="sortBy('financovano')">
-                    <span [class.active]="currentSort === 'financovano'" [class.active-down]="currentDir === 1">
-                      {{'label.financovano' | translate}}
-                    </span>
-                  </th>
-                  <th (click)="sortBy('signatura')">
-                    <span [class.active]="currentSort === 'signatura'" [class.active-down]="currentDir === 1">
-                      {{'label.signatura' | translate}}
-                    </span>
-                  </th>
-                  <th (click)="sortBy('carkod')">
-                    <span [class.active]="currentSort === 'carkod'" [class.active-down]="currentDir === 1">
-                      {{'label.car-kod' | translate}}
-                    </span>
-                  </th>
-                  <th>
-                    <span >
-                      {{'label.bibpoznamka' | translate}}
-                    </span>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <ng-container *ngFor="let p of predlohy">
-                  <tr *ngIf="p.active">
-                    <td><span mz-tooltip [tooltip]="'text.'+p.stav | translate" [position]="'top'" [class]="'app-state-item app-cursor-pointer app-state-item-' + p.stav"></span></td>
-                    <td>
-                      <!--
-                      <a *ngIf="p.bibliographich_data" mz-tooltip [tooltip]="'label.bib-udaje' | translate" [position]="'top'" [href]="p.bibliographich_data" title="" target="_blank">
-                        <i mz-icon-mdi [icon]="'open-in-new'" [size]="'16px'"></i>
-                      </a>
-                      -->
-                      <a *ngIf="p.ext_url && p.ext_url.startsWith('http')" mz-tooltip [tooltip]="'label.digitalni-dokument' | translate" [position]="'top'" [href]="p.ext_url" title="" target="_blank">
-                        <i mz-icon-mdi [icon]="'open-in-new'" [size]="'16px'"></i>
-                      </a>
-                    </td>
-                    <td>{{p.cislordcz}}</td>
-                    <td mz-tooltip [position]="'top'" [tooltip]="translate('cz.incad.nkp.digital.InsVlastnik', p.vlastnik)">{{p.vlastnik}}</td>
-                    <td>{{p.rozsah}}</td>
-                    <td>{{p.cast}}</td>
-                    <td>{{p.cisloper}}</td>
-                    <td>{{translate('cz.incad.nkp.digital.Dfinancovano', p.financovano)}}</td>
-                    <td>{{p.signatura}}</td>
-                    <td>{{p.carkod}}</td>
-                    <td>{{p.bibpoznamka}}</td>
-                  </tr>
-                </ng-container>
-              </tbody>
-            </table>
+            <div class="app-table-head-fixed">
+              <div class="app-head-wrapper">
+                <div class="app-head-sroll-hide"></div>
+                <div class="app-head-sroll-wrapper">
+                  <table><!-- [id]="'t_'+result.id" -->
+                    <thead>
+                      <tr>
+                        <th (click)="sortBy('stav')">
+                          <span [class.active]="currentSort === 'stav'" [class.active-down]="currentDir === 1">
+                            {{'label.stav' | translate}}
+                          </span>
+                        </th>
+                        <th><span>&#160;</span></th>
+                        <th (click)="sortBy('cislordcz')">
+                          <span [class.active]="currentSort === 'cislordcz'" [class.active-down]="currentDir === 1">
+                            {{'label.cislo-rdcz' | translate}}
+                          </span>
+                        </th>
+                        <th (click)="sortBy('vlastnik')">
+                          <span [class.active]="currentSort === 'vlastnik'" [class.active-down]="currentDir === 1">
+                            {{'label.vlastnik' | translate}}
+                          </span>
+                        </th>
+                        <th (click)="sortBy('rozsah')">
+                          <span [class.active]="currentSort === 'rozsah'" [class.active-down]="currentDir === 1">
+                            {{'label.rok-per' | translate}}
+                          </span>
+                        </th>
+                        <th (click)="sortBy('cast')">
+                          <span [class.active]="currentSort === 'cast'" [class.active-down]="currentDir === 1">
+                            {{'label.cast-roc' | translate}}
+                          </span>
+                        </th>
+                        <th (click)="sortBy('cisloper')">
+                          <span [class.active]="currentSort === 'cisloper'" [class.active-down]="currentDir === 1">
+                            {{'label.cislo' | translate}}
+                          </span>
+                        </th>
+                        <th (click)="sortBy('financovano')">
+                          <span [class.active]="currentSort === 'financovano'" [class.active-down]="currentDir === 1">
+                            {{'label.financovano' | translate}}
+                          </span>
+                        </th>
+                        <th (click)="sortBy('signatura')">
+                          <span [class.active]="currentSort === 'signatura'" [class.active-down]="currentDir === 1">
+                            {{'label.signatura' | translate}}
+                          </span>
+                        </th>
+                        <th (click)="sortBy('carkod')">
+                          <span [class.active]="currentSort === 'carkod'" [class.active-down]="currentDir === 1">
+                            {{'label.car-kod' | translate}}
+                          </span>
+                        </th>
+                        <th>
+                          <span>
+                            <i class="app-mdi-pencil" mz-tooltip [tooltip]="'label.bibpoznamka' | translate"></i>
+                            <!--{{'label.bibpoznamka' | translate}}-->
+                          </span>
+                        </th>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+              </div>
+              <div class="app-body-wrapper">
+                <table class="striped">
+                  <tbody>
+                    <ng-container *ngFor="let p of predlohy">
+                      <tr *ngIf="p.active">
+                        <td><span mz-tooltip [tooltip]="'text.'+p.stav | translate" [position]="'top'" [class]="'app-state-item app-cursor-pointer app-state-item-' + p.stav"></span></td>
+                        <td>
+                          <a *ngIf="p.ext_url && p.ext_url.startsWith('http')" mz-tooltip [tooltip]="'label.digitalni-dokument' | translate" [position]="'top'" [href]="p.ext_url" title="" target="_blank">
+                            <i mz-icon-mdi [icon]="'open-in-new'" [size]="'16px'"></i>
+                          </a>
+                        </td>
+                        <td>{{p.cislordcz}}</td>
+                        <td mz-tooltip [position]="'top'" [tooltip]="translate('cz.incad.nkp.digital.InsVlastnik', p.vlastnik)">{{p.vlastnik}}</td>
+                        <td>{{p.rozsah}}</td>
+                        <td>{{p.cast}}</td>
+                        <td>{{p.cisloper}}</td>
+                        <td>{{translate('cz.incad.nkp.digital.Dfinancovano', p.financovano)}}</td>
+                        <td>{{p.signatura}}</td>
+                        <td>{{p.carkod}}</td>
+                        <td>{{p.bibpoznamka}}</td>
+                      </tr>
+                    </ng-container>
+                  </tbody>  
+                </table>
+              </div>
+            </div><!--/.app-table-head-fixed -->
           </mz-collapsible-item-body>
         </mz-collapsible-item>
 

@@ -122,7 +122,8 @@ app-result-item {
           .collapsible-body {
             padding: 0;
             
-            .app-table-predlohy {
+            @import "app-table-head-fixed";
+            /*.app-table-predlohy {
               height: 100%;
               thead {
                 border-bottom: none;
@@ -173,7 +174,7 @@ app-result-item {
               &.striped > tbody > tr:nth-child(odd) {
                 background-color: color("grey", "lighten-5");;
               }
-            }
+            }*/
             
             .app-dig-object {
               > div {

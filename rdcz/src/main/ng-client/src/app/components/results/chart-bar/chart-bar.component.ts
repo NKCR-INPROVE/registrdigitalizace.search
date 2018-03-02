@@ -17,6 +17,8 @@ export class ChartBarComponent implements OnInit {
   @ViewChild('chart') chart: FlotComponent;
   @Input() height: string;
   @Input() width: string;
+  @Input() showTotal: boolean;
+
 
   @Output() selChanged: EventEmitter<any> = new EventEmitter();
 

@@ -11,5 +11,8 @@
     <button (click)="clear()" mz-button [flat]="true" mz-tooltip [tooltip]="'text.zrusit-tento-filtr' | translate" [position]="'top'">
       <i class="app-mdi-close-circle app-brand-text text-app-red"></i>
     </button>
+    <span class="right" *ngIf="showTotal">
+      {{'label.pocet-nalezenych' | translate}}: <strong>{{state.numFound}}</strong> {{'text.pocet-nalezenych' | translate}}
+    </span>
   </div>
 </section>
