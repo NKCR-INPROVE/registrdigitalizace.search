@@ -8,21 +8,21 @@
       </mz-collapsible-item-header>
       <mz-collapsible-item-body>
         <mz-collection>
-          <mz-collection-item *ngFor="let dg of digknihovny">
-            <ng-container *ngIf="dg[2]">
-            <span class="first-content">
-              <a (click)="filter(dg[0])">{{dg[0]}}</a>
-            <br/>
-            <span *ngIf="dg[2].poznweb && dg.poznweb !== ''">
-              ({{dg[2].poznweb}})
-            </span>
-            </span>
-            <span class="middle-content">
-              <a target="_blank" [href]="dg[2].urldigknihovny">{{dg[2].urldigknihovny}}</a>
-            </span>
-            <span mz-secondary-content class="app-brand-text">({{dg[1]}})</span>
+          <ng-container *ngFor="let dg of digknihovny">
+            <mz-collection-item *ngIf="dg[2]">
+              <span class="first-content">
+                <a (click)="filter(dg[0])">{{dg[0]}}</a>
+              <br/>
+              <span *ngIf="dg[2].poznweb && dg.poznweb !== ''">
+                ({{dg[2].poznweb}})
+              </span>
+              </span>
+              <span class="middle-content">
+                <a target="_blank" [href]="dg[2].urldigknihovny">{{dg[2].urldigknihovny}}</a>
+              </span>
+              <span mz-secondary-content class="app-brand-text">({{dg[1]}})</span>
+            </mz-collection-item>
           </ng-container>
-          </mz-collection-item>
         </mz-collection>
       </mz-collapsible-item-body>
     </mz-collapsible-item>

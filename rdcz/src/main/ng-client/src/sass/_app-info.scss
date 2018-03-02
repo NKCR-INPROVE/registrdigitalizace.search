@@ -108,6 +108,9 @@ app-info {
         }
       }
     }
+    
+    // progress bar
+    @extend .app-progressbar-wrapper;
   }
   
   .card .card-content p {

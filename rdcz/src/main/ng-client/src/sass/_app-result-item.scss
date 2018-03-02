@@ -122,59 +122,8 @@ app-result-item {
           .collapsible-body {
             padding: 0;
             
+            // table fixed header
             @import "app-table-head-fixed";
-            /*.app-table-predlohy {
-              height: 100%;
-              thead {
-                border-bottom: none;
-                
-                tr {
-                  height: 100%;
-                  
-                  th {
-                    @extend .app-cursor-pointer;
-                    padding: 0;
-                    height:100%;
-
-                    span {
-                      display: block;
-                      @include set-border(bottom, 1, solid, $app-brand-l-6);
-                      padding: 5px;
-                      position: relative;
-                      height: 100%;
-
-                      &:before {
-                        content: '';
-                        position: absolute;
-                        left: 0;
-                        bottom: 0;
-                        width: 100%;
-                        height: 2px;
-                        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-                      }
-
-                      &.active {
-                        @include set-mdi-icon(after, F05D, 14, middle); 
-                      }
-                      &.active.active-down:hover, &.active.active-down {
-                        @include set-mdi-icon(after, F045, 14, middle); 
-                      }
-                    }
-                  }
-                }
-              }
-              
-              td {
-                span {
-                  display: inline-block;
-                  width: 13px;
-                  height: 13px;
-                }
-              }
-              &.striped > tbody > tr:nth-child(odd) {
-                background-color: color("grey", "lighten-5");;
-              }
-            }*/
             
             .app-dig-object {
               > div {
