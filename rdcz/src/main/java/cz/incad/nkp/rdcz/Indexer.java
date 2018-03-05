@@ -236,7 +236,7 @@ public class Indexer {
     InputStream inputStream = null;
     JSONObject jsResp;
     try {
-      String url = opts.getString("solrhost", "http://localhost:8983/solr/")
+      String url = opts.getString("solr.host", "http://localhost:8983/solr/")
               + "rdcz/select?wt=json&q=*:*&rows=1&sort=index_time+desc&fl=index_time";
       inputStream = RESTHelper.inputStream(url);
       jsResp = new JSONObject(org.apache.commons.io.IOUtils.toString(inputStream, Charset.forName("UTF-8")));
@@ -264,7 +264,7 @@ public class Indexer {
     InputStream inputStream = null;
     JSONObject jsResp;
     try {
-      String url = opts.getString("solrhost", "http://localhost:8983/solr/")
+      String url = opts.getString("solr.host", "http://localhost:8983/solr/")
               + "digobjekt/select?wt=json&q=*:*&rows=1&sort=index_time+desc&fl=index_time";
       inputStream = RESTHelper.inputStream(url);
       jsResp = new JSONObject(org.apache.commons.io.IOUtils.toString(inputStream, Charset.forName("UTF-8")));
@@ -349,7 +349,8 @@ public class Indexer {
     if (update) {
       String lastIndexTime = lastDigObjectDate();
       if (lastIndexTime != null) {
-        sql += " and predloha.edidate>=" + lastIndexTime;
+        
+        sql += " and predloha.edidate>=to_date('"+lastIndexTime+"', 'yyyy-MM-dd')";
       }
     }
     LOGGER.log(Level.INFO, "Processing {0}", sql);
@@ -590,34 +591,34 @@ public class Indexer {
 //    }
     try {
       if (rs.getString("url") != null) {
-        URI uri = new URI(URLEncoder.encode(rs.getString("url").split(" ")[0].trim(), "UTF-8"));
+        URI uri = new URI(rs.getString("url").split(" ")[0].trim());
         f += " urldigknihovny like '" + uri.getScheme() + "://" + uri.getHost() + "%'";
       }
-    } catch (SQLException | URISyntaxException | UnsupportedEncodingException ex) {
+    } catch (SQLException | URISyntaxException  ex) {
       LOGGER.log(Level.WARNING, ex.toString());
     } 
 
     try {
       if (rs.getString("urltitul") != null) {
-        URI uri = new URI(URLEncoder.encode(rs.getString("urltitul").split(" ")[0].trim(), "UTF-8"));
+        URI uri = new URI(rs.getString("urltitul").split(" ")[0].trim());
         if (!"".equals(f)) {
           f += " OR ";
         }
         f += " urldigknihovny like '" + uri.getScheme() + "://" + uri.getHost() + "%'";
       }
-    } catch (SQLException | URISyntaxException | UnsupportedEncodingException ex) {
+    } catch (SQLException | URISyntaxException  ex) {
       LOGGER.log(Level.WARNING, ex.toString());
     }
 
     try {
       if (rs.getString("urltitnk") != null) {
-        URI uri = new URI(URLEncoder.encode(rs.getString("urltitnk").split(" ")[0].trim(), "UTF-8"));
+        URI uri = new URI(rs.getString("urltitnk").split(" ")[0].trim());
         if (!"".equals(f)) {
           f += " OR ";
         }
         f += " urldigknihovny like '" + uri.getScheme() + "://" + uri.getHost() + "%'";
       }
-    } catch (SQLException | URISyntaxException | UnsupportedEncodingException ex) {
+    } catch (SQLException | URISyntaxException ex) {
       LOGGER.log(Level.WARNING, ex.toString());
     }
 
@@ -626,14 +627,16 @@ public class Indexer {
         f = " where " + f;
         String sql = "select distinct(nazev) from digknihovna" + f;
 
-        //LOGGER.log(Level.INFO, sql);
         PreparedStatement ps = conn.prepareStatement(sql);
+        int i = 0;
         try (ResultSet rsdk = ps.executeQuery()) {
           while (rsdk.next()) {
             idoc.addField("digknihovna", rsdk.getString("nazev"));
+            i++;
           }
           rsdk.close();
         }
+//        LOGGER.log(Level.INFO, "searching digknihovna with {0}, rows {1}", new Object[]{sql, i});
         ps.close();
       } catch (SQLException ex) {
         LOGGER.log(Level.SEVERE, null, ex);

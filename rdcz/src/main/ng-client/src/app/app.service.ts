@@ -151,9 +151,10 @@ export class AppService {
     }
 
     if (this.state.currentCollapse['field'] !== 'id') {
-      params = params.append('fq', '{!collapse field=' + this.state.currentCollapse['field'] + '}');
+      params = params.append('fq', '{!collapse field=' + this.state.currentCollapse['field'] + ' sort=\'vlastnik asc\'}');
       params = params.append('expand', 'true');
       params = params.append('expand.rows', '1');
+      
     }
     
     return params;

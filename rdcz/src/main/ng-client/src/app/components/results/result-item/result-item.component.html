@@ -18,6 +18,10 @@
           <i *ngIf="result.druhdokumentu == 'AV'" mz-tooltip [tooltip]="'tooltip.AV' | translate" [position]="'top'" mz-icon-mdi [icon]="'headphones'"></i>
           {{result.title}}
         </a>
+        <label *ngIf="result.podnazev">
+          <strong>{{'label.podnazev' | translate}}:</strong>
+          <span>{{result.podnazev}}</span>
+        </label>
         <label *ngIf="result.varnazev">
           <strong>{{'label.variantni-nazev' | translate}}:</strong>
           <span *ngFor="let v of result.varnazev">
