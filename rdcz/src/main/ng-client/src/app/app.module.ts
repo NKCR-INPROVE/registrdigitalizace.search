@@ -56,6 +56,7 @@ import {CustomRouteReuseStrategy} from 'app/router-strategy';
 //}
 
 export function createTranslateLoader(http: HttpClient) {
+  //return new TranslateHttpLoader(http, './assets/i18n/', '.json');
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 

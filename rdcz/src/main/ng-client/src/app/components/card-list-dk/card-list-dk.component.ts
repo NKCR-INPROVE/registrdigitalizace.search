@@ -53,7 +53,7 @@ export class CardListDkComponent implements OnInit, OnDestroy {
     this.service.getDigKnihovny().subscribe(res => {
       this.digknihovny = res;
       this.digknihovny.forEach(dg => {
-        this.service.getDigKnihovnyCount(dg['nazev'].trim()).subscribe(c => {
+        this.service.getDigKnihovnyCount(dg['zkratka'].trim()).subscribe(c => {
           dg['count'] = c;
         });
       });

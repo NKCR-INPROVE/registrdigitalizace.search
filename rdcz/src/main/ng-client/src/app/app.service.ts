@@ -235,7 +235,7 @@ export class AppService {
   
   getDigKnihovnu(nazev: string): Observable<any> {
     let params: HttpParams = new HttpParams();
-    params = params.set('q', 'nazev:"' + nazev +'"');
+    params = params.set('q', 'nazev:"' + nazev +'" OR zkratka:"' + nazev +'"');
     params = params.set('rows', '1');
     var url = this.state.config['context'] + 'search/digknihovny/select';
     return this.http.get(url, { params: params }).map(res => {

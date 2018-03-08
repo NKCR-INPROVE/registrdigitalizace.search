@@ -11,7 +11,7 @@
           <ng-container *ngFor="let dg of digknihovny">
             <mz-collection-item *ngIf="dg[2]">
               <span class="first-content">
-                <a (click)="filter(dg[0])">{{dg[0]}}</a>
+                <a (click)="filter(dg[0])">{{'digknihovna.'+dg[0] | translate}}</a>
               <br/>
               <span *ngIf="dg[2].poznweb && dg.poznweb !== ''">
                 ({{dg[2].poznweb}})

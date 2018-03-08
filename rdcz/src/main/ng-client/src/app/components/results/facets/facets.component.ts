@@ -77,7 +77,13 @@ export class FacetsComponent implements OnInit, OnChanges {
           return human;
         }
       } else {
-        return f.value;
+        let t = this.service.translateKey(ff.field +'.' + f.value); 
+        if(ff.field +'.' + f.value === t){
+          return f.value;
+        } else {
+          return t;
+        }
+        //
       }
     } else {
       return f.value;
