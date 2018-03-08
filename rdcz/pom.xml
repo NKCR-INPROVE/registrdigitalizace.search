@@ -13,7 +13,31 @@
     <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-    
+  
+  <profiles>
+    <profile>
+      <id>default</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <skipBuildClient>false</skipBuildClient>
+      </properties>
+    </profile>
+    <profile>
+      <id>skipBuildClient</id>
+      <activation>
+        <property>
+          <name>maven.skip.client</name>
+          <value>true</value>
+        </property>
+      </activation>
+      <properties>
+        <skipBuildClient>true</skipBuildClient>
+      </properties>
+    </profile>
+</profiles>
+
   <dependencies>
     <dependency>
       <groupId>org.apache.solr</groupId>
@@ -66,6 +90,7 @@
             <id>exec-npm-install</id>
             <phase>generate-sources</phase>
             <configuration>
+    <skip>${skipBuildClient}</skip>
               <executable>npm</executable>
               <workingDirectory>${project.basedir}/src/main/ng-client</workingDirectory>  
               <arguments>
