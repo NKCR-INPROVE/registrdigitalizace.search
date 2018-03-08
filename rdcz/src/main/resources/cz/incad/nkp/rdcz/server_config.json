@@ -49,7 +49,8 @@
   "users":{
     "test": "test"
   },
-  "jobs": {
+  "jobs": {},
+  "jobs_example": {
     "index_full":{
       "type": "index",
       "cron": "0 15 0 ? * SAT",
