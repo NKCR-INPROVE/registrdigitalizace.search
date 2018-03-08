@@ -16,7 +16,9 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.Context;
@@ -47,6 +49,9 @@ public class Indexer {
   int indexed;
   int deleted;
   int errors;
+
+  //Stores map urldigknihovny scheme to nazev
+  Map<String, String> digKnihovnyCached;
 
   public Indexer() {
     try {
@@ -82,15 +87,15 @@ public class Indexer {
       solr.deleteByQuery("rdcz", "*:*");
       solr.commit("rdcz");
       LOGGER.log(Level.INFO, "Core rdcz deleted!! ");
-      
+
       solr.deleteByQuery("lists", "*:*");
       solr.commit("lists");
       LOGGER.log(Level.INFO, "Core lists deleted!! ");
-      
+
       solr.deleteByQuery("digknihovny", "*:*");
       solr.commit("digknihovny");
       LOGGER.log(Level.INFO, "Core digknihovny deleted!! ");
-      
+
       solr.deleteByQuery("digobjekt", "*:*");
       solr.commit("digobjekt");
       LOGGER.log(Level.INFO, "Core digobjekt deleted!! ");
@@ -165,6 +170,7 @@ public class Indexer {
     Date start = new Date();
     JSONObject ret = new JSONObject();
 
+    indexLists();
     ret.put("Index DigKnihovny", indexDigKnihovny(false));
     ret.put("Index DigObjekt", indexDigObject(true));
 
@@ -208,8 +214,8 @@ public class Indexer {
     LOGGER.log(Level.INFO, "Full index started ");
     Date start = new Date();
     JSONObject ret = new JSONObject();
-    
-    if(clean){
+
+    if (clean) {
       deleteAll();
     }
     indexLists();
@@ -340,7 +346,7 @@ public class Indexer {
 
   public JSONObject indexDigObject(boolean update) {
     JSONObject ret = new JSONObject();
-    String sql = "select digobjekt.*, dk.nazev, dk.URLDIGKNIHOVNY, "
+    String sql = "select digobjekt.*, dk.nazev, dk.zkratka as digknihovna, dk.URLDIGKNIHOVNY, "
             + "nvl(predloha.ccnb, -predloha.id) as cnb_collaps, "
             + "nvl(predloha.ISSN, nvl(predloha.ISBN, -predloha.id)) as isxn_collaps, "
             + "nvl(predloha.SIGLA1, -predloha.id) || nvl(predloha.SYSNO, -predloha.id) as aba_collaps "
@@ -349,8 +355,8 @@ public class Indexer {
     if (update) {
       String lastIndexTime = lastDigObjectDate();
       if (lastIndexTime != null) {
-        
-        sql += " and predloha.edidate>=to_date('"+lastIndexTime+"', 'yyyy-MM-dd')";
+
+        sql += " and predloha.edidate>=to_date('" + lastIndexTime + "', 'yyyy-MM-dd')";
       }
     }
     LOGGER.log(Level.INFO, "Processing {0}", sql);
@@ -462,6 +468,7 @@ public class Indexer {
         }
         conn.close();
       }
+      fillDigKnihovnyCache();
     } catch (NamingException | SQLException ex) {
       LOGGER.log(Level.SEVERE, null, ex);
       ret.put("error", ex.toString());
@@ -501,7 +508,7 @@ public class Indexer {
           while (rs.next()) {
             SolrInputDocument idoc = indexRow(rs);
             addNeplatneCnb(idoc, rs.getString("id"), conn);
-            addDigKnihovny(idoc, rs, conn);
+            addDigKnihovny(idoc, rs);
             if (rs.getString("katalog") != null) {
               addKatalogUrl(idoc, rs.getString("katalog"), rs.getString("pole001"), conn);
             }
@@ -532,6 +539,8 @@ public class Indexer {
             indexed += idocs.size();
             idocs.clear();
           }
+          
+          LOGGER.log(Level.INFO, "Index predlohy finished. {0} docs processed ", indexed);
         } catch (SolrServerException ex) {
           LOGGER.log(Level.SEVERE, sql);
           LOGGER.log(Level.SEVERE, null, ex);
@@ -581,7 +590,7 @@ public class Indexer {
     }
   }
 
-  private void addDigKnihovny(SolrInputDocument idoc, ResultSet rs, Connection conn) {
+  private void addDigKnihovnyDb(SolrInputDocument idoc, ResultSet rs, Connection conn) {
 
     String f = "";
 //    try {
@@ -594,9 +603,9 @@ public class Indexer {
         URI uri = new URI(rs.getString("url").split(" ")[0].trim());
         f += " urldigknihovny like '" + uri.getScheme() + "://" + uri.getHost() + "%'";
       }
-    } catch (SQLException | URISyntaxException  ex) {
+    } catch (SQLException | URISyntaxException ex) {
       LOGGER.log(Level.WARNING, ex.toString());
-    } 
+    }
 
     try {
       if (rs.getString("urltitul") != null) {
@@ -606,7 +615,7 @@ public class Indexer {
         }
         f += " urldigknihovny like '" + uri.getScheme() + "://" + uri.getHost() + "%'";
       }
-    } catch (SQLException | URISyntaxException  ex) {
+    } catch (SQLException | URISyntaxException ex) {
       LOGGER.log(Level.WARNING, ex.toString());
     }
 
@@ -658,22 +667,75 @@ public class Indexer {
     }
   }
 
-  private void addDigKnihovnyOld(SolrInputDocument idoc, String predlohaid, Connection conn) {
+  private void addDigKnihovny(SolrInputDocument idoc, ResultSet rs) {
+//    String f = "";
+    List<String> dks = new ArrayList<>();
     try {
-      String sql = "select digknihovna.nazev as digk from digknihovna, predloha, dlists \n"
-              + "                            where predloha.digKnihovna=dlists.value \n"
-              + "                            and dlists.id=digknihovna.id and predloha.id=" + predlohaid;
-      PreparedStatement ps = conn.prepareStatement(sql);
-
-      try (ResultSet rs = ps.executeQuery()) {
-        while (rs.next()) {
-          idoc.addField("digknihovna", rs.getString("digk"));
-        }
-        rs.close();
+      if (rs.getString("url") != null) {
+        URI uri = new URI(rs.getString("url").split(" ")[0].trim());
+        dks.add(digKnihovnyCached.get(uri.getHost()));
       }
-      ps.close();
-    } catch (SQLException ex) {
-      LOGGER.log(Level.SEVERE, null, ex);
+    } catch (SQLException | URISyntaxException ex) {
+      LOGGER.log(Level.WARNING, ex.toString());
+    }
+
+    try {
+      if (rs.getString("urltitul") != null) {
+        URI uri = new URI(rs.getString("urltitul").split(" ")[0].trim());
+        if (!dks.contains(digKnihovnyCached.get(uri.getHost()))) {
+          dks.add(digKnihovnyCached.get(uri.getHost()));
+        }
+      }
+    } catch (SQLException | URISyntaxException ex) {
+      LOGGER.log(Level.WARNING, ex.toString());
+    }
+
+    try {
+      if (rs.getString("urltitnk") != null) {
+        URI uri = new URI(rs.getString("urltitnk").split(" ")[0].trim());
+        if (!dks.contains(digKnihovnyCached.get(uri.getHost()))) {
+          dks.add(digKnihovnyCached.get(uri.getHost()));
+        }
+      }
+    } catch (SQLException | URISyntaxException ex) {
+      LOGGER.log(Level.WARNING, ex.toString());
+    }
+
+//    if (!"".equals(f)) {
+//      try {
+//        SolrQuery q = new SolrQuery();
+//        q.setQuery(f);
+//        q.setRows(1000);
+//        QueryResponse qr = solr.query("digknihovny", q);
+//        for (SolrDocument sdoc : qr.getResults()) {
+//          idoc.addField("digknihovna", sdoc.getFirstValue("nazev"));
+//        }
+//      } catch (SolrServerException | IOException ex) {
+//        LOGGER.log(Level.SEVERE, null, ex);
+//      }
+//    }
+    try {
+      //Add from digobjekt core
+      SolrQuery q = new SolrQuery();
+      q.setQuery("rpredloha_digobjekt:" + rs.getString("id").trim());
+      q.setRows(1000);
+      QueryResponse qr = solr.query("digobjekt", q);
+      //String lookUpField = "nazev";
+      String lookUpField = "digknihovna";
+      for (SolrDocument sdoc : qr.getResults()) {
+
+        if (!dks.contains((String)sdoc.getFirstValue(lookUpField))) {
+          dks.add((String) sdoc.getFirstValue(lookUpField));
+          
+        }
+        //idoc.addField("digknihovna", sdoc.getFirstValue("nazev"));
+      }
+    } catch (SQLException | SolrServerException | IOException ex) {
+      LOGGER.log(Level.WARNING, null, ex);
+    }
+
+    for (String dk : dks) {
+      idoc.addField("digknihovna", dk);
     }
   }
 
@@ -713,6 +775,29 @@ public class Indexer {
       ps.close();
 
     } catch (SQLException ex) {
+      LOGGER.log(Level.SEVERE, null, ex);
+    }
+  }
+
+  private void fillDigKnihovnyCache() {
+
+    digKnihovnyCached = new HashMap<>();
+    
+      //String lookUpField = "nazev";
+      String lookUpField = "zkratka";
+    try {
+      SolrQuery q = new SolrQuery();
+      q.setQuery("*:*").setFields("urldigknihovny", lookUpField).setRows(1000);
+      QueryResponse qr = solr.query("digknihovny", q);
+      for (SolrDocument sdoc : qr.getResults()) {
+
+        if (sdoc.getFirstValue("urldigknihovny") != null) {
+          URI uri = new URI(((String) sdoc.getFirstValue("urldigknihovny")).trim());
+          digKnihovnyCached.put(uri.getHost(), (String) sdoc.getFirstValue(lookUpField));
+        }
+
+      }
+    } catch (SolrServerException | IOException | URISyntaxException ex) {
       LOGGER.log(Level.SEVERE, null, ex);
     }
   }

@@ -2,14 +2,22 @@
 package cz.incad.nkp.rdcz;
 
 
+import static cz.incad.nkp.rdcz.Indexer.LOGGER;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.io.FileUtils;
+import org.apache.solr.client.solrj.SolrClient;
+import org.apache.solr.client.solrj.SolrQuery;
+import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.client.solrj.impl.HttpSolrClient;
+import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.common.SolrDocument;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,13 +42,14 @@ public class I18n {
 
   public synchronized static void resetInstance() {
     _sharedInstance = null;
-    LOGGER.log(Level.INFO, "Options reseted");
+    LOGGER.log(Level.INFO, "I18n reseted");
   }
 
   public I18n() throws IOException, JSONException {
     locales = new HashMap<>();
     LOGGER.log(Level.INFO, locales.toString());
   }
+  
   public void load(String locale) throws IOException, JSONException {
     
     String filename = locale+".json";
@@ -64,6 +73,27 @@ public class I18n {
         def.put(key, customClientConf.get(key));
       }
       
+    }
+    
+    //Add digknihovny
+    try {
+      String lookUpField = "zkratka";
+      String valueField = "nazev";
+      if("en".equals(locale)){
+        valueField = "nazev_en";
+      }
+      SolrClient solr = new HttpSolrClient.Builder(
+            Options.getInstance().getString("solr.host", "http://localhost:8983/solr")).build();
+      SolrQuery q = new SolrQuery()
+              .setQuery("*:*")
+              .setFields(lookUpField, valueField)
+              .setRows(1000);
+      QueryResponse qr = solr.query("digknihovny", q);
+      for (SolrDocument sdoc : qr.getResults()) {
+        def.put("digknihovna."+(String)sdoc.getFirstValue(lookUpField), (String)sdoc.getFirstValue(valueField));
+      }
+    } catch (SolrServerException | IOException ex) {
+      LOGGER.log(Level.WARNING, null, ex);
     }
     
     locales.put(locale, def);

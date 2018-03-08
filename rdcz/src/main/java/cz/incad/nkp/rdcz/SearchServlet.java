@@ -19,7 +19,6 @@ package cz.incad.nkp.rdcz;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -28,9 +27,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 /**
  *
@@ -69,7 +66,7 @@ public class SearchServlet extends HttpServlet {
               + core  + handler + "?" + request.getQueryString();
       
 
-        LOGGER.log(Level.INFO, "requesting url {0}", solrhost);
+        LOGGER.log(Level.FINE, "requesting url {0}", solrhost);
         Map<String, String> reqProps = new HashMap<>();
         reqProps.put("Content-Type", "application/json");
         reqProps.put("Accept", "application/json");

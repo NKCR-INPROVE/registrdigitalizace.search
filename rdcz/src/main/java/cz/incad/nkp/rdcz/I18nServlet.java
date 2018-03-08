@@ -35,7 +35,7 @@ import org.json.JSONObject;
  */
 public class I18nServlet extends HttpServlet {
 
-  public static final Logger LOGGER = Logger.getLogger(Options.class.getName());
+  public static final Logger LOGGER = Logger.getLogger(I18nServlet.class.getName());
 
   /**
    * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -53,7 +53,7 @@ public class I18nServlet extends HttpServlet {
       response.setContentType("application/json;charset=UTF-8");
       HttpSession session = request.getSession();
 
-      Options.resetInstance();
+      //Options.resetInstance();
       PrintWriter out = response.getWriter();
       String url = request.getRequestURI();
       LOGGER.log(Level.INFO, "url is {0}", url);
