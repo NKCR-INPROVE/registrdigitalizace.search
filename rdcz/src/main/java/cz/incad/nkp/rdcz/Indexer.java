@@ -194,9 +194,10 @@ public class Indexer {
   }
 
   public JSONObject predlohy() throws IOException {
-    LOGGER.log(Level.INFO, "Full index started ");
+    LOGGER.log(Level.INFO, "Indexing predlohy started ");
     Date start = new Date();
     JSONObject ret = new JSONObject();
+    fillDigKnihovnyCache();
     String fields = opts.getJSONArray("db.fields").join(",").replaceAll("\"", "");
     String sql = opts.getString("sqlFull").replace("#fields#", fields);
     indexPredlohy(sql);

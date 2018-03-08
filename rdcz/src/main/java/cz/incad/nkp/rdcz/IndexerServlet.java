@@ -148,6 +148,7 @@ public class IndexerServlet extends HttpServlet {
           json.put("indexer", indexer.predlohy());
 
         } catch (Exception ex) {
+          LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
           json.put("error", ex.toString());
         }
         out.println(json.toString(2));

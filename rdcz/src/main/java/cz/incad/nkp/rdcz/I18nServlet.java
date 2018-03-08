@@ -56,10 +56,12 @@ public class I18nServlet extends HttpServlet {
       //Options.resetInstance();
       PrintWriter out = response.getWriter();
       String url = request.getRequestURI();
-      LOGGER.log(Level.INFO, "url is {0}", url);
+      LOGGER.log(Level.FINE, "url is {0}", url);
       String locale = url.substring(url.lastIndexOf("/")).substring(1, 3);
-      LOGGER.log(Level.INFO, "locale is {0}", locale);
-      I18n.resetInstance();
+      LOGGER.log(Level.FINE, "locale is {0}", locale);
+      if (request.getParameter("reset") != null){
+        I18n.resetInstance();
+      }
       JSONObject js = I18n.getInstance().getLocale(locale);
       
       out.print(js.toString());
