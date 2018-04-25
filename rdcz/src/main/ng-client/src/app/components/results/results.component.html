@@ -40,7 +40,6 @@
       <app-sort-bar *ngIf="state.numFound > 0"></app-sort-bar>
       <app-chart-bar *ngIf="state.numFound > 0" [height]="'120px'" [width]="'100%'" [showTotal]="false"></app-chart-bar>
       <section>
-        <app-result-item *ngFor="let res of results" [result]="res" [expanded]="expanded[res[state.currentCollapse.field]]"></app-result-item>
         
         <div *ngIf="(state.numFound === 0 && !loading) || (secondRound && !loading)" class="alert alert-warning center app-card-shadow hoverable app-card-hoverable app-clean-mg">
           <i mz-icon-mdi [icon]="'alert'"></i> <strong>{{'alerts.secondRound.title' | translate}}!</strong>
@@ -55,6 +54,7 @@
             {{'alerts.noResults.msg-2' | translate}}.
           </span>
         </div>
+        <app-result-item *ngFor="let res of results" [result]="res" [expanded]="expanded[res[state.currentCollapse.field]]"></app-result-item>
         
       </section>
       <app-pagination *ngIf="state.numFound > 0"></app-pagination>
