@@ -4,6 +4,10 @@
         <servlet-name>IndexerServlet</servlet-name>
         <servlet-class>cz.incad.nkp.rdcz.IndexerServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DbServlet</servlet-name>
+        <servlet-class>cz.incad.nkp.rdcz.DbServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>IndexerServlet</servlet-name>
         <url-pattern>/index</url-pattern>
@@ -101,6 +105,10 @@
     <servlet-mapping>
         <servlet-name>AlephServlet</servlet-name>
         <url-pattern>/aleph</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DbServlet</servlet-name>
+        <url-pattern>/db</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
