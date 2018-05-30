@@ -1,4 +1,4 @@
-## Registr digitalizace
+## Registr digitalizace search
 New search client
 
 #todo
