@@ -68,7 +68,11 @@ export class AppComponent {
 
         let sroute = this.route.snapshot.firstChild.url[0].path;
         this.fireSearch(sroute);
-
+        
+        if(window['ga']){
+          (<any>window).ga('set', 'page', val.urlAfterRedirects);
+          (<any>window).ga('send', 'pageview');
+        }
       } else if (val instanceof NavigationStart) {
 
       }
