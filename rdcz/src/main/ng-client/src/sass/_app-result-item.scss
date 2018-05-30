@@ -161,6 +161,14 @@ app-result-item {
     
     .card-action {
       border-color: $app-brand-l-5;
+
+      a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating) {
+        color: #f18c0b;
+
+        &:hover {
+          color: #e98400;
+        }
+      }
       
       span {
         font-size: 0.8rem;
