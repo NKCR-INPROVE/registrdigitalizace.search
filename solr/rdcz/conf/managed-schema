@@ -189,6 +189,7 @@
     <copyField source="autor" dest="autor_first"/>
     
     <copyField source="varnazev" dest="_text_"/>
+    <copyField source="podnazev" dest="_text_"/>
     
     <copyField source="rokvydstr" dest="_text_"/>
     <copyField source="edice" dest="_text_"/>
