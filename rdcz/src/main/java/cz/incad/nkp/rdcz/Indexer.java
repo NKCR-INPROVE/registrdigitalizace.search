@@ -507,6 +507,8 @@ public class Indexer {
           while (rs.next()) {
             SolrInputDocument idoc = indexRow(rs);
             addNeplatneCnb(idoc, rs.getString("id"), conn);
+            addNeplatneISBN(idoc, rs.getString("id"), conn);
+            addNeplatneISSN(idoc, rs.getString("id"), conn);
             addDigKnihovny(idoc, rs);
             if (rs.getString("katalog") != null) {
               addKatalogUrl(idoc, rs.getString("katalog"), rs.getString("pole001"), conn);
@@ -586,6 +588,42 @@ public class Indexer {
       ps.close();
     } catch (SQLException ex) {
       LOGGER.log(Level.SEVERE, null, ex);
+    }
+  }
+
+  private void addNeplatneISBN(SolrInputDocument idoc, String predlohaid, Connection conn) {
+    try {
+      String sql = "select value from nepccnb "
+              + "where RPREDLOHA_NEPISBN=" + predlohaid;
+      PreparedStatement ps = conn.prepareStatement(sql);
+
+      try (ResultSet rs = ps.executeQuery()) {
+        while (rs.next()) {
+          idoc.addField("isbn", rs.getString("value"));
+        }
+        rs.close();
+      }
+      ps.close();
+    } catch (SQLException ex) {
+      LOGGER.log(Level.SEVERE, "Error adding neplatne ISBN", ex);
+    }
+  }
+
+  private void addNeplatneISSN(SolrInputDocument idoc, String predlohaid, Connection conn) {
+    try {
+      String sql = "select value from nepccnb "
+              + "where RPREDLOHA_NEPISSN=" + predlohaid;
+      PreparedStatement ps = conn.prepareStatement(sql);
+
+      try (ResultSet rs = ps.executeQuery()) {
+        while (rs.next()) {
+          idoc.addField("issn", rs.getString("value"));
+        }
+        rs.close();
+      }
+      ps.close();
+    } catch (SQLException ex) {
+      LOGGER.log(Level.SEVERE, "Error adding neplatne ISSN", ex);
     }
   }
 
