@@ -1,6 +1,6 @@
 <section class="app-brand lighten-6 app-border-radius app-container">
   <div class="row">
-    <div class="col s6">
+    <div class="col s4">
       <span>
         {{'label.slouceno-podle' | translate}}:
         <a id="btn-collapsed" href="#" class="app-mdi-menu-down">{{state.currentCollapse.label}}</a>
@@ -9,7 +9,14 @@
         </mz-dropdown>
       </span>
     </div><!--/.col -->
-    <div class="col s6 align-right">
+    <div class="col s8 align-right">
+      <span>
+        {{'label.number_rows' | translate}}:
+        <a id="btn-rows" href="#" class="app-mdi-menu-down">{{state.rows}}</a>
+        <mz-dropdown [id]="'dropdown-btn-rows'" [dropdownButtonId]="'btn-rows'">
+          <mz-dropdown-item *ngFor="let row of state.rowList"><a (click)="setRows(row)">{{row}}</a></mz-dropdown-item>
+        </mz-dropdown>
+      </span>
       <span>
         {{'label.serazeno-podle' | translate}}:
         <a id="btn-sorted-by" href="#" class="app-mdi-menu-down">{{state.currentSort.label}}</a>

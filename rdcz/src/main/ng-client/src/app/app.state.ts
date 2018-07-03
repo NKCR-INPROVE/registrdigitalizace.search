@@ -70,6 +70,7 @@ export class AppState {
   start: number = 0;
 
   //Holds number of rows per page. Default value from configuration
+  rowList = [10, 20, 50];
   rows: number = 10;
   currentSort: any = this.sorts[0];
   currentCollapse: any = this.collapses[2];
@@ -335,7 +336,7 @@ export class AppState {
 
   setRows(r: number) {
     this.rows = r;
-    //this._searchParamsChanged.next(this);
+    this._searchParamsChanged.next(this);
   }
 
   setSort(sort) {

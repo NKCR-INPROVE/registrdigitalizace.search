@@ -21,6 +21,11 @@ export class SortBarComponent implements OnInit {
     this.service.goToResults();
   }
   
+  setRows(r: number){
+    this.state.setRows(r);
+    this.service.goToResults();
+  }
+  
   setSort(s){
     this.state.setSort(s);
     this.service.goToResults();
