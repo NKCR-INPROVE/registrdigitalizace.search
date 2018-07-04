@@ -203,6 +203,7 @@
     <copyField source="isbn" dest="_text_"/>
     <copyField source="issn" dest="isxn"/>
     <copyField source="isbn" dest="isxn"/>
+    <copyField source="signatura" dest="_text_"/>
     <copyField source="pole001" dest="_text_"/>
     <copyField source="cislordcz" dest="_text_"/>
     <copyField source="carkod" dest="_text_"/>
@@ -548,7 +549,7 @@
 	    <tokenizer class="solr.KeywordTokenizerFactory" />
 	    <filter class="solr.ASCIIFoldingFilterFactory" preserveOriginal="false"/>
 	    <filter class="solr.LowerCaseFilterFactory"/>
-            <filter class="solr.EdgeNGramFilterFactory" minGramSize="4" maxGramSize="15" />
+            <filter class="solr.EdgeNGramFilterFactory" minGramSize="4" maxGramSize="45" />
         </analyzer>
         <analyzer type="query">
 	    <tokenizer class="solr.KeywordTokenizerFactory" />
