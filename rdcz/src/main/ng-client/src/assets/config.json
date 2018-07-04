@@ -15,7 +15,7 @@
     { "label": "Pole 001", "field": "pole001" }
   ],
   "boost": {
-    "qf":"title_full^10.0 _text_nolemmas^2.0 title_nolemmas^3.0 varnazev^1.1 title_prefix^2.0 title^1.5 autor_first^4.2 autor^1.2 _text_"
+    "qf":"title_full^10.0 _text_nolemmas^2.0 title_nolemmas^3.0 varnazev^1.1 title_prefix^4.0 title^1.5 autor_first^4.2 autor^1.2 _text_"
   },
   "facets":[
     {"field": "financovano", "icon": "diamond", "translate": true, "active": false, "classname": "cz.incad.nkp.digital.Dfinancovano"},

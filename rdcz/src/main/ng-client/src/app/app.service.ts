@@ -385,5 +385,10 @@ export class AppService {
     return this.http.get(url, { params: params });
 
   }
+  
+  removeAlephChars(s: string): string{
+    let ret = s.trim();
+    return ret;
+  }
 
 }
