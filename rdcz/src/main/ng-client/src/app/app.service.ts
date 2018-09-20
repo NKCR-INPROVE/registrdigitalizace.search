@@ -144,6 +144,9 @@ export class AppService {
             params = params.set('q', this.state.advParams[i].trim());
                 
           }
+        }else if(i === 'ccnb'){
+          params = params.append('fq', 'ccnb:"' + this.state.advParams[i].trim() +
+           '" OR nep_ccnb:"' + this.state.advParams[i].trim() + '"');
         }else{
           params = params.append('fq', i + ':"' + this.state.advParams[i].trim() + '"');
         }
