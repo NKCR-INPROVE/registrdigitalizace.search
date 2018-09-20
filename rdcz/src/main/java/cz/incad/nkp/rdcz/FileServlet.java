@@ -10,6 +10,7 @@ import java.io.FileFilter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.nio.charset.Charset;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
@@ -23,6 +24,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -161,6 +163,10 @@ public class FileServlet extends HttpServlet {
             response.setHeader(headerKey, headerValue);
 
             FileUtils.copyFile(f, out);
+          } else {
+            LOGGER.warning(f.getAbsolutePath() + " not found. ");
+            response.setContentType("text/plain;charset=UTF-8");
+            IOUtils.write("file " + id + " not found", out, Charset.forName("UTF8"));
           }
         }
       }

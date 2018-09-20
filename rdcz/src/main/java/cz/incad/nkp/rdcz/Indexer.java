@@ -581,7 +581,7 @@ public class Indexer {
 
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
-          idoc.addField("ccnb", rs.getString("value"));
+          idoc.addField("nep_ccnb", rs.getString("value"));
         }
         rs.close();
       }
@@ -593,13 +593,13 @@ public class Indexer {
 
   private void addNeplatneISBN(SolrInputDocument idoc, String predlohaid, Connection conn) {
     try {
-      String sql = "select value from nepccnb "
+      String sql = "select value from NEPISBN "
               + "where RPREDLOHA_NEPISBN=" + predlohaid;
       PreparedStatement ps = conn.prepareStatement(sql);
 
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
-          idoc.addField("isbn", rs.getString("value"));
+          idoc.addField("nep_isbn", rs.getString("value"));
         }
         rs.close();
       }
@@ -611,13 +611,13 @@ public class Indexer {
 
   private void addNeplatneISSN(SolrInputDocument idoc, String predlohaid, Connection conn) {
     try {
-      String sql = "select value from nepccnb "
+      String sql = "select value from NEPISSN "
               + "where RPREDLOHA_NEPISSN=" + predlohaid;
       PreparedStatement ps = conn.prepareStatement(sql);
 
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
-          idoc.addField("issn", rs.getString("value"));
+          idoc.addField("nep_issn", rs.getString("value"));
         }
         rs.close();
       }
