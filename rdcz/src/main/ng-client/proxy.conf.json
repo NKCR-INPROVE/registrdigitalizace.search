@@ -35,7 +35,7 @@
     "secure": false
   },
   "/aleph": {
-    "target": "http://localhost:8080/rdcz/aleph",
+    "target": "http://localhost:4200/assets/test/aleph.json",
     "logLevel": "debug",
     "pathRewrite": {
       "^/aleph":""

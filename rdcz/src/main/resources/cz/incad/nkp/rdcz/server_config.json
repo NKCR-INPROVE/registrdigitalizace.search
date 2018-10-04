@@ -1,7 +1,8 @@
 {
   "solr.host": "http://localhost:8983/solr/",
   "aleph":[
-    {"host":"aleph.mzk.cz/X", "prefixes": ["261","262","311"], "base": "MZK01"}
+    {"host":"aleph.mzk.cz/X", "prefixes": ["261","262","311"], "base": "MZK01"},
+    {"host":"aleph.nkp.cz/X", "prefixes": ["3"], "base": "SLK01"}
   ],
   "aleph.def.host":"aleph.nkp.cz/X",
   "aleph.def.base":"nkc",

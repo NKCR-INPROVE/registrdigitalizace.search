@@ -54,14 +54,19 @@ public class AlephServlet extends HttpServlet {
       String host = opts.getString("aleph.def.host");
       String base = opts.getString("aleph.def.base");
       JSONArray alephHosts = opts.getJSONArray("aleph");
+      boolean found = false;
       for (int i = 0; i < alephHosts.length(); i++) {
         JSONArray prefixes = alephHosts.getJSONObject(i).getJSONArray("prefixes");
         for (int j = 0; j < prefixes.length(); j++) {
           if (barCode.startsWith(prefixes.getString(j))) {
             host = alephHosts.getJSONObject(i).getString("host");
             base = alephHosts.getJSONObject(i).getString("base");
+            found = true;
             break;
           }
+        }
+        if(found){
+          break;
         }
       }
 
@@ -105,9 +110,9 @@ public class AlephServlet extends HttpServlet {
                     .setParameter("set_no", json.getJSONObject("find").getInt("set_number") + "")
                     .setParameter("set_entry", "1-" + json.getJSONObject("find").getString("no_records"))
                     .build();
-            
-      LOGGER.log(Level.INFO, "find... {0}", uri.toString());
-      
+
+            LOGGER.log(Level.INFO, "find... {0}", uri.toString());
+
             inputStream = RESTHelper.inputStream(uri.toString());
             xml = org.apache.commons.io.IOUtils.toString(inputStream, Charset.forName("UTF-8"));
             JSONObject marc = XML.toJSONObject(xml);
