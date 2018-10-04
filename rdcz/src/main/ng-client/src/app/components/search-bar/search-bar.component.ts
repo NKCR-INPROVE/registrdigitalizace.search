@@ -1,10 +1,11 @@
-import {Component, OnInit, ViewChild, ElementRef, Renderer} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import {Component, OnInit, ViewChild, Renderer} from '@angular/core';
+import {Router} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
-
+import {MzModalService} from 'ng2-materialize';
 
 import {AppService} from '../../app.service';
 import {AppState} from '../../app.state';
+import {AlephDialogComponent} from 'app/components/aleph-dialog/aleph-dialog.component';
 
 @Component({
   selector: 'app-search-bar',
@@ -23,7 +24,7 @@ export class SearchBarComponent implements OnInit {
 
   constructor(private service: AppService,
     private router: Router,
-    private route: ActivatedRoute,
+    private modalService: MzModalService,
     public state: AppState,
     private renderer: Renderer) {
   }
@@ -39,13 +40,13 @@ export class SearchBarComponent implements OnInit {
 
     this.subscriptions.push(this.state.searchSubject.subscribe(
       (resp) => {
-        if (this.state.isDuplicity || !this.state.q || this.state.q === ''){
+        if (this.state.isDuplicity || !this.state.q || this.state.q === '') {
           this.q.nativeElement.focus();
           this.q.nativeElement.select();
         }
       }
     ));
-    
+
     this.q.nativeElement.focus();
     this.q.nativeElement.select();
   }
@@ -91,32 +92,29 @@ export class SearchBarComponent implements OnInit {
     //this.state.isDuplicity
   }
 
+  public openAlephModal(records: any[]) {
+    let comp = this.modalService.open(AlephDialogComponent,
+      {
+        state: this.state,
+        service: this.service,
+        records: records
+      });
+  }
+
   duplicity() {
     if (this.state.q === '') {
       this.router.navigate(['/duplicity']);
     } else {
       this.service.searchAleph().subscribe(res2 => {
         if (res2['numFound'] > 0) {
-          let varFields;
           if (res2['marc']['present']['record'].length) {
-
-            varFields = res2['marc']['present']['record'][0]['metadata']['oai_marc']['varfield'];
+            this.openAlephModal(res2['marc']['present']['record']);
           } else {
+            let title = this.service.getTitleFromMarc(res2['marc']['present']['record'])
+            this.state.q = this.service.removeAlephChars(title);
+            this.service.goToResults();
+          }
 
-            varFields = res2['marc']['present']['record']['metadata']['oai_marc']['varfield'];
-          }
-          for (let i in varFields) {
-            if (varFields[i]['id'] === 245) {
-              let sub = varFields[i]['subfield'];
-              if(sub && sub.hasOwnProperty('length')){
-                this.state.q = sub[0]['content'];
-              } else if(sub.hasOwnProperty('content')){
-                this.state.q = sub['content'];
-              }
-              this.service.goToResults();
-              //return;
-            }
-          }
         } else {
           console.log('zadny vysledek');
           this.router.navigate(['/duplicity']);

@@ -49,6 +49,7 @@ import {PromptComponent} from './components/prompt/prompt.component';
 import {LinkListComponent} from './components/link-list/link-list.component';
 import {InfoCollaborationBoxComponent} from './components/info-collaboration-box/info-collaboration-box.component';
 import {CustomRouteReuseStrategy} from 'app/router-strategy';
+import { AlephDialogComponent } from './components/aleph-dialog/aleph-dialog.component';
 
 
 //export function HttpLoaderFactory(http: HttpClient) {
@@ -94,7 +95,8 @@ export function createTranslateLoader(http: HttpClient) {
     MenuTreeComponent,
     PromptComponent,
     LinkListComponent,
-    InfoCollaborationBoxComponent
+    InfoCollaborationBoxComponent,
+    AlephDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -151,7 +153,7 @@ export function createTranslateLoader(http: HttpClient) {
       {path: 'duplicity', component: DuplicityComponent},
     ])
   ],
-  entryComponents: [InnerContentComponent, PromptComponent, LinkListComponent],
+  entryComponents: [InnerContentComponent, PromptComponent, LinkListComponent, AlephDialogComponent],
   providers: [HttpClient, Title, AppState, AppService, AuthGuard, {
     provide: RouteReuseStrategy,
     useClass: CustomRouteReuseStrategy

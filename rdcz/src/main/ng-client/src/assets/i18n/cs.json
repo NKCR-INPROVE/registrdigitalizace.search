@@ -92,7 +92,9 @@
     "zaradit-query": "zařadit dotaz jako filtr",
     "user": "Uživatel",
     "password": "Heslo",
-    "menu-title": "štítek v menu"
+    "menu-title": "štítek v menu",
+    "alephMultiple": "Bylo nalezeno více záznamů",
+    "alephMultipleSelect": "Zvolte záznam pro vyhledávání duplicit"
   },
   "text": {
     "pocet-nalezenych": "položek",

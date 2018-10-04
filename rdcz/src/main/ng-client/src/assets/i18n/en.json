@@ -92,7 +92,9 @@
     "zaradit-query": "show query as filter",
     "user": "User",
     "password": "Password",
-    "menu-title": "label in menu"
+    "menu-title": "label in menu",
+    "alephMultiple": "Multiple records found",
+    "alephMultipleSelect": "Choose record to search duplicities"
   },
   "text": {
     "pocet-nalezenych": "records",

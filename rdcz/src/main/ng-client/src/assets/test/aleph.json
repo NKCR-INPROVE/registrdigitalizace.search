@@ -1,0 +1,232 @@
+{
+  "numFound": 1,
+  "marc": {"present": {
+    "record": {
+      "metadata": {"oai_marc": {
+        "varfield": [
+          {
+            "subfield": {
+              "label": "a",
+              "content": "cnb000590368"
+            },
+            "i1": " ",
+            "i2": " ",
+            "id": "015"
+          },
+          {
+            "subfield": {
+              "label": "q",
+              "content": "(Brož.)"
+            },
+            "i1": " ",
+            "i2": " ",
+            "id": "020"
+          },
+          {
+            "subfield": [
+              {
+                "label": "a",
+                "content": "ABA001"
+              },
+              {
+                "label": "b",
+                "content": "cze"
+              },
+              {
+                "label": "c",
+                "content": "CBA001"
+              },
+              {
+                "label": "d",
+                "content": "ABA001"
+              }
+            ],
+            "i1": " ",
+            "i2": " ",
+            "id": "040"
+          },
+          {
+            "subfield": [
+              {
+                "label": "a",
+                "content": "Český živel v \"Deutschböhmen\" /"
+              },
+              {
+                "label": "c",
+                "content": "soubor úvah, jež napsal Jan Kapras, Fr. Titěra, Jos. Škába, Jan Dvořák, Fr. Bělehrádek, Ant. Hajn, V. Vojtíšek, K. St. Sokol, a jež pro Neodvislost uspořádal Jan Kapras"
+              }
+            ],
+            "i1": 0,
+            "i2": 0,
+            "id": 245
+          },
+          {
+            "subfield": [
+              {
+                "label": "a",
+                "content": "Praha :"
+              },
+              {
+                "label": "b",
+                "content": "Neodvislost,"
+              },
+              {
+                "label": "c",
+                "content": 1918
+              }
+            ],
+            "i1": " ",
+            "i2": " ",
+            "id": 260
+          },
+          {
+            "subfield": [
+              {
+                "label": "a",
+                "content": "95 s. ;"
+              },
+              {
+                "label": "c",
+                "content": "16 cm"
+              }
+            ],
+            "i1": " ",
+            "i2": " ",
+            "id": 300
+          },
+          {
+            "subfield": [
+              {
+                "label": "a",
+                "content": "Kapras, Jan,"
+              },
+              {
+                "label": "d",
+                "content": "1880-1947"
+              },
+              {
+                "label": 7,
+                "content": "jk01052930"
+              },
+              {
+                "label": 4,
+                "content": "aut"
+              },
+              {
+                "label": 4,
+                "content": "com"
+              }
+            ],
+            "i1": 1,
+            "i2": " ",
+            "id": 700
+          },
+          {
+            "subfield": [
+              {
+                "label": "a",
+                "content": "Titěra, František,"
+              },
+              {
+                "label": "d",
+                "content": "1875-1931"
+              },
+              {
+                "label": 7,
+                "content": "jk01132511"
+              },
+              {
+                "label": 4,
+                "content": "aut"
+              }
+            ],
+            "i1": 1,
+            "i2": " ",
+            "id": 700
+          },
+          {
+            "subfield": [
+              {
+                "label": "a",
+                "content": "Škába, Jos."
+              },
+              {
+                "label": 4,
+                "content": "aut"
+              }
+            ],
+            "i1": 1,
+            "i2": " ",
+            "id": 700
+          },
+          {
+            "subfield": [
+              {
+                "label": "u",
+                "content": "http://kramerius4.nkp.cz/search/handle/uuid:de01af20-c2aa-11e6-9486-005056827e52"
+              },
+              {
+                "label": "y",
+                "content": "Digitalizovaný dokument"
+              }
+            ],
+            "i1": 4,
+            "i2": 1,
+            "id": 856
+          },
+          {
+            "subfield": {
+              "label": "a",
+              "content": "ABA001"
+            },
+            "i1": " ",
+            "i2": " ",
+            "id": 910
+          },
+          {
+            "subfield": {
+              "label": "a",
+              "content": "http://aleph.nkp.cz/F/?func=direct&doc_number=000590368&local_base=NKC"
+            },
+            "i1": " ",
+            "i2": " ",
+            "id": 998
+          }
+        ],
+        "fixfield": [
+          {
+            "id": "LDR",
+            "content": "-----nam-a22-----1--4500"
+          },
+          {
+            "id": "FMT",
+            "content": "BK"
+          },
+          {
+            "id": "001",
+            "content": "nos190106840"
+          },
+          {
+            "id": "003",
+            "content": "CZ-PrNK"
+          },
+          {
+            "id": "005",
+            "content": "20141114151243.0"
+          },
+          {
+            "id": "007",
+            "content": "ta"
+          },
+          {
+            "id": "008",
+            "content": "000412s1918----xr------------000-|-cze--"
+          }
+        ]
+      }},
+      "record_header": {"set_entry": "000000001"},
+      "doc_number": "000590368"
+    },
+    "session-id": "KDG9DJ3S5FF1PMPS5RQJ9XAAP9L3II4HYPFU78D759549EI3HJ"
+  }}
+}

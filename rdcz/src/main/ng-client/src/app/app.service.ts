@@ -389,8 +389,24 @@ export class AppService {
 
   }
   
+  getTitleFromMarc(record: any): string {
+    let varFields = record['metadata']['oai_marc']['varfield'];
+
+    for (let i in varFields) {
+      if (varFields[i]['id'] === 245) {
+        let sub = varFields[i]['subfield'];
+        if (sub && sub.hasOwnProperty('length')) {
+          return sub[0]['content'];
+        } else if (sub.hasOwnProperty('content')) {
+          return sub['content'];
+        }
+      }
+    }
+    return 'notitle';
+  }
+  
   removeAlephChars(s: string): string{
-    let ret = s.trim();
+    let ret = s.replace(/['`~!@#$%^&*()_|+-=?;:'",.<>\{\}\[\]\\\/]/g, '').trim();
     return ret;
   }
 
