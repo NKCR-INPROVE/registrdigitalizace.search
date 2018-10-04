@@ -1,232 +1,402 @@
 {
-  "numFound": 1,
+  "numFound": 2,
   "marc": {"present": {
-    "record": {
-      "metadata": {"oai_marc": {
-        "varfield": [
-          {
-            "subfield": {
-              "label": "a",
-              "content": "cnb000590368"
+    "record": [
+      {
+        "metadata": {"oai_marc": {
+          "varfield": [
+            {
+              "subfield": {
+                "label": "a",
+                "content": "cnb000895914"
+              },
+              "i1": " ",
+              "i2": " ",
+              "id": "015"
             },
-            "i1": " ",
-            "i2": " ",
-            "id": "015"
-          },
-          {
-            "subfield": {
-              "label": "q",
-              "content": "(Brož.)"
+            {
+              "subfield": [
+                {
+                  "label": "a",
+                  "content": "ABA001"
+                },
+                {
+                  "label": "b",
+                  "content": "cze"
+                },
+                {
+                  "label": "c",
+                  "content": "HKA001"
+                },
+                {
+                  "label": "d",
+                  "content": "ABA001"
+                }
+              ],
+              "i1": " ",
+              "i2": " ",
+              "id": "040"
             },
-            "i1": " ",
-            "i2": " ",
-            "id": "020"
-          },
-          {
-            "subfield": [
-              {
+            {
+              "subfield": [
+                {
+                  "label": "a",
+                  "content": "Průcha, Jaroslav,"
+                },
+                {
+                  "label": "d",
+                  "content": "1894-1936"
+                },
+                {
+                  "label": 7,
+                  "content": "jk01101420"
+                },
+                {
+                  "label": 4,
+                  "content": "aut"
+                }
+              ],
+              "i1": 1,
+              "i2": " ",
+              "id": 100
+            },
+            {
+              "subfield": [
+                {
+                  "label": "a",
+                  "content": "Pro tatíčka presidenta :"
+                },
+                {
+                  "label": "b",
+                  "content": "vlastenecká hra ze soudobého našeho života ve 3 jednáních s živým obrazem /"
+                },
+                {
+                  "label": "c",
+                  "content": "napsal Jaroslav Průcha"
+                }
+              ],
+              "i1": 1,
+              "i2": 0,
+              "id": 245
+            },
+            {
+              "subfield": [
+                {
+                  "label": "a",
+                  "content": "V Praze :"
+                },
+                {
+                  "label": "b",
+                  "content": "Josef Rašín,"
+                },
+                {
+                  "label": "c",
+                  "content": 1919
+                }
+              ],
+              "i1": " ",
+              "i2": " ",
+              "id": 260
+            },
+            {
+              "subfield": [
+                {
+                  "label": "a",
+                  "content": "73 s., 1 l. ;"
+                },
+                {
+                  "label": "c",
+                  "content": "8°"
+                }
+              ],
+              "i1": " ",
+              "i2": " ",
+              "id": 300
+            },
+            {
+              "subfield": [
+                {
+                  "label": "a",
+                  "content": "Dětské divadlo ;"
+                },
+                {
+                  "label": "v",
+                  "content": "sv. 7"
+                }
+              ],
+              "i1": 1,
+              "i2": " ",
+              "id": 490
+            },
+            {
+              "subfield": {
+                "label": "a",
+                "content": "Dětské divadlo"
+              },
+              "i1": " ",
+              "i2": 0,
+              "id": 830
+            },
+            {
+              "subfield": {
                 "label": "a",
                 "content": "ABA001"
               },
-              {
-                "label": "b",
-                "content": "cze"
+              "i1": " ",
+              "i2": " ",
+              "id": 910
+            },
+            {
+              "subfield": {
+                "label": "a",
+                "content": "http://aleph.nkp.cz/F/?func=direct&doc_number=000895914&local_base=NKC"
               },
-              {
-                "label": "c",
-                "content": "CBA001"
+              "i1": " ",
+              "i2": " ",
+              "id": 998
+            },
+            {
+              "subfield": [
+                {
+                  "label": "a",
+                  "content": "ITM"
+                },
+                {
+                  "label": "b",
+                  "content": 635943
+                },
+                {
+                  "label": "l",
+                  "content": "NKC50"
+                }
+              ],
+              "i1": " ",
+              "i2": " ",
+              "id": "LKR"
+            }
+          ],
+          "fixfield": [
+            {
+              "id": "LDR",
+              "content": "-----nam-a22-----1--4500"
+            },
+            {
+              "id": "FMT",
+              "content": "BK"
+            },
+            {
+              "id": "001",
+              "content": "nos190238226001"
+            },
+            {
+              "id": "003",
+              "content": "CZ-PrNK"
+            },
+            {
+              "id": "005",
+              "content": "20110314115722.0"
+            },
+            {
+              "id": "008",
+              "content": "000718s1919----xr------------------cze--"
+            }
+          ]
+        }},
+        "record_header": {"set_entry": "000000001"},
+        "doc_number": "000895914"
+      },
+      {
+        "metadata": {"oai_marc": {
+          "varfield": [
+            {
+              "subfield": {
+                "label": "a",
+                "content": "cnb000635943"
               },
-              {
-                "label": "d",
+              "i1": " ",
+              "i2": " ",
+              "id": "015"
+            },
+            {
+              "subfield": [
+                {
+                  "label": "a",
+                  "content": "ABA001"
+                },
+                {
+                  "label": "b",
+                  "content": "cze"
+                },
+                {
+                  "label": "c",
+                  "content": "ABA001"
+                },
+                {
+                  "label": "d",
+                  "content": "ABA001"
+                }
+              ],
+              "i1": " ",
+              "i2": " ",
+              "id": "040"
+            },
+            {
+              "subfield": [
+                {
+                  "label": "a",
+                  "content": "Uhlířová-Štětková, Zdeňka"
+                },
+                {
+                  "label": 4,
+                  "content": "aut"
+                }
+              ],
+              "i1": 1,
+              "i2": " ",
+              "id": 100
+            },
+            {
+              "subfield": [
+                {
+                  "label": "a",
+                  "content": "Zlatý lupínek :"
+                },
+                {
+                  "label": "b",
+                  "content": "báchorka o třech obrazech s proměnou /"
+                },
+                {
+                  "label": "c",
+                  "content": "napsala Zdeňka Uhlířová-Štětková"
+                }
+              ],
+              "i1": 1,
+              "i2": 0,
+              "id": 245
+            },
+            {
+              "subfield": [
+                {
+                  "label": "a",
+                  "content": "V Praze :"
+                },
+                {
+                  "label": "b",
+                  "content": "Josef Rašín,"
+                },
+                {
+                  "label": "c",
+                  "content": 1919
+                }
+              ],
+              "i1": " ",
+              "i2": " ",
+              "id": 260
+            },
+            {
+              "subfield": [
+                {
+                  "label": "a",
+                  "content": "67 s. ;"
+                },
+                {
+                  "label": "c",
+                  "content": "8°"
+                }
+              ],
+              "i1": " ",
+              "i2": " ",
+              "id": 300
+            },
+            {
+              "subfield": [
+                {
+                  "label": "a",
+                  "content": "Dětské divadlo ;"
+                },
+                {
+                  "label": "v",
+                  "content": "sv. 6"
+                }
+              ],
+              "i1": 1,
+              "i2": " ",
+              "id": 490
+            },
+            {
+              "subfield": [
+                {
+                  "label": "a",
+                  "content": "Obsahuje přívazek: Pro tatíčka presidenta / Jaroslav Průcha"
+                },
+                {
+                  "label": 5,
+                  "content": "CZ-PrNK"
+                }
+              ],
+              "i1": " ",
+              "i2": " ",
+              "id": 501
+            },
+            {
+              "subfield": {
+                "label": "a",
+                "content": "Dětské divadlo"
+              },
+              "i1": " ",
+              "i2": 0,
+              "id": 830
+            },
+            {
+              "subfield": {
+                "label": "a",
                 "content": "ABA001"
-              }
-            ],
-            "i1": " ",
-            "i2": " ",
-            "id": "040"
-          },
-          {
-            "subfield": [
-              {
-                "label": "a",
-                "content": "Český živel v \"Deutschböhmen\" /"
               },
-              {
-                "label": "c",
-                "content": "soubor úvah, jež napsal Jan Kapras, Fr. Titěra, Jos. Škába, Jan Dvořák, Fr. Bělehrádek, Ant. Hajn, V. Vojtíšek, K. St. Sokol, a jež pro Neodvislost uspořádal Jan Kapras"
-              }
-            ],
-            "i1": 0,
-            "i2": 0,
-            "id": 245
-          },
-          {
-            "subfield": [
-              {
-                "label": "a",
-                "content": "Praha :"
-              },
-              {
-                "label": "b",
-                "content": "Neodvislost,"
-              },
-              {
-                "label": "c",
-                "content": 1918
-              }
-            ],
-            "i1": " ",
-            "i2": " ",
-            "id": 260
-          },
-          {
-            "subfield": [
-              {
-                "label": "a",
-                "content": "95 s. ;"
-              },
-              {
-                "label": "c",
-                "content": "16 cm"
-              }
-            ],
-            "i1": " ",
-            "i2": " ",
-            "id": 300
-          },
-          {
-            "subfield": [
-              {
-                "label": "a",
-                "content": "Kapras, Jan,"
-              },
-              {
-                "label": "d",
-                "content": "1880-1947"
-              },
-              {
-                "label": 7,
-                "content": "jk01052930"
-              },
-              {
-                "label": 4,
-                "content": "aut"
-              },
-              {
-                "label": 4,
-                "content": "com"
-              }
-            ],
-            "i1": 1,
-            "i2": " ",
-            "id": 700
-          },
-          {
-            "subfield": [
-              {
-                "label": "a",
-                "content": "Titěra, František,"
-              },
-              {
-                "label": "d",
-                "content": "1875-1931"
-              },
-              {
-                "label": 7,
-                "content": "jk01132511"
-              },
-              {
-                "label": 4,
-                "content": "aut"
-              }
-            ],
-            "i1": 1,
-            "i2": " ",
-            "id": 700
-          },
-          {
-            "subfield": [
-              {
-                "label": "a",
-                "content": "Škába, Jos."
-              },
-              {
-                "label": 4,
-                "content": "aut"
-              }
-            ],
-            "i1": 1,
-            "i2": " ",
-            "id": 700
-          },
-          {
-            "subfield": [
-              {
-                "label": "u",
-                "content": "http://kramerius4.nkp.cz/search/handle/uuid:de01af20-c2aa-11e6-9486-005056827e52"
-              },
-              {
-                "label": "y",
-                "content": "Digitalizovaný dokument"
-              }
-            ],
-            "i1": 4,
-            "i2": 1,
-            "id": 856
-          },
-          {
-            "subfield": {
-              "label": "a",
-              "content": "ABA001"
+              "i1": " ",
+              "i2": " ",
+              "id": 910
             },
-            "i1": " ",
-            "i2": " ",
-            "id": 910
-          },
-          {
-            "subfield": {
-              "label": "a",
-              "content": "http://aleph.nkp.cz/F/?func=direct&doc_number=000590368&local_base=NKC"
+            {
+              "subfield": {
+                "label": "a",
+                "content": "http://aleph.nkp.cz/F/?func=direct&doc_number=000635943&local_base=NKC"
+              },
+              "i1": " ",
+              "i2": " ",
+              "id": 998
+            }
+          ],
+          "fixfield": [
+            {
+              "id": "LDR",
+              "content": "-----nam-a22-----1--4500"
             },
-            "i1": " ",
-            "i2": " ",
-            "id": 998
-          }
-        ],
-        "fixfield": [
-          {
-            "id": "LDR",
-            "content": "-----nam-a22-----1--4500"
-          },
-          {
-            "id": "FMT",
-            "content": "BK"
-          },
-          {
-            "id": "001",
-            "content": "nos190106840"
-          },
-          {
-            "id": "003",
-            "content": "CZ-PrNK"
-          },
-          {
-            "id": "005",
-            "content": "20141114151243.0"
-          },
-          {
-            "id": "007",
-            "content": "ta"
-          },
-          {
-            "id": "008",
-            "content": "000412s1918----xr------------000-|-cze--"
-          }
-        ]
-      }},
-      "record_header": {"set_entry": "000000001"},
-      "doc_number": "000590368"
-    },
-    "session-id": "KDG9DJ3S5FF1PMPS5RQJ9XAAP9L3II4HYPFU78D759549EI3HJ"
+            {
+              "id": "FMT",
+              "content": "BK"
+            },
+            {
+              "id": "001",
+              "content": "nos190151727"
+            },
+            {
+              "id": "003",
+              "content": "CZ-PrNK"
+            },
+            {
+              "id": "005",
+              "content": "20110314115333.0"
+            },
+            {
+              "id": "008",
+              "content": "000602s1919----xr------------------cze--"
+            }
+          ]
+        }},
+        "record_header": {"set_entry": "000000002"},
+        "doc_number": "000635943"
+      }
+    ],
+    "session-id": "DNRTNAAG9JYAE7NTL7K1ESQUHBAIN68RXP8M5H6UFGQPAG2RAF"
   }}
 }

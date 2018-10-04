@@ -6,8 +6,8 @@
     <div>
       <strong>{{'label.alephMultipleSelect' | translate}}:</strong>
     </div>
-    <ul *ngFor="let rec of records">
-      <li><a (click)="ok(rec)">{{getTitle(rec)}}</a></li>
+    <ul class="browser-default">
+      <li *ngFor="let rec of records"><a (click)="ok(rec)">{{getTitle(rec)}}</a></li>
     </ul>
 </mz-modal-content>
 <mz-modal-footer>
