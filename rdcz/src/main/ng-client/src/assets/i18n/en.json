@@ -111,7 +111,8 @@
     "pouzit-tento-filtr": "Use this filter",
     "prehled-dk-knihoven": "Digital library",
     "vymazat": "delete",
-    "informace-ke-spolupraci": "Basic information"
+    "informace-ke-spolupraci": "Basic information",
+    "Bohemika-out-RD": "Bohemikum outside RD"
   },
   "field": { 
     "q": "query",

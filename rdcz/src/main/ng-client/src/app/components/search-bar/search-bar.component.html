@@ -67,6 +67,10 @@
       <mz-dropdown [id]="'dropdown-other-sources'" [dropdownButtonId]="'btn-other-sources'">
         <mz-dropdown-item><a [href]="'http://books.google.com/books?q='+state.q" target="_blank">Google books</a></mz-dropdown-item>
         <mz-dropdown-item><a [href]="'https://www.difmoe.eu/d/search/?q=' + state.q" target="_blank">DiFMOE</a></mz-dropdown-item>
+        <mz-dropdown-item><a [href]="'http://anno.onb.ac.at/anno-suche#searchMode=simple&from=1&query=' + state.q" target="_blank">ANNO</a></mz-dropdown-item>
+        <mz-dropdown-item><a [href]="'https://archive.org/search.php?query=' + state.q" target="_blank">Internet Archive</a></mz-dropdown-item>
+        <mz-dropdown-item><a routerLink="info/digbohemika">{{'text.Bohemika-out-RD' | translate}}</a></mz-dropdown-item>
+        
       </mz-dropdown>
     </div><!--/.col -->
   </div><!--/.row -->
