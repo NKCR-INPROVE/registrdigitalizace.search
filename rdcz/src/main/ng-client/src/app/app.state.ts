@@ -360,6 +360,11 @@ export class AppState {
         this.totalPages = Math.ceil(this.numFound / this.rows);
         break;
       }
+      case 'facets': {
+        this.facets = res["facet_counts"]["facet_fields"];
+        this.facet_ranges = res["facet_counts"]["facet_ranges"];;
+        break;
+      }
       case 'home': {
         this.facets = res["facet_counts"]["facet_fields"];
         this.facet_ranges = res["facet_counts"]["facet_ranges"];

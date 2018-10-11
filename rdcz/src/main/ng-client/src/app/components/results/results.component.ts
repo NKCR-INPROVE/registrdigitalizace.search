@@ -1,12 +1,12 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
-import { HttpParams } from '@angular/common/http';
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Router} from '@angular/router';
+import {Subscription} from 'rxjs/Subscription';
+import {HttpParams} from '@angular/common/http';
 
-import { AppService } from '../../app.service';
-import { AppState } from '../../app.state';
-import { FacetField } from '../../models/facet-field';
-import { Result } from '../../models/result';
+import {AppService} from '../../app.service';
+import {AppState} from '../../app.state';
+import {FacetField} from '../../models/facet-field';
+import {Result} from '../../models/result';
 
 @Component({
   selector: 'app-results',
@@ -49,21 +49,21 @@ export class ResultsComponent implements OnInit, OnDestroy {
             this.expanded = {};
             this.loading = true;
           } else {
-          
-            if (this.state.numFound === 0 && !this.secondRound){
+
+            if (this.state.numFound === 0 && !this.secondRound) {
               this.secondRound = true;
-              let sparams: HttpParams = this.service.doSearchParams('results', true, '10%');
-              
+              let sparams: HttpParams = this.service.doSearchParams('results', true, true, '10%');
               this.service.search(sparams, 'results').subscribe(res => {
                 this.state.processSearch(res, 'results');
+                let fparams: HttpParams = this.service.doSearchParams('results', false, false, '10%')
+                  .set("rows", "0");
+                this.service.search(fparams, 'facets').subscribe(res => {
+                  this.state.processSearch(res, 'facets');
+                });
               });
               return;
             }
-            this.facetFields = [];
-            let ff = this.state.fillFacets(this.state.config['results_facets'], false);
-            for (let i in ff) {
-              this.facetFields.push(ff[i]);
-            }
+
             //            this.facetFields = this.state.fillFacets(this.state.config['results_facets'], false);
             this.results = resp['res']["response"]["docs"];
             if (resp['res'].hasOwnProperty("expanded")) {
@@ -74,6 +74,16 @@ export class ResultsComponent implements OnInit, OnDestroy {
           setTimeout(() => {
             this.loading = false;
           }, 1000);
+        } else if (resp['type'].indexOf('facets') > -1) {
+          if (resp['state'] === 'start') {
+            this.facetFields = [];
+            //this.loading = true;
+          } else {
+            let ff = this.state.fillFacets(this.state.config['results_facets'], false);
+            for (let i in ff) {
+              this.facetFields.push(ff[i]);
+            }
+          }
         }
       }
     ));
@@ -81,7 +91,7 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
     this.subscriptions.push(this.state.searchParamsChanged.subscribe(
       (resp) => {
-            this.secondRound = false;
+        this.secondRound = false;
         if (resp['state'] === 'start') {
 
         } else {

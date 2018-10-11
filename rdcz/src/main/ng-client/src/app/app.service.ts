@@ -81,7 +81,7 @@ export class AppService {
     return params
   }
 
-  doSearchParams(sroute: string, boosted: boolean = true, mm: string = '100%'): HttpParams {
+  doSearchParams(sroute: string, collapsed: boolean, boosted: boolean = true, mm: string = '100%'): HttpParams {
     
     if(sroute === 'home'){
       return this.doHomeSearchParams(false);
@@ -153,7 +153,7 @@ export class AppService {
       }
     }
 
-    if (this.state.currentCollapse['field'] !== 'id') {
+    if (this.state.currentCollapse['field'] !== 'id' && collapsed) {
       params = params.append('fq', '{!collapse field=' + this.state.currentCollapse['field'] + ' sort=\'vlastnik asc\'}');
       params = params.append('expand', 'true');
       params = params.append('expand.rows', '1');

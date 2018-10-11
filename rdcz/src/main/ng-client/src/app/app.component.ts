@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {Title} from '@angular/platform-browser';
+import {HttpClient, HttpParams} from '@angular/common/http';
 //import { URLSearchParams } from '@angular/http';
-import { ActivatedRoute, Router, Params, NavigationEnd, NavigationStart } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs/Rx';
-import { Subscription } from 'rxjs/Subscription';
+import {ActivatedRoute, Router, Params, NavigationEnd, NavigationStart} from '@angular/router';
+import {TranslateService} from '@ngx-translate/core';
+import {Observable} from 'rxjs/Rx';
+import {Subscription} from 'rxjs/Subscription';
 
-import { AppService } from './app.service';
-import { AppState } from './app.state';
-import { Filter } from './models/filter';
+import {AppService} from './app.service';
+import {AppState} from './app.state';
+import {Filter} from './models/filter';
 
 @Component({
   selector: 'app-root',
@@ -29,11 +29,11 @@ export class AppComponent {
     private titleService: Title,
     private http: HttpClient,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router) {}
 
   ngOnInit() {
     this.processUrl();
-    this.getConfig().subscribe(cfg => { });
+    this.getConfig().subscribe(cfg => {});
 
     this.service.langSubject.subscribe(() => {
       this.translate.get('title.app').subscribe((newTitle: string) => {
@@ -55,7 +55,7 @@ export class AppComponent {
     this.subscriptions.push(this.route.params
       .switchMap((params: Params) => Observable.of(params['start'])).subscribe(start => {
         if (start) {
-          
+
         }
       }));
 
@@ -68,10 +68,10 @@ export class AppComponent {
 
         let sroute = this.route.snapshot.firstChild.url[0].path;
         this.fireSearch(sroute);
-        
-        if(window['ga']){
-          (<any>window).ga('set', 'page', val.urlAfterRedirects);
-          (<any>window).ga('send', 'pageview');
+
+        if (window['ga']) {
+          (<any> window).ga('set', 'page', val.urlAfterRedirects);
+          (<any> window).ga('send', 'pageview');
         }
       } else if (val instanceof NavigationStart) {
 
@@ -97,9 +97,17 @@ export class AppComponent {
         this.fireSearch(sroute);
       }, 10);
     } else {
-      let sparams: HttpParams = this.service.doSearchParams(sroute);
+      let sparams: HttpParams = this.service.doSearchParams(sroute, true);
       this.service.search(sparams, sroute).subscribe(res => {
         this.state.processSearch(res, sroute);
+        if (sroute === 'results') {
+          let fparams: HttpParams = this.service.doSearchParams('results', false)
+            .set("rows", "0");
+          this.service.search(fparams, 'facets').subscribe(res => {
+            this.state.processSearch(res, 'facets');
+          });
+        }
+
       });
     }
   }
