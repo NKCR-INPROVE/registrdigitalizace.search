@@ -46,6 +46,10 @@
           <strong>{{'label.rok-vydani' | translate}}:</strong>
           {{result.rokvydstr}}
         </label><!--/label -->
+        <label *ngIf="result.vydani">
+          <strong>{{'label.vydani' | translate}}:</strong>
+          {{result.vydani}}
+        </label><!--/label -->
         <label *ngIf="result.bibliographich_data">
           <a [href]="result.bibliographich_data" target="_blank">{{'label.bib-udaje' | translate}}</a>
         </label><!--/label -->

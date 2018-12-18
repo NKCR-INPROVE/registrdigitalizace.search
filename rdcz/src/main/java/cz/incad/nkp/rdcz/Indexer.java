@@ -3,9 +3,12 @@ package cz.incad.nkp.rdcz;
 import cz.incad.FormatUtils;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Reader;
+import java.io.StringWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
+import java.sql.Clob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,6 +26,15 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
+import org.apache.commons.io.Charsets;
+import org.apache.commons.io.IOUtils;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -32,6 +44,10 @@ import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrInputDocument;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -49,13 +65,13 @@ public class Indexer {
   int errors;
 
   //Stores map urldigknihovny scheme to nazev
-  Map<String, String> digKnihovnyCached;
+  Map<String, String> digKnihovnyCached = new HashMap<>();
 
   public Indexer() {
     try {
       opts = Options.getInstance();
       jobData = new JSONObject();
-      solr = getClient();
+
       indexed = 0;
       errors = 0;
     } catch (IOException ex) {
@@ -107,7 +123,7 @@ public class Indexer {
 
   }
 
-  public JSONObject remove() {
+  private JSONObject remove() {
     LOGGER.log(Level.INFO, "Remove from index started ");
     Date start = new Date();
     JSONObject ret = new JSONObject();
@@ -167,6 +183,8 @@ public class Indexer {
 
   public JSONObject update() throws IOException {
     LOGGER.log(Level.INFO, "Update index started ");
+
+    solr = getClient();
     Date start = new Date();
     JSONObject ret = new JSONObject();
 
@@ -193,11 +211,14 @@ public class Indexer {
     String ellapsed = FormatUtils.formatInterval(end.getTime() - start.getTime());
     ret.put("ellapsed time", ellapsed);
     LOGGER.log(Level.INFO, "Index finished. {0} docs indexed, {1} docs removed in {2} ", new Object[]{indexed, deleted, ellapsed});
+    solr.close();
     return ret;
   }
 
   public JSONObject predlohy() throws IOException {
     LOGGER.log(Level.INFO, "Indexing predlohy started ");
+
+    solr = getClient();
     Date start = new Date();
     JSONObject ret = new JSONObject();
     fillDigKnihovnyCache();
@@ -211,11 +232,14 @@ public class Indexer {
     String ellapsed = FormatUtils.formatInterval(end.getTime() - start.getTime());
     ret.put("ellapsed time", ellapsed);
     LOGGER.log(Level.INFO, "Index finished. {0} docs processed in {1} ", new Object[]{indexed, ellapsed});
+    solr.close();
     return ret;
   }
 
   public JSONObject full(boolean clean) throws IOException {
     LOGGER.log(Level.INFO, "Full index started ");
+
+    solr = getClient();
     Date start = new Date();
     JSONObject ret = new JSONObject();
     boolean noErrors = true;
@@ -239,6 +263,7 @@ public class Indexer {
     String ellapsed = FormatUtils.formatInterval(end.getTime() - start.getTime());
     ret.put("ellapsed time", ellapsed);
     LOGGER.log(Level.INFO, "Index finished. {0} docs processed in {1} ", new Object[]{indexed, ellapsed});
+    solr.close();
     return ret;
   }
 
@@ -299,9 +324,11 @@ public class Indexer {
   }
 
   public boolean indexLists() {
+
     String sql = "select * from dlists";
     LOGGER.log(Level.INFO, "Processing {0}", sql);
     try {
+      solr = getClient();
       Context initContext = new InitialContext();
       Context envContext = (Context) initContext.lookup("java:/comp/env");
       DataSource ds = (DataSource) envContext.lookup("jdbc/rlf");
@@ -342,14 +369,14 @@ public class Indexer {
           return false;
         }
         conn.close();
-
+        solr.close();
         return true;
       } catch (SQLException ex) {
         LOGGER.log(Level.SEVERE, "Error getting connection");
         LOGGER.log(Level.SEVERE, null, ex);
         return false;
       }
-    } catch (NamingException ex) {
+    } catch (NamingException | IOException ex) {
       LOGGER.log(Level.SEVERE, null, ex);
       return false;
     }
@@ -372,6 +399,7 @@ public class Indexer {
     }
     LOGGER.log(Level.INFO, "Processing {0}", sql);
     try {
+      solr = getClient();
       Context initContext = new InitialContext();
       Context envContext = (Context) initContext.lookup("java:/comp/env");
       DataSource ds = (DataSource) envContext.lookup("jdbc/rlf");
@@ -406,6 +434,7 @@ public class Indexer {
 
           LOGGER.log(Level.INFO, "Index DigObjekt finished. {0} docs processed ", indexed);
           ret.put("msg", indexed + " docs processed");
+          solr.close();
         } catch (SolrServerException ex) {
           LOGGER.log(Level.SEVERE, sql);
           LOGGER.log(Level.SEVERE, null, ex);
@@ -416,7 +445,7 @@ public class Indexer {
         }
         conn.close();
       }
-    } catch (NamingException | SQLException ex) {
+    } catch (NamingException | SQLException | IOException ex) {
       LOGGER.log(Level.SEVERE, null, ex);
       ret.put("error", ex.toString());
     }
@@ -435,6 +464,7 @@ public class Indexer {
     }
     LOGGER.log(Level.INFO, "Processing {0}", sql);
     try {
+      solr = getClient();
       Context initContext = new InitialContext();
       Context envContext = (Context) initContext.lookup("java:/comp/env");
       DataSource ds = (DataSource) envContext.lookup("jdbc/rlf");
@@ -480,15 +510,17 @@ public class Indexer {
         conn.close();
       }
       fillDigKnihovnyCache();
-    } catch (NamingException | SQLException ex) {
+      solr.close();
+    } catch (NamingException | SQLException | IOException ex) {
       LOGGER.log(Level.SEVERE, null, ex);
       ret.put("error", ex.toString());
     }
     return ret;
   }
 
-  public JSONObject indexById(String id) {
+  public JSONObject indexById(String id) throws IOException {
     LOGGER.log(Level.INFO, "Index by id started ");
+    solr = getClient();
     Date start = new Date();
     JSONObject ret = new JSONObject();
     String fields = opts.getJSONArray("db.fields").join(",").replaceAll("\"", "");
@@ -500,6 +532,7 @@ public class Indexer {
     String ellapsed = FormatUtils.formatInterval(end.getTime() - start.getTime());
     ret.put("ellapsed time", ellapsed);
     LOGGER.log(Level.INFO, "Index finished. {0} docs processed in {1} ", new Object[]{indexed, ellapsed});
+    solr.close();
     return ret;
   }
 
@@ -516,8 +549,10 @@ public class Indexer {
         ArrayList<SolrInputDocument> idocs = new ArrayList<>();
 
         try (ResultSet rs = ps.executeQuery()) {
+          solr = getClient();
           while (rs.next()) {
             SolrInputDocument idoc = indexRow(rs);
+            addCisloVydani(idoc, rs);
             addNeplatneCnb(idoc, rs.getString("id"), conn);
             addNeplatneISBN(idoc, rs.getString("id"), conn);
             addNeplatneISSN(idoc, rs.getString("id"), conn);
@@ -572,21 +607,56 @@ public class Indexer {
   }
 
   private SolrInputDocument indexRow(ResultSet rs) throws SolrServerException, IOException, SQLException {
+    try {
+      SolrInputDocument idoc = new SolrInputDocument();
+      ResultSetMetaData meta = rs.getMetaData();
+      final int columnCount = meta.getColumnCount();
 
-    SolrInputDocument idoc = new SolrInputDocument();
-    ResultSetMetaData meta = rs.getMetaData();
-    final int columnCount = meta.getColumnCount();
+      for (int column = 1; column <= columnCount; column++) {
+        Object value = rs.getObject(column);
+        if (value instanceof java.math.BigDecimal) {
+          idoc.addField(meta.getColumnName(column).toLowerCase(), value.toString());
+//        } else if (value instanceof java.sql.Clob) {
+//          Reader in = ((java.sql.Clob) value).getCharacterStream();
+//          StringWriter w = new StringWriter();
+//          IOUtils.copy(in, w);
+//          String clobAsString = w.toString();
+//          idoc.addField(meta.getColumnName(column).toLowerCase(), clobAsString);
 
-    for (int column = 1; column <= columnCount; column++) {
-      Object value = rs.getObject(column);
-      if (value instanceof java.math.BigDecimal) {
-        idoc.addField(meta.getColumnName(column).toLowerCase(), value.toString());
-      } else {
-        idoc.addField(meta.getColumnName(column).toLowerCase(), value);
+        } else {
+          idoc.addField(meta.getColumnName(column).toLowerCase(), value);
+        }
       }
-    }
 
-    return idoc;
+      return idoc;
+    } catch (Exception ex) {
+      LOGGER.log(Level.SEVERE, null, ex);
+      return null;
+    }
+  }
+
+  private void addCisloVydani(SolrInputDocument idoc, ResultSet rs) {
+    try {
+      Clob clobObject = rs.getClob("xml");
+      if(clobObject == null){
+        return;
+      }
+      Reader in = clobObject.getCharacterStream();
+
+      DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
+      DocumentBuilder builder = builderFactory.newDocumentBuilder();
+      Document xmlDocument = builder.parse(IOUtils.toInputStream(IOUtils.toString(in), Charsets.toCharset("UTF8")));
+      XPath xPath = XPathFactory.newInstance().newXPath();
+
+      String expression = "//collection/record/datafield[@tag='250']/subfield[@code='a']/text()";
+      NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(xmlDocument, XPathConstants.NODESET);
+      for (int i = 0; i < nodeList.getLength(); i++) {
+        Node node = nodeList.item(i);
+        idoc.addField("vydani", node.getNodeValue());
+      }
+    } catch (SQLException | ParserConfigurationException | IOException | XPathExpressionException | SAXException ex) {
+      LOGGER.log(Level.SEVERE, null, ex);
+    }
   }
 
   private void addNeplatneCnb(SolrInputDocument idoc, String predlohaid, Connection conn) {
@@ -731,8 +801,8 @@ public class Indexer {
     } catch (SQLException | URISyntaxException ex) {
       LOGGER.log(Level.WARNING, ex.toString());
     }
-
     try {
+
       if (rs.getString("urltitul") != null) {
         URI uri = new URI(rs.getString("urltitul").split(" ")[0].trim());
         if (!dks.contains(digKnihovnyCached.get(uri.getHost()))) {
@@ -769,10 +839,11 @@ public class Indexer {
 //    }
     try {
       //Add from digobjekt core
+      SolrClient solr2 = getClient();
       SolrQuery q = new SolrQuery();
       q.setQuery("rpredloha_digobjekt:" + rs.getString("id").trim());
       q.setRows(1000);
-      QueryResponse qr = solr.query("digobjekt", q);
+      QueryResponse qr = solr2.query("digobjekt", q);
       //String lookUpField = "nazev";
       String lookUpField = "digknihovna";
       for (SolrDocument sdoc : qr.getResults()) {
@@ -783,6 +854,7 @@ public class Indexer {
         }
         //idoc.addField("digknihovna", sdoc.getFirstValue("nazev"));
       }
+      solr2.close();
     } catch (SQLException | SolrServerException | IOException ex) {
       LOGGER.log(Level.WARNING, null, ex);
     }
@@ -833,8 +905,6 @@ public class Indexer {
   }
 
   private void fillDigKnihovnyCache() {
-
-    digKnihovnyCached = new HashMap<>();
 
     //String lookUpField = "nazev";
     String lookUpField = "zkratka";

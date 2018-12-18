@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?><collection>
+  <record>      
+    <leader>     nam a22      a 4500</leader>      
+    <controlfield tag="FMT">BK</controlfield>      
+    <controlfield tag="001">000651192</controlfield>      
+    <controlfield tag="003">CZ BrMZK</controlfield>      
+    <controlfield tag="005">20100730124520.0</controlfield>      
+    <controlfield tag="008">030205s2003    xr     e            cze d</controlfield>      
+    <datafield ind1=" " ind2=" " tag="015">         
+      <subfield code="a">cnb001203019</subfield>      
+    </datafield>      
+    <datafield ind1=" " ind2=" " tag="020">         
+      <subfield code="a">80-86681-10-6 (brož.)</subfield>      
+    </datafield>      
+    <datafield ind1=" " ind2=" " tag="035">         
+      <subfield code="a">(OCoLC)53272511</subfield>      
+    </datafield>      
+    <datafield ind1=" " ind2=" " tag="040">         
+      <subfield code="a">BOA001</subfield>         
+      <subfield code="b">cze</subfield>      
+    </datafield>      
+    <datafield ind1=" " ind2="7" tag="072">         
+      <subfield code="a">641</subfield>         
+      <subfield code="x">Kuchařství. Potraviny. Vařená jídla</subfield>         
+      <subfield code="2">Konspekt</subfield>         
+      <subfield code="9">19</subfield>      
+    </datafield>      
+    <datafield ind1=" " ind2=" " tag="080">         
+      <subfield code="a">641.55:637.4</subfield>         
+      <subfield code="2">MRF</subfield>      
+    </datafield>      
+    <datafield ind1=" " ind2=" " tag="080">         
+      <subfield code="a">(083.12)</subfield>         
+      <subfield code="2">MRF</subfield>      
+    </datafield>      
+    <datafield ind1="1" ind2=" " tag="100">         
+      <subfield code="a">Havránková, Miroslava</subfield>         
+      <subfield code="7">mzk2002160933</subfield>         
+      <subfield code="4">com</subfield>      
+    </datafield>      
+    <datafield ind1="1" ind2="0" tag="245">         
+      <subfield code="a">Vajíčka na našem stole :</subfield>         
+      <subfield code="b">150 receptů /</subfield>         
+      <subfield code="c">Miroslava Havránková</subfield>      
+    </datafield>      
+    <datafield ind1=" " ind2=" " tag="250">         
+      <subfield code="a">Vyd. 1.</subfield>      
+    </datafield>      
+    <datafield ind1=" " ind2=" " tag="260">         
+      <subfield code="a">Liberec :</subfield>         
+      <subfield code="b">GEN,</subfield>         
+      <subfield code="c">2003</subfield>      
+    </datafield>      
+    <datafield ind1=" " ind2=" " tag="300">         
+      <subfield code="a">95 s., [8] s. barev. příl. ;</subfield>         
+      <subfield code="c">21 cm</subfield>      
+    </datafield>      
+    <datafield ind1="0" ind2="7" tag="650">         
+      <subfield code="a">vaječná jídla</subfield>         
+      <subfield code="7">ph126985</subfield>         
+      <subfield code="2">czenas</subfield>      
+    </datafield>      
+    <datafield ind1=" " ind2="7" tag="655">         
+      <subfield code="a">kuchařské recepty</subfield>         
+      <subfield code="7">fd132687</subfield>         
+      <subfield code="2">czenas</subfield>      
+    </datafield>      
+    <datafield ind1=" " ind2=" " tag="910">         
+      <subfield code="a">BOA001</subfield>      
+    </datafield>      
+    <datafield ind1=" " ind2=" " tag="ITM">         
+      <subfield code="b">2610181277</subfield>         
+      <subfield code="c">2-1113.767</subfield>         
+      <subfield code="d"/>         
+      <subfield code="v"/>         
+      <subfield code="i"/>         
+      <subfield code="y"/>      
+    </datafield>      
+    <controlfield tag="SYS">000651192</controlfield>   
+  </record>
+</collection>

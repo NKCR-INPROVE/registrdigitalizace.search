@@ -45,6 +45,7 @@
     "nvl(financovano, 'neuvedeno') as financovano",
     "sigla1 as vlastnik",
     "urltitul", "urltitnk", "katalog", "url",
+    "xml",
     "decode(predloha.stavRec,'planovane','planovane','progress', 'progress','predanoZpracovateli', 'progress', 'pripravenoProMf', 'progress', 'revize', 'progress', 'active', 'progress', 'finished', 'finished', 'archived', 'finished') as stav" 
   ],
   "users":{

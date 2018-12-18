@@ -6,8 +6,12 @@
 package cz.incad.nkp.rdcz;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.io.Reader;
+import java.io.StringWriter;
 import java.net.InetAddress;
+import java.sql.Clob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,7 +29,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathFactory;
+import org.apache.commons.io.Charsets;
+import org.apache.commons.io.IOUtils;
 import org.json.JSONObject;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  *
@@ -127,7 +141,65 @@ public class DbServlet extends HttpServlet {
               rs.close();
               ps.close();
 
-            } 
+            }
+            conn.close();
+          }
+        } catch (NamingException | SQLException ex) {
+          LOGGER.log(Level.SEVERE, null, ex);
+          ret.put("error", ex.toString());
+        }
+
+        out.println(ret.toString(2));
+      }
+    },
+    XML {
+      @Override
+      void doPerform(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        response.setContentType("application/json;charset=UTF-8");
+
+        PrintWriter out = response.getWriter();
+
+        JSONObject ret = new JSONObject();
+        String sql = "select xml from predloha where id=" + request.getParameter("id");
+
+        LOGGER.log(Level.INFO, "Processing {0}", sql);
+        try {
+          Context initContext = new InitialContext();
+          Context envContext = (Context) initContext.lookup("java:/comp/env");
+          DataSource ds = (DataSource) envContext.lookup("jdbc/rlf");
+          try (Connection conn = ds.getConnection()) {
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            try (ResultSet rs = ps.executeQuery()) {
+              while (rs.next()) {
+                JSONObject row = new JSONObject();
+                Clob clobObject = rs.getClob("xml");
+                Reader in = clobObject.getCharacterStream();
+//                StringWriter w = new StringWriter();
+//                IOUtils.copy(in, w);
+//                String clobAsString = w.toString();
+
+                DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder builder = builderFactory.newDocumentBuilder();
+                Document xmlDocument = builder.parse(IOUtils.toInputStream(IOUtils.toString(in), Charsets.toCharset("UTF8")));
+                XPath xPath = XPathFactory.newInstance().newXPath();
+                
+                String expression = request.getParameter("xpath");
+//                LOGGER.log(Level.INFO, "xpath {0}", expression);
+//                LOGGER.log(Level.INFO, "val {0}", xPath.compile(expression).evaluate(xmlDocument));
+                NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(xmlDocument, XPathConstants.NODESET);
+                for (int i = 0; i < nodeList.getLength(); i++) {
+                  Node node = nodeList.item(i);
+                  //LOGGER.log(Level.INFO, "node {0}", node.getNodeName());
+                  ret.append("nodes", node.getNodeValue());
+                }
+//                ret.put("xml", org.json.XML.toJSONObject(clobAsString));
+              }
+              rs.close();
+              ps.close();
+
+            }
             conn.close();
           }
         } catch (NamingException | SQLException ex) {

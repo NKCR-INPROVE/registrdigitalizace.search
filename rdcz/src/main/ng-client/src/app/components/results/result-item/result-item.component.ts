@@ -6,6 +6,8 @@ import {AppService} from '../../../app.service';
 import {AppState} from '../../../app.state';
 import {Result} from '../../../models/result';
 
+
+
 @Component({
   selector: 'app-result-item',
   templateUrl: './result-item.component.html',
@@ -240,6 +242,7 @@ export class ResultItemComponent implements OnInit, OnDestroy {
     $('#' + id + '-btn').toggleClass('active');
     $('#' + id).slideToggle("fast");
   }
+  
 
   // jquery table fixed header plugin -> https://www.npmjs.com/package/jquery-table-fixed-header
   // $(".app-table-predlohy").tableFixedHeader();
