@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -59,7 +60,7 @@ public class Indexer {
 
   private Options opts;
   private JSONObject jobData;
-  SolrClient solr;
+  //SolrClient solr;
   int indexed;
   int deleted;
   int errors;
@@ -74,9 +75,7 @@ public class Indexer {
 
       indexed = 0;
       errors = 0;
-    } catch (IOException ex) {
-      Logger.getLogger(Indexer.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (JSONException ex) {
+    } catch (IOException | JSONException ex) {
       Logger.getLogger(Indexer.class.getName()).log(Level.SEVERE, null, ex);
     }
   }
@@ -96,7 +95,7 @@ public class Indexer {
     }
   }
 
-  private void deleteAll(Date start) {
+  private void deleteAll(SolrClient solr, Date start) {
     try {
       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
       String q = "index_time:[* T0 " + sdf.format(start) + "]";
@@ -115,15 +114,13 @@ public class Indexer {
       solr.deleteByQuery("digobjekt", q);
       solr.commit("digobjekt");
       LOGGER.log(Level.INFO, "Core digobjekt deleted!! ");
-    } catch (SolrServerException ex) {
-      Logger.getLogger(Indexer.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (IOException ex) {
+    } catch (SolrServerException | IOException ex) {
       Logger.getLogger(Indexer.class.getName()).log(Level.SEVERE, null, ex);
     }
 
   }
 
-  private JSONObject remove() {
+  private JSONObject remove(SolrClient solr) {
     LOGGER.log(Level.INFO, "Remove from index started ");
     Date start = new Date();
     JSONObject ret = new JSONObject();
@@ -184,86 +181,78 @@ public class Indexer {
   public JSONObject update() throws IOException {
     LOGGER.log(Level.INFO, "Update index started ");
 
-    solr = getClient();
-    Date start = new Date();
-    JSONObject ret = new JSONObject();
-
-    indexLists();
-    ret.put("Index DigKnihovny", indexDigKnihovny(false));
-    ret.put("Index DigObjekt", indexDigObject(true));
-
-    String fields = opts.getJSONArray("db.fields").join(",").replaceAll("\"", "");
-    String lastIndexTime = readIndexTime();
-    String sql = opts.getString("update_query").replace("#fields#", fields);
-    if (lastIndexTime == null) {
-//      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//      lastIndexTime = sdf.format(new Date());
-      sql = opts.getString("sqlFull").replace("#fields#", fields);
-    } else {
-      sql = sql.replaceAll("#from#", lastIndexTime);
+    JSONObject ret;
+    try (SolrClient solr = getClient()) {
+      Date start = new Date();
+      ret = new JSONObject();
+      indexLists(solr);
+      ret.put("Index DigKnihovny", indexDigKnihovny(solr, false));
+      ret.put("Index DigObjekt", indexDigObject(solr, true));
+      String fields = opts.getJSONArray("db.fields").join(",").replaceAll("\"", "");
+      String lastIndexTime = readIndexTime();
+      String sql = opts.getString("update_query").replace("#fields#", fields);
+      if (lastIndexTime == null) {
+        sql = opts.getString("sqlFull").replace("#fields#", fields);
+      } else {
+        sql = sql.replaceAll("#from#", lastIndexTime);
+      }
+      indexPredlohy(solr, sql);
+      remove(solr);
+      ret.put("success indexed reliefu", indexed);
+      Date end = new Date();
+      String ellapsed = FormatUtils.formatInterval(end.getTime() - start.getTime());
+      ret.put("ellapsed time", ellapsed);
+      LOGGER.log(Level.INFO, "Index finished. {0} docs indexed, {1} docs removed in {2} ", new Object[]{indexed, deleted, ellapsed});
     }
-
-    indexPredlohy(sql);
-    remove();
-
-    ret.put("success indexed reliefu", indexed);
-    Date end = new Date();
-    String ellapsed = FormatUtils.formatInterval(end.getTime() - start.getTime());
-    ret.put("ellapsed time", ellapsed);
-    LOGGER.log(Level.INFO, "Index finished. {0} docs indexed, {1} docs removed in {2} ", new Object[]{indexed, deleted, ellapsed});
-    solr.close();
     return ret;
   }
 
   public JSONObject predlohy() throws IOException {
     LOGGER.log(Level.INFO, "Indexing predlohy started ");
 
-    solr = getClient();
-    Date start = new Date();
-    JSONObject ret = new JSONObject();
-    fillDigKnihovnyCache();
-    String fields = opts.getJSONArray("db.fields").join(",").replaceAll("\"", "");
-    String sql = opts.getString("sqlFull").replace("#fields#", fields);
-    indexPredlohy(sql);
-    LOGGER.log(Level.INFO, "{0} docs processed", indexed);
-
-    ret.put("SUCCESS indexed reliefu", indexed);
-    Date end = new Date();
-    String ellapsed = FormatUtils.formatInterval(end.getTime() - start.getTime());
-    ret.put("ellapsed time", ellapsed);
-    LOGGER.log(Level.INFO, "Index finished. {0} docs processed in {1} ", new Object[]{indexed, ellapsed});
-    solr.close();
+    JSONObject ret;
+    try (SolrClient solr = getClient()) {
+      Date start = new Date();
+      ret = new JSONObject();
+      fillDigKnihovnyCache(solr);
+      String fields = opts.getJSONArray("db.fields").join(",").replaceAll("\"", "");
+      String sql = opts.getString("sqlFull").replace("#fields#", fields);
+      indexPredlohy(solr, sql);
+      LOGGER.log(Level.INFO, "{0} docs processed", indexed);
+      ret.put("SUCCESS indexed reliefu", indexed);
+      Date end = new Date();
+      String ellapsed = FormatUtils.formatInterval(end.getTime() - start.getTime());
+      ret.put("ellapsed time", ellapsed);
+      LOGGER.log(Level.INFO, "Index finished. {0} docs processed in {1} ", new Object[]{indexed, ellapsed});
+    }
     return ret;
   }
 
   public JSONObject full(boolean clean) throws IOException {
     LOGGER.log(Level.INFO, "Full index started ");
 
-    solr = getClient();
-    Date start = new Date();
-    JSONObject ret = new JSONObject();
-    boolean noErrors = true;
-    noErrors = noErrors && indexLists();
-    noErrors = noErrors && !indexDigKnihovny(false).has("error");
-
-    ret.put("Index DigObjekt", indexDigObject(false));
-
-    String fields = opts.getJSONArray("db.fields").join(",").replaceAll("\"", "");
-    String sql = opts.getString("sqlFull").replace("#fields#", fields);
-    //sql += " and rownum < 10";
-    noErrors = noErrors && indexPredlohy(sql);
-    LOGGER.log(Level.INFO, "{0} docs processed", indexed);
-
-    if (clean && noErrors) {
-      deleteAll(start);
+    JSONObject ret;
+    try (SolrClient solr = getClient()) {
+      Date start = new Date();
+      ret = new JSONObject();
+      boolean noErrors = true;
+      noErrors = noErrors && indexLists(solr);
+      noErrors = noErrors && !indexDigKnihovny(solr, false).has("error");
+      ret.put("Index DigObjekt", indexDigObject(solr, false));
+      String fields = opts.getJSONArray("db.fields").join(",").replaceAll("\"", "");
+      String sql = opts.getString("sqlFull").replace("#fields#", fields);
+      //sql += " and rownum < 10";
+      noErrors = noErrors && indexPredlohy(solr, sql);
+      LOGGER.log(Level.INFO, "{0} docs processed", indexed);
+      if (clean && noErrors) {
+        deleteAll(solr, start);
+      }
+      ret.put("SUCCESS indexed reliefu", indexed);
+      Date end = new Date();
+      String ellapsed = FormatUtils.formatInterval(end.getTime() - start.getTime());
+      ret.put("ellapsed time", ellapsed);
+      LOGGER.log(Level.INFO, "Index finished. {0} docs processed in {1} ", new Object[]{indexed, ellapsed});
     }
-
-    ret.put("SUCCESS indexed reliefu", indexed);
-    Date end = new Date();
-    String ellapsed = FormatUtils.formatInterval(end.getTime() - start.getTime());
-    ret.put("ellapsed time", ellapsed);
-    LOGGER.log(Level.INFO, "Index finished. {0} docs processed in {1} ", new Object[]{indexed, ellapsed});
-    solr.close();
     return ret;
   }
 
@@ -282,11 +271,13 @@ public class Indexer {
       String index_time = jsResp.getJSONObject("response").getJSONArray("docs").getJSONObject(0).getString("index_time");
       last = sdf.format(solrDate.parse(index_time));
 
-    } catch (Exception ex) {
+    } catch (IOException | ParseException | JSONException ex) {
       LOGGER.log(Level.SEVERE, null, ex);
     } finally {
       try {
-        inputStream.close();
+        if (inputStream != null) {
+          inputStream.close();
+        }
       } catch (IOException ex) {
         LOGGER.log(Level.SEVERE, null, ex);
       }
@@ -310,11 +301,13 @@ public class Indexer {
       String index_time = jsResp.getJSONObject("response").getJSONArray("docs").getJSONObject(0).getString("index_time");
       last = sdf.format(solrDate.parse(index_time));
 
-    } catch (Exception ex) {
+    } catch (IOException | ParseException | JSONException ex) {
       LOGGER.log(Level.SEVERE, null, ex);
     } finally {
       try {
-        inputStream.close();
+        if (inputStream != null) {
+          inputStream.close();
+        }
       } catch (IOException ex) {
         LOGGER.log(Level.SEVERE, null, ex);
       }
@@ -324,11 +317,19 @@ public class Indexer {
   }
 
   public boolean indexLists() {
+    try (SolrClient solr = getClient()) {
+      return indexLists(solr);
+    } catch (IOException ex) {
+      LOGGER.log(Level.SEVERE, null, ex);
+      return false;
+    }
+  }
+
+  private boolean indexLists(SolrClient solr) {
 
     String sql = "select * from dlists";
     LOGGER.log(Level.INFO, "Processing {0}", sql);
     try {
-      solr = getClient();
       Context initContext = new InitialContext();
       Context envContext = (Context) initContext.lookup("java:/comp/env");
       DataSource ds = (DataSource) envContext.lookup("jdbc/rlf");
@@ -369,20 +370,28 @@ public class Indexer {
           return false;
         }
         conn.close();
-        solr.close();
         return true;
       } catch (SQLException ex) {
         LOGGER.log(Level.SEVERE, "Error getting connection");
         LOGGER.log(Level.SEVERE, null, ex);
         return false;
       }
-    } catch (NamingException | IOException ex) {
+    } catch (NamingException ex) {
       LOGGER.log(Level.SEVERE, null, ex);
       return false;
     }
   }
 
   public JSONObject indexDigObject(boolean update) {
+    try (SolrClient solr = getClient()) {
+      return indexDigObject(solr, update);
+    } catch (IOException ex) {
+      LOGGER.log(Level.SEVERE, null, ex);
+      return new JSONObject().put("error", ex.toString());
+    }
+  }
+  
+  private JSONObject indexDigObject(SolrClient solr, boolean update) {
     JSONObject ret = new JSONObject();
     String sql = "select digobjekt.*, dk.nazev, dk.zkratka as digknihovna, dk.URLDIGKNIHOVNY, "
             + "nvl(predloha.ccnb, -predloha.id) as cnb_collaps, "
@@ -399,7 +408,6 @@ public class Indexer {
     }
     LOGGER.log(Level.INFO, "Processing {0}", sql);
     try {
-      solr = getClient();
       Context initContext = new InitialContext();
       Context envContext = (Context) initContext.lookup("java:/comp/env");
       DataSource ds = (DataSource) envContext.lookup("jdbc/rlf");
@@ -434,7 +442,7 @@ public class Indexer {
 
           LOGGER.log(Level.INFO, "Index DigObjekt finished. {0} docs processed ", indexed);
           ret.put("msg", indexed + " docs processed");
-          solr.close();
+          
         } catch (SolrServerException ex) {
           LOGGER.log(Level.SEVERE, sql);
           LOGGER.log(Level.SEVERE, null, ex);
@@ -445,7 +453,7 @@ public class Indexer {
         }
         conn.close();
       }
-    } catch (NamingException | SQLException | IOException ex) {
+    } catch (NamingException | SQLException ex) {
       LOGGER.log(Level.SEVERE, null, ex);
       ret.put("error", ex.toString());
     }
@@ -453,6 +461,15 @@ public class Indexer {
   }
 
   public JSONObject indexDigKnihovny(boolean update) {
+    try (SolrClient solr = getClient()) {
+      return indexDigKnihovny(solr, update);
+    } catch (IOException ex) {
+      LOGGER.log(Level.SEVERE, null, ex);
+      return new JSONObject().put("error", ex.toString());
+    }
+  }
+  
+  private JSONObject indexDigKnihovny(SolrClient solr, boolean update) {
     JSONObject ret = new JSONObject();
     String sql = "select * "
             + " from digknihovna";
@@ -464,7 +481,6 @@ public class Indexer {
     }
     LOGGER.log(Level.INFO, "Processing {0}", sql);
     try {
-      solr = getClient();
       Context initContext = new InitialContext();
       Context envContext = (Context) initContext.lookup("java:/comp/env");
       DataSource ds = (DataSource) envContext.lookup("jdbc/rlf");
@@ -509,9 +525,8 @@ public class Indexer {
         }
         conn.close();
       }
-      fillDigKnihovnyCache();
-      solr.close();
-    } catch (NamingException | SQLException | IOException ex) {
+      fillDigKnihovnyCache(solr);
+    } catch (NamingException | SQLException ex) {
       LOGGER.log(Level.SEVERE, null, ex);
       ret.put("error", ex.toString());
     }
@@ -520,23 +535,24 @@ public class Indexer {
 
   public JSONObject indexById(String id) throws IOException {
     LOGGER.log(Level.INFO, "Index by id started ");
-    solr = getClient();
-    Date start = new Date();
-    JSONObject ret = new JSONObject();
-    String fields = opts.getJSONArray("db.fields").join(",").replaceAll("\"", "");
-    String sql = opts.getString("sqlFull").replace("#fields#", fields);
-    sql += " and predloha.idcislo='" + id + "'";
-    indexPredlohy(sql);
-    ret.put("success", indexed);
-    Date end = new Date();
-    String ellapsed = FormatUtils.formatInterval(end.getTime() - start.getTime());
-    ret.put("ellapsed time", ellapsed);
-    LOGGER.log(Level.INFO, "Index finished. {0} docs processed in {1} ", new Object[]{indexed, ellapsed});
-    solr.close();
+    JSONObject ret;
+    try (SolrClient solr = getClient()) {
+      Date start = new Date();
+      ret = new JSONObject();
+      String fields = opts.getJSONArray("db.fields").join(",").replaceAll("\"", "");
+      String sql = opts.getString("sqlFull").replace("#fields#", fields);
+      sql += " and predloha.idcislo='" + id + "'";
+      indexPredlohy(solr, sql);
+      ret.put("success", indexed);
+      Date end = new Date();
+      String ellapsed = FormatUtils.formatInterval(end.getTime() - start.getTime());
+      ret.put("ellapsed time", ellapsed);
+      LOGGER.log(Level.INFO, "Index finished. {0} docs processed in {1} ", new Object[]{indexed, ellapsed});
+    }
     return ret;
   }
 
-  private boolean indexPredlohy(String sql) {
+  private boolean indexPredlohy(SolrClient solr, String sql) {
     LOGGER.log(Level.INFO, "Processing {0}", sql);
     try {
       Context initContext = new InitialContext();
@@ -556,15 +572,13 @@ public class Indexer {
             addNeplatneCnb(idoc, rs.getString("id"), conn);
             addNeplatneISBN(idoc, rs.getString("id"), conn);
             addNeplatneISSN(idoc, rs.getString("id"), conn);
-            addDigKnihovny(idoc, rs);
+            addDigKnihovny(solr, idoc, rs);
             if (rs.getString("katalog") != null) {
               addKatalogUrl(idoc, rs.getString("katalog"), rs.getString("pole001"), conn);
             }
             addVarNazev(idoc, rs.getString("id"), conn);
-            int rokvyd = -1;
             try {
-              rokvyd = rs.getInt("rokvydstr");
-              idoc.addField("rokvyd", rokvyd);
+              idoc.addField("rokvyd", rs.getInt("rokvydstr"));
             } catch (SQLException e) {
               LOGGER.log(Level.FINE, "rokvyd not number");
             }
@@ -616,20 +630,13 @@ public class Indexer {
         Object value = rs.getObject(column);
         if (value instanceof java.math.BigDecimal) {
           idoc.addField(meta.getColumnName(column).toLowerCase(), value.toString());
-//        } else if (value instanceof java.sql.Clob) {
-//          Reader in = ((java.sql.Clob) value).getCharacterStream();
-//          StringWriter w = new StringWriter();
-//          IOUtils.copy(in, w);
-//          String clobAsString = w.toString();
-//          idoc.addField(meta.getColumnName(column).toLowerCase(), clobAsString);
-
         } else {
           idoc.addField(meta.getColumnName(column).toLowerCase(), value);
         }
       }
 
       return idoc;
-    } catch (Exception ex) {
+    } catch (SQLException ex) {
       LOGGER.log(Level.SEVERE, null, ex);
       return null;
     }
@@ -638,7 +645,7 @@ public class Indexer {
   private void addCisloVydani(SolrInputDocument idoc, ResultSet rs) {
     try {
       Clob clobObject = rs.getClob("xml");
-      if(clobObject == null){
+      if (clobObject == null) {
         return;
       }
       Reader in = clobObject.getCharacterStream();
@@ -663,15 +670,12 @@ public class Indexer {
     try {
       String sql = "select value from nepccnb "
               + "where RPREDLOHA_NEPCCNB=" + predlohaid;
-      PreparedStatement ps = conn.prepareStatement(sql);
-
-      try (ResultSet rs = ps.executeQuery()) {
+      try (PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
           idoc.addField("nep_ccnb", rs.getString("value"));
         }
         rs.close();
       }
-      ps.close();
     } catch (SQLException ex) {
       LOGGER.log(Level.SEVERE, null, ex);
     }
@@ -699,21 +703,18 @@ public class Indexer {
     try {
       String sql = "select value from NEPISSN "
               + "where RPREDLOHA_NEPISSN=" + predlohaid;
-      PreparedStatement ps = conn.prepareStatement(sql);
-
-      try (ResultSet rs = ps.executeQuery()) {
+      try (PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
           idoc.addField("nep_issn", rs.getString("value"));
         }
         rs.close();
       }
-      ps.close();
     } catch (SQLException ex) {
       LOGGER.log(Level.SEVERE, "Error adding neplatne ISSN", ex);
     }
   }
 
-  private void addDigKnihovnyDb(SolrInputDocument idoc, ResultSet rs, Connection conn) {
+  private void addDigKnihovnyDb(SolrClient solr, SolrInputDocument idoc, ResultSet rs, Connection conn) {
 
     String f = "";
 //    try {
@@ -759,17 +760,17 @@ public class Indexer {
         f = " where " + f;
         String sql = "select distinct(nazev) from digknihovna" + f;
 
-        PreparedStatement ps = conn.prepareStatement(sql);
-        int i = 0;
-        try (ResultSet rsdk = ps.executeQuery()) {
-          while (rsdk.next()) {
-            idoc.addField("digknihovna", rsdk.getString("nazev"));
-            i++;
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+          int i = 0;
+          try (final ResultSet rsdk = ps.executeQuery()) {
+            while (rsdk.next()) {
+              idoc.addField("digknihovna", rsdk.getString("nazev"));
+              i++;
+            }
+            rsdk.close();
           }
-          rsdk.close();
-        }
 //        LOGGER.log(Level.INFO, "searching digknihovna with {0}, rows {1}", new Object[]{sql, i});
-        ps.close();
+        }
       } catch (SQLException ex) {
         LOGGER.log(Level.SEVERE, null, ex);
       }
@@ -790,7 +791,7 @@ public class Indexer {
     }
   }
 
-  private void addDigKnihovny(SolrInputDocument idoc, ResultSet rs) {
+  private void addDigKnihovny(SolrClient solr, SolrInputDocument idoc, ResultSet rs) {
 //    String f = "";
     List<String> dks = new ArrayList<>();
     try {
@@ -839,11 +840,10 @@ public class Indexer {
 //    }
     try {
       //Add from digobjekt core
-      SolrClient solr2 = getClient();
       SolrQuery q = new SolrQuery();
       q.setQuery("rpredloha_digobjekt:" + rs.getString("id").trim());
       q.setRows(1000);
-      QueryResponse qr = solr2.query("digobjekt", q);
+      QueryResponse qr = solr.query("digobjekt", q);
       //String lookUpField = "nazev";
       String lookUpField = "digknihovna";
       for (SolrDocument sdoc : qr.getResults()) {
@@ -854,7 +854,6 @@ public class Indexer {
         }
         //idoc.addField("digknihovna", sdoc.getFirstValue("nazev"));
       }
-      solr2.close();
     } catch (SQLException | SolrServerException | IOException ex) {
       LOGGER.log(Level.WARNING, null, ex);
     }
@@ -867,20 +866,19 @@ public class Indexer {
   private void addKatalogUrl(SolrInputDocument idoc, String katalog, String pole001, Connection conn) {
     try {
       String sql = "select * from katalog where katalog.VALUE=?";
-      PreparedStatement ps = conn.prepareStatement(sql);
-      ps.setString(1, katalog);
-
-      try (ResultSet rs = ps.executeQuery()) {
-        while (rs.next()) {
-          String url = "http://" + rs.getString("link001prefix") + pole001;
-          if (rs.getString("link001sufix") != null) {
-            url += rs.getString("link001sufix");
+      try (PreparedStatement ps = conn.prepareStatement(sql)) {
+        ps.setString(1, katalog);
+        try (ResultSet rs = ps.executeQuery()) {
+          while (rs.next()) {
+            String url = "http://" + rs.getString("link001prefix") + pole001;
+            if (rs.getString("link001sufix") != null) {
+              url += rs.getString("link001sufix");
+            }
+            idoc.addField("bibliographich_data", url);
           }
-          idoc.addField("bibliographich_data", url);
+          rs.close();
         }
-        rs.close();
       }
-      ps.close();
     } catch (SQLException ex) {
       LOGGER.log(Level.SEVERE, null, ex);
     }
@@ -889,22 +887,19 @@ public class Indexer {
   private void addVarNazev(SolrInputDocument idoc, String predlohaid, Connection conn) {
     try {
       String sql = "select VARNAZEV from TABVARNAZEV where RPREDLOHA_TVN=" + predlohaid;
-      PreparedStatement ps = conn.prepareStatement(sql);
-
-      try (ResultSet rs = ps.executeQuery()) {
+      try (PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
           idoc.addField("varnazev", rs.getString("VARNAZEV"));
         }
         rs.close();
       }
-      ps.close();
 
     } catch (SQLException ex) {
       LOGGER.log(Level.SEVERE, null, ex);
     }
   }
 
-  private void fillDigKnihovnyCache() {
+  private void fillDigKnihovnyCache(SolrClient solr) {
 
     //String lookUpField = "nazev";
     String lookUpField = "zkratka";
