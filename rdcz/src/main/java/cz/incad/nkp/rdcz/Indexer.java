@@ -97,8 +97,8 @@ public class Indexer {
 
   private void deleteAll(SolrClient solr, Date start) {
     try {
-      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-      String q = "index_time:[* T0 " + sdf.format(start) + "]";
+      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'");
+      String q = "index_time:[* TO " + sdf.format(start) + "]";
       solr.deleteByQuery("rdcz", q);
       solr.commit("rdcz");
       LOGGER.log(Level.INFO, "Core rdcz deleted!! ");
@@ -392,6 +392,7 @@ public class Indexer {
   }
   
   private JSONObject indexDigObject(SolrClient solr, boolean update) {
+    Date start = new Date();
     JSONObject ret = new JSONObject();
     String sql = "select digobjekt.*, dk.nazev, dk.zkratka as digknihovna, dk.URLDIGKNIHOVNY, "
             + "nvl(predloha.ccnb, -predloha.id) as cnb_collaps, "
@@ -456,6 +457,19 @@ public class Indexer {
     } catch (NamingException | SQLException ex) {
       LOGGER.log(Level.SEVERE, null, ex);
       ret.put("error", ex.toString());
+    }
+    
+    if(!update){
+        try {
+          SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'");
+          String q = "index_time:[* TO " + sdf.format(start) + "]";
+          solr.deleteByQuery("digobjekt", q);
+          solr.commit("digobjekt");
+          LOGGER.log(Level.INFO, "Core digobjekt deleted!! ");
+          ret.put("clean", "Core digobjekt cleaned!! ");
+        } catch (SolrServerException | IOException ex) {
+          Logger.getLogger(Indexer.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     return ret;
   }

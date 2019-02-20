@@ -90,7 +90,7 @@ public class IndexerServlet extends HttpServlet {
         JSONObject json = new JSONObject();
         try {
           Indexer indexer = new Indexer();
-          json = indexer.indexDigObject(false);
+          json = indexer.indexDigObject(Boolean.parseBoolean(req.getParameter("update")));
 
         } catch (Exception ex) {
           json.put("error", ex.toString());
