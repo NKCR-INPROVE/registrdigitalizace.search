@@ -144,10 +144,17 @@ export class ResultItemComponent implements OnInit, OnDestroy {
 
       this.service.getDigObjects(params).subscribe(res => {
         for (let i in res['response']['docs']) {
-          //this.digObjects.push(res['response']['docs'][i]);
-          let dourl = res['response']['docs'][i]['urldigknihovny'] + '/search/handle/uuid:' + res['response']['docs'][i]['uuid'];
+          const doc = res['response']['docs'][i];
+          let dourl = doc['urldigknihovny'] + '/search/handle/uuid:' + doc['uuid'];
           this.addDigObjUrl(dourl);
-          //this.digObjects.push({url: dourl});
+    
+          // https://github.com/NKCR-INPROVE/registrdigitalizace/issues/669
+          if(doc['digknihovna'] === 'ABA001-DK' || doc['digknihovna'] === 'ABA000-DK' || doc['digknihovna'] === 'BOA001-DK'){
+            this.addDigObjUrl('http://kramerius4.nkp.cz/search/handle/uuid:' + doc['uuid']);
+            this.addDigObjUrl('http://www.digitalniknihovna.cz/mzk/uuid/uuid:' + doc['uuid']);
+          }
+    
+    
         }
         if (res['response']['docs'].length > 0) {
           this.hasImg = true;

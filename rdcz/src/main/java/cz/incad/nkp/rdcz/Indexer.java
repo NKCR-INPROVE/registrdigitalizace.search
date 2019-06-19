@@ -21,6 +21,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.Context;
@@ -98,7 +99,9 @@ public class Indexer {
   private void deleteAll(SolrClient solr, Date start) {
     try {
       SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'");
-      String q = "index_time:[* TO " + sdf.format(start) + "]";
+      sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+      //String q = "index_time:[* TO " + sdf.format(start) + "]";
+      String q = "index_time:[* TO NOW/DAY-1DAY]";
       solr.deleteByQuery("rdcz", q);
       solr.commit("rdcz");
       LOGGER.log(Level.INFO, "Core rdcz deleted!! ");
