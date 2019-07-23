@@ -110,8 +110,9 @@ export class SearchBarComponent implements OnInit {
           if (res2['marc']['present']['record'].length) {
             this.openAlephModal(res2['marc']['present']['record']);
           } else {
-            let title = this.service.getTitleFromMarc(res2['marc']['present']['record'])
-            this.state.q = this.service.removeAlephChars(title);
+            let title = this.service.getTitleFromMarc(res2['marc']['present']['record']);
+            //this.state.q = this.service.removeAlephChars(title);
+            this.state.q = '"' + title + '"';
             this.service.goToResults();
           }
 

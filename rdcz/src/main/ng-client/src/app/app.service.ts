@@ -406,7 +406,7 @@ export class AppService {
   }
   
   removeAlephChars(s: string): string{
-    let ret = s.replace(/['`~!@#$%&*()_|\+\-=?;:'",.<>\{\}\[\]\\\/]/g, '').trim();
+    let ret = s.replace(/['`~!@#$%&*()_|\+=?;:'",.<>\{\}\[\]\\\/]/g, '').trim();
     return ret;
   }
 
