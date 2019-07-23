@@ -584,30 +584,35 @@ public class Indexer {
         try (ResultSet rs = ps.executeQuery()) {
           solr = getClient();
           while (rs.next()) {
-            SolrInputDocument idoc = indexRow(rs);
-            addCisloVydani(idoc, rs);
-            addNeplatneCnb(idoc, rs.getString("id"), conn);
-            addNeplatneISBN(idoc, rs.getString("id"), conn);
-            addNeplatneISSN(idoc, rs.getString("id"), conn);
-            addDigKnihovny(solr, idoc, rs);
-            if (rs.getString("katalog") != null) {
-              addKatalogUrl(idoc, rs.getString("katalog"), rs.getString("pole001"), conn);
-            }
-            addVarNazev(idoc, rs.getString("id"), conn);
+              SolrInputDocument idoc = indexRow(rs);
             try {
-              idoc.addField("rokvyd", rs.getInt("rokvydstr"));
-            } catch (SQLException e) {
-              LOGGER.log(Level.FINE, "rokvyd not number");
-            }
-            idocs.add(idoc);
+              addCisloVydani(idoc, rs);
+              addNeplatneCnb(idoc, rs.getString("id"), conn);
+              addNeplatneISBN(idoc, rs.getString("id"), conn);
+              addNeplatneISSN(idoc, rs.getString("id"), conn);
+              addDigKnihovny(solr, idoc, rs);
+              if (rs.getString("katalog") != null) {
+                addKatalogUrl(idoc, rs.getString("katalog"), rs.getString("pole001"), conn);
+              }
+              addVarNazev(idoc, rs.getString("id"), conn);
+              try {
+                idoc.addField("rokvyd", rs.getInt("rokvydstr"));
+              } catch (SQLException e) {
+                LOGGER.log(Level.FINE, "rokvyd not number");
+              }
+              idocs.add(idoc);
 
-            if (idocs.size() >= batchSize) {
-              solr.add("rdcz", idocs);
-              solr.commit("rdcz");
+              if (idocs.size() >= batchSize) {
+                solr.add("rdcz", idocs);
+                solr.commit("rdcz");
 
-              indexed += idocs.size();
-              LOGGER.log(Level.INFO, "{0} docs processed ", indexed);
-              idocs.clear();
+                indexed += idocs.size();
+                LOGGER.log(Level.INFO, "{0} docs processed ", indexed);
+                idocs.clear();
+              }
+            } catch (Exception rsex){
+              LOGGER.log(Level.WARNING, "Error indexing document {0}", idoc);
+              LOGGER.log(Level.WARNING, rsex.toString());
             }
           }
           rs.close();
@@ -679,7 +684,7 @@ public class Indexer {
         idoc.addField("vydani", node.getNodeValue());
       }
     } catch (SQLException | ParserConfigurationException | IOException | XPathExpressionException | SAXException ex) {
-      LOGGER.log(Level.SEVERE, null, ex);
+      LOGGER.log(Level.WARNING, "Can't add cislo vydani: {0}", idoc);
     }
   }
 
@@ -864,12 +869,20 @@ public class Indexer {
       //String lookUpField = "nazev";
       String lookUpField = "digknihovna";
       for (SolrDocument sdoc : qr.getResults()) {
-
-        if (!dks.contains((String) sdoc.getFirstValue(lookUpField))) {
-          dks.add((String) sdoc.getFirstValue(lookUpField));
-
+        String val = (String)sdoc.getFirstValue(lookUpField);
+        if (!dks.contains(val)) {
+          dks.add(val);
         }
-        //idoc.addField("digknihovna", sdoc.getFirstValue("nazev"));
+        // ABA001-DK and BOA001-DK are equals.
+        if("ABA001-DK".equals(val)){
+          if (!dks.contains("BOA001-DK")) {
+            dks.add("BOA001-DK");
+          }
+        } else if("BOA001-DK".equals(val)){
+          if (!dks.contains("ABA001-DK")) {
+            dks.add("ABA001-DK");
+          }
+        } 
       }
     } catch (SQLException | SolrServerException | IOException ex) {
       LOGGER.log(Level.WARNING, null, ex);
