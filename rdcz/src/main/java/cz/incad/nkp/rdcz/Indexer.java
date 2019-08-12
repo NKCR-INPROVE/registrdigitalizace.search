@@ -209,7 +209,8 @@ public class Indexer {
     return ret;
   }
 
-  public JSONObject predlohy() throws IOException {
+
+  public JSONObject predlohy(String filter) throws IOException {
     LOGGER.log(Level.INFO, "Indexing predlohy started ");
 
     JSONObject ret;
@@ -219,6 +220,9 @@ public class Indexer {
       fillDigKnihovnyCache(solr);
       String fields = opts.getJSONArray("db.fields").join(",").replaceAll("\"", "");
       String sql = opts.getString("sqlFull").replace("#fields#", fields);
+      if(filter != null){
+        sql += " AND " + filter;
+      }
       indexPredlohy(solr, sql);
       LOGGER.log(Level.INFO, "{0} docs processed", indexed);
       ret.put("SUCCESS indexed reliefu", indexed);
@@ -870,19 +874,30 @@ public class Indexer {
       String lookUpField = "digknihovna";
       for (SolrDocument sdoc : qr.getResults()) {
         String val = (String)sdoc.getFirstValue(lookUpField);
+        String financovano = ((String)sdoc.getFirstValue("financovano"));
         if (!dks.contains(val)) {
           dks.add(val);
         }
-        // ABA001-DK and BOA001-DK are equals.
-        if("ABA001-DK".equals(val)){
-          if (!dks.contains("BOA001-DK")) {
-            dks.add("BOA001-DK");
-          }
-        } else if("BOA001-DK".equals(val)){
-          if (!dks.contains("ABA001-DK")) {
-            dks.add("ABA001-DK");
-          }
-        } 
+        // ABA001-DK and BOA001-DK are equals 
+        // https://github.com/NKCR-INPROVE/registrdigitalizace/issues/669
+        // Jinak formulováno:
+        // kde existuje spojení mezi předlohou a digobjektem sklizeným z NDK a tam, 
+        // kde má předloha zároveň ve financovano hodnoty "iop" a "iop-ndku", 
+        // tam připojit zobrazení URL 2x: jednou doplnit prefix pro NDK-NK a jednou pro NDK-MZK 
+        // (bez ohledu na to, zda je vlastník předlohy ABA001 nebo BOA001; 
+        // sigla v digobjektu by ale měla být jedině ABA001/ABA000/BOA001, aby se do toho nemotaly sklizená uuid z KNAV).
+        
+        if ("iop".equalsIgnoreCase(financovano) || "iop-ndku".equalsIgnoreCase(financovano)){
+          if("ABA001-DK".equals(val)){
+            if (!dks.contains("BOA001-DK")) {
+              dks.add("BOA001-DK");
+            }
+          } else if("BOA001-DK".equals(val)){
+            if (!dks.contains("ABA001-DK")) {
+              dks.add("ABA001-DK");
+            }
+          } 
+        }
       }
     } catch (SQLException | SolrServerException | IOException ex) {
       LOGGER.log(Level.WARNING, null, ex);
