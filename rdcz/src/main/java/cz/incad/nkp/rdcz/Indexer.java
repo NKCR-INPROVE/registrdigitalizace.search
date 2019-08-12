@@ -4,7 +4,6 @@ import cz.incad.FormatUtils;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
-import java.io.StringWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
@@ -465,7 +464,8 @@ public class Indexer {
     if(!update){
         try {
           SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'");
-          String q = "index_time:[* TO " + sdf.format(start) + "]";
+          sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+          String q = "index_time:[* TO " + sdf.format(start) + "/DAY-1DAY]";
           solr.deleteByQuery("digobjekt", q);
           solr.commit("digobjekt");
           LOGGER.log(Level.INFO, "Core digobjekt deleted!! ");
