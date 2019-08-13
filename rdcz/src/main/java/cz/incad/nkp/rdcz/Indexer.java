@@ -209,7 +209,6 @@ public class Indexer {
     return ret;
   }
 
-
   public JSONObject predlohy(String filter) throws IOException {
     LOGGER.log(Level.INFO, "Indexing predlohy started ");
 
@@ -220,7 +219,7 @@ public class Indexer {
       fillDigKnihovnyCache(solr);
       String fields = opts.getJSONArray("db.fields").join(",").replaceAll("\"", "");
       String sql = opts.getString("sqlFull").replace("#fields#", fields);
-      if(filter != null){
+      if (filter != null) {
         sql += " AND " + filter;
       }
       indexPredlohy(solr, sql);
@@ -396,7 +395,7 @@ public class Indexer {
       return new JSONObject().put("error", ex.toString());
     }
   }
-  
+
   private JSONObject indexDigObject(SolrClient solr, boolean update) {
     Date start = new Date();
     JSONObject ret = new JSONObject();
@@ -449,7 +448,7 @@ public class Indexer {
 
           LOGGER.log(Level.INFO, "Index DigObjekt finished. {0} docs processed ", indexed);
           ret.put("msg", indexed + " docs processed");
-          
+
         } catch (SolrServerException ex) {
           LOGGER.log(Level.SEVERE, sql);
           LOGGER.log(Level.SEVERE, null, ex);
@@ -464,19 +463,19 @@ public class Indexer {
       LOGGER.log(Level.SEVERE, null, ex);
       ret.put("error", ex.toString());
     }
-    
-    if(!update){
-        try {
-          SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'");
-          sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
-          String q = "index_time:[* TO " + sdf.format(start) + "/DAY-1DAY]";
-          solr.deleteByQuery("digobjekt", q);
-          solr.commit("digobjekt");
-          LOGGER.log(Level.INFO, "Core digobjekt deleted!! ");
-          ret.put("clean", "Core digobjekt cleaned!! ");
-        } catch (SolrServerException | IOException ex) {
-          Logger.getLogger(Indexer.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+    if (!update) {
+      try {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'");
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+        String q = "index_time:[* TO " + sdf.format(start) + "/DAY-1DAY]";
+        solr.deleteByQuery("digobjekt", q);
+        solr.commit("digobjekt");
+        LOGGER.log(Level.INFO, "Core digobjekt deleted!! ");
+        ret.put("clean", "Core digobjekt cleaned!! ");
+      } catch (SolrServerException | IOException ex) {
+        Logger.getLogger(Indexer.class.getName()).log(Level.SEVERE, null, ex);
+      }
     }
     return ret;
   }
@@ -489,7 +488,7 @@ public class Indexer {
       return new JSONObject().put("error", ex.toString());
     }
   }
-  
+
   private JSONObject indexDigKnihovny(SolrClient solr, boolean update) {
     JSONObject ret = new JSONObject();
     String sql = "select * "
@@ -588,7 +587,7 @@ public class Indexer {
         try (ResultSet rs = ps.executeQuery()) {
           solr = getClient();
           while (rs.next()) {
-              SolrInputDocument idoc = indexRow(rs);
+            SolrInputDocument idoc = indexRow(rs);
             try {
               addCisloVydani(idoc, rs);
               addNeplatneCnb(idoc, rs.getString("id"), conn);
@@ -614,7 +613,7 @@ public class Indexer {
                 LOGGER.log(Level.INFO, "{0} docs processed ", indexed);
                 idocs.clear();
               }
-            } catch (Exception rsex){
+            } catch (Exception rsex) {
               LOGGER.log(Level.WARNING, "Error indexing document {0}", idoc);
               LOGGER.log(Level.WARNING, rsex.toString());
             }
@@ -820,10 +819,20 @@ public class Indexer {
   private void addDigKnihovny(SolrClient solr, SolrInputDocument idoc, ResultSet rs) {
 //    String f = "";
     List<String> dks = new ArrayList<>();
+    String prefixUrl = null;
+    String vlastnik = null;
+    String financovano = null;
+    try {
+      vlastnik = rs.getString("vlastnik");
+      financovano = rs.getString("financovano");
+    } catch (SQLException ex) {
+      LOGGER.log(Level.WARNING, ex.toString());
+    }
     try {
       if (rs.getString("url") != null) {
         URI uri = new URI(rs.getString("url").split(" ")[0].trim());
-        dks.add(digKnihovnyCached.get(uri.getHost()));
+        prefixUrl = digKnihovnyCached.get(uri.getHost());
+        dks.add(prefixUrl);
       }
     } catch (SQLException | URISyntaxException ex) {
       LOGGER.log(Level.WARNING, ex.toString());
@@ -833,7 +842,8 @@ public class Indexer {
       if (rs.getString("urltitul") != null) {
         URI uri = new URI(rs.getString("urltitul").split(" ")[0].trim());
         if (!dks.contains(digKnihovnyCached.get(uri.getHost()))) {
-          dks.add(digKnihovnyCached.get(uri.getHost()));
+          prefixUrl = digKnihovnyCached.get(uri.getHost());
+          dks.add(prefixUrl);
         }
       }
     } catch (SQLException | URISyntaxException ex) {
@@ -851,19 +861,21 @@ public class Indexer {
       LOGGER.log(Level.WARNING, ex.toString());
     }
 
-//    if (!"".equals(f)) {
-//      try {
-//        SolrQuery q = new SolrQuery();
-//        q.setQuery(f);
-//        q.setRows(1000);
-//        QueryResponse qr = solr.query("digknihovny", q);
-//        for (SolrDocument sdoc : qr.getResults()) {
-//          idoc.addField("digknihovna", sdoc.getFirstValue("nazev"));
+    
+    // https://github.com/NKCR-INPROVE/registrdigitalizace/issues/689#issuecomment-520418397
+        
+//    if ("iop".equalsIgnoreCase(financovano) || "iop-ndku".equalsIgnoreCase(financovano)) {
+//      if ("ABA001".equals(vlastnik) && "ABA001-DK".equals(prefixUrl)) {
+//        if (!dks.contains("BOA001-DK")) {
+//          dks.add("BOA001-DK");
 //        }
-//      } catch (SolrServerException | IOException ex) {
-//        LOGGER.log(Level.SEVERE, null, ex);
+//      } else if ("BOA001".equals(vlastnik) && "BOA001-DK".equals(prefixUrl)) {
+//        if (!dks.contains("ABA001-DK")) {
+//          dks.add("ABA001-DK");
+//        }
 //      }
 //    }
+
     try {
       //Add from digobjekt core
       SolrQuery q = new SolrQuery();
@@ -873,30 +885,23 @@ public class Indexer {
       //String lookUpField = "nazev";
       String lookUpField = "digknihovna";
       for (SolrDocument sdoc : qr.getResults()) {
-        String val = (String)sdoc.getFirstValue(lookUpField);
-        String financovano = ((String)sdoc.getFirstValue("financovano"));
+        String val = (String) sdoc.getFirstValue(lookUpField);
         if (!dks.contains(val)) {
           dks.add(val);
         }
         // ABA001-DK and BOA001-DK are equals 
         // https://github.com/NKCR-INPROVE/registrdigitalizace/issues/669
-        // Jinak formulováno:
-        // kde existuje spojení mezi předlohou a digobjektem sklizeným z NDK a tam, 
-        // kde má předloha zároveň ve financovano hodnoty "iop" a "iop-ndku", 
-        // tam připojit zobrazení URL 2x: jednou doplnit prefix pro NDK-NK a jednou pro NDK-MZK 
-        // (bez ohledu na to, zda je vlastník předlohy ABA001 nebo BOA001; 
-        // sigla v digobjektu by ale měla být jedině ABA001/ABA000/BOA001, aby se do toho nemotaly sklizená uuid z KNAV).
-        
-        if ("iop".equalsIgnoreCase(financovano) || "iop-ndku".equalsIgnoreCase(financovano)){
-          if("ABA001-DK".equals(val)){
+
+        if ("iop".equalsIgnoreCase(financovano) || "iop-ndku".equalsIgnoreCase(financovano)) {
+          if ("ABA001-DK".equals(val) && "ABA001".equals(vlastnik)) {
             if (!dks.contains("BOA001-DK")) {
               dks.add("BOA001-DK");
             }
-          } else if("BOA001-DK".equals(val)){
+          } else if ("BOA001-DK".equals(val) && "BOA001".equals(vlastnik)) {
             if (!dks.contains("ABA001-DK")) {
               dks.add("ABA001-DK");
             }
-          } 
+          }
         }
       }
     } catch (SQLException | SolrServerException | IOException ex) {
