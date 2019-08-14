@@ -148,14 +148,18 @@ export class ResultItemComponent implements OnInit, OnDestroy {
           let dourl = doc['urldigknihovny'] + '/search/handle/uuid:' + doc['uuid'];
           this.addDigObjUrl(dourl);
     
-          // https://github.com/NKCR-INPROVE/registrdigitalizace/issues/669
-          if(doc['digknihovna'] === 'ABA001-DK' || doc['digknihovna'] === 'ABA000-DK' || doc['digknihovna'] === 'BOA001-DK'){
-            this.addDigObjUrl('http://kramerius4.nkp.cz/search/handle/uuid:' + doc['uuid']);
-            this.addDigObjUrl('http://www.digitalniknihovna.cz/mzk/uuid/uuid:' + doc['uuid']);
+          // https://github.com/NKCR-INPROVE/registrdigitalizace/issues/669        
+          if (this.result.financovano.toLowerCase() === 'iop' || this.result.financovano.toLowerCase() === 'iop-ndku'){
+            if(doc['digknihovna'] === 'ABA001-DK' || doc['digknihovna'] === 'ABA000-DK' || doc['vlastnik'] === 'ABA001'){
+              this.addDigObjUrl('http://kramerius4.nkp.cz/search/handle/uuid:' + doc['uuid']);
+              this.addDigObjUrl('http://www.digitalniknihovna.cz/mzk/uuid/uuid:' + doc['uuid']);
+            } else if(doc['digknihovna'] === 'BOA000-DK' || doc['vlastnik'] === 'BOA001'){
+              this.addDigObjUrl('http://kramerius4.nkp.cz/search/handle/uuid:' + doc['uuid']);
+              this.addDigObjUrl('http://www.digitalniknihovna.cz/mzk/uuid/uuid:' + doc['uuid']);
+            }
           }
-    
-    
         }
+        
         if (res['response']['docs'].length > 0) {
           this.hasImg = true;
           this.imgSrc = res['response']['docs'][0]['urldigknihovny'] +
