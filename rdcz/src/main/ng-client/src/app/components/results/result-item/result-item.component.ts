@@ -116,10 +116,10 @@ export class ResultItemComponent implements OnInit, OnDestroy {
   duplicateMZK_NKP(url: string){
     if (url && url !== ''){
       if (this.result.financovano.toLowerCase() === 'iop' || this.result.financovano.toLowerCase() === 'iop-ndku'){
-        if (this.result.vlastnik === 'ABA001' && this.result.digknihovna.length === 1 && this.result.digknihovna[0] === 'ABA001-DK') {
+        if (this.result.vlastnik === 'ABA001' && this.result.digknihovna.length === 2 && this.result.digknihovna[0] === 'ABA001-DK') {
           const uuid = url.substr(url.lastIndexOf(':')+1);
           this.addDigObjUrl('http://www.digitalniknihovna.cz/mzk/uuid/uuid:' + uuid);
-        } else if (this.result.vlastnik === 'BOA001' && this.result.digknihovna.length === 1 && this.result.digknihovna[0] === 'BOA001-DK') {
+        } else if (this.result.vlastnik === 'BOA001' && this.result.digknihovna.length === 2 && this.result.digknihovna[0] === 'BOA001-DK') {
           const uuid = url.substr(url.lastIndexOf(':')+1);
           this.addDigObjUrl('http://kramerius4.nkp.cz/search/handle/uuid:' + uuid);
         }
