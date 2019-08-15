@@ -216,7 +216,7 @@ public class Indexer {
     try (SolrClient solr = getClient()) {
       Date start = new Date();
       ret = new JSONObject();
-      fillDigKnihovnyCache(solr);
+      
       String fields = opts.getJSONArray("db.fields").join(",").replaceAll("\"", "");
       String sql = opts.getString("sqlFull").replace("#fields#", fields);
       if (filter != null) {
@@ -579,6 +579,7 @@ public class Indexer {
       Context envContext = (Context) initContext.lookup("java:/comp/env");
       DataSource ds = (DataSource) envContext.lookup("jdbc/rlf");
       try (Connection conn = ds.getConnection()) {
+        fillDigKnihovnyCache(solr);
         PreparedStatement ps = conn.prepareStatement(sql);
         int batchSize = 500;
 
@@ -828,6 +829,7 @@ public class Indexer {
     } catch (SQLException ex) {
       LOGGER.log(Level.WARNING, ex.toString());
     }
+    
     try {
       if (rs.getString("url") != null) {
         URI uri = new URI(rs.getString("url").split(" ")[0].trim());
@@ -861,20 +863,6 @@ public class Indexer {
       LOGGER.log(Level.WARNING, ex.toString());
     }
 
-    
-    // https://github.com/NKCR-INPROVE/registrdigitalizace/issues/689#issuecomment-520418397
-        
-//    if ("iop".equalsIgnoreCase(financovano) || "iop-ndku".equalsIgnoreCase(financovano)) {
-//      if ("ABA001".equals(vlastnik) && "ABA001-DK".equals(prefixUrl)) {
-//        if (!dks.contains("BOA001-DK")) {
-//          dks.add("BOA001-DK");
-//        }
-//      } else if ("BOA001".equals(vlastnik) && "BOA001-DK".equals(prefixUrl)) {
-//        if (!dks.contains("ABA001-DK")) {
-//          dks.add("ABA001-DK");
-//        }
-//      }
-//    }
 
     try {
       //Add from digobjekt core
@@ -906,6 +894,20 @@ public class Indexer {
       }
     } catch (SQLException | SolrServerException | IOException ex) {
       LOGGER.log(Level.WARNING, null, ex);
+    }    
+    
+    // https://github.com/NKCR-INPROVE/registrdigitalizace/issues/689#issuecomment-520418397
+        
+    if ("iop".equalsIgnoreCase(financovano) || "iop-ndku".equalsIgnoreCase(financovano)) {
+      if ("ABA001".equals(vlastnik) && "ABA001-DK".equals(prefixUrl)) {
+        if (!dks.contains("BOA001-DK")) {
+          dks.add("BOA001-DK");
+        }
+      } else if ("BOA001".equals(vlastnik) && "BOA001-DK".equals(prefixUrl)) {
+        if (!dks.contains("ABA001-DK")) {
+          dks.add("ABA001-DK");
+        }
+      }
     }
 
     for (String dk : dks) {

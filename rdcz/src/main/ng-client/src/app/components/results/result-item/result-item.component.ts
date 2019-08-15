@@ -96,8 +96,12 @@ export class ResultItemComponent implements OnInit, OnDestroy {
     
     if(p['druhdokumentu'] !== 'SE'){
       this.addDigObjUrl(p['url']);
+      this.duplicateMZK_NKP(p['url']);
     }
+    
     this.addDigObjUrl(p['urltitul']);
+    this.duplicateMZK_NKP(p['urltitul']);
+    
     this.addDigObjUrl(p['urltitnk']);
   }
 
@@ -106,6 +110,21 @@ export class ResultItemComponent implements OnInit, OnDestroy {
       s.unsubscribe();
     });
     this.subscriptions = [];
+  }
+  
+  // https://github.com/NKCR-INPROVE/registrdigitalizace/issues/689
+  duplicateMZK_NKP(url: string){
+    if (url && url !== ''){
+      if (this.result.financovano.toLowerCase() === 'iop' || this.result.financovano.toLowerCase() === 'iop-ndku'){
+        if (this.result.vlastnik === 'ABA001' && this.result.digknihovna.length === 1 && this.result.digknihovna[0] === 'ABA001-DK') {
+          const uuid = url.substr(url.lastIndexOf(':')+1);
+          this.addDigObjUrl('http://www.digitalniknihovna.cz/mzk/uuid/uuid:' + uuid);
+        } else if (this.result.vlastnik === 'BOA001' && this.result.digknihovna.length === 1 && this.result.digknihovna[0] === 'BOA001-DK') {
+          const uuid = url.substr(url.lastIndexOf(':')+1);
+          this.addDigObjUrl('http://kramerius4.nkp.cz/search/handle/uuid:' + uuid);
+        }
+      }
+    }
   }
 
   translate(classname, value) {
